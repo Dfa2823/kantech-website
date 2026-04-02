@@ -8,6 +8,8 @@ const models = [
     titleEn: 'Fixed Project',
     priceEs: 'Desde $500.000 COP',
     priceEn: 'From ~$120 USD',
+    roiEs: 'ROI típico: 6x en el primer mes',
+    roiEn: 'Typical ROI: 6x in the first month',
     descEs: 'Alcance definido, precio fijo, entrega en semanas. Ideal para automatizaciones, MVPs o herramientas específicas.',
     descEn: 'Defined scope, fixed price, delivery in weeks. Ideal for automations, MVPs, or specific tools.',
     features: [
@@ -26,6 +28,8 @@ const models = [
     titleEn: 'Dedicated Team',
     priceEs: 'Desde $2.000.000 COP/mes',
     priceEn: 'From ~$480 USD/mo',
+    roiEs: 'Ahorra $3-5M/mes vs. contratar un dev interno',
+    roiEn: 'Save $700-1,200/mo vs. hiring in-house',
     descEs: 'Horas mensuales con iteración continua. Para proyectos que evolucionan y necesitan atención constante.',
     descEn: 'Monthly hours with continuous iteration. For projects that evolve and need ongoing attention.',
     features: [
@@ -43,8 +47,10 @@ const models = [
     glow: 'rgba(108,47,217,0.15)',
     titleEs: 'Socio Tecnológico',
     titleEn: 'Tech Partner',
-    priceEs: 'Cotización personalizada',
-    priceEn: 'Custom quote',
+    priceEs: 'Desde $5.000.000 COP/mes',
+    priceEn: 'From ~$1,200 USD/mo',
+    roiEs: 'Un CTO + equipo tech por una fracción del costo',
+    roiEn: 'A CTO + tech team at a fraction of the cost',
     descEs: 'Relación a largo plazo. Nos convertimos en tu departamento de tecnología con soporte, mejoras continuas y visión estratégica.',
     descEn: 'Long-term relationship. We become your technology department with support, continuous improvements, and strategic vision.',
     features: [
@@ -82,7 +88,7 @@ const models = [
         <div class:list={[
           'relative flex flex-col rounded-2xl p-7 border transition-all duration-300 overflow-hidden group',
           m.highlighted
-            ? 'bg-k-surface border-k-blue/40 shadow-lg shadow-k-blue/10'
+            ? 'bg-k-surface border-k-blue/40 shadow-xl shadow-k-blue/15 md:scale-[1.03] ring-1 ring-k-blue/20'
             : 'bg-k-card border-k-border hover:border-k-blue/30'
         ]}
              data-animate style={`animation-delay: ${i * 0.1}s`}>
@@ -111,9 +117,13 @@ const models = [
           </h3>
 
           <!-- Price -->
-          <p class="text-sm font-bold mb-3" style={`color: ${m.color}`}>
+          <p class="text-sm font-bold mb-1" style={`color: ${m.color}`}>
             <span data-lang="es">{m.priceEs}</span>
             <span data-lang="en">{m.priceEn}</span>
+          </p>
+          <p class="text-xs text-k-muted mb-4">
+            <span data-lang="es">{m.roiEs}</span>
+            <span data-lang="en">{m.roiEn}</span>
           </p>
 
           <!-- Description -->

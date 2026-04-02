@@ -96,20 +96,27 @@
 </header>
 
 <script is:inline>
-  // Navbar scroll effect
+  // Navbar scroll effect (passive + rAF throttled)
   const navbar = document.getElementById('navbar');
   const border = document.getElementById('navbar-border');
+  let ticking = false;
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 20) {
-      navbar.style.background = 'rgba(10,15,30,0.92)';
-      navbar.style.backdropFilter = 'blur(16px)';
-      border.style.borderColor = 'rgba(30,41,59,0.8)';
-    } else {
-      navbar.style.background = 'transparent';
-      navbar.style.backdropFilter = 'none';
-      border.style.borderColor = 'transparent';
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(() => {
+        if (window.scrollY > 20) {
+          navbar.style.background = 'rgba(10,15,30,0.92)';
+          navbar.style.backdropFilter = 'blur(16px)';
+          border.style.borderColor = 'rgba(30,41,59,0.8)';
+        } else {
+          navbar.style.background = 'transparent';
+          navbar.style.backdropFilter = 'none';
+          border.style.borderColor = 'transparent';
+        }
+        ticking = false;
+      });
     }
-  });
+  }, { passive: true });
 
   // Mobile menu toggle
   document.getElementById('menu-btn').addEventListener('click', () => {

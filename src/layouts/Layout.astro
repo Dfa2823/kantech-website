@@ -41,12 +41,20 @@ const {
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <!-- Fonts: preconnect + stylesheet (no blocking @import) -->
+    <!-- Fonts: preconnect + non-blocking load -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+          rel="stylesheet" media="print" onload="this.media='all'" />
 
     <title>{title}</title>
+
+    <!-- Fallback for no-JS -->
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+      <style>[data-animate] { opacity: 1 !important; transform: none !important; } [data-lang="en"] { display: none !important; }</style>
+    </noscript>
 
     <!-- JSON-LD: ProfessionalService + Services -->
     <script type="application/ld+json">
@@ -110,7 +118,10 @@ const {
     </script>
   </head>
   <body>
-    <slot />
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:bg-k-blue focus:text-white focus:px-4 focus:py-2 focus:rounded-lg focus:text-sm">Saltar al contenido</a>
+    <div id="main-content">
+      <slot />
+    </div>
     <script is:inline>
       // Language switcher
       function setLang(lang) {
@@ -144,7 +155,7 @@ const {
             }
           });
         }, { threshold: 0.1 });
-        els.forEach(el => { el.style.opacity = '0'; io.observe(el); });
+        els.forEach(el => io.observe(el));
 
         // Animated counters
         const counters = document.querySelectorAll('[data-counter]');
