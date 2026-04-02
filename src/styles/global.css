@@ -72,3 +72,21 @@
 .delay-400 { animation-delay: 0.4s; }
 .delay-500 { animation-delay: 0.5s; }
 .delay-600 { animation-delay: 0.6s; }
+
+/* Gradient line separator for sections */
+.gradient-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(30,59,255,0.3), rgba(0,212,255,0.3), rgba(108,47,217,0.3), transparent);
+}
+
+/* Card hover lift effect */
+.card-glass:hover {
+  transform: translateY(-2px);
+}
+
+/* Glow ring for focused elements */
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(30,59,255,0.15); }
+  50% { box-shadow: 0 0 40px rgba(30,59,255,0.25); }
+}
+.glow-ring { animation: glow-pulse 3s ease-in-out infinite; }

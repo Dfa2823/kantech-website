@@ -84,6 +84,45 @@ const {
           });
         }, { threshold: 0.1 });
         els.forEach(el => { el.style.opacity = '0'; io.observe(el); });
+
+        // Animated counters
+        const counters = document.querySelectorAll('[data-counter]');
+        const counterIO = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const el = entry.target;
+              const target = parseInt(el.dataset.counter, 10);
+              if (target === 0) { el.textContent = '0'; counterIO.unobserve(el); return; }
+              const duration = 1500;
+              const start = performance.now();
+              function tick(now) {
+                const p = Math.min((now - start) / duration, 1);
+                const ease = 1 - Math.pow(1 - p, 3);
+                el.textContent = Math.round(target * ease);
+                if (p < 1) requestAnimationFrame(tick);
+              }
+              requestAnimationFrame(tick);
+              counterIO.unobserve(el);
+            }
+          });
+        }, { threshold: 0.3 });
+        counters.forEach(c => counterIO.observe(c));
+
+        // Active nav link on scroll
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('header a[href^="#"]');
+        const navIO = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const id = entry.target.id;
+              navLinks.forEach(link => {
+                link.classList.toggle('text-k-text', link.getAttribute('href') === '#' + id);
+                link.classList.toggle('text-k-muted', link.getAttribute('href') !== '#' + id);
+              });
+            }
+          });
+        }, { rootMargin: '-40% 0px -55% 0px' });
+        sections.forEach(s => navIO.observe(s));
       });
     </script>
   </body>
