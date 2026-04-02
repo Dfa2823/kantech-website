@@ -123,11 +123,9 @@ const {
       <slot />
     </div>
     <script is:inline>
-      // Language switcher
+      // Language switcher — CSS-driven via html[data-active-lang]
       function setLang(lang) {
-        document.querySelectorAll('[data-lang]').forEach(el => {
-          el.style.display = el.dataset.lang === lang ? '' : 'none';
-        });
+        document.documentElement.setAttribute('data-active-lang', lang);
         document.querySelectorAll('[data-lang-btn]').forEach(btn => {
           const active = btn.dataset.langBtn === lang;
           btn.classList.toggle('text-k-text', active);
@@ -141,7 +139,7 @@ const {
       (function() {
         let saved = 'es';
         try { saved = localStorage.getItem('kantech-lang') || 'es'; } catch(e) {}
-        if (saved === 'en') setLang('en');
+        if (saved === 'en') document.documentElement.setAttribute('data-active-lang', 'en');
       })();
 
       // Intersection Observer for scroll animations

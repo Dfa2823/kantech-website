@@ -105,8 +105,9 @@
 ::-webkit-scrollbar-thumb { background: #1E293B; border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: #1E3BFF; }
 
-/* Language toggle — English hidden by default */
-[data-lang="en"] { display: none; }
+/* Language toggle — CSS-driven via html[data-active-lang] */
+html:not([data-active-lang="en"]) [data-lang="en"] { display: none; }
+html[data-active-lang="en"] [data-lang="es"] { display: none; }
 
 /* Animation delays for stagger */
 .delay-100 { animation-delay: 0.1s; }

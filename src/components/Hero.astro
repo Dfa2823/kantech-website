@@ -48,9 +48,15 @@
 
     <!-- Service tags -->
     <div class="hidden sm:flex flex-wrap justify-center gap-2 mb-10 animate-fade-up delay-300">
-      {['Agentes de IA', 'Automatizaciones', 'Mejoras de Proceso', 'Desarrollo a Medida'].map(tag => (
+      {[
+        { es: 'Agentes de IA', en: 'AI Agents' },
+        { es: 'Automatizaciones', en: 'Automations' },
+        { es: 'Mejoras de Proceso', en: 'Process Improvement' },
+        { es: 'Desarrollo a Medida', en: 'Custom Development' },
+      ].map(tag => (
         <span class="px-3 py-1 rounded-full text-xs font-medium border border-k-border text-k-muted bg-k-surface/50">
-          {tag}
+          <span data-lang="es">{tag.es}</span>
+          <span data-lang="en">{tag.en}</span>
         </span>
       ))}
     </div>
