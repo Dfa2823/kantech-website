@@ -1,0 +1,155 @@
+---
+const models = [
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>`,
+    color: '#1E3BFF',
+    glow: 'rgba(30,59,255,0.15)',
+    titleEs: 'Proyecto Puntual',
+    titleEn: 'Fixed Project',
+    descEs: 'Alcance definido, precio fijo, entrega en semanas. Ideal para automatizaciones, MVPs o herramientas específicas.',
+    descEn: 'Defined scope, fixed price, delivery in weeks. Ideal for automations, MVPs, or specific tools.',
+    features: [
+      { es: 'Alcance y precio cerrado', en: 'Fixed scope and price' },
+      { es: 'Entrega en 2-8 semanas', en: 'Delivery in 2-8 weeks' },
+      { es: 'Soporte post-entrega incluido', en: 'Post-delivery support included' },
+    ],
+    bestForEs: 'Automatizaciones, landing pages, integraciones API',
+    bestForEn: 'Automations, landing pages, API integrations',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+    color: '#00D4FF',
+    glow: 'rgba(0,212,255,0.15)',
+    titleEs: 'Equipo Dedicado',
+    titleEn: 'Dedicated Team',
+    descEs: 'Horas mensuales con iteración continua. Para proyectos que evolucionan y necesitan atención constante.',
+    descEn: 'Monthly hours with continuous iteration. For projects that evolve and need ongoing attention.',
+    features: [
+      { es: 'Horas mensuales flexibles', en: 'Flexible monthly hours' },
+      { es: 'Sprints semanales con demos', en: 'Weekly sprints with demos' },
+      { es: 'Comunicación directa por Slack/WA', en: 'Direct communication via Slack/WA' },
+    ],
+    bestForEs: 'CRM, ERP, plataformas web complejas',
+    bestForEn: 'CRM, ERP, complex web platforms',
+    highlighted: true,
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>`,
+    color: '#6C2FD9',
+    glow: 'rgba(108,47,217,0.15)',
+    titleEs: 'Socio Tecnológico',
+    titleEn: 'Tech Partner',
+    descEs: 'Relación a largo plazo. Nos convertimos en tu departamento de tecnología con soporte, mejoras continuas y visión estratégica.',
+    descEn: 'Long-term relationship. We become your technology department with support, continuous improvements, and strategic vision.',
+    features: [
+      { es: 'Roadmap tecnológico trimestral', en: 'Quarterly technology roadmap' },
+      { es: 'Soporte prioritario 24/7', en: 'Priority 24/7 support' },
+      { es: 'Optimización continua de procesos', en: 'Continuous process optimization' },
+    ],
+    bestForEs: 'Empresas en crecimiento sin equipo tech interno',
+    bestForEn: 'Growing companies without an internal tech team',
+  },
+];
+---
+<section id="modelos" class="py-24 px-6">
+  <div class="max-w-7xl mx-auto">
+
+    <!-- Header -->
+    <div class="text-center mb-16" data-animate>
+      <div class="section-label mb-4">
+        <span data-lang="es">Modelos de trabajo</span>
+        <span data-lang="en">Engagement models</span>
+      </div>
+      <h2 class="section-title mb-4">
+        <span data-lang="es">Elige cómo quieres<br/>trabajar con nosotros.</span>
+        <span data-lang="en">Choose how you want<br/>to work with us.</span>
+      </h2>
+      <p class="section-sub mx-auto">
+        <span data-lang="es">Tres formas de colaborar, adaptadas a tu etapa y presupuesto.</span>
+        <span data-lang="en">Three ways to collaborate, adapted to your stage and budget.</span>
+      </p>
+    </div>
+
+    <!-- Models grid -->
+    <div class="grid md:grid-cols-3 gap-6">
+      {models.map((m, i) => (
+        <div class:list={[
+          'relative flex flex-col rounded-2xl p-7 border transition-all duration-300 overflow-hidden group',
+          m.highlighted
+            ? 'bg-k-surface border-k-blue/40 shadow-lg shadow-k-blue/10'
+            : 'bg-k-card border-k-border hover:border-k-blue/30'
+        ]}
+             data-animate style={`animation-delay: ${i * 0.1}s`}>
+
+          {m.highlighted && (
+            <div class="absolute top-0 left-0 right-0 h-1" style={`background: linear-gradient(90deg, ${m.color}, #6C2FD9)`}></div>
+          )}
+
+          {m.highlighted && (
+            <span class="absolute top-3 right-3 px-2 py-0.5 text-xs font-bold rounded-full bg-k-blue/20 text-k-cyan border border-k-blue/30">
+              <span data-lang="es">Popular</span>
+              <span data-lang="en">Popular</span>
+            </span>
+          )}
+
+          <!-- Icon -->
+          <div class="w-14 h-14 rounded-xl flex items-center justify-center mb-5 border border-k-border"
+               style={`color: ${m.color}; background: ${m.glow}`}>
+            <Fragment set:html={m.icon} />
+          </div>
+
+          <!-- Title -->
+          <h3 class="font-display text-xl font-bold text-k-text mb-2">
+            <span data-lang="es">{m.titleEs}</span>
+            <span data-lang="en">{m.titleEn}</span>
+          </h3>
+
+          <!-- Description -->
+          <p class="text-k-muted text-sm leading-relaxed mb-6">
+            <span data-lang="es">{m.descEs}</span>
+            <span data-lang="en">{m.descEn}</span>
+          </p>
+
+          <!-- Features -->
+          <ul class="space-y-3 mb-6 flex-1">
+            {m.features.map(f => (
+              <li class="flex items-start gap-2.5 text-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                     stroke={m.color} stroke-width="2.5" class="mt-0.5 flex-shrink-0">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                <span class="text-k-muted">
+                  <span data-lang="es">{f.es}</span>
+                  <span data-lang="en">{f.en}</span>
+                </span>
+              </li>
+            ))}
+          </ul>
+
+          <!-- Best for -->
+          <div class="pt-4 border-t border-k-border/50">
+            <p class="text-xs text-k-muted">
+              <span class="font-semibold text-k-text">
+                <span data-lang="es">Ideal para: </span>
+                <span data-lang="en">Best for: </span>
+              </span>
+              <span data-lang="es">{m.bestForEs}</span>
+              <span data-lang="en">{m.bestForEn}</span>
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- CTA -->
+    <div class="text-center mt-12" data-animate>
+      <a href="#contacto" class="btn-primary text-base py-3.5 px-8">
+        <span data-lang="es">Conversemos sobre tu proyecto</span>
+        <span data-lang="en">Let's talk about your project</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
