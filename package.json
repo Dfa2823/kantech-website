@@ -9,8 +9,7 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "astro": "^4.16.0",
-    "serve": "^14.2.4"
+    "astro": "^4.16.0"
   },
   "devDependencies": {
     "@astrojs/tailwind": "^5.1.0",
