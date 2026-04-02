@@ -6,8 +6,8 @@ const services = [
     glow: 'rgba(30,59,255,0.15)',
     titleEs: 'Agentes de IA',
     titleEn: 'AI Agents',
-    descEs: 'Asistentes inteligentes que atienden clientes, califican leads y gestionan flujos de trabajo automáticamente. Disponibles 24/7 sin costo de personal adicional.',
-    descEn: 'Intelligent assistants that handle customers, qualify leads, and manage workflows automatically. Available 24/7 at no extra staffing cost.',
+    descEs: 'Un asistente que atiende a tus clientes 24/7, califica leads y agenda citas — sin contratar a nadie más. Nuestros clientes ahorran $3-5M COP/mes en personal solo con este servicio.',
+    descEn: 'An assistant that serves your clients 24/7, qualifies leads, and books appointments — without hiring anyone. Our clients save $700-1,200 USD/month in staffing with this service alone.',
     tags: ['LLM', 'Chatbots', 'WhatsApp', 'CRM Integration'],
   },
   {
@@ -16,8 +16,8 @@ const services = [
     glow: 'rgba(0,212,255,0.15)',
     titleEs: 'Automatizaciones',
     titleEn: 'Automations',
-    descEs: 'Conectamos tus sistemas y eliminamos tareas repetitivas con flujos inteligentes en N8N. Desde notificaciones hasta sincronización completa entre plataformas.',
-    descEn: 'We connect your systems and eliminate repetitive tasks with intelligent N8N workflows. From notifications to full cross-platform synchronization.',
+    descEs: 'Eliminamos las tareas que tu equipo odia: copiar datos entre sistemas, enviar reportes, actualizar inventarios. Un flujo que ahorra 15 horas/semana cuesta desde $500.000 COP.',
+    descEn: 'We eliminate the tasks your team hates: copying data between systems, sending reports, updating inventory. A workflow that saves 15 hours/week starts at ~$120 USD.',
     tags: ['N8N', 'APIs', 'Webhooks', 'Odoo', 'Google Workspace'],
   },
   {
@@ -26,7 +26,7 @@ const services = [
     glow: 'rgba(108,47,217,0.15)',
     titleEs: 'Mejoras de Proceso',
     titleEn: 'Process Improvement',
-    descEs: 'Analizamos y rediseñamos tus operaciones internas para eliminar cuellos de botella, reducir costos y liberar tiempo de tu equipo para lo que realmente importa.',
+    descEs: 'Encontramos dónde tu empresa pierde tiempo y dinero. Un diagnóstico de procesos puede revelar +$5M COP/mes en ineficiencias ocultas. El diagnóstico es gratis.',
     descEn: 'We analyze and redesign your internal operations to eliminate bottlenecks, reduce costs, and free your team\'s time for what truly matters.',
     tags: ['BPM', 'Diagnóstico', 'Consultoría', 'KPIs'],
   },
@@ -36,8 +36,8 @@ const services = [
     glow: 'rgba(0,232,135,0.15)',
     titleEs: 'Desarrollo a Medida',
     titleEn: 'Custom Development',
-    descEs: 'CRM, ERP, sistemas web y apps construidos exactamente para tu negocio. Sin plantillas genéricas. Sin funciones que no necesitas. Solo lo que resuelve tu problema.',
-    descEn: 'CRM, ERP, web systems, and apps built exactly for your business. No generic templates. No features you don\'t need. Just what solves your problem.',
+    descEs: 'Tu propio CRM, ERP o sistema web. Construido exactamente como lo necesitas, sin pagar por funciones que nunca usas. Desde $2M COP. Entrega en 4-12 semanas.',
+    descEn: 'Your own CRM, ERP, or web system. Built exactly as you need it, without paying for features you never use. From ~$480 USD. Delivery in 4-12 weeks.',
     tags: ['React', 'Node.js', 'PostgreSQL', 'Python', 'Google Apps Script'],
   },
 ];
@@ -99,6 +99,22 @@ const services = [
           </div>
         </div>
       ))}
+    </div>
+
+    <!-- CTA -->
+    <div class="text-center mt-12" data-animate>
+      <p class="text-k-muted text-sm mb-4">
+        <span data-lang="es">¿No sabes cuál necesitas? Te ayudamos a decidir.</span>
+        <span data-lang="en">Not sure which one you need? We'll help you decide.</span>
+      </p>
+      <a href="https://wa.me/573194436045?text=Hola%2C%20necesito%20ayuda%20para%20saber%20qu%C3%A9%20servicio%20me%20conviene"
+         target="_blank" rel="noopener" class="btn-primary">
+        <span data-lang="es">Recibir asesoría gratis</span>
+        <span data-lang="en">Get free advice</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
     </div>
   </div>
 </section>

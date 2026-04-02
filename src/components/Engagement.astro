@@ -6,6 +6,8 @@ const models = [
     glow: 'rgba(30,59,255,0.15)',
     titleEs: 'Proyecto Puntual',
     titleEn: 'Fixed Project',
+    priceEs: 'Desde $500.000 COP',
+    priceEn: 'From ~$120 USD',
     descEs: 'Alcance definido, precio fijo, entrega en semanas. Ideal para automatizaciones, MVPs o herramientas específicas.',
     descEn: 'Defined scope, fixed price, delivery in weeks. Ideal for automations, MVPs, or specific tools.',
     features: [
@@ -22,6 +24,8 @@ const models = [
     glow: 'rgba(0,212,255,0.15)',
     titleEs: 'Equipo Dedicado',
     titleEn: 'Dedicated Team',
+    priceEs: 'Desde $2.000.000 COP/mes',
+    priceEn: 'From ~$480 USD/mo',
     descEs: 'Horas mensuales con iteración continua. Para proyectos que evolucionan y necesitan atención constante.',
     descEn: 'Monthly hours with continuous iteration. For projects that evolve and need ongoing attention.',
     features: [
@@ -39,6 +43,8 @@ const models = [
     glow: 'rgba(108,47,217,0.15)',
     titleEs: 'Socio Tecnológico',
     titleEn: 'Tech Partner',
+    priceEs: 'Cotización personalizada',
+    priceEn: 'Custom quote',
     descEs: 'Relación a largo plazo. Nos convertimos en tu departamento de tecnología con soporte, mejoras continuas y visión estratégica.',
     descEn: 'Long-term relationship. We become your technology department with support, continuous improvements, and strategic vision.',
     features: [
@@ -104,6 +110,12 @@ const models = [
             <span data-lang="en">{m.titleEn}</span>
           </h3>
 
+          <!-- Price -->
+          <p class="text-sm font-bold mb-3" style={`color: ${m.color}`}>
+            <span data-lang="es">{m.priceEs}</span>
+            <span data-lang="en">{m.priceEn}</span>
+          </p>
+
           <!-- Description -->
           <p class="text-k-muted text-sm leading-relaxed mb-6">
             <span data-lang="es">{m.descEs}</span>
@@ -139,6 +151,14 @@ const models = [
           </div>
         </div>
       ))}
+    </div>
+
+    <!-- Guarantee -->
+    <div class="mt-10 p-5 rounded-2xl border border-k-green/20 bg-k-green/5 text-center max-w-2xl mx-auto" data-animate>
+      <p class="text-k-green text-sm font-medium">
+        <span data-lang="es">Todos los planes incluyen diagnóstico gratis y propuesta escrita antes de pagar un peso. Sin contratos de permanencia. Si no ves resultados en el primer sprint, no sigues pagando.</span>
+        <span data-lang="en">All plans include a free diagnosis and a written proposal before you pay anything. No lock-in contracts. If you don't see results in the first sprint, you stop paying.</span>
+      </p>
     </div>
 
     <!-- CTA -->
