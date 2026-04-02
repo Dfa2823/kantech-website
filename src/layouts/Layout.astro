@@ -5,9 +5,10 @@ interface Props {
   title?: string;
   description?: string;
 }
+const siteUrl = 'https://kantech-website-production.up.railway.app';
 const {
-  title = 'KANTECH — Tu empresa en modo automático',
-  description = 'Desarrollamos agentes de IA, automatizaciones y software a medida para empresas que quieren crecer sin complicarse.',
+  title = 'KANTECH | Agentes de IA, Automatizaciones y Software a Medida — Colombia',
+  description = 'Empresa de tecnologia en Cali, Colombia. Desarrollamos agentes de IA, automatizaciones con N8N y software a medida (CRM, ERP) para empresas en Colombia y Latinoamerica. Resultados en semanas, no meses.',
 } = Astro.props;
 ---
 <!doctype html>
@@ -16,35 +17,95 @@ const {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={siteUrl} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content="https://kantech-website-production.up.railway.app" />
-    <meta property="og:image" content="https://kantech-website-production.up.railway.app/og-image.svg" />
+    <meta property="og:url" content={siteUrl} />
+    <meta property="og:image" content={`${siteUrl}/og-image.png`} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:type" content="website" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:locale" content="es_CO" />
+    <meta property="og:site_name" content="KANTECH" />
+
+    <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content="https://kantech-website-production.up.railway.app/og-image.svg" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${siteUrl}/og-image.png`} />
+
+    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Fonts: preconnect + stylesheet (no blocking @import) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+
     <title>{title}</title>
-    <!-- JSON-LD Structured Data -->
+
+    <!-- JSON-LD: ProfessionalService + Services -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "ProfessionalService",
       "name": "KANTECH",
-      "description": "Agentes de IA, automatizaciones y desarrollo de software a medida para empresas en crecimiento.",
-      "url": "https://kantech.com.co",
+      "description": "Agentes de IA, automatizaciones con N8N y desarrollo de software a medida para empresas en Colombia y Latinoamerica.",
+      "url": "https://kantech-website-production.up.railway.app",
       "telephone": "+573194436045",
       "email": "diegoalpala422@gmail.com",
+      "logo": "https://kantech-website-production.up.railway.app/favicon.svg",
+      "image": "https://kantech-website-production.up.railway.app/og-image.png",
+      "priceRange": "$$",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Cali",
+        "addressRegion": "Valle del Cauca",
         "addressCountry": "CO"
       },
-      "areaServed": ["CO", "EC", "PE", "MX"],
-      "knowsAbout": ["Inteligencia Artificial", "Automatización de Procesos", "Desarrollo de Software", "N8N", "CRM", "ERP"],
-      "sameAs": ["https://www.linkedin.com/in/diegoalpala/", "https://github.com/Dfa2823"]
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "3.4516",
+        "longitude": "-76.5320"
+      },
+      "areaServed": [
+        {"@type": "Country", "name": "Colombia"},
+        {"@type": "Country", "name": "Ecuador"},
+        {"@type": "Country", "name": "Peru"},
+        {"@type": "Country", "name": "Mexico"}
+      ],
+      "knowsAbout": ["Inteligencia Artificial", "Agentes de IA", "Automatizacion de Procesos", "N8N", "Desarrollo de Software a Medida", "CRM", "ERP", "Chatbots empresariales"],
+      "sameAs": ["https://www.linkedin.com/in/diegoalpala/", "https://github.com/Dfa2823"],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Servicios KANTECH",
+        "itemListElement": [
+          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Agentes de IA", "description": "Asistentes inteligentes que atienden clientes, califican leads y gestionan flujos de trabajo 24/7."}},
+          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Automatizaciones con N8N", "description": "Flujos de automatizacion personalizados que conectan CRMs, ERPs, WhatsApp y APIs externas."}},
+          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Mejoras de Proceso", "description": "Analisis y rediseno de operaciones internas para eliminar cuellos de botella y reducir costos."}},
+          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Desarrollo de Software a Medida", "description": "CRM, ERP, sistemas web y apps construidos exactamente para tu negocio."}}
+        ]
+      }
+    }
+    </script>
+
+    <!-- JSON-LD: FAQPage (rich snippets en Google) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type": "Question", "name": "Cuanto cuesta un proyecto con KANTECH?", "acceptedAnswer": {"@type": "Answer", "text": "Cada proyecto es diferente. Trabajamos desde automatizaciones puntuales (desde $3M COP) hasta sistemas completos a medida. Siempre entregamos una propuesta clara con alcance y precio antes de empezar."}},
+        {"@type": "Question", "name": "Cuanto tiempo tarda un proyecto?", "acceptedAnswer": {"@type": "Answer", "text": "Las automatizaciones pueden estar listas en 1-2 semanas. Un sistema completo como un CRM o ERP puede tomar entre 4 y 12 semanas segun el alcance."}},
+        {"@type": "Question", "name": "Necesito saber de tecnologia para trabajar con KANTECH?", "acceptedAnswer": {"@type": "Answer", "text": "No. Nos encargamos de toda la parte tecnica. Tu nos explicas el problema de negocio y nosotros lo traducimos en una solucion tecnologica."}},
+        {"@type": "Question", "name": "Que pasa despues de que entregan el proyecto?", "acceptedAnswer": {"@type": "Answer", "text": "Ofrecemos soporte continuo, mantenimiento y evolucion del sistema. No somos un proveedor de un solo proyecto, somos tu socio tecnologico a largo plazo."}},
+        {"@type": "Question", "name": "Trabajan solo con empresas en Colombia?", "acceptedAnswer": {"@type": "Answer", "text": "No. Trabajamos con empresas en Colombia, Ecuador, Peru, Mexico y cualquier pais de Latinoamerica. Todos los proyectos pueden gestionarse 100% remoto."}},
+        {"@type": "Question", "name": "Pueden integrar sistemas como Siigo, Odoo o WhatsApp?", "acceptedAnswer": {"@type": "Answer", "text": "Si. La integracion entre sistemas es uno de nuestros puntos fuertes. Conectamos Siigo, Odoo, WhatsApp Business, Google Workspace y cualquier plataforma con API."}}
+      ]
     }
     </script>
   </head>
