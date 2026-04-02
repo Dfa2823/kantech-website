@@ -108,6 +108,15 @@ const {
         }, { threshold: 0.3 });
         counters.forEach(c => counterIO.observe(c));
 
+        // Cursor glow on cards
+        document.querySelectorAll('.card-glow').forEach(card => {
+          card.addEventListener('mousemove', e => {
+            const r = card.getBoundingClientRect();
+            card.style.setProperty('--x', (e.clientX - r.left) + 'px');
+            card.style.setProperty('--y', (e.clientY - r.top) + 'px');
+          });
+        });
+
         // Active nav link on scroll
         const sections = document.querySelectorAll('section[id]');
         const navLinks = document.querySelectorAll('header a[href^="#"]');

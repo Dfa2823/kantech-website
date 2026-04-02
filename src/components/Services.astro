@@ -52,8 +52,8 @@ const services = [
         <span data-lang="en">Services</span>
       </div>
       <h2 class="section-title mb-4">
-        <span data-lang="es">Todo lo que tu empresa necesita,<br/>bajo un mismo techo.</span>
-        <span data-lang="en">Everything your business needs,<br/>under one roof.</span>
+        <span data-lang="es">Todo lo que tu empresa necesita,<br/>bajo un mismo <span class="gradient-text">techo.</span></span>
+        <span data-lang="en">Everything your business needs,<br/>under one <span class="gradient-text">roof.</span></span>
       </h2>
       <p class="section-sub mx-auto">
         <span data-lang="es">No vendemos herramientas. Entregamos soluciones completas que generan resultados desde el primer mes.</span>
@@ -64,7 +64,7 @@ const services = [
     <!-- Services grid -->
     <div class="grid md:grid-cols-2 gap-6">
       {services.map((s, i) => (
-        <div class="card-glass group relative overflow-hidden" data-animate style={`animation-delay: ${i * 0.1}s`}>
+        <div class="card-glass card-glow group relative overflow-hidden" data-animate style={`animation-delay: ${i * 0.1}s`}>
           <!-- Glow on hover -->
           <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"
                style={`background: radial-gradient(ellipse at top left, ${s.glow}, transparent 60%)`}></div>
