@@ -20,6 +20,26 @@ const {
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "KANTECH",
+      "description": "Agentes de IA, automatizaciones y desarrollo de software a medida para empresas en crecimiento.",
+      "url": "https://kantech.com.co",
+      "telephone": "+573194436045",
+      "email": "diegoalpala422@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Cali",
+        "addressCountry": "CO"
+      },
+      "areaServed": ["CO", "EC", "PE", "MX"],
+      "knowsAbout": ["Inteligencia Artificial", "Automatización de Procesos", "Desarrollo de Software", "N8N", "CRM", "ERP"],
+      "sameAs": ["https://www.linkedin.com/in/diegoalpala/", "https://github.com/Dfa2823"]
+    }
+    </script>
   </head>
   <body>
     <slot />

@@ -1,0 +1,78 @@
+---
+const faqs = [
+  {
+    qEs: '¿Cuánto cuesta un proyecto con KANTECH?',
+    qEn: 'How much does a project with KANTECH cost?',
+    aEs: 'Cada proyecto es diferente. Trabajamos desde automatizaciones puntuales (desde $3M COP) hasta sistemas completos a medida. Siempre damos una propuesta clara antes de empezar.',
+    aEn: 'Every project is different. We work from targeted automations (from ~$700 USD) to full custom systems. We always provide a clear proposal before starting.',
+  },
+  {
+    qEs: '¿Cuánto tiempo tarda un proyecto?',
+    qEn: 'How long does a project take?',
+    aEs: 'Las automatizaciones pueden estar listas en 1-2 semanas. Un sistema completo (CRM, ERP) puede tomar entre 4 y 12 semanas según el alcance. Entregamos en sprints visibles.',
+    aEn: 'Automations can be ready in 1-2 weeks. A full system (CRM, ERP) can take 4-12 weeks depending on scope. We deliver in visible sprints.',
+  },
+  {
+    qEs: '¿Necesito saber de tecnología para trabajar con ustedes?',
+    qEn: 'Do I need technical knowledge to work with you?',
+    aEs: 'No. Nos encargamos de toda la parte técnica. Tú nos explicas el problema de negocio y nosotros lo traducimos en tecnología. Solo necesitas saber qué quieres lograr.',
+    aEn: 'No. We handle all the technical aspects. You explain the business problem and we translate it into technology. You just need to know what you want to achieve.',
+  },
+  {
+    qEs: '¿Qué pasa después de que entregan el proyecto?',
+    qEn: 'What happens after you deliver the project?',
+    aEs: 'Ofrecemos soporte continuo, mantenimiento y evolución del sistema. No desaparecemos después del lanzamiento — somos tu socio tecnológico a largo plazo.',
+    aEn: 'We offer ongoing support, maintenance, and system evolution. We don\'t disappear after launch — we\'re your long-term technology partner.',
+  },
+  {
+    qEs: '¿Trabajan solo con empresas en Colombia?',
+    qEn: 'Do you only work with companies in Colombia?',
+    aEs: 'No. Trabajamos con empresas en Colombia, Ecuador, Perú, México y cualquier país de LatAm. Todos los proyectos pueden gestionarse de forma 100% remota.',
+    aEn: 'No. We work with companies in Colombia, Ecuador, Peru, Mexico, and any LatAm country. All projects can be managed 100% remotely.',
+  },
+  {
+    qEs: '¿Pueden integrar sistemas que ya tenemos (Siigo, Odoo, WhatsApp)?',
+    qEn: 'Can you integrate systems we already have (Siigo, Odoo, WhatsApp)?',
+    aEs: 'Sí. La integración entre sistemas es uno de nuestros puntos fuertes. Conectamos Siigo, Odoo, WhatsApp Business, Google Workspace y prácticamente cualquier plataforma con API.',
+    aEn: 'Yes. System integration is one of our strengths. We connect Siigo, Odoo, WhatsApp Business, Google Workspace, and practically any platform with an API.',
+  },
+];
+---
+<section id="faq" class="py-24 px-6">
+  <div class="max-w-3xl mx-auto">
+
+    <div class="text-center mb-12" data-animate>
+      <div class="section-label mb-4">FAQ</div>
+      <h2 class="section-title mb-4">
+        <span data-lang="es">Preguntas frecuentes</span>
+        <span data-lang="en">Frequently asked questions</span>
+      </h2>
+    </div>
+
+    <div class="space-y-3" data-animate>
+      {faqs.map((faq, i) => (
+        <details class="group bg-k-surface border border-k-border rounded-2xl overflow-hidden
+                        hover:border-k-blue/30 transition-colors duration-200">
+          <summary class="flex items-center justify-between px-6 py-5 cursor-pointer list-none">
+            <span class="font-medium text-k-text text-sm pr-4">
+              <span data-lang="es">{faq.qEs}</span>
+              <span data-lang="en">{faq.qEn}</span>
+            </span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2"
+                 class="text-k-muted flex-shrink-0 transition-transform duration-200 group-open:rotate-180">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </summary>
+          <div class="px-6 pb-5 border-t border-k-border/50">
+            <p class="text-k-muted text-sm leading-relaxed pt-4">
+              <span data-lang="es">{faq.aEs}</span>
+              <span data-lang="en">{faq.aEn}</span>
+            </p>
+          </div>
+        </details>
+      ))}
+    </div>
+
+  </div>
+</section>
