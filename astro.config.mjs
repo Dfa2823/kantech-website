@@ -3,5 +3,5 @@ import tailwind from '@astrojs/tailwind';
 
 export default defineConfig({
   integrations: [tailwind()],
-  site: 'https://kantech.com.co',
+  site: 'https://kantech-website-production.up.railway.app',
 });
