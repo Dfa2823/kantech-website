@@ -1,0 +1,95 @@
+---
+const testimonials = [
+  {
+    quoteEs: 'KANTECH transformó nuestra operación de agendamiento. Pasamos de gestionar todo en WhatsApp y hojas de Excel a tener un CRM completo adaptado exactamente a cómo trabajamos. El equipo de ventas ahora tiene visibilidad total y cerramos más citas.',
+    quoteEn: 'KANTECH transformed our scheduling operation. We went from managing everything in WhatsApp and Excel to having a full CRM tailored exactly to how we work. The sales team now has full visibility and we close more appointments.',
+    authorEs: 'Director Comercial — Sector Salud & Estética, Ecuador',
+    authorEn: 'Commercial Director — Health & Aesthetics Sector, Ecuador',
+    initials: 'JS',
+    color: '#1E3BFF',
+  },
+  {
+    quoteEs: 'La automatización contable que implementaron nos ahorró horas de trabajo manual cada semana. El flujo de N8N conecta nuestros sistemas y genera los reportes automáticamente. Pagó su inversión en el primer mes.',
+    quoteEn: 'The accounting automation they implemented saved us hours of manual work every week. The N8N flow connects our systems and generates reports automatically. It paid for its investment in the first month.',
+    authorEs: 'Gerente Administrativo — Sector Estética & Contabilidad, Colombia',
+    authorEn: 'Administrative Manager — Aesthetics & Accounting Sector, Colombia',
+    initials: 'MV',
+    color: '#00D4FF',
+  },
+  {
+    quoteEs: 'Desarrollaron nuestro ERP de producción desde cero. No es una herramienta genérica — conoce exactamente nuestro proceso de manufactura, el manejo de inventario y la integración con facturación electrónica. El resultado superó lo que esperábamos.',
+    quoteEn: 'They built our production ERP from scratch. It\'s not a generic tool — it knows exactly our manufacturing process, inventory management, and integration with electronic invoicing. The result exceeded our expectations.',
+    authorEs: 'Gerente de Producción — Sector Manufactura & Laboratorio, Colombia',
+    authorEn: 'Production Manager — Manufacturing & Laboratory Sector, Colombia',
+    initials: 'RP',
+    color: '#6C2FD9',
+  },
+];
+---
+<section id="testimonios" class="py-24 px-6 bg-k-surface/30">
+  <div class="max-w-7xl mx-auto">
+
+    <!-- Header -->
+    <div class="text-center mb-16" data-animate>
+      <div class="section-label mb-4">
+        <span data-lang="es">Clientes</span>
+        <span data-lang="en">Clients</span>
+      </div>
+      <h2 class="section-title mb-4">
+        <span data-lang="es">Lo que dicen quienes<br/>ya lo vivieron.</span>
+        <span data-lang="en">What those who've<br/>lived it say.</span>
+      </h2>
+      <p class="section-sub mx-auto">
+        <span data-lang="es">Empresas reales que transformaron su operación con tecnología a medida.</span>
+        <span data-lang="en">Real companies that transformed their operations with custom technology.</span>
+      </p>
+    </div>
+
+    <!-- Testimonials grid -->
+    <div class="grid md:grid-cols-3 gap-6">
+      {testimonials.map((t, i) => (
+        <div class="relative bg-k-card border border-k-border rounded-2xl p-7 flex flex-col gap-5 hover:border-opacity-60 transition-all duration-300 overflow-hidden group"
+             data-animate style={`animation-delay: ${i * 0.1}s`}>
+
+          <!-- Top glow accent -->
+          <div class="absolute top-0 left-0 right-0 h-px"
+               style={`background: linear-gradient(90deg, transparent, ${t.color}60, transparent)`}></div>
+
+          <!-- Quote icon -->
+          <svg class="w-8 h-8 opacity-20" style={`color: ${t.color}`} viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
+            <path d="M10 8C6.686 8 4 10.686 4 14v10h10V14H7c0-1.654 1.346-3 3-3V8zm18 0c-3.314 0-6 2.686-6 6v10h10V14h-7c0-1.654 1.346-3 3-3V8z"/>
+          </svg>
+
+          <!-- Quote text -->
+          <blockquote class="text-k-muted text-sm leading-relaxed flex-1">
+            <span data-lang="es">"{t.quoteEs}"</span>
+            <span data-lang="en">"{t.quoteEn}"</span>
+          </blockquote>
+
+          <!-- Author -->
+          <div class="flex items-center gap-3 pt-4 border-t border-k-border">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0"
+                 style={`background: linear-gradient(135deg, ${t.color}, ${t.color}99)`}>
+              {t.initials}
+            </div>
+            <p class="text-k-muted text-xs leading-snug">
+              <span data-lang="es">{t.authorEs}</span>
+              <span data-lang="en">{t.authorEn}</span>
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Trust strip -->
+    <div class="mt-14 flex flex-wrap justify-center items-center gap-6 md:gap-12 opacity-50" data-animate>
+      <span class="text-k-muted text-xs font-medium tracking-wider uppercase">
+        <span data-lang="es">Empresas que confían en KANTECH</span>
+        <span data-lang="en">Companies that trust KANTECH</span>
+      </span>
+      {['Sector Salud', 'Sector Manufactura', 'Sector Contable', 'Sector Estética'].map(s => (
+        <span class="px-4 py-1.5 rounded-full border border-k-border text-k-muted text-xs">{s}</span>
+      ))}
+    </div>
+  </div>
+</section>
