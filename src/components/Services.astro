@@ -1,0 +1,104 @@
+---
+const services = [
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6v6l4 2"/><circle cx="18" cy="6" r="3"/><path d="M18 3v1M18 9v1M15 6h1M21 6h1M15.5 3.5l.7.7M20.5 8.5l.7.7M15.5 8.5l.7-.7M20.5 3.5l.7-.7"/></svg>`,
+    color: 'k-blue',
+    glow: 'rgba(30,59,255,0.15)',
+    titleEs: 'Agentes de IA',
+    titleEn: 'AI Agents',
+    descEs: 'Asistentes inteligentes que atienden clientes, califican leads y gestionan flujos de trabajo automáticamente. Disponibles 24/7 sin costo de personal adicional.',
+    descEn: 'Intelligent assistants that handle customers, qualify leads, and manage workflows automatically. Available 24/7 at no extra staffing cost.',
+    tags: ['LLM', 'Chatbots', 'WhatsApp', 'CRM Integration'],
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="6" height="6" rx="1"/><rect x="16" y="3" width="6" height="6" rx="1"/><rect x="9" y="15" width="6" height="6" rx="1"/><path d="M5 9v3a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9"/><path d="M12 12v3"/></svg>`,
+    color: 'k-cyan',
+    glow: 'rgba(0,212,255,0.15)',
+    titleEs: 'Automatizaciones',
+    titleEn: 'Automations',
+    descEs: 'Conectamos tus sistemas y eliminamos tareas repetitivas con flujos inteligentes en N8N. Desde notificaciones hasta sincronización completa entre plataformas.',
+    descEn: 'We connect your systems and eliminate repetitive tasks with intelligent N8N workflows. From notifications to full cross-platform synchronization.',
+    tags: ['N8N', 'APIs', 'Webhooks', 'Odoo', 'Google Workspace'],
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3h18v18H3z" rx="2"/><path d="M3 9h18M9 21V9"/><path d="M15 13l-2 2 2 2"/><path d="M17 15h-4"/></svg>`,
+    color: 'k-purple',
+    glow: 'rgba(108,47,217,0.15)',
+    titleEs: 'Mejoras de Proceso',
+    titleEn: 'Process Improvement',
+    descEs: 'Analizamos y rediseñamos tus operaciones internas para eliminar cuellos de botella, reducir costos y liberar tiempo de tu equipo para lo que realmente importa.',
+    descEn: 'We analyze and redesign your internal operations to eliminate bottlenecks, reduce costs, and free your team\'s time for what truly matters.',
+    tags: ['BPM', 'Diagnóstico', 'Consultoría', 'KPIs'],
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="19" y1="12" x2="5" y2="12" opacity="0.4"/></svg>`,
+    color: 'k-green',
+    glow: 'rgba(0,232,135,0.15)',
+    titleEs: 'Desarrollo a Medida',
+    titleEn: 'Custom Development',
+    descEs: 'CRM, ERP, sistemas web y apps construidos exactamente para tu negocio. Sin plantillas genéricas. Sin funciones que no necesitas. Solo lo que resuelve tu problema.',
+    descEn: 'CRM, ERP, web systems, and apps built exactly for your business. No generic templates. No features you don\'t need. Just what solves your problem.',
+    tags: ['React', 'Node.js', 'PostgreSQL', 'Python', 'Google Apps Script'],
+  },
+];
+---
+<section id="servicios" class="py-24 px-6">
+  <div class="max-w-7xl mx-auto">
+
+    <!-- Header -->
+    <div class="text-center mb-16" data-animate>
+      <div class="section-label mb-4">
+        <span data-lang="es">Servicios</span>
+        <span data-lang="en">Services</span>
+      </div>
+      <h2 class="section-title mb-4">
+        <span data-lang="es">Todo lo que tu empresa necesita,<br/>bajo un mismo techo.</span>
+        <span data-lang="en">Everything your business needs,<br/>under one roof.</span>
+      </h2>
+      <p class="section-sub mx-auto">
+        <span data-lang="es">No vendemos herramientas. Entregamos soluciones completas que generan resultados desde el primer mes.</span>
+        <span data-lang="en">We don't sell tools. We deliver complete solutions that generate results from day one.</span>
+      </p>
+    </div>
+
+    <!-- Services grid -->
+    <div class="grid md:grid-cols-2 gap-6">
+      {services.map((s, i) => (
+        <div class="card-glass group relative overflow-hidden" data-animate style={`animation-delay: ${i * 0.1}s`}>
+          <!-- Glow on hover -->
+          <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"
+               style={`background: radial-gradient(ellipse at top left, ${s.glow}, transparent 60%)`}></div>
+
+          <div class="relative z-10">
+            <!-- Icon -->
+            <div class={`w-12 h-12 rounded-xl flex items-center justify-center mb-5 border border-k-border text-${s.color}`}
+                 style={`background: ${s.glow}`}>
+              <Fragment set:html={s.icon} />
+            </div>
+
+            <!-- Title -->
+            <h3 class="font-display text-xl font-bold text-k-text mb-3">
+              <span data-lang="es">{s.titleEs}</span>
+              <span data-lang="en">{s.titleEn}</span>
+            </h3>
+
+            <!-- Description -->
+            <p class="text-k-muted text-sm leading-relaxed mb-5">
+              <span data-lang="es">{s.descEs}</span>
+              <span data-lang="en">{s.descEn}</span>
+            </p>
+
+            <!-- Tags -->
+            <div class="flex flex-wrap gap-2">
+              {s.tags.map(tag => (
+                <span class="px-2.5 py-1 rounded-md text-xs font-medium bg-k-bg text-k-muted border border-k-border">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

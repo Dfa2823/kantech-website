@@ -1,0 +1,164 @@
+---
+const cases = [
+  {
+    sector: 'Salud & Estética',
+    sectorEn: 'Health & Aesthetics',
+    name: 'CRM Comercial Integral',
+    nameEn: 'Full Commercial CRM',
+    descEs: 'Sistema completo de gestión comercial: captación de leads, agendamiento de citas, seguimiento de ventas, comisiones por cargo y despacho de inventario. Reemplazó procesos manuales en Excel.',
+    descEn: 'Complete commercial management system: lead capture, appointment scheduling, sales tracking, role-based commissions, and inventory dispatch. Replaced manual Excel-based processes.',
+    stack: ['React 18', 'Node.js', 'PostgreSQL', 'JWT Auth'],
+    resultEs: 'Proceso comercial 100% digitalizado. Equipo de ventas con visibilidad en tiempo real.',
+    resultEn: '100% digitized commercial process. Sales team with real-time visibility.',
+    color: '#1E3BFF',
+    glow: 'rgba(30,59,255,0.12)',
+    github: 'https://github.com/Dfa2823/crm-sanavit',
+    commits: '90 commits · 85 deployments',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+  },
+  {
+    sector: 'Estética / Contabilidad',
+    sectorEn: 'Aesthetics / Accounting',
+    name: 'DYV Command Center',
+    nameEn: 'DYV Command Center',
+    descEs: 'Plataforma de automatización contable con parser de archivos, flujos N8N y sincronización con Odoo. Procesa, valida y carga información contable con mínima intervención humana.',
+    descEn: 'Accounting automation platform with file parser, N8N workflows, and Odoo synchronization. Processes, validates, and loads accounting data with minimal human intervention.',
+    stack: ['Next.js', 'Prisma', 'N8N', 'Odoo', 'Python'],
+    resultEs: 'Reducción drástica en horas de procesamiento contable manual por período.',
+    resultEn: 'Drastic reduction in manual accounting processing hours per period.',
+    commits: '— commits · TypeScript',
+    color: '#00D4FF',
+    glow: 'rgba(0,212,255,0.12)',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="m8 21 4-4 4 4"/><path d="M2 10h20"/><path d="M7 15h.01M12 15h.01"/></svg>`,
+  },
+  {
+    sector: 'Producción / Manufactura',
+    sectorEn: 'Production / Manufacturing',
+    name: 'SOFY — ERP Industrial a Medida',
+    nameEn: 'SOFY — Custom Industrial ERP',
+    descEs: 'ERP completo construido desde cero para laboratorio cosmético. Backend .NET + frontend TypeScript + PostgreSQL. Módulos de producción, despachos, inventario, recetas e integración con Siigo. CI/CD en GitHub Actions.',
+    descEn: 'Full ERP built from scratch for a cosmetics laboratory. .NET backend + TypeScript frontend + PostgreSQL. Production, dispatch, inventory, recipes, and Siigo accounting integration. CI/CD on GitHub Actions.',
+    stack: ['.NET C#', 'TypeScript', 'PostgreSQL', 'Siigo API', 'CI/CD'],
+    resultEs: 'Trazabilidad completa del ciclo productivo: 258 commits, 264 despliegues en producción.',
+    resultEn: 'Full production cycle traceability: 258 commits, 264 production deployments.',
+    color: '#6C2FD9',
+    glow: 'rgba(108,47,217,0.12)',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7-6H4a2 2 0 0 0-2 2v16z"/><path d="M14 2v6h6"/><path d="M9 13h6"/><path d="M9 17h3"/></svg>`,
+  },
+  {
+    sector: 'Múltiples Sectores',
+    sectorEn: 'Multiple Sectors',
+    name: 'Automatizaciones N8N',
+    nameEn: 'N8N Automations',
+    descEs: 'Flujos de automatización personalizados que conectan CRMs, ERPs, WhatsApp, correo y APIs externas. Desde notificaciones automáticas hasta sincronización de datos entre sistemas empresariales.',
+    descEn: 'Custom automation flows connecting CRMs, ERPs, WhatsApp, email, and external APIs. From automatic notifications to data synchronization between enterprise systems.',
+    stack: ['N8N', 'Webhooks', 'REST APIs', 'Odoo', 'WhatsApp Business'],
+    resultEs: 'Tareas repetitivas eliminadas. Datos sincronizados en tiempo real entre plataformas.',
+    resultEn: 'Repetitive tasks eliminated. Data synchronized in real-time across platforms.',
+    color: '#00E887',
+    glow: 'rgba(0,232,135,0.12)',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>`,
+  },
+];
+---
+<section id="portafolio" class="py-24 px-6 bg-k-surface/30">
+  <div class="max-w-7xl mx-auto">
+
+    <!-- Header -->
+    <div class="text-center mb-16" data-animate>
+      <div class="section-label mb-4">
+        <span data-lang="es">Portafolio</span>
+        <span data-lang="en">Portfolio</span>
+      </div>
+      <h2 class="section-title mb-4">
+        <span data-lang="es">Casos de éxito reales.</span>
+        <span data-lang="en">Real success stories.</span>
+      </h2>
+      <p class="section-sub mx-auto">
+        <span data-lang="es">Proyectos entregados en producción. Tecnología construida para resolver problemas concretos de negocios reales.</span>
+        <span data-lang="en">Production-ready projects delivered. Technology built to solve concrete problems for real businesses.</span>
+      </p>
+    </div>
+
+    <!-- Cases grid -->
+    <div class="grid md:grid-cols-2 gap-6">
+      {cases.map((c, i) => (
+        <div class="card-glass group relative overflow-hidden flex flex-col" data-animate style={`animation-delay: ${i * 0.12}s`}>
+
+          <!-- Glow -->
+          <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"
+               style={`background: radial-gradient(ellipse at top left, ${c.glow}, transparent 65%)`}></div>
+
+          <div class="relative z-10 flex flex-col h-full">
+            <!-- Top row -->
+            <div class="flex items-start justify-between mb-4">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl flex items-center justify-center border border-k-border flex-shrink-0"
+                     style={`color: ${c.color}; background: ${c.glow}`}>
+                  <Fragment set:html={c.icon} />
+                </div>
+                <div>
+                  <span class="text-xs font-semibold px-2 py-0.5 rounded-full border"
+                        style={`color: ${c.color}; border-color: ${c.color}30; background: ${c.glow}`}>
+                    <span data-lang="es">{c.sector}</span>
+                    <span data-lang="en">{c.sectorEn}</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Title -->
+            <h3 class="font-display text-lg font-bold text-k-text mb-3">
+              <span data-lang="es">{c.name}</span>
+              <span data-lang="en">{c.nameEn}</span>
+            </h3>
+
+            <!-- Description -->
+            <p class="text-k-muted text-sm leading-relaxed mb-5 flex-1">
+              <span data-lang="es">{c.descEs}</span>
+              <span data-lang="en">{c.descEn}</span>
+            </p>
+
+            <!-- Stack -->
+            <div class="flex flex-wrap gap-1.5 mb-5">
+              {c.stack.map(t => (
+                <span class="px-2 py-0.5 rounded text-xs font-mono font-medium bg-k-bg border border-k-border text-k-muted">
+                  {t}
+                </span>
+              ))}
+            </div>
+
+            <!-- Result -->
+            <div class="flex items-start gap-2 pt-4 border-t border-k-border/50">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                   stroke={c.color} stroke-width="2.5" class="mt-0.5 flex-shrink-0">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+              <p class="text-xs leading-relaxed" style={`color: ${c.color}`}>
+                <span data-lang="es">{c.resultEs}</span>
+                <span data-lang="en">{c.resultEn}</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- CTA bottom -->
+    <div class="text-center mt-12" data-animate>
+      <p class="text-k-muted text-sm mb-4">
+        <span data-lang="es">¿Tienes un proyecto en mente?</span>
+        <span data-lang="en">Have a project in mind?</span>
+      </p>
+      <a href="https://wa.me/573194436045?text=Hola%2C%20quiero%20hablar%20sobre%20un%20proyecto"
+         target="_blank" rel="noopener" class="btn-primary">
+        <span data-lang="es">Cuéntanos tu reto</span>
+        <span data-lang="en">Tell us your challenge</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+
+  </div>
+</section>

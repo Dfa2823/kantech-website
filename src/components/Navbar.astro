@@ -1,0 +1,111 @@
+---
+---
+<header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+  <div class="border-b border-transparent" id="navbar-border">
+    <nav class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-2.5 group">
+        <div class="w-8 h-8 rounded-lg flex items-center justify-center bg-gradient-to-br from-k-blue to-k-purple shadow-lg shadow-k-blue/30 group-hover:shadow-k-blue/50 transition-shadow">
+          <svg width="16" height="16" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 8h3v7.5l7-7.5h4L15 17l8 7h-4.5l-6.5-5.8V24H9V8z" fill="white"/>
+          </svg>
+        </div>
+        <span class="font-display font-bold text-k-text text-lg tracking-tight">KANTECH</span>
+      </a>
+
+      <!-- Nav links (desktop) -->
+      <div class="hidden md:flex items-center gap-7">
+        <a href="#servicios" class="text-k-muted hover:text-k-text text-sm transition-colors duration-200">
+          <span data-lang="es">Servicios</span><span data-lang="en">Services</span>
+        </a>
+        <a href="#portafolio" class="text-k-muted hover:text-k-text text-sm transition-colors duration-200">
+          <span data-lang="es">Portafolio</span><span data-lang="en">Portfolio</span>
+        </a>
+        <a href="#proceso" class="text-k-muted hover:text-k-text text-sm transition-colors duration-200">
+          <span data-lang="es">Proceso</span><span data-lang="en">Process</span>
+        </a>
+        <a href="#contacto" class="text-k-muted hover:text-k-text text-sm transition-colors duration-200">
+          <span data-lang="es">Contacto</span><span data-lang="en">Contact</span>
+        </a>
+      </div>
+
+      <!-- Right: lang toggle + CTA -->
+      <div class="flex items-center gap-3">
+        <!-- Language toggle -->
+        <div class="flex items-center gap-0.5 text-xs font-medium border border-k-border rounded-lg overflow-hidden">
+          <button onclick="setLang('es')" data-lang-btn="es"
+            class="px-2.5 py-1.5 text-k-text font-bold hover:bg-k-surface transition-colors">ES</button>
+          <div class="w-px h-4 bg-k-border"></div>
+          <button onclick="setLang('en')" data-lang-btn="en"
+            class="px-2.5 py-1.5 text-k-muted hover:bg-k-surface transition-colors">EN</button>
+        </div>
+
+        <!-- CTA -->
+        <a href="https://wa.me/573194436045?text=Hola%2C%20me%20interesa%20conocer%20m%C3%A1s%20sobre%20los%20servicios%20de%20KANTECH"
+           target="_blank" rel="noopener"
+           class="btn-primary hidden md:inline-flex text-xs py-2 px-4">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+            <path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.122 1.532 5.854L.057 23.886a.5.5 0 0 0 .613.613l6.033-1.475A11.955 11.955 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.88 0-3.641-.516-5.148-1.413l-.369-.214-3.822.936.955-3.822-.237-.383A9.963 9.963 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+          </svg>
+          <span data-lang="es">Hablar con experto</span><span data-lang="en">Talk to an expert</span>
+        </a>
+
+        <!-- Mobile menu btn -->
+        <button id="menu-btn" class="md:hidden p-2 text-k-muted hover:text-k-text transition-colors" aria-label="Menu">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 6h18M3 12h18M3 18h18"/>
+          </svg>
+        </button>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="hidden md:hidden bg-k-surface border-b border-k-border px-6 pb-4">
+    <div class="flex flex-col gap-4 pt-4">
+      <a href="#servicios" onclick="document.getElementById('mobile-menu').classList.add('hidden')"
+         class="text-k-muted hover:text-k-text text-sm transition-colors">
+        <span data-lang="es">Servicios</span><span data-lang="en">Services</span>
+      </a>
+      <a href="#portafolio" onclick="document.getElementById('mobile-menu').classList.add('hidden')"
+         class="text-k-muted hover:text-k-text text-sm transition-colors">
+        <span data-lang="es">Portafolio</span><span data-lang="en">Portfolio</span>
+      </a>
+      <a href="#proceso" onclick="document.getElementById('mobile-menu').classList.add('hidden')"
+         class="text-k-muted hover:text-k-text text-sm transition-colors">
+        <span data-lang="es">Proceso</span><span data-lang="en">Process</span>
+      </a>
+      <a href="#contacto" onclick="document.getElementById('mobile-menu').classList.add('hidden')"
+         class="text-k-muted hover:text-k-text text-sm transition-colors">
+        <span data-lang="es">Contacto</span><span data-lang="en">Contact</span>
+      </a>
+      <a href="https://wa.me/573194436045" target="_blank" class="btn-primary w-full justify-center">
+        <span data-lang="es">Hablar con experto</span><span data-lang="en">Talk to an expert</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  // Navbar scroll effect
+  const navbar = document.getElementById('navbar');
+  const border = document.getElementById('navbar-border');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 20) {
+      navbar.style.background = 'rgba(10,15,30,0.92)';
+      navbar.style.backdropFilter = 'blur(16px)';
+      border.style.borderColor = 'rgba(30,41,59,0.8)';
+    } else {
+      navbar.style.background = 'transparent';
+      navbar.style.backdropFilter = 'none';
+      border.style.borderColor = 'transparent';
+    }
+  });
+
+  // Mobile menu toggle
+  document.getElementById('menu-btn').addEventListener('click', () => {
+    document.getElementById('mobile-menu').classList.toggle('hidden');
+  });
+</script>

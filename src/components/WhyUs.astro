@@ -1,0 +1,106 @@
+---
+const reasons = [
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
+    color: '#1E3BFF',
+    glow: 'rgba(30,59,255,0.1)',
+    titleEs: 'Resultados en semanas',
+    titleEn: 'Results in weeks',
+    descEs: 'No meses ni años. Entregamos soluciones funcionales rápido, con iteraciones cortas para que veas valor desde el inicio.',
+    descEn: 'Not months or years. We deliver working solutions fast, with short iterations so you see value from the start.',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`,
+    color: '#00D4FF',
+    glow: 'rgba(0,212,255,0.1)',
+    titleEs: 'Equipo local en Colombia',
+    titleEn: 'Local team in Colombia',
+    descEs: 'Misma zona horaria, mismo idioma, misma cultura de negocio. Sin fricciones de comunicación ni malentendidos culturales.',
+    descEn: 'Same timezone, same language, same business culture. No communication friction or cultural misunderstandings.',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>`,
+    color: '#6C2FD9',
+    glow: 'rgba(108,47,217,0.1)',
+    titleEs: 'Tecnología que escala',
+    titleEn: 'Technology that scales',
+    descEs: 'Construimos sobre stacks modernos y probados. Lo que hacemos hoy puede crecer con tu empresa mañana sin reescribir todo.',
+    descEn: 'We build on modern, proven stacks. What we do today can grow with your business tomorrow without rewriting everything.',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>`,
+    color: '#00E887',
+    glow: 'rgba(0,232,135,0.1)',
+    titleEs: 'ROI medible desde el día 1',
+    titleEn: 'Measurable ROI from day 1',
+    descEs: 'Cada proyecto se define con métricas claras: horas ahorradas, procesos eliminados, ventas incrementadas. Sabemos exactamente qué estamos mejorando.',
+    descEn: 'Every project is defined with clear metrics: hours saved, processes eliminated, sales increased. We know exactly what we\'re improving.',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z"/><path d="M20.5 10H19V8.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/><path d="M9.5 14c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5S8 21.33 8 20.5v-5c0-.83.67-1.5 1.5-1.5z"/><path d="M3.5 14H5v1.5c0 .83-.67 1.5-1.5 1.5S2 16.33 2 15.5 2.67 14 3.5 14z"/><path d="M14 14.5c0-.83.67-1.5 1.5-1.5h5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-5c-.83 0-1.5-.67-1.5-1.5z"/><path d="M15.5 19H14v1.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z"/><path d="M10 9.5C10 8.67 9.33 8 8.5 8h-5C2.67 8 2 8.67 2 9.5S2.67 11 3.5 11h5c.83 0 1.5-.67 1.5-1.5z"/><path d="M8.5 5H10V3.5C10 2.67 9.33 2 8.5 2S7 2.67 7 3.5 7.67 5 8.5 5z"/></svg>`,
+    color: '#1E3BFF',
+    glow: 'rgba(30,59,255,0.1)',
+    titleEs: 'Integración con lo que ya tienes',
+    titleEn: 'Integration with what you already have',
+    descEs: 'Trabajamos con tus sistemas actuales. No necesitas tirar lo que ya funciona. Conectamos, mejoramos y ampliamos.',
+    descEn: 'We work with your existing systems. You don\'t need to throw away what already works. We connect, improve, and expand.',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.47 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>`,
+    color: '#00D4FF',
+    glow: 'rgba(0,212,255,0.1)',
+    titleEs: 'Soporte continuo',
+    titleEn: 'Ongoing support',
+    descEs: 'Después de entregar, seguimos. Mantenimiento, mejoras, nuevas funcionalidades. Una relación a largo plazo, no un proyecto y adiós.',
+    descEn: 'After delivery, we continue. Maintenance, improvements, new features. A long-term relationship, not a project and goodbye.',
+  },
+];
+---
+<section id="nosotros" class="py-24 px-6">
+  <div class="max-w-7xl mx-auto">
+
+    <!-- Header -->
+    <div class="text-center mb-16" data-animate>
+      <div class="section-label mb-4">
+        <span data-lang="es">Por qué KANTECH</span>
+        <span data-lang="en">Why KANTECH</span>
+      </div>
+      <h2 class="section-title mb-4">
+        <span data-lang="es">El socio tecnológico que<br/>tu empresa necesita.</span>
+        <span data-lang="en">The technology partner<br/>your business needs.</span>
+      </h2>
+      <p class="section-sub mx-auto">
+        <span data-lang="es">No somos solo desarrolladores. Somos el puente entre tu negocio y la tecnología que lo transforma.</span>
+        <span data-lang="en">We're not just developers. We're the bridge between your business and the technology that transforms it.</span>
+      </p>
+    </div>
+
+    <!-- Grid -->
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      {reasons.map((r, i) => (
+        <div class="group relative bg-k-surface border border-k-border rounded-2xl p-5 hover:border-opacity-60 transition-all duration-300 overflow-hidden"
+             style={`--hover-border: ${r.color}`}
+             data-animate style={`animation-delay: ${i * 0.08}s`}>
+
+          <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"
+               style={`background: radial-gradient(ellipse at top left, ${r.glow}, transparent 70%)`}></div>
+
+          <div class="relative z-10">
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4 border border-k-border"
+                 style={`color: ${r.color}; background: ${r.glow}`}>
+              <Fragment set:html={r.icon} />
+            </div>
+            <h3 class="font-display font-bold text-k-text text-base mb-2">
+              <span data-lang="es">{r.titleEs}</span>
+              <span data-lang="en">{r.titleEn}</span>
+            </h3>
+            <p class="text-k-muted text-sm leading-relaxed">
+              <span data-lang="es">{r.descEs}</span>
+              <span data-lang="en">{r.descEn}</span>
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,97 @@
+---
+const steps = [
+  {
+    num: '01',
+    color: '#1E3BFF',
+    glow: 'rgba(30,59,255,0.15)',
+    titleEs: 'Diagnóstico',
+    titleEn: 'Discovery',
+    descEs: 'Entendemos tu negocio en profundidad: procesos actuales, dolores, objetivos y restricciones. Sin asumir nada antes de escucharte.',
+    descEn: 'We deeply understand your business: current processes, pain points, goals, and constraints. No assumptions before listening to you.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>`,
+  },
+  {
+    num: '02',
+    color: '#00D4FF',
+    glow: 'rgba(0,212,255,0.15)',
+    titleEs: 'Diseño de Solución',
+    titleEn: 'Solution Design',
+    descEs: 'Proponemos la arquitectura técnica óptima, el alcance del proyecto, los tiempos y el costo. Todo por escrito antes de empezar.',
+    descEn: 'We propose the optimal technical architecture, project scope, timeline, and cost. Everything in writing before we start.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>`,
+  },
+  {
+    num: '03',
+    color: '#6C2FD9',
+    glow: 'rgba(108,47,217,0.15)',
+    titleEs: 'Implementación',
+    titleEn: 'Implementation',
+    descEs: 'Desarrollamos en sprints cortos con entregables visibles. Iteras con nosotros en tiempo real. Sin cajas negras ni sorpresas al final.',
+    descEn: 'We develop in short sprints with visible deliverables. You iterate with us in real time. No black boxes or surprises at the end.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`,
+  },
+  {
+    num: '04',
+    color: '#00E887',
+    glow: 'rgba(0,232,135,0.15)',
+    titleEs: 'Evolución Continua',
+    titleEn: 'Continuous Evolution',
+    descEs: 'Lanzamos, medimos, mejoramos. Tu sistema crece con tu negocio. Soporte, nuevas funcionalidades y optimización constante.',
+    descEn: 'We launch, measure, improve. Your system grows with your business. Support, new features, and constant optimization.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>`,
+  },
+];
+---
+<section id="proceso" class="py-24 px-6 bg-k-surface/30">
+  <div class="max-w-6xl mx-auto">
+
+    <!-- Header -->
+    <div class="text-center mb-16" data-animate>
+      <div class="section-label mb-4">
+        <span data-lang="es">Nuestro Proceso</span>
+        <span data-lang="en">Our Process</span>
+      </div>
+      <h2 class="section-title mb-4">
+        <span data-lang="es">Cómo trabajamos.</span>
+        <span data-lang="en">How we work.</span>
+      </h2>
+      <p class="section-sub mx-auto">
+        <span data-lang="es">Un proceso claro, transparente y orientado a resultados. Sin sorpresas, sin retrasos inexplicables.</span>
+        <span data-lang="en">A clear, transparent, and results-oriented process. No surprises, no unexplained delays.</span>
+      </p>
+    </div>
+
+    <!-- Steps -->
+    <div class="grid md:grid-cols-4 gap-6 relative">
+      <!-- Connector line (desktop only) -->
+      <div class="hidden md:block absolute top-8 left-[12.5%] right-[12.5%] h-px"
+           style="background: linear-gradient(to right, rgba(30,59,255,0.3), rgba(0,212,255,0.3), rgba(108,47,217,0.3), rgba(0,232,135,0.3))"></div>
+
+      {steps.map((s, i) => (
+        <div class="relative flex flex-col items-center text-center" data-animate style={`animation-delay: ${i * 0.15}s`}>
+          <!-- Step circle -->
+          <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-5 relative z-10 border"
+               style={`color: ${s.color}; background: ${s.glow}; border-color: ${s.color}30`}>
+            <Fragment set:html={s.icon} />
+          </div>
+
+          <!-- Number -->
+          <span class="font-mono text-xs font-bold mb-2" style={`color: ${s.color}`}>{s.num}</span>
+
+          <!-- Title -->
+          <h3 class="font-display font-bold text-k-text text-base mb-2">
+            <span data-lang="es">{s.titleEs}</span>
+            <span data-lang="en">{s.titleEn}</span>
+          </h3>
+
+          <!-- Description -->
+          <p class="text-k-muted text-sm leading-relaxed">
+            <span data-lang="es">{s.descEs}</span>
+            <span data-lang="en">{s.descEn}</span>
+          </p>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>

@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-k-bg text-k-text antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  * {
+    box-sizing: border-box;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm
+           bg-k-blue text-white transition-all duration-200
+           hover:bg-k-blue-h hover:scale-[1.02] active:scale-[0.98]
+           shadow-lg shadow-k-blue/20;
+  }
+  .btn-outline {
+    @apply inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm
+           border border-k-border text-k-text transition-all duration-200
+           hover:border-k-cyan hover:text-k-cyan hover:shadow-sm hover:shadow-k-cyan/10;
+  }
+  .card-glass {
+    @apply bg-k-surface border border-k-border rounded-2xl p-6
+           hover:border-k-blue/40 transition-all duration-300
+           hover:shadow-lg hover:shadow-k-blue/5;
+  }
+  .gradient-text {
+    @apply bg-gradient-to-r from-k-blue via-k-cyan to-k-purple bg-clip-text text-transparent;
+  }
+  .section-label {
+    @apply inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold
+           bg-k-blue/10 text-k-cyan border border-k-blue/20 tracking-wider uppercase;
+  }
+  .section-title {
+    font-family: 'Space Grotesk', sans-serif;
+    @apply text-3xl md:text-4xl font-bold text-k-text leading-tight;
+  }
+  .section-sub {
+    @apply text-k-muted text-lg leading-relaxed max-w-2xl;
+  }
+  .grid-dot-bg {
+    background-image:
+      linear-gradient(rgba(30, 59, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(to right, rgba(30, 59, 255, 0.04) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #0A0F1E; }
+::-webkit-scrollbar-thumb { background: #1E293B; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #1E3BFF; }
+
+/* Language toggle — English hidden by default */
+[data-lang="en"] { display: none; }
+
+/* Animation delays for stagger */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+.delay-600 { animation-delay: 0.6s; }

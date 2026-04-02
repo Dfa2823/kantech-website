@@ -1,0 +1,63 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+const {
+  title = 'KANTECH — Tu empresa en modo automático',
+  description = 'Desarrollamos agentes de IA, automatizaciones y software a medida para empresas que quieren crecer sin complicarse.',
+} = Astro.props;
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+    <script is:inline>
+      // Language switcher
+      function setLang(lang) {
+        document.querySelectorAll('[data-lang]').forEach(el => {
+          el.style.display = el.dataset.lang === lang ? '' : 'none';
+        });
+        document.querySelectorAll('[data-lang-btn]').forEach(btn => {
+          const active = btn.dataset.langBtn === lang;
+          btn.classList.toggle('text-k-text', active);
+          btn.classList.toggle('font-bold', active);
+          btn.classList.toggle('text-k-muted', !active);
+        });
+        try { localStorage.setItem('kantech-lang', lang); } catch(e) {}
+      }
+
+      // On load: restore saved language
+      (function() {
+        let saved = 'es';
+        try { saved = localStorage.getItem('kantech-lang') || 'es'; } catch(e) {}
+        if (saved === 'en') setLang('en');
+      })();
+
+      // Intersection Observer for scroll animations
+      document.addEventListener('DOMContentLoaded', () => {
+        const els = document.querySelectorAll('[data-animate]');
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(e => {
+            if (e.isIntersecting) {
+              e.target.classList.add('animate-fade-up');
+              io.unobserve(e.target);
+            }
+          });
+        }, { threshold: 0.1 });
+        els.forEach(el => { el.style.opacity = '0'; io.observe(el); });
+      });
+    </script>
+  </body>
+</html>
