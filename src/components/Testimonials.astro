@@ -40,8 +40,8 @@ const testimonials = [
         <span data-lang="en">What those who've<br/>lived it say.</span>
       </h2>
       <p class="section-sub mx-auto">
-        <span data-lang="es">Empresas reales que transformaron su operación con tecnología a medida.</span>
-        <span data-lang="en">Real companies that transformed their operations with custom technology.</span>
+        <span data-lang="es">No te lo contamos nosotros. Te lo cuentan quienes ya dejaron de perder tiempo y dinero en procesos manuales.</span>
+        <span data-lang="en">Don't take our word for it. Hear from those who stopped losing time and money on manual processes.</span>
       </p>
     </div>
 
@@ -81,15 +81,20 @@ const testimonials = [
       ))}
     </div>
 
-    <!-- Trust strip -->
-    <div class="mt-14 flex flex-wrap justify-center items-center gap-6 md:gap-12 opacity-50" data-animate>
-      <span class="text-k-muted text-xs font-medium tracking-wider uppercase">
-        <span data-lang="es">Empresas que confían en KANTECH</span>
-        <span data-lang="en">Companies that trust KANTECH</span>
-      </span>
-      {['Sector Salud', 'Sector Manufactura', 'Sector Contable', 'Sector Estética'].map(s => (
-        <span class="px-4 py-1.5 rounded-full border border-k-border text-k-muted text-xs">{s}</span>
-      ))}
+    <!-- CTA -->
+    <div class="text-center mt-12" data-animate>
+      <p class="text-k-muted text-sm mb-4">
+        <span data-lang="es">¿Quieres resultados como estos en tu empresa?</span>
+        <span data-lang="en">Want results like these for your business?</span>
+      </p>
+      <a href="https://wa.me/573194436045?text=Hola%2C%20vi%20los%20testimonios%20y%20me%20interesa%20un%20diagn%C3%B3stico"
+         target="_blank" rel="noopener" class="btn-primary">
+        <span data-lang="es">Agenda tu diagnóstico gratis</span>
+        <span data-lang="en">Book your free diagnosis</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
     </div>
   </div>
 </section>

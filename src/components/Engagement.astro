@@ -8,6 +8,8 @@ const models = [
     titleEn: 'Fixed Project',
     priceEs: 'Desde $500.000 COP',
     priceEn: 'From ~$120 USD',
+    anchorEs: 'Consultora típica: $3-8M COP',
+    anchorEn: 'Typical consultancy: $700-2,000 USD',
     roiEs: 'ROI típico: 6x en el primer mes',
     roiEn: 'Typical ROI: 6x in the first month',
     descEs: 'Alcance definido, precio fijo, entrega en semanas. Ideal para automatizaciones, MVPs o herramientas específicas.',
@@ -28,6 +30,8 @@ const models = [
     titleEn: 'Dedicated Team',
     priceEs: 'Desde $2.000.000 COP/mes',
     priceEn: 'From ~$480 USD/mo',
+    anchorEs: 'Dev senior en nómina: $6-10M COP/mes',
+    anchorEn: 'Senior dev on payroll: $1,500-2,500 USD/mo',
     roiEs: 'Ahorra $3-5M/mes vs. contratar un dev interno',
     roiEn: 'Save $700-1,200/mo vs. hiring in-house',
     descEs: 'Horas mensuales con iteración continua. Para proyectos que evolucionan y necesitan atención constante.',
@@ -49,6 +53,8 @@ const models = [
     titleEn: 'Tech Partner',
     priceEs: 'Desde $5.000.000 COP/mes',
     priceEn: 'From ~$1,200 USD/mo',
+    anchorEs: 'Depto. tech interno: $15-30M COP/mes',
+    anchorEn: 'In-house tech dept: $3,500-7,000 USD/mo',
     roiEs: 'Un CTO + equipo tech por una fracción del costo',
     roiEn: 'A CTO + tech team at a fraction of the cost',
     descEs: 'Relación a largo plazo. Nos convertimos en tu departamento de tecnología con soporte, mejoras continuas y visión estratégica.',
@@ -116,8 +122,12 @@ const models = [
             <span data-lang="en">{m.titleEn}</span>
           </h3>
 
-          <!-- Price -->
-          <p class="text-sm font-bold mb-1" style={`color: ${m.color}`}>
+          <!-- Price with anchor -->
+          <p class="text-xs text-k-muted line-through mb-1">
+            <span data-lang="es">{m.anchorEs}</span>
+            <span data-lang="en">{m.anchorEn}</span>
+          </p>
+          <p class="text-base font-bold mb-1" style={`color: ${m.color}`}>
             <span data-lang="es">{m.priceEs}</span>
             <span data-lang="en">{m.priceEn}</span>
           </p>

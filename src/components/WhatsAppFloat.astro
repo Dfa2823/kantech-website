@@ -1,18 +1,91 @@
 ---
 ---
-<a href="https://wa.me/573194436045?text=Hola%2C%20quiero%20conocer%20m%C3%A1s%20sobre%20los%20servicios%20de%20KANTECH"
-   target="_blank" rel="noopener"
-   class="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-green-500 flex items-center justify-center shadow-lg shadow-green-500/30 hover:bg-green-400 hover:scale-110 transition-all duration-300 group"
-   aria-label="WhatsApp">
-  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="white">
-    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-    <path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.122 1.532 5.854L.057 23.886a.5.5 0 0 0 .613.613l6.033-1.475A11.955 11.955 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.88 0-3.641-.516-5.148-1.413l-.369-.214-3.822.936.955-3.822-.237-.383A9.963 9.963 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
-  </svg>
-  <!-- Tooltip -->
-  <span class="absolute right-16 top-1/2 -translate-y-1/2 px-3 py-1.5 rounded-lg bg-k-surface border border-k-border text-k-text text-xs font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-lg">
-    <span data-lang="es">Escríbenos</span>
-    <span data-lang="en">Message us</span>
-  </span>
-  <!-- Ping animation -->
-  <span class="absolute inset-0 rounded-full bg-green-500 animate-ping opacity-20"></span>
-</a>
+<div id="wa-widget" class="fixed bottom-6 right-6 z-50">
+  <!-- Chat bubble -->
+  <div id="wa-chat" class="hidden absolute bottom-20 right-0 w-72 sm:w-80 bg-k-surface border border-k-border rounded-2xl shadow-2xl overflow-hidden">
+    <div class="bg-green-600 px-5 py-3">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center text-white font-bold text-sm">K</div>
+        <div>
+          <p class="text-white font-semibold text-sm">KANTECH</p>
+          <p class="text-green-100 text-xs">
+            <span data-lang="es">Responde en menos de 1 hora</span>
+            <span data-lang="en">Responds within 1 hour</span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="p-4">
+      <div class="bg-k-card border border-k-border rounded-xl p-3 mb-3">
+        <p class="text-k-text text-sm">
+          <span data-lang="es">Hola! ¿Qué te gustaría resolver hoy?</span>
+          <span data-lang="en">Hi! What would you like to solve today?</span>
+        </p>
+      </div>
+      <div class="space-y-2">
+        <button onclick="openWA('diagnostico')"
+                class="w-full text-left px-3 py-2.5 bg-k-card border border-k-border rounded-xl text-sm text-k-text hover:border-green-500/50 hover:bg-green-500/5 transition-all">
+          <span data-lang="es">Quiero un diagnóstico gratis</span>
+          <span data-lang="en">I want a free diagnosis</span>
+        </button>
+        <button onclick="openWA('cotizacion')"
+                class="w-full text-left px-3 py-2.5 bg-k-card border border-k-border rounded-xl text-sm text-k-text hover:border-green-500/50 hover:bg-green-500/5 transition-all">
+          <span data-lang="es">Necesito una cotización</span>
+          <span data-lang="en">I need a quote</span>
+        </button>
+        <button onclick="openWA('duda')"
+                class="w-full text-left px-3 py-2.5 bg-k-card border border-k-border rounded-xl text-sm text-k-text hover:border-green-500/50 hover:bg-green-500/5 transition-all">
+          <span data-lang="es">Tengo una pregunta</span>
+          <span data-lang="en">I have a question</span>
+        </button>
+      </div>
+    </div>
+    <div class="px-4 py-2 border-t border-k-border bg-k-surface/50">
+      <p class="text-k-muted text-[10px] text-center">
+        <span data-lang="es">Lun-Vie 8am-7pm COT</span>
+        <span data-lang="en">Mon-Fri 8am-7pm COT</span>
+      </p>
+    </div>
+  </div>
+
+  <!-- Float button -->
+  <button id="wa-toggle" aria-label="WhatsApp"
+          class="w-14 h-14 rounded-full bg-green-500 flex items-center justify-center shadow-lg shadow-green-500/30 hover:bg-green-400 hover:scale-110 transition-all duration-300 relative">
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="white" aria-hidden="true">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+      <path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.122 1.532 5.854L.057 23.886a.5.5 0 0 0 .613.613l6.033-1.475A11.955 11.955 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.88 0-3.641-.516-5.148-1.413l-.369-.214-3.822.936.955-3.822-.237-.383A9.963 9.963 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+    </svg>
+    <span class="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-red-500 text-white text-[10px] font-bold flex items-center justify-center" id="wa-dot">1</span>
+  </button>
+</div>
+
+<script is:inline>
+(function() {
+  var toggle = document.getElementById('wa-toggle');
+  var chat = document.getElementById('wa-chat');
+  var isOpen = false;
+
+  toggle.addEventListener('click', function() {
+    isOpen = !isOpen;
+    chat.style.display = isOpen ? 'block' : 'none';
+    var dot = document.getElementById('wa-dot');
+    if (dot) dot.remove();
+  });
+
+  document.addEventListener('click', function(e) {
+    if (isOpen && !e.target.closest('#wa-widget')) {
+      isOpen = false;
+      chat.style.display = 'none';
+    }
+  });
+
+  window.openWA = function(intent) {
+    var msgs = {
+      diagnostico: 'Hola KANTECH! Quiero agendar mi diagnóstico gratuito.',
+      cotizacion: 'Hola KANTECH! Necesito una cotización para un proyecto.',
+      duda: 'Hola KANTECH! Tengo una pregunta sobre sus servicios.'
+    };
+    window.open('https://wa.me/573194436045?text=' + encodeURIComponent(msgs[intent] || msgs.diagnostico), '_blank');
+  };
+})();
+</script>
