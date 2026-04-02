@@ -1,13 +1,22 @@
 import { createServer } from 'http';
 import { readFile } from 'fs/promises';
-import { join, extname } from 'path';
+import { join, extname, resolve } from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import { gzipSync } from 'zlib';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PORT = process.env.PORT || 4321;
-const DIST = join(__dirname, 'dist');
+const DIST = resolve(__dirname, 'dist');
+
+const SECURITY_HEADERS = {
+  'Strict-Transport-Security': 'max-age=63072000; includeSubDomains; preload',
+  'X-Content-Type-Options': 'nosniff',
+  'X-Frame-Options': 'DENY',
+  'Referrer-Policy': 'strict-origin-when-cross-origin',
+  'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
+  'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com; frame-ancestors 'none'",
+};
 
 const MIME = {
   '.html': 'text/html',
@@ -40,7 +49,7 @@ function getCacheHeader(filePath) {
 function serve(res, data, ext, filePath, acceptEncoding) {
   const contentType = MIME[ext] || 'text/plain';
   const cache = getCacheHeader(filePath);
-  const headers = { 'Content-Type': contentType, 'Cache-Control': cache };
+  const headers = { 'Content-Type': contentType, 'Cache-Control': cache, ...SECURITY_HEADERS };
 
   if (COMPRESSIBLE.has(ext) && acceptEncoding.includes('gzip')) {
     headers['Content-Encoding'] = 'gzip';
@@ -56,8 +65,15 @@ function serve(res, data, ext, filePath, acceptEncoding) {
 const server = createServer(async (req, res) => {
   let filePath = req.url === '/' ? '/index.html' : req.url;
   filePath = filePath.split('?')[0];
-  const fullPath = join(DIST, filePath);
+  const fullPath = resolve(DIST, '.' + filePath);
   const acceptEncoding = req.headers['accept-encoding'] || '';
+
+  // Path traversal protection
+  if (!fullPath.startsWith(DIST)) {
+    res.writeHead(403, SECURITY_HEADERS);
+    res.end('Forbidden');
+    return;
+  }
 
   try {
     const data = await readFile(fullPath);
