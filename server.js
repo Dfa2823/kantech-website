@@ -50,7 +50,6 @@ function serve(res, data, ext, filePath, acceptEncoding) {
   const contentType = MIME[ext] || 'text/plain';
   const cache = getCacheHeader(filePath);
   const headers = { 'Content-Type': contentType, 'Cache-Control': cache, ...SECURITY_HEADERS };
-
   if (COMPRESSIBLE.has(ext) && acceptEncoding.includes('gzip')) {
     headers['Content-Encoding'] = 'gzip';
     headers['Vary'] = 'Accept-Encoding';
@@ -63,6 +62,13 @@ function serve(res, data, ext, filePath, acceptEncoding) {
 }
 
 const server = createServer(async (req, res) => {
+  // Redirigir HTTP → HTTPS
+  if (req.headers['x-forwarded-proto'] === 'http') {
+    res.writeHead(301, { Location: 'https://' + req.headers.host + req.url });
+    res.end();
+    return;
+  }
+
   let filePath = req.url === '/' ? '/index.html' : req.url;
   filePath = filePath.split('?')[0];
   const fullPath = resolve(DIST, '.' + filePath);
