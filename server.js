@@ -69,6 +69,13 @@ const server = createServer(async (req, res) => {
     return;
   }
 
+  // Redirigir kantechsol.com → www.kantechsol.com
+  if (req.headers.host === 'kantechsol.com') {
+    res.writeHead(301, { Location: 'https://www.kantechsol.com' + req.url });
+    res.end();
+    return;
+  }
+
   let filePath = req.url === '/' ? '/index.html' : req.url;
   filePath = filePath.split('?')[0];
   const fullPath = resolve(DIST, '.' + filePath);
