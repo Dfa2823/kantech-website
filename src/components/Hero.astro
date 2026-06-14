@@ -1,125 +1,132 @@
 ---
+import AuroraBackground from './AuroraBackground.astro';
+const WA_DIAG = 'https://wa.me/573194436045?text=Hola%20KANTECH!%20Quiero%20agendar%20mi%20diagn%C3%B3stico%20gratuito.';
+const chips = [
+  { icon: 'smart_toy',    es: 'Agentes de IA',      en: 'AI Agents' },
+  { icon: 'account_tree', es: 'Automatizaciones',   en: 'Automations' },
+  { icon: 'trending_up',  es: 'Mejoras de Proceso', en: 'Process Improvement' },
+  { icon: 'code_blocks',  es: 'Desarrollo a Medida', en: 'Custom Development' },
+];
+const stats = [
+  { n: 500, suf: '+', es: 'Horas/mes automatizadas', en: 'Hours/month automated' },
+  { n: 4,   suf: '',  es: 'Países en producción',     en: 'Countries in production' },
+  { n: 10,  suf: '+', es: 'Sistemas en producción',   en: 'Systems in production' },
+  { n: 98,  suf: '%', es: 'Clientes satisfechos',     en: 'Client satisfaction' },
+];
 ---
-<section id="inicio" class="relative min-h-screen flex items-center justify-center overflow-hidden grid-dot-bg pt-16">
+<section id="inicio" class="relative min-h-screen overflow-hidden pt-32 pb-20 lg:pt-40">
+  <AuroraBackground id="hero" opacity={0.5} />
 
-  <!-- Background orbs -->
-  <div class="absolute inset-0 pointer-events-none">
-    <div class="absolute top-1/4 left-1/4 w-96 h-96 rounded-full opacity-20 blur-3xl animate-pulse-slow"
-         style="background: radial-gradient(circle, #1E3BFF 0%, transparent 70%);"></div>
-    <div class="absolute bottom-1/3 right-1/4 w-80 h-80 rounded-full opacity-15 blur-3xl animate-pulse-slow delay-300"
-         style="background: radial-gradient(circle, #6C2FD9 0%, transparent 70%);"></div>
-    <div class="absolute top-1/2 right-1/3 w-64 h-64 rounded-full opacity-10 blur-3xl animate-pulse-slow delay-600"
-         style="background: radial-gradient(circle, #00D4FF 0%, transparent 70%);"></div>
-  </div>
+  <div class="relative z-10 max-w-7xl mx-auto px-6">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
 
-  <!-- Content -->
-  <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
+      <!-- Izquierda: copy -->
+      <div class="lg:col-span-7 flex flex-col items-start">
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-surface-1/50 border border-success/30 glass-panel mb-8 animate-fade-up" data-animate>
+          <span class="w-2 h-2 rounded-full bg-success animate-pulse shadow-[0_0_8px_rgba(0,232,135,0.6)]"></span>
+          <span class="text-xs font-display font-bold tracking-wider text-muted uppercase">
+            <span data-lang="es">Nuestros clientes ahorran $3-5M COP/mes <span class="text-border mx-1">·</span> <span class="text-text">Diagnóstico gratis</span></span>
+            <span data-lang="en">Our clients save $700-1,200 USD/mo <span class="text-border mx-1">·</span> <span class="text-text">Free diagnosis</span></span>
+          </span>
+        </div>
 
-    <!-- Badge -->
-    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-k-blue/30 bg-k-blue/10 text-k-cyan text-xs font-semibold tracking-wider uppercase mb-8 animate-fade-up">
-      <span class="w-1.5 h-1.5 rounded-full bg-k-green animate-pulse"></span>
-      <span data-lang="es">Nuestros clientes ahorran $3-5M COP/mes · Diagnóstico gratis</span>
-      <span data-lang="en">Our clients save $700-1,200 USD/mo · Free diagnosis</span>
-    </div>
+        <!-- Headline -->
+        <h1 class="font-display font-extrabold text-5xl sm:text-6xl lg:text-7xl leading-[1.1] tracking-tight mb-6 text-text animate-fade-up delay-100" data-animate>
+          <span data-lang="es">Deja de perder horas <br class="hidden sm:block"/><span class="gradient-text pb-2 pr-2 inline-block">en tareas manuales.</span></span>
+          <span data-lang="en">Stop wasting hours <br class="hidden sm:block"/><span class="gradient-text pb-2 pr-2 inline-block">on manual tasks.</span></span>
+        </h1>
 
-    <!-- Headline -->
-    <h1 class="font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-k-text leading-[1.1] mb-4 sm:mb-6 animate-fade-up delay-100">
-      <span data-lang="es">
-        Deja de perder horas<br/>
-        <span class="gradient-text">en tareas manuales.</span>
-      </span>
-      <span data-lang="en">
-        Stop wasting hours<br/>
-        <span class="gradient-text">on manual tasks.</span>
-      </span>
-    </h1>
+        <!-- Subheadline -->
+        <p class="text-lg sm:text-xl text-muted leading-relaxed max-w-2xl mb-10 animate-fade-up delay-200" data-animate>
+          <span data-lang="es">Tu equipo pierde +20 horas semanales copiando datos, enviando reportes y apagando incendios. Lo solucionamos con IA y automatizaciones — desde $500.000 COP, con resultados visibles en semanas.</span>
+          <span data-lang="en">Your team wastes 20+ hours per week copying data, sending reports, and putting out fires. We fix it with AI and automations — from ~$120 USD, with visible results in weeks.</span>
+        </p>
 
-    <!-- Subheadline -->
-    <p class="text-k-muted text-base sm:text-lg md:text-xl leading-relaxed max-w-2xl mx-auto mb-6 sm:mb-10 animate-fade-up delay-200">
-      <span data-lang="es">
-        Tu equipo pierde +20 horas semanales copiando datos, enviando reportes y apagando incendios.
-        Lo solucionamos con IA y automatizaciones — desde $500.000 COP, con resultados visibles en semanas.
-      </span>
-      <span data-lang="en">
-        Your team wastes 20+ hours per week copying data, sending reports, and putting out fires.
-        We fix it with AI and automations — from ~$120 USD, with visible results in weeks.
-      </span>
-    </p>
+        <!-- Chips -->
+        <div class="w-full flex overflow-x-auto gap-3 pb-4 mb-8 animate-fade-up delay-300" style="scrollbar-width:none;" data-animate>
+          {chips.map(c => (
+            <div class="flex-shrink-0 px-5 py-2.5 rounded-xl bg-surface-1 border border-border text-sm font-medium text-text hover:border-primary/50 hover:bg-surface-2 transition-all cursor-default flex items-center gap-2">
+              <span class="material-symbols-outlined text-accent text-[18px]" aria-hidden="true">{c.icon}</span>
+              <span data-lang="es">{c.es}</span><span data-lang="en">{c.en}</span>
+            </div>
+          ))}
+        </div>
 
-    <!-- Service tags -->
-    <div class="hidden sm:flex flex-wrap justify-center gap-2 mb-10 animate-fade-up delay-300">
-      {[
-        { es: 'Agentes de IA', en: 'AI Agents' },
-        { es: 'Automatizaciones', en: 'Automations' },
-        { es: 'Mejoras de Proceso', en: 'Process Improvement' },
-        { es: 'Desarrollo a Medida', en: 'Custom Development' },
-      ].map(tag => (
-        <span class="px-3 py-1 rounded-full text-xs font-medium border border-k-border text-k-muted bg-k-surface/50">
-          <span data-lang="es">{tag.es}</span>
-          <span data-lang="en">{tag.en}</span>
-        </span>
-      ))}
-    </div>
+        <!-- CTAs -->
+        <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mb-6 animate-fade-up delay-400" data-animate>
+          <a href={WA_DIAG} target="_blank" rel="noopener" class="btn-primary text-base px-8 py-4">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+              <path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.122 1.532 5.854L.057 23.886a.5.5 0 0 0 .613.613l6.033-1.475A11.955 11.955 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.88 0-3.641-.516-5.148-1.413l-.369-.214-3.822.936.955-3.822-.237-.383A9.963 9.963 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+            </svg>
+            <span data-lang="es">Quiero mi diagnóstico gratis</span><span data-lang="en">Get my free diagnosis</span>
+          </a>
+          <a href="#portafolio" class="btn-outline text-base px-8 py-4 group">
+            <span data-lang="es">Ver casos de éxito reales</span><span data-lang="en">See real success stories</span>
+            <span class="material-symbols-outlined text-[20px] text-muted group-hover:text-text transition-colors" aria-hidden="true">play_circle</span>
+          </a>
+        </div>
 
-    <!-- CTAs -->
-    <div class="flex flex-col sm:flex-row gap-4 justify-center animate-fade-up delay-400">
-      <a href="https://wa.me/573194436045?text=Hola%2C%20me%20interesa%20conocer%20m%C3%A1s%20sobre%20los%20servicios%20de%20KANTECH"
-         target="_blank" rel="noopener"
-         class="btn-primary text-base py-3.5 px-8">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.122 1.532 5.854L.057 23.886a.5.5 0 0 0 .613.613l6.033-1.475A11.955 11.955 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.88 0-3.641-.516-5.148-1.413l-.369-.214-3.822.936.955-3.822-.237-.383A9.963 9.963 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
-        </svg>
-        <span data-lang="es">Quiero mi diagnóstico gratis</span>
-        <span data-lang="en">Get my free diagnosis</span>
-      </a>
-      <a href="#portafolio" class="btn-outline text-base py-3.5 px-8">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-        </svg>
-        <span data-lang="es">Ver casos de éxito reales</span>
-        <span data-lang="en">See real success stories</span>
-      </a>
-    </div>
-
-    <!-- Stats with animated counters -->
-    <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 md:gap-16 mt-12 sm:mt-16 pt-8 sm:pt-10 border-t border-k-border/50 animate-fade-up delay-500 text-center">
-      <div class="text-center">
-        <div class="font-display text-3xl font-bold gradient-text"><span data-counter="500">0</span>+</div>
-        <div class="text-k-muted text-sm mt-1">
-          <span data-lang="es">Horas/mes automatizadas</span>
-          <span data-lang="en">Hours/month automated</span>
+        <!-- Microcopy -->
+        <div class="flex items-center gap-2 text-sm text-muted font-medium animate-fade-up delay-500" data-animate>
+          <span class="material-symbols-outlined text-[16px] text-success" aria-hidden="true">verified</span>
+          <span data-lang="es">Sin compromiso · Respuesta en minutos</span><span data-lang="en">No commitment · Reply in minutes</span>
         </div>
       </div>
-      <div class="text-center">
-        <div class="font-display text-3xl font-bold gradient-text"><span data-counter="4">0</span></div>
-        <div class="text-k-muted text-sm mt-1">
-          <span data-lang="es">Países en producción</span>
-          <span data-lang="en">Countries in production</span>
-        </div>
-      </div>
-      <div class="text-center">
-        <div class="font-display text-3xl font-bold gradient-text"><span data-counter="10">0</span>+</div>
-        <div class="text-k-muted text-sm mt-1">
-          <span data-lang="es">Sistemas en producción</span>
-          <span data-lang="en">Systems in production</span>
-        </div>
-      </div>
-      <div class="text-center">
-        <div class="font-display text-3xl font-bold gradient-text"><span data-counter="98">0</span>%</div>
-        <div class="text-k-muted text-sm mt-1">
-          <span data-lang="es">Clientes satisfechos</span>
-          <span data-lang="en">Client satisfaction</span>
+
+      <!-- Derecha: mockup de producto -->
+      <div class="lg:col-span-5 relative w-full h-[400px] lg:h-[560px] animate-fade-up delay-300" data-animate>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-primary/20 blur-[100px] rounded-full pointer-events-none"></div>
+        <div class="absolute inset-0 group">
+          <div class="w-full h-full rounded-2xl bg-surface-1 border border-border shadow-2xl shadow-black/50 overflow-hidden flex flex-col glass-panel">
+            <div class="h-10 bg-surface-2 border-b border-border flex items-center px-4 gap-2 shrink-0">
+              <div class="flex gap-1.5">
+                <div class="w-3 h-3 rounded-full bg-border"></div>
+                <div class="w-3 h-3 rounded-full bg-border"></div>
+                <div class="w-3 h-3 rounded-full bg-border"></div>
+              </div>
+              <div class="mx-auto bg-surface-0 border border-border rounded-md px-16 py-1 text-[10px] text-muted font-mono flex items-center gap-2">
+                <span class="material-symbols-outlined text-[12px]" aria-hidden="true">lock</span>
+                automate.kantech.io
+              </div>
+            </div>
+            <div class="flex-1 relative bg-surface-0 overflow-hidden">
+              <img src="/img/02_hero-0.png" loading="eager" decoding="async"
+                   alt="Plataforma KANTECH: flujo de automatización (captura de leads → calificación con IA → WhatsApp → CRM) y agente de IA calificando un lead"
+                   class="w-full h-full object-cover object-left-top" />
+              <div class="absolute inset-0 shadow-[inset_0_0_40px_rgba(8,11,22,0.8)] pointer-events-none"></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Scroll indicator -->
-  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce opacity-40">
-    <span class="text-k-muted text-xs">scroll</span>
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-k-muted">
-      <path d="M12 5v14M5 12l7 7 7-7"/>
-    </svg>
+    <!-- Stats + prueba -->
+    <div class="mt-20 lg:mt-28 border-t border-border/50 pt-12">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-14">
+        {stats.map(s => (
+          <div class="flex flex-col gap-1">
+            <div class="font-display font-bold text-4xl md:text-5xl text-success tracking-tighter">
+              <span data-counter={String(s.n)}>0</span>{s.suf}
+            </div>
+            <div class="text-sm font-display font-bold uppercase tracking-widest text-muted">
+              <span data-lang="es">{s.es}</span><span data-lang="en">{s.en}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div class="flex flex-col items-center justify-center gap-5">
+        <p class="text-xs font-display tracking-widest text-muted uppercase">
+          <span data-lang="es">Operando en sectores reales de LatAm</span><span data-lang="en">Operating in real LatAm sectors</span>
+        </p>
+        <div class="flex flex-wrap justify-center items-center gap-8 md:gap-12 opacity-60">
+          <span class="font-display font-bold text-base md:text-lg text-text/60">Salud &amp; Estética</span>
+          <span class="font-display font-bold text-base md:text-lg text-text/60">Contabilidad</span>
+          <span class="font-display font-bold text-base md:text-lg text-text/60">Manufactura</span>
+          <span class="font-display font-bold text-base md:text-lg text-text/60">Automatización</span>
+        </div>
+      </div>
+    </div>
   </div>
 </section>

@@ -1,59 +1,34 @@
 ---
-const services = [
-  {
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6v6l4 2"/><circle cx="18" cy="6" r="3"/><path d="M18 3v1M18 9v1M15 6h1M21 6h1M15.5 3.5l.7.7M20.5 8.5l.7.7M15.5 8.5l.7-.7M20.5 3.5l.7-.7"/></svg>`,
-    color: 'k-blue',
-    glow: 'rgba(30,59,255,0.15)',
-    titleEs: 'Agentes de IA',
-    titleEn: 'AI Agents',
-    descEs: 'Un asistente que atiende a tus clientes 24/7, califica leads y agenda citas — sin contratar a nadie más. Nuestros clientes ahorran $3-5M COP/mes en personal solo con este servicio.',
-    descEn: 'An assistant that serves your clients 24/7, qualifies leads, and books appointments — without hiring anyone. Our clients save $700-1,200 USD/month in staffing with this service alone.',
-    tags: ['LLM', 'Chatbots', 'WhatsApp', 'CRM Integration'],
-  },
-  {
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="6" height="6" rx="1"/><rect x="16" y="3" width="6" height="6" rx="1"/><rect x="9" y="15" width="6" height="6" rx="1"/><path d="M5 9v3a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9"/><path d="M12 12v3"/></svg>`,
-    color: 'k-cyan',
-    glow: 'rgba(0,212,255,0.15)',
-    titleEs: 'Automatizaciones',
-    titleEn: 'Automations',
-    descEs: 'Eliminamos las tareas que tu equipo odia: copiar datos entre sistemas, enviar reportes, actualizar inventarios. Un flujo que ahorra 15 horas/semana cuesta desde $500.000 COP.',
-    descEn: 'We eliminate the tasks your team hates: copying data between systems, sending reports, updating inventory. A workflow that saves 15 hours/week starts at ~$120 USD.',
-    tags: ['N8N', 'APIs', 'Webhooks', 'Odoo', 'Google Workspace'],
-  },
-  {
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3h18v18H3z" rx="2"/><path d="M3 9h18M9 21V9"/><path d="M15 13l-2 2 2 2"/><path d="M17 15h-4"/></svg>`,
-    color: 'k-purple',
-    glow: 'rgba(108,47,217,0.15)',
-    titleEs: 'Mejoras de Proceso',
-    titleEn: 'Process Improvement',
-    descEs: 'Encontramos dónde tu empresa pierde tiempo y dinero. Un diagnóstico de procesos puede revelar +$5M COP/mes en ineficiencias ocultas. El diagnóstico es gratis.',
-    descEn: 'We analyze and redesign your internal operations to eliminate bottlenecks, reduce costs, and free your team\'s time for what truly matters.',
-    tags: ['BPM', 'Diagnóstico', 'Consultoría', 'KPIs'],
-  },
-  {
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="19" y1="12" x2="5" y2="12" opacity="0.4"/></svg>`,
-    color: 'k-green',
-    glow: 'rgba(0,232,135,0.15)',
-    titleEs: 'Desarrollo a Medida',
-    titleEn: 'Custom Development',
-    descEs: 'Tu propio CRM, ERP o sistema web. Construido exactamente como lo necesitas, sin pagar por funciones que nunca usas. Desde $2M COP. Entrega en 4-12 semanas.',
-    descEn: 'Your own CRM, ERP, or web system. Built exactly as you need it, without paying for features you never use. From ~$480 USD. Delivery in 4-12 weeks.',
-    tags: ['React', 'Node.js', 'PostgreSQL', 'Python', 'Google Apps Script'],
-  },
-];
+// Servicios — layout bento. "Agentes de IA" como card flagship (mockup con imagen
+// local), 3 cards de apoyo. CTA por card con WhatsApp prellenado. Toggle de
+// tecnologías por card (accesible). EN tomado del componente actual; precios COP
+// en ES, USD equivalente en EN.
+const WA = 'https://wa.me/573194436045?text=';
+const waAgent   = WA + encodeURIComponent('Hola KANTECH! Quiero un agente de IA que atienda a mis clientes 24/7.');
+const waAuto    = WA + encodeURIComponent('Hola KANTECH! Quiero automatizar un proceso de mi empresa.');
+const waProcess = WA + encodeURIComponent('Hola KANTECH! Quiero un diagnóstico gratuito de mis procesos.');
+const waCustom  = WA + encodeURIComponent('Hola KANTECH! Quiero construir un sistema a medida (CRM/ERP/web).');
+const waAdvice  = WA + encodeURIComponent('Hola, necesito ayuda para saber qué servicio me conviene');
+
+// Tecnologías por servicio (tomadas del componente actual)
+const techAgent   = ['LLM', 'Chatbots', 'WhatsApp', 'CRM Integration'];
+const techAuto    = ['N8N', 'APIs', 'Webhooks', 'Odoo', 'Google Workspace'];
+const techProcess = ['BPM', 'Diagnóstico', 'Consultoría', 'KPIs'];
+const techCustom  = ['React', 'Node.js', 'PostgreSQL', 'Python', 'Google Apps Script'];
 ---
-<section id="servicios" class="py-24 px-6">
-  <div class="max-w-7xl mx-auto">
+<section id="servicios" class="relative py-24 px-6 overflow-hidden">
+  <div class="relative z-10 max-w-7xl mx-auto">
 
     <!-- Header -->
-    <div class="text-center mb-16" data-animate>
-      <div class="section-label mb-4">
+    <div class="flex flex-col items-center text-center max-w-3xl mx-auto mb-20 space-y-6 animate-fade-up" data-animate>
+      <div class="section-label">
+        <span class="w-2 h-2 rounded-full bg-accent animate-pulse" aria-hidden="true"></span>
         <span data-lang="es">Servicios</span>
         <span data-lang="en">Services</span>
       </div>
-      <h2 class="section-title mb-4">
-        <span data-lang="es">Todo lo que tu empresa necesita,<br/>bajo un mismo <span class="gradient-text">techo.</span></span>
-        <span data-lang="en">Everything your business needs,<br/>under one <span class="gradient-text">roof.</span></span>
+      <h2 class="section-title text-4xl md:text-5xl lg:text-6xl">
+        <span data-lang="es">Todo lo que tu empresa necesita, bajo un mismo <span class="gradient-text">techo.</span></span>
+        <span data-lang="en">Everything your business needs, under one <span class="gradient-text">roof.</span></span>
       </h2>
       <p class="section-sub mx-auto">
         <span data-lang="es">No vendemos herramientas. Entregamos soluciones completas que generan resultados desde el primer mes.</span>
@@ -61,60 +36,284 @@ const services = [
       </p>
     </div>
 
-    <!-- Services grid -->
-    <div class="grid md:grid-cols-2 gap-6">
-      {services.map((s, i) => (
-        <div class="card-glass card-glow group relative overflow-hidden" data-animate style={`animation-delay: ${i * 0.1}s`}>
-          <!-- Glow on hover -->
-          <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"
-               style={`background: radial-gradient(ellipse at top left, ${s.glow}, transparent 60%)`}></div>
+    <!-- Bento Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
 
-          <div class="relative z-10">
-            <!-- Icon -->
-            <div class={`w-12 h-12 rounded-xl flex items-center justify-center mb-5 border border-k-border text-${s.color}`}
-                 style={`background: ${s.glow}`}>
-              <Fragment set:html={s.icon} />
-            </div>
+      <!-- 1. Flagship: Agentes de IA (wide) -->
+      <div class="col-span-1 md:col-span-12 lg:col-span-8 bg-surface-2 glass-panel rounded-xl border border-border p-8 lg:p-10 relative overflow-hidden group hover:-translate-y-1 hover:border-primary/40 transition-all duration-300 flex flex-col lg:flex-row gap-8 items-center animate-fade-up delay-100" data-animate>
+        <!-- Glow on hover -->
+        <div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" aria-hidden="true"></div>
 
-            <!-- Title -->
-            <h3 class="font-display text-xl font-bold text-k-text mb-3">
-              <span data-lang="es">{s.titleEs}</span>
-              <span data-lang="en">{s.titleEn}</span>
+        <div class="flex-1 space-y-6 z-10">
+          <div class="w-12 h-12 rounded-lg bg-surface-1 border border-border flex items-center justify-center shadow-lg relative">
+            <div class="absolute inset-0 bg-brand-gradient opacity-20 rounded-lg blur-md" aria-hidden="true"></div>
+            <span class="material-symbols-outlined text-accent text-2xl relative z-10" aria-hidden="true">smart_toy</span>
+          </div>
+          <div>
+            <h3 class="text-2xl font-headline font-bold text-white mb-3">
+              <span data-lang="es">Agentes de IA</span>
+              <span data-lang="en">AI Agents</span>
             </h3>
-
-            <!-- Description -->
-            <p class="text-k-muted text-sm leading-relaxed mb-5">
-              <span data-lang="es">{s.descEs}</span>
-              <span data-lang="en">{s.descEn}</span>
+            <p class="text-muted leading-relaxed">
+              <span data-lang="es">Un asistente que atiende a tus clientes 24/7, califica leads y agenda citas — sin contratar a nadie más. Nuestros clientes ahorran $3-5M COP/mes en personal solo con este servicio.</span>
+              <span data-lang="en">An assistant that serves your clients 24/7, qualifies leads, and books appointments — without hiring anyone. Our clients save $700-1,200 USD/month in staffing with this service alone.</span>
             </p>
+          </div>
 
-            <!-- Tags -->
-            <div class="flex flex-wrap gap-2">
-              {s.tags.map(tag => (
-                <span class="px-2.5 py-1 rounded-md text-xs font-medium bg-k-bg text-k-muted border border-k-border">
-                  {tag}
-                </span>
+          <!-- Proof badge (success reservado para métricas) -->
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-success/10 border border-success/20">
+            <span class="material-symbols-outlined text-success text-[16px]" aria-hidden="true">trending_down</span>
+            <span class="text-sm font-semibold text-success">
+              <span data-lang="es">$3-5M COP/mes ahorrados</span>
+              <span data-lang="en">$700-1,200 USD/mo saved</span>
+            </span>
+          </div>
+
+          <!-- Toggle tecnologías -->
+          <div>
+            <button type="button" class="svc-tech-toggle inline-flex items-center gap-1.5 text-sm font-medium text-muted hover:text-accent transition-colors" aria-expanded="false" aria-controls="svc-tech-agent">
+              <span class="material-symbols-outlined text-[18px]" aria-hidden="true">memory</span>
+              <span data-lang="es">Tecnologías</span><span data-lang="en">Technologies</span>
+              <span class="material-symbols-outlined text-[18px] svc-tech-chevron transition-transform" aria-hidden="true">expand_more</span>
+            </button>
+            <div id="svc-tech-agent" class="svc-tech-panel hidden flex-wrap gap-2 mt-3">
+              {techAgent.map(t => (
+                <span class="px-2.5 py-1 rounded-md text-xs font-medium bg-surface-0 text-muted border border-border">{t}</span>
               ))}
             </div>
           </div>
+
+          <div class="pt-2">
+            <a href={waAgent} target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-primary hover:text-accent font-semibold transition-colors group/link">
+              <span data-lang="es">Quiero un agente</span><span data-lang="en">I want an agent</span>
+              <span class="material-symbols-outlined transform group-hover/link:translate-x-1 transition-transform" aria-hidden="true">arrow_right_alt</span>
+            </a>
+          </div>
         </div>
-      ))}
+
+        <!-- Visual: mockup de chat con imagen local -->
+        <div class="w-full lg:w-[340px] h-[300px] relative rounded-lg border border-border bg-surface-1 overflow-hidden shadow-2xl z-10 flex-shrink-0">
+          <div class="h-10 bg-surface-2 border-b border-border flex items-center px-4 gap-2">
+            <div class="flex gap-1.5" aria-hidden="true">
+              <div class="w-2.5 h-2.5 rounded-full bg-border"></div>
+              <div class="w-2.5 h-2.5 rounded-full bg-border"></div>
+              <div class="w-2.5 h-2.5 rounded-full bg-border"></div>
+            </div>
+            <div class="flex-1 text-center text-xs text-muted font-medium">Automate.ai Flow</div>
+          </div>
+          <img src="/img/03_services-0.png" loading="lazy" decoding="async"
+               alt="Interfaz de un agente de IA de KANTECH calificando y atendiendo a clientes"
+               class="w-full h-[calc(100%-2.5rem)] object-cover opacity-80 mix-blend-screen" />
+        </div>
+      </div>
+
+      <!-- 2. Automatizaciones -->
+      <div class="col-span-1 md:col-span-6 lg:col-span-4 bg-surface-2 glass-panel rounded-xl border border-border p-8 relative overflow-hidden group hover:-translate-y-1 hover:border-primary/40 transition-all duration-300 flex flex-col animate-fade-up delay-200" data-animate>
+        <div class="w-12 h-12 rounded-lg bg-surface-1 border border-border flex items-center justify-center mb-6 relative">
+          <span class="material-symbols-outlined text-primary text-2xl z-10" aria-hidden="true">account_tree</span>
+        </div>
+        <h3 class="text-xl font-headline font-bold text-white mb-3">
+          <span data-lang="es">Automatizaciones</span>
+          <span data-lang="en">Automations</span>
+        </h3>
+        <p class="text-muted text-sm leading-relaxed flex-grow mb-6">
+          <span data-lang="es">Eliminamos las tareas que tu equipo odia: copiar datos entre sistemas, enviar reportes, actualizar inventarios. Un flujo que ahorra 15 horas/semana cuesta desde $500.000 COP.</span>
+          <span data-lang="en">We eliminate the tasks your team hates: copying data between systems, sending reports, updating inventory. A workflow that saves 15 hours/week starts at ~$120 USD.</span>
+        </p>
+
+        <div class="space-y-5 mt-auto">
+          <!-- Métrica de ahorro (success reservado) -->
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-success/10 border border-success/20">
+            <span class="material-symbols-outlined text-success text-[16px]" aria-hidden="true">schedule</span>
+            <span class="text-xs font-semibold text-success">
+              <span data-lang="es">15 h/semana ahorradas</span>
+              <span data-lang="en">15 hrs/week saved</span>
+            </span>
+          </div>
+
+          <!-- Toggle tecnologías -->
+          <div>
+            <button type="button" class="svc-tech-toggle inline-flex items-center gap-1.5 text-sm font-medium text-muted hover:text-accent transition-colors" aria-expanded="false" aria-controls="svc-tech-auto">
+              <span class="material-symbols-outlined text-[18px]" aria-hidden="true">memory</span>
+              <span data-lang="es">Tecnologías</span><span data-lang="en">Technologies</span>
+              <span class="material-symbols-outlined text-[18px] svc-tech-chevron transition-transform" aria-hidden="true">expand_more</span>
+            </button>
+            <div id="svc-tech-auto" class="svc-tech-panel hidden flex-wrap gap-2 mt-3">
+              {techAuto.map(t => (
+                <span class="px-2.5 py-1 rounded-md text-xs font-medium bg-surface-0 text-muted border border-border">{t}</span>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <a href={waAuto} target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-white hover:text-accent font-semibold transition-colors text-sm group/link">
+              <span data-lang="es">Automatizar mi proceso</span><span data-lang="en">Automate my process</span>
+              <span class="material-symbols-outlined text-[18px] transform group-hover/link:translate-x-1 transition-transform" aria-hidden="true">arrow_right_alt</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Mejoras de Proceso -->
+      <div class="col-span-1 md:col-span-6 lg:col-span-6 bg-surface-2 glass-panel rounded-xl border border-border p-8 relative overflow-hidden group hover:-translate-y-1 hover:border-primary/40 transition-all duration-300 flex flex-col animate-fade-up delay-300" data-animate>
+        <div class="w-12 h-12 rounded-lg bg-surface-1 border border-border flex items-center justify-center mb-6 relative">
+          <span class="material-symbols-outlined text-accent text-2xl z-10" aria-hidden="true">troubleshoot</span>
+        </div>
+        <h3 class="text-xl font-headline font-bold text-white mb-3">
+          <span data-lang="es">Mejoras de Proceso</span>
+          <span data-lang="en">Process Improvement</span>
+        </h3>
+        <p class="text-muted text-sm leading-relaxed flex-grow mb-6">
+          <span data-lang="es">Encontramos dónde tu empresa pierde tiempo y dinero. Un diagnóstico de procesos puede revelar +$5M COP/mes en ineficiencias ocultas. El diagnóstico es gratis.</span>
+          <span data-lang="en">We analyze and redesign your internal operations to eliminate bottlenecks, reduce costs, and free your team's time for what truly matters. The diagnosis is free.</span>
+        </p>
+
+        <div class="space-y-5 mt-auto">
+          <!-- Diagnóstico gratis (success reservado: prueba/oferta) -->
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-success/10 border border-success/20">
+            <span class="material-symbols-outlined text-success text-[16px]" aria-hidden="true">search_check</span>
+            <span class="text-xs font-semibold text-success">
+              <span data-lang="es">Diagnóstico gratis</span>
+              <span data-lang="en">Free diagnosis</span>
+            </span>
+          </div>
+
+          <!-- Toggle tecnologías -->
+          <div>
+            <button type="button" class="svc-tech-toggle inline-flex items-center gap-1.5 text-sm font-medium text-muted hover:text-accent transition-colors" aria-expanded="false" aria-controls="svc-tech-process">
+              <span class="material-symbols-outlined text-[18px]" aria-hidden="true">memory</span>
+              <span data-lang="es">Tecnologías</span><span data-lang="en">Technologies</span>
+              <span class="material-symbols-outlined text-[18px] svc-tech-chevron transition-transform" aria-hidden="true">expand_more</span>
+            </button>
+            <div id="svc-tech-process" class="svc-tech-panel hidden flex-wrap gap-2 mt-3">
+              {techProcess.map(t => (
+                <span class="px-2.5 py-1 rounded-md text-xs font-medium bg-surface-0 text-muted border border-border">{t}</span>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <a href={waProcess} target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-white hover:text-accent font-semibold transition-colors text-sm group/link">
+              <span data-lang="es">Pedir diagnóstico</span><span data-lang="en">Request diagnosis</span>
+              <span class="material-symbols-outlined text-[18px] transform group-hover/link:translate-x-1 transition-transform" aria-hidden="true">arrow_right_alt</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Desarrollo a Medida -->
+      <div class="col-span-1 md:col-span-12 lg:col-span-6 bg-surface-2 glass-panel rounded-xl border border-border p-8 relative overflow-hidden group hover:-translate-y-1 hover:border-primary/40 transition-all duration-300 flex flex-col animate-fade-up delay-400" data-animate>
+        <div class="w-12 h-12 rounded-lg bg-surface-1 border border-border flex items-center justify-center mb-6 relative">
+          <span class="material-symbols-outlined text-2xl z-10" style="color:#6C2FD9;" aria-hidden="true">code_blocks</span>
+        </div>
+        <h3 class="text-xl font-headline font-bold text-white mb-3">
+          <span data-lang="es">Desarrollo a Medida</span>
+          <span data-lang="en">Custom Development</span>
+        </h3>
+        <p class="text-muted text-sm leading-relaxed flex-grow mb-6 max-w-lg">
+          <span data-lang="es">Tu propio CRM, ERP o sistema web. Construido exactamente como lo necesitas, sin pagar por funciones que nunca usas. Desde $2M COP.</span>
+          <span data-lang="en">Your own CRM, ERP, or web system. Built exactly as you need it, without paying for features you never use. From ~$480 USD.</span>
+        </p>
+
+        <div class="space-y-5 mt-auto">
+          <!-- Tiempo de entrega (neutral, no es métrica de éxito) -->
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-3 border border-border">
+            <span class="material-symbols-outlined text-muted text-[16px]" aria-hidden="true">calendar_clock</span>
+            <span class="text-xs font-medium text-text">
+              <span data-lang="es">Entrega 4-12 semanas</span>
+              <span data-lang="en">Delivery 4-12 weeks</span>
+            </span>
+          </div>
+
+          <!-- Toggle tecnologías -->
+          <div>
+            <button type="button" class="svc-tech-toggle inline-flex items-center gap-1.5 text-sm font-medium text-muted hover:text-accent transition-colors" aria-expanded="false" aria-controls="svc-tech-custom">
+              <span class="material-symbols-outlined text-[18px]" aria-hidden="true">memory</span>
+              <span data-lang="es">Tecnologías</span><span data-lang="en">Technologies</span>
+              <span class="material-symbols-outlined text-[18px] svc-tech-chevron transition-transform" aria-hidden="true">expand_more</span>
+            </button>
+            <div id="svc-tech-custom" class="svc-tech-panel hidden flex-wrap gap-2 mt-3">
+              {techCustom.map(t => (
+                <span class="px-2.5 py-1 rounded-md text-xs font-medium bg-surface-0 text-muted border border-border">{t}</span>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <a href={waCustom} target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-white hover:text-accent font-semibold transition-colors text-sm group/link">
+              <span data-lang="es">Construir mi sistema</span><span data-lang="en">Build my system</span>
+              <span class="material-symbols-outlined text-[18px] transform group-hover/link:translate-x-1 transition-transform" aria-hidden="true">arrow_right_alt</span>
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- CTA -->
-    <div class="text-center mt-12" data-animate>
-      <p class="text-k-muted text-sm mb-4">
-        <span data-lang="es">¿No sabes cuál necesitas? Te ayudamos a decidir.</span>
-        <span data-lang="en">Not sure which one you need? We'll help you decide.</span>
-      </p>
-      <a href="https://wa.me/573194436045?text=Hola%2C%20necesito%20ayuda%20para%20saber%20qu%C3%A9%20servicio%20me%20conviene"
-         target="_blank" rel="noopener" class="btn-primary">
-        <span data-lang="es">Recibir asesoría gratis</span>
-        <span data-lang="en">Get free advice</span>
-        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M5 12h14M12 5l7 7-7 7"/>
-        </svg>
-      </a>
+    <!-- Footer Strip (Trust & CTA) -->
+    <div class="mt-20 flex flex-col items-center justify-center text-center animate-fade-up delay-200" data-animate>
+      <div class="flex items-center gap-3 mb-8">
+        <div class="h-[1px] w-12 bg-border" aria-hidden="true"></div>
+        <p class="text-xs font-headline tracking-widest text-muted uppercase">
+          <span class="text-success font-bold">+<span data-counter="30">0</span></span>
+          <span data-lang="es"> procesos automatizados</span>
+          <span data-lang="en"> automated processes</span>
+        </p>
+        <div class="h-[1px] w-12 bg-border" aria-hidden="true"></div>
+      </div>
+
+      <div class="bg-surface-2 glass-panel rounded-2xl border border-border p-8 md:px-12 w-full max-w-3xl flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="text-left">
+          <h4 class="text-xl font-headline font-bold text-white mb-1">
+            <span data-lang="es">¿No sabes cuál necesitas?</span>
+            <span data-lang="en">Not sure which one you need?</span>
+          </h4>
+          <p class="text-muted text-sm">
+            <span data-lang="es">Te ayudamos a decidir en una llamada de 15 min.</span>
+            <span data-lang="en">We'll help you decide in a 15-min call.</span>
+          </p>
+        </div>
+        <a href={waAdvice} target="_blank" rel="noopener" class="btn-primary whitespace-nowrap">
+          <span data-lang="es">Recibir asesoría gratis</span>
+          <span data-lang="en">Get free advice</span>
+          <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span>
+        </a>
+      </div>
     </div>
+
   </div>
 </section>
+
+<script is:inline>
+  (function () {
+    const toggles = document.querySelectorAll('#servicios .svc-tech-toggle');
+    toggles.forEach(btn => {
+      const panel = document.getElementById(btn.getAttribute('aria-controls'));
+      const chevron = btn.querySelector('.svc-tech-chevron');
+      if (!panel) return;
+
+      function open() {
+        panel.classList.remove('hidden');
+        panel.classList.add('flex');
+        btn.setAttribute('aria-expanded', 'true');
+        if (chevron) chevron.style.transform = 'rotate(180deg)';
+      }
+      function close() {
+        panel.classList.add('hidden');
+        panel.classList.remove('flex');
+        btn.setAttribute('aria-expanded', 'false');
+        if (chevron) chevron.style.transform = '';
+      }
+      btn.addEventListener('click', () => {
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        expanded ? close() : open();
+      });
+      // ESC cierra el panel cuando el foco está en el toggle
+      btn.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && btn.getAttribute('aria-expanded') === 'true') {
+          close();
+          btn.focus();
+        }
+      });
+    });
+  })();
+</script>

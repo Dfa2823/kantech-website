@@ -1,54 +1,34 @@
 ---
-const reasons = [
+// WhyUs — "Por qué KANTECH" / bento asimétrico
+// WhatsApp prefilled messages reused from the existing component / project conventions.
+const WA_WORK = 'https://wa.me/573194436045?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20c%C3%B3mo%20trabaja%20KANTECH';
+const WA_CASES = 'https://wa.me/573194436045?text=Hola%2C%20me%20gustar%C3%ADa%20ver%20casos%20de%20%C3%A9xito%20reales%20de%20KANTECH';
+
+// Las 4 tarjetas compactas (las 2 grandes — "Equipo local" y "Resultados en semanas" — van fijas en el markup).
+const compact = [
   {
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
-    color: '#1E3BFF',
-    glow: 'rgba(30,59,255,0.1)',
-    titleEs: 'Resultados en semanas',
-    titleEn: 'Results in weeks',
-    descEs: 'No meses ni años. Entregamos soluciones funcionales rápido, con iteraciones cortas para que veas valor desde el inicio.',
-    descEn: 'Not months or years. We deliver working solutions fast, with short iterations so you see value from the start.',
-  },
-  {
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`,
-    color: '#00D4FF',
-    glow: 'rgba(0,212,255,0.1)',
-    titleEs: 'Equipo local en Colombia',
-    titleEn: 'Local team in Colombia',
-    descEs: 'Misma zona horaria, mismo idioma, misma cultura de negocio. Sin fricciones de comunicación ni malentendidos culturales.',
-    descEn: 'Same timezone, same language, same business culture. No communication friction or cultural misunderstandings.',
-  },
-  {
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>`,
-    color: '#6C2FD9',
-    glow: 'rgba(108,47,217,0.1)',
+    icon: 'account_tree',
     titleEs: 'Tecnología que escala',
     titleEn: 'Technology that scales',
     descEs: 'Construimos sobre stacks modernos y probados. Lo que hacemos hoy puede crecer con tu empresa mañana sin reescribir todo.',
     descEn: 'We build on modern, proven stacks. What we do today can grow with your business tomorrow without rewriting everything.',
   },
   {
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>`,
-    color: '#00E887',
-    glow: 'rgba(0,232,135,0.1)',
+    icon: 'monitoring',
     titleEs: 'ROI medible desde el día 1',
     titleEn: 'Measurable ROI from day 1',
     descEs: 'Cada proyecto se define con métricas claras: horas ahorradas, procesos eliminados, ventas incrementadas. Sabemos exactamente qué estamos mejorando.',
-    descEn: 'Every project is defined with clear metrics: hours saved, processes eliminated, sales increased. We know exactly what we\'re improving.',
+    descEn: "Every project is defined with clear metrics: hours saved, processes eliminated, sales increased. We know exactly what we're improving.",
   },
   {
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z"/><path d="M20.5 10H19V8.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/><path d="M9.5 14c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5S8 21.33 8 20.5v-5c0-.83.67-1.5 1.5-1.5z"/><path d="M3.5 14H5v1.5c0 .83-.67 1.5-1.5 1.5S2 16.33 2 15.5 2.67 14 3.5 14z"/><path d="M14 14.5c0-.83.67-1.5 1.5-1.5h5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-5c-.83 0-1.5-.67-1.5-1.5z"/><path d="M15.5 19H14v1.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z"/><path d="M10 9.5C10 8.67 9.33 8 8.5 8h-5C2.67 8 2 8.67 2 9.5S2.67 11 3.5 11h5c.83 0 1.5-.67 1.5-1.5z"/><path d="M8.5 5H10V3.5C10 2.67 9.33 2 8.5 2S7 2.67 7 3.5 7.67 5 8.5 5z"/></svg>`,
-    color: '#1E3BFF',
-    glow: 'rgba(30,59,255,0.1)',
+    icon: 'extension',
     titleEs: 'Integración con lo que ya tienes',
     titleEn: 'Integration with what you already have',
     descEs: 'Trabajamos con tus sistemas actuales. No necesitas tirar lo que ya funciona. Conectamos, mejoramos y ampliamos.',
-    descEn: 'We work with your existing systems. You don\'t need to throw away what already works. We connect, improve, and expand.',
+    descEn: "We work with your existing systems. You don't need to throw away what already works. We connect, improve, and expand.",
   },
   {
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.47 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>`,
-    color: '#00D4FF',
-    glow: 'rgba(0,212,255,0.1)',
+    icon: 'support_agent',
     titleEs: 'Soporte continuo',
     titleEn: 'Ongoing support',
     descEs: 'Después de entregar, seguimos. Mantenimiento, mejoras, nuevas funcionalidades. Una relación a largo plazo, no un proyecto y adiós.',
@@ -56,63 +36,183 @@ const reasons = [
   },
 ];
 ---
-<section id="nosotros" class="py-24 px-6">
-  <div class="max-w-7xl mx-auto">
+<section id="nosotros" class="relative py-24 md:py-32 px-6 overflow-hidden">
+  <div class="relative z-10 max-w-7xl mx-auto flex flex-col gap-16">
 
     <!-- Header -->
-    <div class="text-center mb-16" data-animate>
-      <div class="section-label mb-4">
+    <div class="flex flex-col items-center text-center max-w-3xl mx-auto gap-6 animate-fade-up" data-animate>
+      <div class="section-label">
         <span data-lang="es">Por qué KANTECH</span>
         <span data-lang="en">Why KANTECH</span>
       </div>
-      <h2 class="section-title mb-4">
-        <span data-lang="es">El socio tecnológico que<br/>tu empresa necesita.</span>
-        <span data-lang="en">The technology partner<br/>your business needs.</span>
+      <h2 class="font-headline text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-text leading-tight">
+        <span data-lang="es">El socio tecnológico que tu <span class="gradient-text">empresa necesita.</span></span>
+        <span data-lang="en">The technology partner your <span class="gradient-text">business needs.</span></span>
       </h2>
-      <p class="section-sub mx-auto">
+      <p class="text-lg md:text-xl text-muted max-w-2xl font-medium leading-relaxed">
         <span data-lang="es">No somos solo desarrolladores. Somos el puente entre tu negocio y la tecnología que lo transforma.</span>
         <span data-lang="en">We're not just developers. We're the bridge between your business and the technology that transforms it.</span>
       </p>
     </div>
 
-    <!-- Grid -->
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-      {reasons.map((r, i) => (
-        <div class="group relative bg-k-surface border border-k-border rounded-2xl p-5 hover:border-opacity-60 transition-all duration-300 overflow-hidden"
-             style={`--hover-border: ${r.color}`}
-             data-animate style={`animation-delay: ${i * 0.08}s`}>
+    <!-- Bento Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-min">
 
-          <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"
-               style={`background: radial-gradient(ellipse at top left, ${r.glow}, transparent 70%)`}></div>
-
-          <div class="relative z-10">
-            <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4 border border-k-border"
-                 style={`color: ${r.color}; background: ${r.glow}`}>
-              <Fragment set:html={r.icon} />
+      <!-- Large Feature 1: Equipo local en Colombia -->
+      <article class="glass-panel bg-surface-1 rounded-xl md:col-span-7 p-8 md:p-10 flex flex-col justify-between group overflow-hidden relative animate-fade-up delay-100" data-animate>
+        <div class="absolute -right-20 -bottom-20 w-64 h-64 bg-primary/20 rounded-full blur-3xl group-hover:bg-primary/30 transition-colors duration-500" aria-hidden="true"></div>
+        <div class="z-10 flex flex-col gap-4 mb-8">
+          <h3 class="font-headline text-2xl md:text-3xl font-bold text-text">
+            <span data-lang="es">Equipo local en Colombia</span>
+            <span data-lang="en">Local team in Colombia</span>
+          </h3>
+          <p class="text-muted text-base md:text-lg leading-relaxed max-w-md">
+            <span data-lang="es">Misma zona horaria, mismo idioma, misma cultura de negocio. Sin fricciones de comunicación ni malentendidos culturales.</span>
+            <span data-lang="en">Same timezone, same language, same business culture. No communication friction or cultural misunderstandings.</span>
+          </p>
+        </div>
+        <div class="relative h-48 md:h-64 mt-auto rounded-lg overflow-hidden bg-surface-2 border border-border flex items-center justify-center z-10">
+          <div class="absolute inset-0 bg-gradient-to-t from-surface-2 to-transparent z-10" aria-hidden="true"></div>
+          <!-- Mapa estilizado de Colombia (decorativo, SVG abstracto neón) -->
+          <div class="absolute inset-0 opacity-50" aria-hidden="true">
+            <svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <radialGradient id="whyus-glow" cx="42%" cy="48%" r="60%">
+                  <stop offset="0%" stop-color="rgba(0,212,255,0.35)" />
+                  <stop offset="100%" stop-color="rgba(0,212,255,0)" />
+                </radialGradient>
+              </defs>
+              <rect width="400" height="260" fill="url(#whyus-glow)" />
+              <g stroke="rgba(0,212,255,0.25)" stroke-width="1" fill="none">
+                <line x1="120" y1="60" x2="200" y2="120" />
+                <line x1="200" y1="120" x2="160" y2="200" />
+                <line x1="200" y1="120" x2="270" y2="150" />
+                <line x1="270" y1="150" x2="300" y2="90" />
+                <line x1="200" y1="120" x2="110" y2="150" />
+              </g>
+              <g fill="#00D4FF">
+                <circle cx="200" cy="120" r="5" />
+                <circle cx="120" cy="60" r="3" />
+                <circle cx="160" cy="200" r="3" />
+                <circle cx="270" cy="150" r="3" />
+                <circle cx="300" cy="90" r="3" />
+                <circle cx="110" cy="150" r="3" />
+              </g>
+            </svg>
+          </div>
+          <div class="absolute bottom-6 left-6 z-20">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface-3/80 backdrop-blur border border-success/30 text-success text-sm font-medium shadow-lg shadow-success/10">
+              <span class="material-symbols-outlined text-sm" style="font-variation-settings:'FILL' 1;" aria-hidden="true">schedule</span>
+              <span data-lang="es">Respondemos en &lt; 1h</span>
+              <span data-lang="en">We reply in &lt; 1h</span>
             </div>
-            <h3 class="font-display font-bold text-k-text text-base mb-2">
-              <span data-lang="es">{r.titleEs}</span>
-              <span data-lang="en">{r.titleEn}</span>
-            </h3>
-            <p class="text-k-muted text-sm leading-relaxed">
-              <span data-lang="es">{r.descEs}</span>
-              <span data-lang="en">{r.descEn}</span>
-            </p>
           </div>
         </div>
+      </article>
+
+      <!-- Large Feature 2: Resultados en semanas -->
+      <article class="glass-panel bg-surface-1 rounded-xl md:col-span-5 p-8 md:p-10 flex flex-col justify-between group overflow-hidden relative animate-fade-up delay-200" data-animate>
+        <div class="absolute top-0 right-0 w-full h-1 bg-gradient-to-r from-success/0 via-success/50 to-success/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" aria-hidden="true"></div>
+        <div class="z-10 flex flex-col gap-4">
+          <h3 class="font-headline text-2xl md:text-3xl font-bold text-text">
+            <span data-lang="es">Resultados en semanas</span>
+            <span data-lang="en">Results in weeks</span>
+          </h3>
+          <p class="text-muted text-base md:text-lg leading-relaxed">
+            <span data-lang="es">No meses ni años. Entregamos soluciones funcionales rápido, con iteraciones cortas para que veas valor desde el inicio.</span>
+            <span data-lang="en">Not months or years. We deliver working solutions fast, with short iterations so you see value from the start.</span>
+          </p>
+        </div>
+        <div class="mt-12 mb-4 flex items-baseline gap-2 z-10">
+          <span class="font-headline text-7xl md:text-8xl font-bold text-success tracking-tighter tabular-nums drop-shadow-[0_0_15px_rgba(0,232,135,0.3)]">
+            <span data-counter="3">0</span>x
+          </span>
+          <span class="text-muted font-medium text-lg">
+            <span data-lang="es">más rápido</span>
+            <span data-lang="en">faster</span>
+          </span>
+        </div>
+      </article>
+
+      <!-- Compact Cards -->
+      {compact.map((c, i) => (
+        <article class={`glass-panel bg-surface-1 rounded-xl md:col-span-3 p-6 flex flex-col gap-4 group animate-fade-up delay-${300 + i * 100}`} data-animate>
+          <div class="w-12 h-12 rounded-lg icon-tile flex items-center justify-center text-accent mb-2">
+            <span class="material-symbols-outlined" aria-hidden="true">{c.icon}</span>
+          </div>
+          <h4 class="font-headline text-xl font-bold text-text">
+            <span data-lang="es">{c.titleEs}</span>
+            <span data-lang="en">{c.titleEn}</span>
+          </h4>
+          <p class="text-sm text-muted leading-relaxed">
+            <span data-lang="es">{c.descEs}</span>
+            <span data-lang="en">{c.descEn}</span>
+          </p>
+        </article>
       ))}
     </div>
 
-    <!-- CTA -->
-    <div class="text-center mt-12" data-animate>
-      <a href="https://wa.me/573194436045?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20c%C3%B3mo%20trabaja%20KANTECH"
-         target="_blank" rel="noopener" class="btn-outline">
+    <!-- Social Proof Band -->
+    <div class="py-10 border-y border-border/50 flex flex-col md:flex-row items-center justify-between gap-8 bg-surface-1/30 rounded-2xl px-8 animate-fade-up" data-animate>
+      <div class="flex items-center gap-4">
+        <div class="flex -space-x-2" aria-hidden="true">
+          <div class="w-10 h-10 rounded-full bg-surface-3 border-2 border-surface-0 flex items-center justify-center text-muted text-xs">C1</div>
+          <div class="w-10 h-10 rounded-full bg-surface-3 border-2 border-surface-0 flex items-center justify-center text-muted text-xs">C2</div>
+          <div class="w-10 h-10 rounded-full bg-surface-3 border-2 border-surface-0 flex items-center justify-center text-muted text-xs">C3</div>
+        </div>
+        <div class="flex flex-col">
+          <div class="flex text-accent text-sm" aria-hidden="true">
+            <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">star</span>
+          </div>
+          <span class="text-success font-medium text-sm">
+            <span data-lang="es"><span data-counter="24">0</span>+ proyectos entregados</span>
+            <span data-lang="en"><span data-counter="24">0</span>+ projects delivered</span>
+          </span>
+        </div>
+      </div>
+      <div class="flex flex-wrap justify-center md:justify-end items-center gap-x-8 gap-y-3 opacity-60">
+        <span class="font-display font-bold text-base md:text-lg text-text/60">Salud &amp; Estética</span>
+        <span class="font-display font-bold text-base md:text-lg text-text/60">Contabilidad</span>
+        <span class="font-display font-bold text-base md:text-lg text-text/60 hidden sm:inline">Manufactura</span>
+        <span class="font-display font-bold text-base md:text-lg text-text/60 hidden lg:inline">Automatización</span>
+      </div>
+    </div>
+
+    <!-- CTA Row -->
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-up" data-animate>
+      <a href={WA_WORK} target="_blank" rel="noopener" class="btn-primary text-base px-8 py-4 w-full sm:w-auto">
         <span data-lang="es">Conocer cómo trabajamos</span>
         <span data-lang="en">Learn how we work</span>
-        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-          <path d="M5 12h14M12 5l7 7-7 7"/>
-        </svg>
+        <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span>
+      </a>
+      <a href={WA_CASES} target="_blank" rel="noopener" class="btn-outline text-base px-8 py-4 w-full sm:w-auto">
+        <span data-lang="es">Ver casos de éxito</span>
+        <span data-lang="en">See success stories</span>
       </a>
     </div>
+
   </div>
 </section>
+
+<style is:global>
+  /* Tile de icono (gradiente sutil de marca) — específico de WhyUs */
+  #nosotros .icon-tile {
+    background: linear-gradient(135deg, rgba(30, 59, 255, 0.1), rgba(0, 212, 255, 0.05));
+    border: 1px solid rgba(0, 212, 255, 0.2);
+  }
+  /* Hover lift en panels (alineado con el diseño Stitch) */
+  #nosotros .glass-panel {
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+  #nosotros .glass-panel:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 40px -10px rgba(30, 59, 255, 0.15), inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #nosotros .glass-panel:hover { transform: none; }
+  }
+</style>

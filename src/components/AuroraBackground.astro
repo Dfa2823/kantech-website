@@ -1,0 +1,68 @@
+---
+// Fondo "aurora": malla de gradiente animada (WebGL) + grano sutil.
+// Reutilizable; pasar un id único si se usa más de una vez en la página.
+interface Props { id?: string; opacity?: number; }
+const { id = 'aurora', opacity = 0.5 } = Astro.props;
+const canvasId = `shader-canvas-${id}`;
+---
+<div class="absolute inset-0 w-full h-full pointer-events-none z-0" aria-hidden="true">
+  <canvas id={canvasId} class="aurora-canvas" style={`opacity:${opacity}`}></canvas>
+  <div class="grain-overlay"></div>
+</div>
+
+<script define:vars={{ canvasId }}>
+  (function () {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function syncSize() {
+      const w = canvas.clientWidth || 1280;
+      const h = canvas.clientHeight || 720;
+      if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; }
+    }
+    if (typeof ResizeObserver !== 'undefined') new ResizeObserver(syncSize).observe(canvas);
+    syncSize();
+
+    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+    if (!gl) return;
+    const vs = `attribute vec2 a_position; varying vec2 v_uv;
+      void main(){ v_uv = a_position*0.5+0.5; gl_Position = vec4(a_position,0.0,1.0); }`;
+    const fs = `precision highp float; uniform float u_time; uniform vec2 u_resolution;
+      void main(){
+        vec2 uv = gl_FragCoord.xy / u_resolution.xy;
+        vec3 color = vec3(0.031, 0.043, 0.086);      // #080B16
+        vec3 blue = vec3(0.118, 0.231, 1.0);         // #1E3BFF
+        vec3 violet = vec3(0.424, 0.184, 0.851);     // #6C2FD9
+        vec3 cyan = vec3(0.0, 0.831, 1.0);           // #00D4FF
+        float t = u_time * 0.2;
+        float n1 = sin(uv.x*2.0+t)*cos(uv.y*3.0-t*0.5); color += blue*max(0.0,n1)*0.08;
+        float n2 = sin(uv.y*2.5+t*0.7)*cos(uv.x*1.5-t); color += violet*max(0.0,n2)*0.06;
+        float n3 = sin((uv.x+uv.y)*1.8+t*0.3); color += cyan*max(0.0,n3)*0.05;
+        gl_FragColor = vec4(color, 1.0);
+      }`;
+    function cs(type, src){ const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); return s; }
+    const prog = gl.createProgram();
+    gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+    gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+    gl.linkProgram(prog); gl.useProgram(prog);
+    const buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+    const pos = gl.getAttribLocation(prog, 'a_position');
+    gl.enableVertexAttribArray(pos);
+    gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+    const uTime = gl.getUniformLocation(prog, 'u_time');
+    const uRes = gl.getUniformLocation(prog, 'u_resolution');
+
+    function draw(t){
+      if (typeof ResizeObserver === 'undefined') syncSize();
+      gl.viewport(0, 0, canvas.width, canvas.height);
+      if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+      if (uTime) gl.uniform1f(uTime, t * 0.001);
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      if (!reduce) requestAnimationFrame(draw);
+    }
+    if (reduce) { draw(0); } else { requestAnimationFrame(draw); }
+  })();
+</script>

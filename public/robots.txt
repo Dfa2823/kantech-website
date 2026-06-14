@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://kantech-website-production.up.railway.app/sitemap.xml
+Sitemap: https://kantechsol.com/sitemap.xml

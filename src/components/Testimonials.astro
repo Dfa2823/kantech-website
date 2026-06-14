@@ -1,100 +1,238 @@
 ---
-const testimonials = [
-  {
-    quoteEs: 'KANTECH transformó nuestra operación de agendamiento. Pasamos de gestionar todo en WhatsApp y hojas de Excel a tener un CRM completo adaptado exactamente a cómo trabajamos. El equipo de ventas ahora tiene visibilidad total y cerramos más citas.',
-    quoteEn: 'KANTECH transformed our scheduling operation. We went from managing everything in WhatsApp and Excel to having a full CRM tailored exactly to how we work. The sales team now has full visibility and we close more appointments.',
-    authorEs: 'Juan Sebastián R. — Dir. Comercial, Clínica de Estética, Quito',
-    authorEn: 'Juan Sebastián R. — Commercial Dir., Aesthetics Clinic, Quito',
-    initials: 'JS',
-    color: '#1E3BFF',
-  },
-  {
-    quoteEs: 'La automatización contable que implementaron nos ahorró horas de trabajo manual cada semana. El flujo de N8N conecta nuestros sistemas y genera los reportes automáticamente. Pagó su inversión en el primer mes.',
-    quoteEn: 'The accounting automation they implemented saved us hours of manual work every week. The N8N flow connects our systems and generates reports automatically. It paid for its investment in the first month.',
-    authorEs: 'María Victoria M. — Gerente Admin., Laboratorio Cosmético, Cali',
-    authorEn: 'María Victoria M. — Admin. Manager, Cosmetics Lab, Cali',
-    initials: 'MV',
-    color: '#00D4FF',
-  },
-  {
-    quoteEs: 'Desarrollaron nuestro ERP de producción desde cero. No es una herramienta genérica — conoce exactamente nuestro proceso de manufactura, el manejo de inventario y la integración con facturación electrónica. El resultado superó lo que esperábamos.',
-    quoteEn: 'They built our production ERP from scratch. It\'s not a generic tool — it knows exactly our manufacturing process, inventory management, and integration with electronic invoicing. The result exceeded our expectations.',
-    authorEs: 'Ricardo P. — Gerente de Producción, Laboratorio Industrial, Cali',
-    authorEn: 'Ricardo P. — Production Manager, Industrial Lab, Cali',
-    initials: 'RP',
-    color: '#6C2FD9',
-  },
-];
+// Testimonios — 1 destacado + 2 de apoyo (bento grid).
+// Copy ES del diseño Stitch (06_testimonials). EN tomado del componente actual.
+const WA_DIAG = 'https://wa.me/573194436045?text=Hola%2C%20vi%20los%20testimonios%20y%20me%20interesa%20un%20diagn%C3%B3stico';
 ---
-<section id="testimonios" class="py-24 px-6 bg-k-surface/30">
-  <div class="max-w-7xl mx-auto">
+<section id="testimonios" class="relative py-24 px-6 overflow-hidden">
+  <!-- Aurora sutil de fondo -->
+  <div class="aurora-bg" aria-hidden="true"></div>
 
-    <!-- Header -->
-    <div class="text-center mb-16" data-animate>
-      <div class="section-label mb-4">
+  <div class="relative z-10 max-w-7xl mx-auto">
+
+    <!-- Section Header -->
+    <header class="text-center max-w-3xl mx-auto mb-16 animate-fade-up" data-animate>
+      <div class="section-label mb-6">
+        <span class="material-symbols-outlined text-[14px]" aria-hidden="true" style="font-variation-settings: 'FILL' 1;">forum</span>
         <span data-lang="es">Clientes</span>
         <span data-lang="en">Clients</span>
       </div>
-      <h2 class="section-title mb-4">
-        <span data-lang="es">Lo que dicen quienes<br/>ya lo vivieron.</span>
-        <span data-lang="en">What those who've<br/>lived it say.</span>
+      <h2 class="font-display font-bold text-4xl md:text-5xl lg:text-6xl text-text leading-tight mb-6">
+        <span data-lang="es">Lo que dicen <span class="gradient-text">quienes ya lo vivieron</span>.</span>
+        <span data-lang="en">What those who've <span class="gradient-text">already lived it say</span>.</span>
       </h2>
-      <p class="section-sub mx-auto">
+      <p class="font-body text-lg text-muted max-w-2xl mx-auto leading-relaxed">
         <span data-lang="es">No te lo contamos nosotros. Te lo cuentan quienes ya dejaron de perder tiempo y dinero en procesos manuales.</span>
         <span data-lang="en">Don't take our word for it. Hear from those who stopped losing time and money on manual processes.</span>
       </p>
-    </div>
 
-    <!-- Testimonials grid -->
-    <div class="grid md:grid-cols-3 gap-6">
-      {testimonials.map((t, i) => (
-        <div class="relative bg-k-card border border-k-border rounded-2xl p-7 flex flex-col gap-5 hover:border-opacity-60 transition-all duration-300 overflow-hidden group"
-             data-animate style={`animation-delay: ${i * 0.1}s`}>
+      <!-- Prueba agregada -->
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-6 text-sm">
+        <div class="flex items-center gap-2">
+          <div class="flex text-accent" aria-hidden="true">
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+          </div>
+          <span class="font-medium text-text">5.0</span>
+        </div>
+        <div class="w-px h-4 bg-border" aria-hidden="true"></div>
+        <div class="text-text font-medium">
+          <span data-lang="es">100+ clientes satisfechos</span>
+          <span data-lang="en">100+ satisfied clients</span>
+        </div>
+        <div class="w-px h-4 bg-border hidden sm:block" aria-hidden="true"></div>
+        <div class="text-muted w-full sm:w-auto">
+          <span data-lang="es">Sectores: Salud, Manufactura, Logística</span>
+          <span data-lang="en">Sectors: Health, Manufacturing, Logistics</span>
+        </div>
+      </div>
+    </header>
 
-          <!-- Top glow accent -->
-          <div class="absolute top-0 left-0 right-0 h-px"
-               style={`background: linear-gradient(90deg, transparent, ${t.color}60, transparent)`}></div>
+    <!-- Bento Grid Testimonios -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
-          <!-- Quote icon -->
-          <svg class="w-8 h-8 opacity-20" style={`color: ${t.color}`} viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
-            <path d="M10 8C6.686 8 4 10.686 4 14v10h10V14H7c0-1.654 1.346-3 3-3V8zm18 0c-3.314 0-6 2.686-6 6v10h10V14h-7c0-1.654 1.346-3 3-3V8z"/>
-          </svg>
-
-          <!-- Quote text -->
-          <blockquote class="text-k-muted text-sm leading-relaxed flex-1">
-            <span data-lang="es">"{t.quoteEs}"</span>
-            <span data-lang="en">"{t.quoteEn}"</span>
-          </blockquote>
-
-          <!-- Author -->
-          <div class="flex items-center gap-3 pt-4 border-t border-k-border">
-            <div class="w-10 h-10 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0"
-                 style={`background: linear-gradient(135deg, ${t.color}, ${t.color}99)`}>
-              {t.initials}
-            </div>
-            <p class="text-k-muted text-xs leading-snug">
-              <span data-lang="es">{t.authorEs}</span>
-              <span data-lang="en">{t.authorEn}</span>
-            </p>
+      <!-- Testimonio destacado (T1) -->
+      <article class="lg:col-span-8 bg-surface-1 rounded-2xl p-8 md:p-10 border border-border/20 glass-panel hover-lift relative overflow-hidden group animate-fade-up delay-100" data-animate>
+        <div class="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-primary/5 rounded-full blur-3xl group-hover:bg-primary/10 transition-colors duration-500" aria-hidden="true"></div>
+        <div class="flex justify-between items-start mb-6">
+          <span class="material-symbols-outlined text-4xl text-primary opacity-50" aria-hidden="true" style="font-variation-settings: 'FILL' 1;">format_quote</span>
+          <div class="flex text-accent text-sm" aria-hidden="true">
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
           </div>
         </div>
-      ))}
+        <h3 class="font-display font-bold text-2xl md:text-3xl text-text mb-4 leading-snug">
+          <span data-lang="es">«Cerramos más citas con visibilidad total»</span>
+          <span data-lang="en">“We close more appointments with full visibility”</span>
+        </h3>
+        <blockquote class="font-body text-base md:text-lg text-muted mb-8 leading-relaxed">
+          <span data-lang="es">KANTECH transformó nuestra operación de agendamiento. Pasamos de gestionar todo en WhatsApp y hojas de Excel a tener un CRM completo adaptado exactamente a cómo trabajamos. El equipo de ventas ahora tiene visibilidad total y cerramos más citas.</span>
+          <span data-lang="en">KANTECH transformed our scheduling operation. We went from managing everything in WhatsApp and Excel to having a full CRM tailored exactly to how we work. The sales team now has full visibility and we close more appointments.</span>
+        </blockquote>
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mt-auto pt-6 border-t border-border/30">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full bg-brand-gradient flex items-center justify-center text-white font-display font-bold shadow-lg shadow-primary/20 shrink-0" aria-hidden="true">
+              JR
+            </div>
+            <div>
+              <div class="font-medium text-text">Juan Sebastián R.</div>
+              <div class="text-sm text-muted">
+                <span data-lang="es">Dir. Comercial, Clínica de Estética</span>
+                <span data-lang="en">Commercial Dir., Aesthetics Clinic</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 shrink-0">
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-3 border border-border/50 text-xs font-medium text-text">
+              <span class="material-symbols-outlined text-[14px]" aria-hidden="true">location_on</span>
+              Quito
+            </div>
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-success/10 border border-success/20 text-success text-xs font-bold uppercase tracking-wide">
+              <span class="material-symbols-outlined text-[14px]" aria-hidden="true">trending_down</span>
+              <span data-lang="es">~15 h/sem</span>
+              <span data-lang="en">~15 h/wk</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Testimonio T2 -->
+      <article class="lg:col-span-4 bg-surface-2 rounded-2xl p-6 md:p-8 border border-border/20 glass-panel hover-lift flex flex-col relative overflow-hidden animate-fade-up delay-200" data-animate>
+        <div class="flex justify-between items-start mb-4">
+          <span class="material-symbols-outlined text-2xl text-primary opacity-50" aria-hidden="true" style="font-variation-settings: 'FILL' 1;">format_quote</span>
+        </div>
+        <h3 class="font-display font-bold text-xl text-text mb-3 leading-tight">
+          <span data-lang="es">«Pagó su inversión en el primer mes»</span>
+          <span data-lang="en">“It paid for itself in the first month”</span>
+        </h3>
+        <blockquote class="font-body text-sm text-muted mb-6 flex-grow leading-relaxed">
+          <span data-lang="es">La automatización contable que implementaron nos ahorró horas de trabajo manual cada semana. El flujo de N8N conecta nuestros sistemas y genera los reportes automáticamente. Pagó su inversión en el primer mes.</span>
+          <span data-lang="en">The accounting automation they implemented saved us hours of manual work every week. The N8N flow connects our systems and generates reports automatically. It paid for its investment in the first month.</span>
+        </blockquote>
+        <div class="mt-auto pt-4 border-t border-border/30">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-full bg-surface-3 border border-border flex items-center justify-center text-text font-display font-bold text-sm shrink-0" aria-hidden="true">
+              MM
+            </div>
+            <div>
+              <div class="font-medium text-text text-sm">María Victoria M.</div>
+              <div class="text-xs text-muted">
+                <span data-lang="es">Gerente Admin.</span>
+                <span data-lang="en">Admin. Manager</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-wrap items-center gap-2">
+            <div class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-3 border border-border/50 text-[11px] font-medium text-text">
+              <span class="material-symbols-outlined text-[12px]" aria-hidden="true">location_on</span> Cali
+            </div>
+            <div class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-success/10 border border-success/20 text-success text-[11px] font-bold">
+              <span class="material-symbols-outlined text-[12px]" aria-hidden="true">speed</span> 6h → 45min
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Testimonio T3 -->
+      <article class="lg:col-span-12 bg-surface-1 rounded-2xl p-6 md:p-8 border border-border/20 glass-panel hover-lift relative overflow-hidden flex flex-col md:flex-row gap-8 items-center animate-fade-up delay-300" data-animate>
+        <div class="flex-1">
+          <div class="flex justify-between items-start mb-4">
+            <span class="material-symbols-outlined text-3xl text-primary opacity-50" aria-hidden="true" style="font-variation-settings: 'FILL' 1;">format_quote</span>
+          </div>
+          <h3 class="font-display font-bold text-2xl text-text mb-3 leading-tight">
+            <span data-lang="es">«El resultado superó lo que esperábamos»</span>
+            <span data-lang="en">“The result exceeded our expectations”</span>
+          </h3>
+          <blockquote class="font-body text-base text-muted mb-0 leading-relaxed">
+            <span data-lang="es">Desarrollaron nuestro ERP de producción desde cero. No es una herramienta genérica — conoce exactamente nuestro proceso de manufactura, el manejo de inventario y la integración con facturación electrónica.</span>
+            <span data-lang="en">They built our production ERP from scratch. It's not a generic tool — it knows exactly our manufacturing process, inventory management, and integration with electronic invoicing.</span>
+          </blockquote>
+        </div>
+        <div class="w-full md:w-px md:h-24 bg-border/50 hidden md:block" aria-hidden="true"></div>
+        <hr class="w-full border-border/50 md:hidden" aria-hidden="true" />
+        <div class="w-full md:w-1/3 shrink-0 flex flex-col gap-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-surface-3 border border-border flex items-center justify-center text-text font-display font-bold text-sm shrink-0" aria-hidden="true">
+              RP
+            </div>
+            <div>
+              <div class="font-medium text-text text-sm">Ricardo P.</div>
+              <div class="text-xs text-muted">
+                <span data-lang="es">Gerente de Producción</span>
+                <span data-lang="en">Production Manager</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-3 border border-border/50 text-[11px] font-medium text-text">
+              <span class="material-symbols-outlined text-[12px]" aria-hidden="true">location_on</span> Cali
+            </div>
+            <div class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-success/10 border border-success/20 text-success text-[11px] font-bold">
+              <span class="material-symbols-outlined text-[12px]" aria-hidden="true">precision_manufacturing</span>
+              <span data-lang="es">ERP a medida</span>
+              <span data-lang="en">Custom ERP</span>
+            </div>
+          </div>
+          <a class="inline-flex items-center gap-1 text-sm font-medium text-accent hover:text-text transition-colors mt-2 group w-fit" href="#portafolio">
+            <span data-lang="es">Ver caso</span>
+            <span data-lang="en">View case</span>
+            <span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform" aria-hidden="true">arrow_forward</span>
+          </a>
+        </div>
+      </article>
     </div>
 
-    <!-- CTA -->
-    <div class="text-center mt-12" data-animate>
-      <p class="text-k-muted text-sm mb-4">
+    <!-- CTA de sección -->
+    <div class="mt-20 text-center animate-fade-up delay-400" data-animate>
+      <h4 class="font-display font-medium text-xl text-text mb-6">
         <span data-lang="es">¿Quieres resultados como estos en tu empresa?</span>
         <span data-lang="en">Want results like these for your business?</span>
-      </p>
-      <a href="https://wa.me/573194436045?text=Hola%2C%20vi%20los%20testimonios%20y%20me%20interesa%20un%20diagn%C3%B3stico"
-         target="_blank" rel="noopener" class="btn-primary">
+      </h4>
+      <a href={WA_DIAG} target="_blank" rel="noopener" class="btn-primary text-base px-8 py-4 mx-auto group">
         <span data-lang="es">Agenda tu diagnóstico gratis</span>
         <span data-lang="en">Book your free diagnosis</span>
-        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-          <path d="M5 12h14M12 5l7 7-7 7"/>
-        </svg>
+        <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform" aria-hidden="true">arrow_right_alt</span>
       </a>
+      <p class="mt-4 text-xs text-muted flex items-center justify-center gap-2">
+        <span class="material-symbols-outlined text-[14px] text-success" aria-hidden="true">shield_lock</span>
+        <span data-lang="es">Diagnóstico gratis · Sin permanencia · Respuesta en &lt;24h</span>
+        <span data-lang="en">Free diagnosis · No commitment · Reply in &lt;24h</span>
+      </p>
     </div>
   </div>
 </section>
+
+<style is:global>
+  /* Aurora sutil local de la sección Testimonios (radial estático, sin JS) */
+  #testimonios .aurora-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: radial-gradient(circle at 50% 0%, rgba(30, 59, 255, 0.10) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 212, 255, 0.05) 0%, transparent 40%);
+  }
+
+  /* Hover lift suave para las tarjetas de testimonio */
+  #testimonios .hover-lift {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  #testimonios .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px -8px rgba(30, 59, 255, 0.15);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #testimonios .hover-lift {
+      transition: none;
+    }
+    #testimonios .hover-lift:hover {
+      transform: none;
+    }
+  }
+</style>

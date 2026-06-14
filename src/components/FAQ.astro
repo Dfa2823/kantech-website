@@ -1,48 +1,88 @@
 ---
+const WA_FAQ = 'https://wa.me/573194436045?text=Hola%2C%20tengo%20una%20duda%20sobre%20los%20servicios%20de%20KANTECH';
+const WA_DIAG = 'https://wa.me/573194436045?text=Hola%20KANTECH!%20Quiero%20agendar%20mi%20diagn%C3%B3stico%20gratuito.';
+
+const categories = [
+  { id: 'all',          es: 'Todas',        en: 'All' },
+  { id: 'precio',       es: 'Precio',       en: 'Pricing' },
+  { id: 'tiempos',      es: 'Tiempos',      en: 'Timelines' },
+  { id: 'proceso',      es: 'Proceso',      en: 'Process' },
+  { id: 'cobertura',    es: 'Cobertura',    en: 'Coverage' },
+  { id: 'garantia',     es: 'Garantía',     en: 'Guarantee' },
+  { id: 'integraciones',es: 'Integraciones',en: 'Integrations' },
+];
+
+// Orden tomado del diseño Stitch. EN tomado del componente actual.
 const faqs = [
   {
-    qEs: '¿Qué pasa si no funciona o no me gusta el resultado?',
-    qEn: 'What if it doesn\'t work or I don\'t like the result?',
-    aEs: 'Trabajamos en sprints cortos con demos semanales. Ves avances reales desde la primera semana y puedes pedir cambios en cualquier momento. Si después del primer sprint no estás convencido, no sigues pagando. Sin letra pequeña, sin contratos de permanencia.',
-    aEn: 'We work in short sprints with weekly demos. You see real progress from week one and can request changes anytime. If after the first sprint you\'re not convinced, you stop paying. No fine print, no lock-in contracts.',
-  },
-  {
-    qEs: '¿Por qué es tan económico comparado con otras empresas de tecnología?',
-    qEn: 'Why is it so affordable compared to other tech companies?',
-    aEs: 'Somos un equipo lean basado en Cali, Colombia. No tenemos oficinas costosas ni burocracia corporativa. Eso nos permite ofrecer la misma calidad técnica que una consultora grande a una fracción del costo. Nuestro modelo funciona porque somos eficientes, no baratos.',
-    aEn: 'We\'re a lean team based in Cali, Colombia. No expensive offices or corporate bureaucracy. This allows us to deliver the same technical quality as a large consultancy at a fraction of the cost. Our model works because we\'re efficient, not cheap.',
-  },
-  {
+    cat: 'precio',
+    icon: 'payments',
+    highlight: false,
     qEs: '¿Cuánto cuesta un proyecto con KANTECH?',
     qEn: 'How much does a project with KANTECH cost?',
     aEs: 'Cada proyecto es diferente. Tenemos servicios desde $500.000 COP para automatizaciones puntuales, hasta sistemas completos a medida (CRM, ERP). Siempre entregamos una propuesta clara con alcance y precio antes de empezar.',
     aEn: 'Every project is different. We offer services starting from ~$120 USD for targeted automations, up to full custom systems (CRM, ERP). We always provide a clear proposal with scope and pricing before starting.',
   },
   {
+    cat: 'garantia',
+    icon: 'verified_user',
+    highlight: true,
+    badgeEs: 'Sin permanencia',
+    badgeEn: 'No lock-in',
+    qEs: '¿Qué pasa si no funciona o no me gusta el resultado?',
+    qEn: 'What if it doesn\'t work or I don\'t like the result?',
+    aEs: 'Trabajamos en sprints cortos con demos semanales. Ves avances reales desde la primera semana y puedes pedir cambios en cualquier momento. Si después del primer sprint no estás convencido, no sigues pagando. Sin letra pequeña, sin contratos de permanencia.',
+    aEn: 'We work in short sprints with weekly demos. You see real progress from week one and can request changes anytime. If after the first sprint you\'re not convinced, you stop paying. No fine print, no lock-in contracts.',
+  },
+  {
+    cat: 'tiempos',
+    icon: 'schedule',
+    highlight: false,
     qEs: '¿Cuánto tiempo tarda un proyecto?',
     qEn: 'How long does a project take?',
     aEs: 'Las automatizaciones pueden estar listas en 1-2 semanas. Un sistema completo (CRM, ERP) puede tomar entre 4 y 12 semanas según el alcance. Entregamos en sprints visibles.',
     aEn: 'Automations can be ready in 1-2 weeks. A full system (CRM, ERP) can take 4-12 weeks depending on scope. We deliver in visible sprints.',
   },
   {
+    cat: 'precio',
+    icon: 'trending_down',
+    highlight: false,
+    qEs: '¿Por qué es tan económico comparado con otras empresas de tecnología?',
+    qEn: 'Why is it so affordable compared to other tech companies?',
+    aEs: 'Somos un equipo lean basado en Cali, Colombia. No tenemos oficinas costosas ni burocracia corporativa. Eso nos permite ofrecer la misma calidad técnica que una consultora grande a una fracción del costo. Nuestro modelo funciona porque somos eficientes, no baratos.',
+    aEn: 'We\'re a lean team based in Cali, Colombia. No expensive offices or corporate bureaucracy. This allows us to deliver the same technical quality as a large consultancy at a fraction of the cost. Our model works because we\'re efficient, not cheap.',
+  },
+  {
+    cat: 'proceso',
+    icon: 'psychology',
+    highlight: false,
     qEs: '¿Necesito saber de tecnología para trabajar con ustedes?',
     qEn: 'Do I need technical knowledge to work with you?',
     aEs: 'No. Nos encargamos de toda la parte técnica. Tú nos explicas el problema de negocio y nosotros lo traducimos en tecnología. Solo necesitas saber qué quieres lograr.',
     aEn: 'No. We handle all the technical aspects. You explain the business problem and we translate it into technology. You just need to know what you want to achieve.',
   },
   {
+    cat: 'proceso',
+    icon: 'handshake',
+    highlight: false,
     qEs: '¿Qué pasa después de que entregan el proyecto?',
     qEn: 'What happens after you deliver the project?',
     aEs: 'Ofrecemos soporte continuo, mantenimiento y evolución del sistema. No desaparecemos después del lanzamiento — somos tu socio tecnológico a largo plazo.',
     aEn: 'We offer ongoing support, maintenance, and system evolution. We don\'t disappear after launch — we\'re your long-term technology partner.',
   },
   {
+    cat: 'cobertura',
+    icon: 'public',
+    highlight: false,
     qEs: '¿Trabajan solo con empresas en Colombia?',
     qEn: 'Do you only work with companies in Colombia?',
     aEs: 'No. Trabajamos con empresas en Colombia, Ecuador, Perú, México y cualquier país de LatAm. Todos los proyectos pueden gestionarse de forma 100% remota.',
     aEn: 'No. We work with companies in Colombia, Ecuador, Peru, Mexico, and any LatAm country. All projects can be managed 100% remotely.',
   },
   {
+    cat: 'integraciones',
+    icon: 'hub',
+    highlight: false,
     qEs: '¿Pueden integrar sistemas que ya tenemos (Siigo, Odoo, WhatsApp)?',
     qEn: 'Can you integrate systems we already have (Siigo, Odoo, WhatsApp)?',
     aEs: 'Sí. La integración entre sistemas es uno de nuestros puntos fuertes. Conectamos Siigo, Odoo, WhatsApp Business, Google Workspace y prácticamente cualquier plataforma con API.',
@@ -50,57 +90,252 @@ const faqs = [
   },
 ];
 ---
-<section id="faq" class="py-24 px-6">
-  <div class="max-w-3xl mx-auto">
 
-    <div class="text-center mb-12" data-animate>
-      <div class="section-label mb-4">FAQ</div>
-      <h2 class="section-title mb-4">
-        <span data-lang="es">Todo lo que necesitas saber antes de <span class="gradient-text">dar el primer paso</span></span>
-        <span data-lang="en">Everything you need to know before <span class="gradient-text">taking the first step</span></span>
+<section id="faq" class="relative py-24 lg:py-32 px-6 overflow-hidden">
+  <!-- Glow ambiente sutil -->
+  <div class="absolute inset-0 bg-aurora pointer-events-none -z-10" aria-hidden="true"></div>
+
+  <div class="max-w-4xl mx-auto relative z-10">
+
+    <!-- Encabezado -->
+    <div class="text-center mb-16 flex flex-col items-center gap-6" data-animate>
+      <div class="section-label">FAQ</div>
+      <h2 id="faq-title" class="font-headline text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-text max-w-3xl leading-tight">
+        <span data-lang="es">¿Todo lo que necesitas saber antes de <span class="gradient-text">dar el primer paso?</span></span>
+        <span data-lang="en">Everything you need to know before <span class="gradient-text">taking the first step?</span></span>
       </h2>
     </div>
 
-    <div class="space-y-3" data-animate>
-      {faqs.map((faq, i) => (
-        <details class="group bg-k-surface border border-k-border rounded-2xl overflow-hidden
-                        hover:border-k-blue/30 transition-colors duration-200">
-          <summary class="flex items-center justify-between px-6 py-5 cursor-pointer list-none">
-            <span class="font-medium text-k-text text-sm pr-4">
-              <span data-lang="es">{faq.qEs}</span>
-              <span data-lang="en">{faq.qEn}</span>
-            </span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="2"
-                 class="text-k-muted flex-shrink-0 transition-transform duration-200 group-open:rotate-180">
-              <path d="M6 9l6 6 6-6"/>
-            </svg>
-          </summary>
-          <div class="px-6 pb-5 border-t border-k-border/50">
-            <p class="text-k-muted text-sm leading-relaxed pt-4">
-              <span data-lang="es">{faq.aEs}</span>
-              <span data-lang="en">{faq.aEn}</span>
-            </p>
-          </div>
-        </details>
+    <!-- Filtros de categoría -->
+    <div class="flex flex-wrap justify-center gap-3 mb-12 animate-fade-up delay-100" role="group" aria-label="Filtrar preguntas por categoría" id="faq-filters" data-animate>
+      {categories.map((c, i) => (
+        <button
+          type="button"
+          data-faq-filter={c.id}
+          aria-pressed={i === 0 ? 'true' : 'false'}
+          class="faq-chip px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
+        >
+          <span data-lang="es">{c.es}</span><span data-lang="en">{c.en}</span>
+        </button>
       ))}
     </div>
 
-    <!-- CTA -->
-    <div class="text-center mt-10" data-animate>
-      <p class="text-k-muted text-sm mb-4">
+    <!-- Acordeón -->
+    <div class="space-y-4 w-full animate-fade-up delay-200" id="faq-accordion" data-animate>
+      {faqs.map((faq, i) => (
+        <div
+          class:list={[
+            'faq-item glass-panel rounded-2xl overflow-hidden border transition-all duration-300',
+            faq.highlight
+              ? 'border-success/20 shadow-[0_0_20px_rgba(0,232,135,0.05)]'
+              : 'border-border hover:border-primary/30',
+          ]}
+          data-faq-category={faq.cat}
+        >
+          <h3 class="m-0">
+            <button
+              type="button"
+              id={`faq-q-${i}`}
+              class="faq-trigger w-full px-6 py-5 flex items-center justify-between gap-4 text-left cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-inset rounded-2xl"
+              aria-expanded="false"
+              aria-controls={`faq-a-${i}`}
+            >
+              <span class="flex items-center gap-4">
+                <span
+                  class:list={['material-symbols-outlined shrink-0', faq.highlight ? 'text-success' : 'text-muted']}
+                  style="font-variation-settings:'FILL' 0;"
+                  aria-hidden="true"
+                >{faq.icon}</span>
+                <span class="font-headline text-lg md:text-xl font-medium text-text">
+                  <span data-lang="es">{faq.qEs}</span>
+                  <span data-lang="en">{faq.qEn}</span>
+                </span>
+              </span>
+              <span
+                class:list={['material-symbols-outlined accordion-chevron shrink-0', faq.highlight ? 'text-success' : 'text-muted']}
+                aria-hidden="true"
+              >expand_more</span>
+            </button>
+          </h3>
+
+          <div
+            id={`faq-a-${i}`}
+            role="region"
+            aria-labelledby={`faq-q-${i}`}
+            class:list={['accordion-content px-6', faq.highlight ? 'bg-success/5' : 'bg-surface-1/50']}
+          >
+            <div class="accordion-inner">
+              <div class="pb-6 pt-2">
+                <div class:list={['h-px w-full mb-4', faq.highlight ? 'bg-success/10' : 'bg-border/50']}></div>
+                {faq.highlight && (
+                  <div class="flex items-center gap-2 mb-3">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-success/20 text-success border border-success/30">
+                      <span data-lang="es">{faq.badgeEs}</span><span data-lang="en">{faq.badgeEn}</span>
+                    </span>
+                  </div>
+                )}
+                <p class="font-body text-base text-muted leading-relaxed">
+                  <span data-lang="es">{faq.aEs}</span>
+                  <span data-lang="en">{faq.aEn}</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Mensaje cuando no hay resultados en un filtro -->
+    <p id="faq-empty" class="hidden text-center text-muted text-sm mt-8">
+      <span data-lang="es">No hay preguntas en esta categoría todavía.</span>
+      <span data-lang="en">No questions in this category yet.</span>
+    </p>
+
+    <!-- Bloque de cierre / CTA -->
+    <div class="mt-20 text-center glass-panel p-8 md:p-12 rounded-3xl border border-primary/20 relative overflow-hidden animate-fade-up delay-300" data-animate>
+      <div class="absolute inset-0 bg-brand-gradient opacity-5 blur-2xl pointer-events-none" aria-hidden="true"></div>
+      <h3 class="font-headline text-2xl md:text-3xl font-bold text-text mb-8 relative z-10">
         <span data-lang="es">¿Tu pregunta no está aquí? Pregúntanos directamente — sin compromiso.</span>
         <span data-lang="en">Question not listed? Ask us directly — no commitment.</span>
-      </p>
-      <a href="https://wa.me/573194436045?text=Hola%2C%20tengo%20una%20duda%20sobre%20los%20servicios%20de%20KANTECH"
-         target="_blank" rel="noopener" class="btn-primary">
-        <span data-lang="es">Resolver mi duda ahora</span>
-        <span data-lang="en">Get my answer now</span>
-        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-          <path d="M5 12h14M12 5l7 7-7 7"/>
-        </svg>
-      </a>
+      </h3>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 relative z-10">
+        <div class="relative flex items-center w-full sm:w-auto">
+          <a href={WA_FAQ} target="_blank" rel="noopener" class="btn-primary w-full sm:w-auto px-8 py-3.5">
+            <span data-lang="es">Resolver mi duda ahora</span>
+            <span data-lang="en">Get my answer now</span>
+            <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span>
+          </a>
+          <!-- Chip esmeralda contextual (disponibilidad) -->
+          <div class="absolute -top-4 -right-2 sm:-right-6 md:-right-12 hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-success/10 border border-success/30 shadow-[0_0_10px_rgba(0,232,135,0.1)]" style="transform:rotate(3deg);" aria-hidden="true">
+            <span class="w-1.5 h-1.5 rounded-full bg-success animate-pulse"></span>
+            <span class="font-label text-[10px] font-bold text-success uppercase tracking-wider whitespace-nowrap">
+              <span data-lang="es">Respuesta en &lt; 1h</span>
+              <span data-lang="en">Reply in &lt; 1h</span>
+            </span>
+          </div>
+        </div>
+        <a href={WA_DIAG} target="_blank" rel="noopener" class="btn-outline w-full sm:w-auto px-8 py-3.5">
+          <span data-lang="es">Agendar diagnóstico</span>
+          <span data-lang="en">Book a diagnosis</span>
+        </a>
+      </div>
     </div>
 
   </div>
 </section>
+
+<style is:global>
+  /* Acordeón: transición de altura suave con grid-rows */
+  #faq .accordion-content {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
+  }
+  #faq .faq-item.is-open .accordion-content {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+  #faq .accordion-inner {
+    overflow: hidden;
+    min-height: 0;
+  }
+  #faq .accordion-chevron {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  #faq .faq-item.is-open .accordion-chevron {
+    transform: rotate(180deg);
+  }
+
+  /* Chips de filtro: estado inactivo / activo */
+  #faq .faq-chip {
+    background-color: #0F1525; /* surface-1 */
+    border-color: #243049;     /* border */
+    color: #A9B6CC;            /* muted */
+  }
+  #faq .faq-chip:hover {
+    color: #F4F6FF;
+    border-color: rgba(30, 59, 255, 0.2);
+  }
+  #faq .faq-chip[aria-pressed="true"] {
+    background-color: #161E33; /* surface-2 */
+    border-color: rgba(30, 59, 255, 0.3);
+    color: #F4F6FF;
+    box-shadow: 0 0 15px rgba(30, 59, 255, 0.15);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #faq .accordion-content,
+    #faq .accordion-chevron {
+      transition: none !important;
+    }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    const root = document.getElementById('faq');
+    if (!root) return;
+
+    const items = Array.from(root.querySelectorAll('.faq-item'));
+    const triggers = Array.from(root.querySelectorAll('.faq-trigger'));
+    const filters = Array.from(root.querySelectorAll('[data-faq-filter]'));
+    const empty = document.getElementById('faq-empty');
+
+    function closeItem(item) {
+      const trigger = item.querySelector('.faq-trigger');
+      item.classList.remove('is-open');
+      if (trigger) trigger.setAttribute('aria-expanded', 'false');
+    }
+
+    function openItem(item) {
+      // Single-open: cierra los demás
+      items.forEach((other) => { if (other !== item) closeItem(other); });
+      const trigger = item.querySelector('.faq-trigger');
+      item.classList.add('is-open');
+      if (trigger) trigger.setAttribute('aria-expanded', 'true');
+    }
+
+    triggers.forEach((trigger) => {
+      const item = trigger.closest('.faq-item');
+      trigger.addEventListener('click', () => {
+        if (item.classList.contains('is-open')) {
+          closeItem(item);
+        } else {
+          openItem(item);
+        }
+      });
+    });
+
+    // ESC cierra el item abierto y devuelve foco a su trigger
+    root.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      const openOne = items.find((it) => it.classList.contains('is-open'));
+      if (openOne) {
+        closeItem(openOne);
+        const t = openOne.querySelector('.faq-trigger');
+        if (t) t.focus();
+      }
+    });
+
+    // Filtros por categoría
+    function applyFilter(cat) {
+      let visibleCount = 0;
+      items.forEach((item) => {
+        const match = cat === 'all' || item.getAttribute('data-faq-category') === cat;
+        item.classList.toggle('hidden', !match);
+        if (!match) closeItem(item);
+        if (match) visibleCount += 1;
+      });
+      if (empty) empty.classList.toggle('hidden', visibleCount > 0);
+    }
+
+    filters.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        filters.forEach((b) => b.setAttribute('aria-pressed', 'false'));
+        btn.setAttribute('aria-pressed', 'true');
+        applyFilter(btn.getAttribute('data-faq-filter'));
+      });
+    });
+  })();
+</script>

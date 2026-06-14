@@ -5,7 +5,7 @@ interface Props {
   title?: string;
   description?: string;
 }
-const siteUrl = 'https://kantech-website-production.up.railway.app';
+const siteUrl = 'https://kantechsol.com';
 const {
   title = 'KANTECH | Agentes de IA, Automatizaciones y Software a Medida — Colombia',
   description = 'Empresa de tecnologia en Cali, Colombia. Desarrollamos agentes de IA, automatizaciones con N8N y software a medida (CRM, ERP) para empresas en Colombia y Latinoamerica. Resultados en semanas, no meses.',
@@ -44,15 +44,19 @@ const {
     <!-- Fonts: preconnect + non-blocking load -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+          rel="stylesheet" media="print" onload="this.media='all'" />
+    <!-- Material Symbols (iconografía) -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
           rel="stylesheet" media="print" onload="this.media='all'" />
 
     <title>{title}</title>
 
     <!-- Fallback for no-JS -->
     <noscript>
-      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+      <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet" />
       <style>[data-animate] { opacity: 1 !important; transform: none !important; } [data-lang="en"] { display: none !important; }</style>
     </noscript>
 
@@ -63,11 +67,11 @@ const {
       "@type": "ProfessionalService",
       "name": "KANTECH",
       "description": "Agentes de IA, automatizaciones con N8N y desarrollo de software a medida para empresas en Colombia y Latinoamerica.",
-      "url": "https://kantech-website-production.up.railway.app",
+      "url": "https://kantechsol.com",
       "telephone": "+573194436045",
-      "email": "diegoalpala422@gmail.com",
-      "logo": "https://kantech-website-production.up.railway.app/favicon.svg",
-      "image": "https://kantech-website-production.up.railway.app/og-image.png",
+      "email": "director@kantechsol.com",
+      "logo": "https://kantechsol.com/favicon.svg",
+      "image": "https://kantechsol.com/og-image.png",
       "priceRange": "$$",
       "address": {
         "@type": "PostalAddress",
@@ -126,6 +130,7 @@ const {
       // Language switcher — CSS-driven via html[data-active-lang]
       function setLang(lang) {
         document.documentElement.setAttribute('data-active-lang', lang);
+        document.documentElement.setAttribute('lang', lang);
         document.querySelectorAll('[data-lang-btn]').forEach(btn => {
           const active = btn.dataset.langBtn === lang;
           btn.classList.toggle('text-k-text', active);
@@ -139,7 +144,10 @@ const {
       (function() {
         let saved = 'es';
         try { saved = localStorage.getItem('kantech-lang') || 'es'; } catch(e) {}
-        if (saved === 'en') document.documentElement.setAttribute('data-active-lang', 'en');
+        if (saved === 'en') {
+          document.documentElement.setAttribute('data-active-lang', 'en');
+          document.documentElement.setAttribute('lang', 'en');
+        }
       })();
 
       // Intersection Observer for scroll animations
@@ -189,14 +197,13 @@ const {
 
         // Active nav link on scroll
         const sections = document.querySelectorAll('section[id]');
-        const navLinks = document.querySelectorAll('header a[href^="#"]');
+        const navLinks = document.querySelectorAll('.nav-link');
         const navIO = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
               const id = entry.target.id;
               navLinks.forEach(link => {
-                link.classList.toggle('text-k-text', link.getAttribute('href') === '#' + id);
-                link.classList.toggle('text-k-muted', link.getAttribute('href') !== '#' + id);
+                link.classList.toggle('is-active', link.getAttribute('href') === '#' + id);
               });
             }
           });

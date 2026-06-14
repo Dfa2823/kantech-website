@@ -1,57 +1,78 @@
 ---
+const WA_DIAG = 'https://wa.me/573194436045?text=Hola%20KANTECH!%20Quiero%20agendar%20mi%20diagn%C3%B3stico%20gratuito.';
+
 const steps = [
   {
     num: '01',
-    color: '#1E3BFF',
-    glow: 'rgba(30,59,255,0.15)',
+    icon: 'query_stats',
+    iconColor: 'text-accent',
+    tile: 'bg-surface-2 border-primary/30 shadow-[0_0_15px_rgba(30,59,255,0.15)] group-hover:border-accent group-hover:shadow-[0_0_20px_rgba(0,212,255,0.3)]',
     titleEs: 'Diagnóstico',
     titleEn: 'Discovery',
     descEs: 'Entendemos tu negocio en profundidad: procesos actuales, dolores, objetivos y restricciones. Sin asumir nada antes de escucharte.',
     descEn: 'We deeply understand your business: current processes, pain points, goals, and constraints. No assumptions before listening to you.',
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>`,
+    chipEs: 'Sesión 60 min · gratis',
+    chipEn: '60 min session · free',
+    proofEs: 'Sin compromiso',
+    proofEn: 'No commitment',
   },
   {
     num: '02',
-    color: '#00D4FF',
-    glow: 'rgba(0,212,255,0.15)',
+    icon: 'architecture',
+    iconColor: 'text-primary-hover',
+    tile: 'bg-surface-2 border-primary/30 shadow-[0_0_15px_rgba(30,59,255,0.15)] group-hover:border-accent',
     titleEs: 'Diseño de Solución',
     titleEn: 'Solution Design',
     descEs: 'Proponemos la arquitectura técnica óptima, el alcance del proyecto, los tiempos y el costo. Todo por escrito antes de empezar.',
     descEn: 'We propose the optimal technical architecture, project scope, timeline, and cost. Everything in writing before we start.',
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>`,
+    chipEs: 'Propuesta escrita',
+    chipEn: 'Written proposal',
+    proofEs: 'Todo por escrito',
+    proofEn: 'Everything in writing',
   },
   {
     num: '03',
-    color: '#6C2FD9',
-    glow: 'rgba(108,47,217,0.15)',
+    icon: 'terminal',
+    iconColor: 'text-accent',
+    tile: 'bg-surface-2 border-primary/30 shadow-[0_0_15px_rgba(30,59,255,0.15)] group-hover:border-accent',
     titleEs: 'Implementación',
     titleEn: 'Implementation',
     descEs: 'Desarrollamos en sprints cortos con entregables visibles. Iteras con nosotros en tiempo real. Sin cajas negras ni sorpresas al final.',
     descEn: 'We develop in short sprints with visible deliverables. You iterate with us in real time. No black boxes or surprises at the end.',
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`,
+    chipEs: 'Sprints 1-2 semanas',
+    chipEn: 'Sprints 1-2 weeks',
+    proofEs: 'Sin cajas negras',
+    proofEn: 'No black boxes',
   },
   {
     num: '04',
-    color: '#00E887',
-    glow: 'rgba(0,232,135,0.15)',
+    icon: 'rocket_launch',
+    iconColor: 'text-success',
+    tile: 'bg-surface-2 border-success/40 shadow-[0_0_15px_rgba(0,232,135,0.15)] group-hover:border-success',
     titleEs: 'Evolución Continua',
     titleEn: 'Continuous Evolution',
     descEs: 'Lanzamos, medimos, mejoramos. Tu sistema crece con tu negocio. Soporte, nuevas funcionalidades y optimización constante.',
     descEn: 'We launch, measure, improve. Your system grows with your business. Support, new features, and constant optimization.',
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>`,
+    chipEs: 'Soporte continuo',
+    chipEn: 'Ongoing support',
+    proofEs: 'Largo plazo',
+    proofEn: 'Long term',
   },
 ];
 ---
-<section id="proceso" class="py-24 px-6 bg-k-surface/30">
-  <div class="max-w-6xl mx-auto">
+<section id="proceso" class="relative overflow-hidden py-24 lg:py-32">
+  <!-- Fondo ambiental -->
+  <div class="process-ambient-glow opacity-60" aria-hidden="true"></div>
+
+  <div class="max-w-7xl mx-auto px-6 relative z-10">
 
     <!-- Header -->
-    <div class="text-center mb-16" data-animate>
-      <div class="section-label mb-4">
+    <div class="text-center max-w-3xl mx-auto mb-20 md:mb-28 animate-fade-up" data-animate>
+      <div class="section-label mb-6">
         <span data-lang="es">Nuestro Proceso</span>
         <span data-lang="en">Our Process</span>
       </div>
-      <h2 class="section-title mb-4">
+      <h2 class="section-title text-4xl md:text-5xl lg:text-6xl mb-6">
         <span data-lang="es">Cómo <span class="gradient-text">trabajamos.</span></span>
         <span data-lang="en">How we <span class="gradient-text">work.</span></span>
       </h2>
@@ -61,37 +82,169 @@ const steps = [
       </p>
     </div>
 
-    <!-- Steps -->
-    <div class="grid md:grid-cols-4 gap-6 relative">
-      <!-- Connector line (desktop only) -->
-      <div class="hidden md:block absolute top-8 left-[12.5%] right-[12.5%] h-px"
-           style="background: linear-gradient(to right, rgba(30,59,255,0.3), rgba(0,212,255,0.3), rgba(108,47,217,0.3), rgba(0,232,135,0.3))"></div>
+    <!-- Timeline -->
+    <div class="relative mb-24 md:mb-32">
+      <!-- Espina vertical (móvil) -->
+      <div class="process-mobile-spine lg:hidden" aria-hidden="true"></div>
 
-      {steps.map((s, i) => (
-        <div class="relative flex flex-col items-center text-center" data-animate style={`animation-delay: ${i * 0.15}s`}>
-          <!-- Step circle -->
-          <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-5 relative z-10 border"
-               style={`color: ${s.color}; background: ${s.glow}; border-color: ${s.color}30`}>
-            <Fragment set:html={s.icon} />
+      <div class="flex flex-col lg:flex-row gap-12 lg:gap-8">
+        {steps.map((s, i) => (
+          <div
+            class="process-step-item relative flex-1 group animate-fade-up"
+            data-animate
+            class:list={[`delay-${(i + 1) * 100}`]}
+          >
+            <div class:list={["process-connector hidden lg:block", { active: i < 3 }]} aria-hidden="true"></div>
+
+            <div class="flex flex-col pl-20 lg:pl-0 relative z-10">
+              <!-- Numeral fantasma -->
+              <div
+                class="absolute -top-6 -left-4 lg:-top-10 lg:-left-6 font-display font-bold text-[80px] lg:text-[120px] text-surface-2 opacity-30 select-none -z-10 transition-transform duration-500 group-hover:scale-105"
+                aria-hidden="true"
+              >
+                {s.num}
+              </div>
+
+              <!-- Tile de icono -->
+              <div class:list={["absolute left-0 top-0 lg:relative lg:mb-8 w-14 h-14 rounded-xl flex items-center justify-center border transition-all duration-300", s.tile]}>
+                <span class:list={["material-symbols-outlined", s.iconColor]} style="font-variation-settings:'FILL' 1;" aria-hidden="true">{s.icon}</span>
+              </div>
+
+              <!-- Contenido -->
+              <h3 class="font-headline text-xl font-bold text-text mb-3">
+                <span data-lang="es">{s.titleEs}</span>
+                <span data-lang="en">{s.titleEn}</span>
+              </h3>
+              <p class="font-body text-muted text-sm leading-relaxed mb-6">
+                <span data-lang="es">{s.descEs}</span>
+                <span data-lang="en">{s.descEn}</span>
+              </p>
+
+              <!-- Chips -->
+              <div class="flex flex-wrap gap-2 mt-auto">
+                <span class="inline-flex items-center px-2.5 py-1 rounded-md bg-surface-2 border border-border text-xs font-medium text-text">
+                  <span data-lang="es">{s.chipEs}</span>
+                  <span data-lang="en">{s.chipEn}</span>
+                </span>
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-success/10 border border-success/20 text-xs font-semibold text-success">
+                  <span class="material-symbols-outlined text-[14px]" style="font-variation-settings:'FILL' 1;" aria-hidden="true">check</span>
+                  <span data-lang="es">{s.proofEs}</span>
+                  <span data-lang="en">{s.proofEn}</span>
+                </span>
+              </div>
+            </div>
           </div>
+        ))}
+      </div>
+    </div>
 
-          <!-- Number -->
-          <span class="font-mono text-xs font-bold mb-2" style={`color: ${s.color}`}>{s.num}</span>
+    <!-- CTA de cierre -->
+    <div class="glass-panel bg-surface-1 border border-border rounded-2xl max-w-2xl mx-auto p-8 md:p-12 text-center relative overflow-hidden group animate-fade-up delay-200" data-animate>
+      <div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" aria-hidden="true"></div>
 
-          <!-- Title -->
-          <h3 class="font-display font-bold text-k-text text-base mb-2">
-            <span data-lang="es">{s.titleEs}</span>
-            <span data-lang="en">{s.titleEn}</span>
-          </h3>
+      <h3 class="font-headline text-2xl md:text-3xl font-bold text-text mb-4 relative z-10">
+        <span data-lang="es">Empieza por el Diagnóstico — gratis</span>
+        <span data-lang="en">Start with the Diagnosis — free</span>
+      </h3>
+      <p class="font-body text-muted mb-8 max-w-md mx-auto relative z-10">
+        <span data-lang="es">Sin compromiso. Agendemos una llamada de 15 minutos para ver si podemos ayudarte.</span>
+        <span data-lang="en">No commitment. Let's schedule a 15-minute call to see if we can help you.</span>
+      </p>
 
-          <!-- Description -->
-          <p class="text-k-muted text-sm leading-relaxed">
-            <span data-lang="es">{s.descEs}</span>
-            <span data-lang="en">{s.descEn}</span>
-          </p>
-        </div>
-      ))}
+      <a href={WA_DIAG} target="_blank" rel="noopener" class="btn-primary text-sm px-8 py-4 relative z-10">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.122 1.532 5.854L.057 23.886a.5.5 0 0 0 .613.613l6.033-1.475A11.955 11.955 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.88 0-3.641-.516-5.148-1.413l-.369-.214-3.822.936.955-3.822-.237-.383A9.963 9.963 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+        </svg>
+        <span data-lang="es">Hablar por WhatsApp</span>
+        <span data-lang="en">Talk on WhatsApp</span>
+      </a>
+
+      <div class="mt-6 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs text-muted font-medium relative z-10">
+        <span class="flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-success shadow-[0_0_8px_rgba(0,232,135,0.6)]" aria-hidden="true"></span>
+          <span data-lang="es">Diagnóstico gratis</span>
+          <span data-lang="en">Free diagnosis</span>
+        </span>
+        <span class="w-1 h-1 rounded-full bg-border" aria-hidden="true"></span>
+        <span>
+          <span data-lang="es">Sin permanencia</span>
+          <span data-lang="en">No lock-in</span>
+        </span>
+        <span class="w-1 h-1 rounded-full bg-border" aria-hidden="true"></span>
+        <span>
+          <span data-lang="es">Respuesta en &lt;24h</span>
+          <span data-lang="en">Reply in &lt;24h</span>
+        </span>
+      </div>
     </div>
 
   </div>
 </section>
+
+<style is:global>
+  /* Glow ambiental del fondo de la sección Proceso */
+  #proceso .process-ambient-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    max-width: 90vw;
+    background: radial-gradient(circle, rgba(30, 59, 255, 0.1) 0%, rgba(8, 11, 22, 0) 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  /* Conector progresivo del timeline (escritorio) */
+  @media (min-width: 1024px) {
+    #proceso .process-connector::after {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: 50%;
+      width: 100%;
+      height: 2px;
+      background: #243049;
+      z-index: 0;
+    }
+    #proceso .process-connector.active::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: 50%;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, #1E3BFF, #00E887);
+      z-index: 1;
+      box-shadow: 0 0 8px rgba(0, 232, 135, 0.4);
+    }
+    #proceso .process-step-item:last-child .process-connector::after,
+    #proceso .process-step-item:last-child .process-connector::before {
+      display: none;
+    }
+  }
+
+  /* Espina vertical (móvil/tablet) */
+  @media (max-width: 1023px) {
+    #proceso .process-mobile-spine {
+      position: absolute;
+      left: 28px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, #1E3BFF, #00E887);
+      z-index: 0;
+      opacity: 0.5;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #proceso .group-hover\:scale-105,
+    #proceso .process-step-item .group-hover\:scale-105 {
+      transition: none !important;
+    }
+  }
+</style>

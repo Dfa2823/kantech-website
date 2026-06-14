@@ -1,19 +1,31 @@
 ---
-const models = [
+// === Modelos de trabajo (Pricing) ===
+// WhatsApp base + mensajes prellenados por plan
+const WA_BASE = 'https://wa.me/573194436045';
+const WA_PROYECTO = `${WA_BASE}?text=${encodeURIComponent('Hola KANTECH! Me interesa el modelo Proyecto Puntual. Quiero empezar un proyecto con alcance y precio cerrado.')}`;
+const WA_EQUIPO = `${WA_BASE}?text=${encodeURIComponent('Hola KANTECH! Me interesa el modelo Equipo Dedicado (horas mensuales). Quiero hablar con el equipo.')}`;
+const WA_SOCIO = `${WA_BASE}?text=${encodeURIComponent('Hola KANTECH! Me interesa el modelo Socio Tecnológico. Quiero agendar mi diagnóstico.')}`;
+const WA_FINAL = `${WA_BASE}?text=${encodeURIComponent('Hola KANTECH! Quiero conversar sobre mi proyecto.')}`;
+
+const tiers = [
   {
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>`,
-    color: '#1E3BFF',
-    glow: 'rgba(30,59,255,0.15)',
     titleEs: 'Proyecto Puntual',
     titleEn: 'Fixed Project',
-    priceEs: 'Desde $500.000 COP',
-    priceEn: 'From ~$120 USD',
-    anchorEs: 'Consultora típica: $3-8M COP',
-    anchorEn: 'Typical consultancy: $700-2,000 USD',
-    roiEs: 'ROI típico: 6x en el primer mes',
-    roiEn: 'Typical ROI: 6x in the first month',
     descEs: 'Alcance definido, precio fijo, entrega en semanas. Ideal para automatizaciones, MVPs o herramientas específicas.',
     descEn: 'Defined scope, fixed price, delivery in weeks. Ideal for automations, MVPs, or specific tools.',
+    fromEs: 'Desde',
+    fromEn: 'From',
+    cop: '$500.000',
+    usd: '$120',
+    unit: '',                 // '' para precio único, '/mes' para mensual
+    anchorEs: 'vs. Consultora típica:',
+    anchorEn: 'vs. Typical consultancy:',
+    anchorCop: '$3-8M',
+    anchorUsd: '$700-2K',
+    anchorUnit: '',
+    metricIcon: 'trending_up',
+    metricEs: 'ROI típico: 6x en el primer mes',
+    metricEn: 'Typical ROI: 6x in the first month',
     features: [
       { es: 'Alcance y precio cerrado', en: 'Fixed scope and price' },
       { es: 'Entrega en 2-8 semanas', en: 'Delivery in 2-8 weeks' },
@@ -21,44 +33,63 @@ const models = [
     ],
     bestForEs: 'Automatizaciones, landing pages, integraciones API',
     bestForEn: 'Automations, landing pages, API integrations',
+    ctaEs: 'Empezar proyecto',
+    ctaEn: 'Start a project',
+    wa: WA_PROYECTO,
+    highlighted: false,
   },
   {
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
-    color: '#00D4FF',
-    glow: 'rgba(0,212,255,0.15)',
     titleEs: 'Equipo Dedicado',
     titleEn: 'Dedicated Team',
-    priceEs: 'Desde $2.000.000 COP/mes',
-    priceEn: 'From ~$480 USD/mo',
-    anchorEs: 'Dev senior en nómina: $6-10M COP/mes',
-    anchorEn: 'Senior dev on payroll: $1,500-2,500 USD/mo',
-    roiEs: 'Ahorra $3-5M/mes vs. contratar un dev interno',
-    roiEn: 'Save $700-1,200/mo vs. hiring in-house',
     descEs: 'Horas mensuales con iteración continua. Para proyectos que evolucionan y necesitan atención constante.',
     descEn: 'Monthly hours with continuous iteration. For projects that evolve and need ongoing attention.',
+    fromEs: 'Desde',
+    fromEn: 'From',
+    cop: '$2.000.000',
+    usd: '$500',
+    unit: '/mes',
+    unitEn: '/mo',
+    anchorEs: 'vs. Dev senior en nómina:',
+    anchorEn: 'vs. Senior dev on payroll:',
+    anchorCop: '$6-10M',
+    anchorUsd: '$1.5-2.5K',
+    anchorUnit: '/mes',
+    anchorUnitEn: '/mo',
+    metricIcon: 'savings',
+    metricEs: 'Ahorra $3-5M/mes vs. contratar dev interno',
+    metricEn: 'Save $700-1,200/mo vs. hiring in-house',
     features: [
-      { es: 'Horas mensuales flexibles', en: 'Flexible monthly hours' },
+      { es: 'Horas mensuales flexibles', en: 'Flexible monthly hours', strong: true },
       { es: 'Sprints semanales con demos', en: 'Weekly sprints with demos' },
       { es: 'Comunicación directa por Slack/WA', en: 'Direct communication via Slack/WA' },
     ],
     bestForEs: 'CRM, ERP, plataformas web complejas',
     bestForEn: 'CRM, ERP, complex web platforms',
+    ctaEs: 'Hablar con el equipo',
+    ctaEn: 'Talk to the team',
+    wa: WA_EQUIPO,
     highlighted: true,
   },
   {
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>`,
-    color: '#6C2FD9',
-    glow: 'rgba(108,47,217,0.15)',
     titleEs: 'Socio Tecnológico',
     titleEn: 'Tech Partner',
-    priceEs: 'Desde $5.000.000 COP/mes',
-    priceEn: 'From ~$1,200 USD/mo',
-    anchorEs: 'Depto. tech interno: $15-30M COP/mes',
-    anchorEn: 'In-house tech dept: $3,500-7,000 USD/mo',
-    roiEs: 'Un CTO + equipo tech por una fracción del costo',
-    roiEn: 'A CTO + tech team at a fraction of the cost',
     descEs: 'Relación a largo plazo. Nos convertimos en tu departamento de tecnología con soporte, mejoras continuas y visión estratégica.',
     descEn: 'Long-term relationship. We become your technology department with support, continuous improvements, and strategic vision.',
+    fromEs: 'Desde',
+    fromEn: 'From',
+    cop: '$5.000.000',
+    usd: '$1.200',
+    unit: '/mes',
+    unitEn: '/mo',
+    anchorEs: 'vs. Depto. tech interno:',
+    anchorEn: 'vs. In-house tech dept:',
+    anchorCop: '$15-30M',
+    anchorUsd: '$4-8K',
+    anchorUnit: '/mes',
+    anchorUnitEn: '/mo',
+    metricIcon: 'groups',
+    metricEs: 'Un CTO + equipo tech por una fracción del costo',
+    metricEn: 'A CTO + tech team at a fraction of the cost',
     features: [
       { es: 'Roadmap tecnológico trimestral', en: 'Quarterly technology roadmap' },
       { es: 'Soporte prioritario 24/7', en: 'Priority 24/7 support' },
@@ -66,130 +97,633 @@ const models = [
     ],
     bestForEs: 'Empresas en crecimiento sin equipo tech interno',
     bestForEn: 'Growing companies without an internal tech team',
+    ctaEs: 'Agendar diagnóstico',
+    ctaEn: 'Schedule a diagnosis',
+    wa: WA_SOCIO,
+    highlighted: false,
+  },
+];
+
+// Matriz de comparación
+const matrixRows = [
+  {
+    labelEs: 'Modelo de facturación', labelEn: 'Billing model',
+    cells: [
+      { es: 'Hito / Entregable', en: 'Milestone / Deliverable' },
+      { es: 'Mensual flexible', en: 'Flexible monthly' },
+      { es: 'Retainer fijo', en: 'Fixed retainer' },
+    ],
+  },
+  {
+    labelEs: 'Flexibilidad de alcance', labelEn: 'Scope flexibility',
+    cells: [
+      { es: 'Baja (Cerrado)', en: 'Low (Fixed)' },
+      { es: 'Alta (Iterativo)', en: 'High (Iterative)' },
+      { es: 'Total (Estratégico)', en: 'Full (Strategic)' },
+    ],
+  },
+  {
+    labelEs: 'Comunicación', labelEn: 'Communication',
+    cells: [
+      { es: 'Email / Llamadas hito', en: 'Email / Milestone calls' },
+      { es: 'Slack / WA Directo', en: 'Slack / Direct WA' },
+      { es: 'Canal dedicado + Reuniones', en: 'Dedicated channel + Meetings' },
+    ],
+  },
+  {
+    labelEs: 'Rol de KANTECH', labelEn: 'KANTECH role',
+    cells: [
+      { es: 'Ejecutor técnico', en: 'Technical executor' },
+      { es: 'Co-creador / Dev Team', en: 'Co-creator / Dev Team' },
+      { es: 'CTO + Dev Team', en: 'CTO + Dev Team' },
+    ],
   },
 ];
 ---
-<section id="modelos" class="py-24 px-6">
-  <div class="max-w-7xl mx-auto">
+<section id="modelos" class="relative py-24 px-6 overflow-hidden">
+  <!-- Aurora sutil de fondo (decorativo) -->
+  <div class="eng-aurora" aria-hidden="true"></div>
+
+  <div class="relative z-10 max-w-7xl mx-auto">
 
     <!-- Header -->
-    <div class="text-center mb-16" data-animate>
+    <div class="text-center mb-14 max-w-3xl mx-auto animate-fade-up" data-animate>
       <div class="section-label mb-4">
         <span data-lang="es">Modelos de trabajo</span>
         <span data-lang="en">Engagement models</span>
       </div>
       <h2 class="section-title mb-4">
-        <span data-lang="es">Elige cómo quieres<br/>trabajar con nosotros.</span>
-        <span data-lang="en">Choose how you want<br/>to work with us.</span>
+        <span data-lang="es">Elige cómo quieres <br class="hidden md:block"/><span class="gradient-text">trabajar con nosotros.</span></span>
+        <span data-lang="en">Choose how you want <br class="hidden md:block"/><span class="gradient-text">to work with us.</span></span>
       </h2>
-      <p class="section-sub mx-auto">
+      <p class="section-sub mx-auto mb-8">
         <span data-lang="es">Tres formas de colaborar, adaptadas a tu etapa y presupuesto.</span>
         <span data-lang="en">Three ways to collaborate, adapted to your stage and budget.</span>
       </p>
+
+      <!-- Trust Ribbon -->
+      <div class="inline-flex flex-wrap justify-center items-center gap-x-6 gap-y-3 mb-8 bg-surface-1/50 py-3 px-6 rounded-full border border-border glass-panel">
+        <div class="eng-trust-item">
+          <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;" aria-hidden="true">verified</span>
+          <span data-lang="es">Diagnóstico gratis</span><span data-lang="en">Free diagnosis</span>
+        </div>
+        <span class="hidden md:inline text-border" aria-hidden="true">•</span>
+        <div class="eng-trust-item">
+          <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;" aria-hidden="true">description</span>
+          <span data-lang="es">Propuesta escrita</span><span data-lang="en">Written proposal</span>
+        </div>
+        <span class="hidden md:inline text-border" aria-hidden="true">•</span>
+        <div class="eng-trust-item">
+          <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;" aria-hidden="true">lock_open</span>
+          <span data-lang="es">Sin permanencia</span><span data-lang="en">No lock-in</span>
+        </div>
+        <span class="hidden md:inline text-border" aria-hidden="true">•</span>
+        <div class="eng-trust-item">
+          <span class="material-symbols-outlined text-success" style="font-variation-settings:'FILL' 1;" aria-hidden="true">shield</span>
+          <span data-lang="es">Garantía primer sprint</span><span data-lang="en">First-sprint guarantee</span>
+        </div>
+      </div>
+
+      <!-- Currency Toggle -->
+      <div class="flex items-center justify-center gap-4">
+        <button
+          type="button"
+          id="eng-currency-toggle"
+          class="eng-toggle-switch"
+          role="switch"
+          aria-checked="false"
+          aria-label="Cambiar moneda entre COP y USD / Switch currency between COP and USD">
+          <span class="eng-toggle-slider" aria-hidden="true"></span>
+          <span class="eng-toggle-labels" aria-hidden="true">
+            <span class="eng-toggle-label is-active" data-toggle-label="cop">COP</span>
+            <span class="eng-toggle-label" data-toggle-label="usd">USD</span>
+          </span>
+        </button>
+      </div>
     </div>
 
-    <!-- Models grid -->
-    <div class="grid md:grid-cols-3 gap-6">
-      {models.map((m, i) => (
-        <div class:list={[
-          'relative flex flex-col rounded-2xl p-7 border transition-all duration-300 overflow-hidden group',
-          m.highlighted
-            ? 'bg-k-surface border-k-blue/40 shadow-xl shadow-k-blue/15 md:scale-[1.03] ring-1 ring-k-blue/20'
-            : 'bg-k-card border-k-border hover:border-k-blue/30'
-        ]}
-             data-animate style={`animation-delay: ${i * 0.1}s`}>
+    <!-- Pricing Cards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20 items-stretch">
+      {tiers.map((t, i) => (
+        <div
+          class:list={[
+            'eng-card rounded-xl p-8 flex flex-col h-full animate-fade-up',
+            t.highlighted ? 'eng-popular md:-translate-y-4 md:scale-105 z-10' : '',
+          ]}
+          data-animate
+          style={`animation-delay: ${i * 0.1}s`}>
 
-          {m.highlighted && (
-            <div class="absolute top-0 left-0 right-0 h-1" style={`background: linear-gradient(90deg, ${m.color}, #6C2FD9)`}></div>
+          {t.highlighted && (
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
+              <div class="bg-primary text-white text-xs font-bold uppercase tracking-wider py-1 px-4 rounded-full shadow-lg border border-white/20 whitespace-nowrap">
+                <span data-lang="es">Recomendado para la mayoría</span>
+                <span data-lang="en">Recommended for most</span>
+              </div>
+            </div>
           )}
 
-          {m.highlighted && (
-            <span class="absolute top-3 right-3 px-2 py-0.5 text-xs font-bold rounded-full bg-k-blue/20 text-k-cyan border border-k-blue/30">
-              <span data-lang="es">Popular</span>
-              <span data-lang="en">Popular</span>
-            </span>
-          )}
-
-          <!-- Icon -->
-          <div class="w-14 h-14 rounded-xl flex items-center justify-center mb-5 border border-k-border"
-               style={`color: ${m.color}; background: ${m.glow}`}>
-            <Fragment set:html={m.icon} />
-          </div>
-
-          <!-- Title -->
-          <h3 class="font-display text-xl font-bold text-k-text mb-2">
-            <span data-lang="es">{m.titleEs}</span>
-            <span data-lang="en">{m.titleEn}</span>
-          </h3>
-
-          <!-- Price with anchor -->
-          <p class="text-xs text-k-muted line-through mb-1">
-            <span data-lang="es">{m.anchorEs}</span>
-            <span data-lang="en">{m.anchorEn}</span>
-          </p>
-          <p class="text-base font-bold mb-1" style={`color: ${m.color}`}>
-            <span data-lang="es">{m.priceEs}</span>
-            <span data-lang="en">{m.priceEn}</span>
-          </p>
-          <p class="text-xs text-k-muted mb-4">
-            <span data-lang="es">{m.roiEs}</span>
-            <span data-lang="en">{m.roiEn}</span>
-          </p>
-
-          <!-- Description -->
-          <p class="text-k-muted text-sm leading-relaxed mb-6">
-            <span data-lang="es">{m.descEs}</span>
-            <span data-lang="en">{m.descEn}</span>
-          </p>
-
-          <!-- Features -->
-          <ul class="space-y-3 mb-6 flex-1">
-            {m.features.map(f => (
-              <li class="flex items-start gap-2.5 text-sm">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                     stroke={m.color} stroke-width="2.5" class="mt-0.5 flex-shrink-0">
-                  <polyline points="20 6 9 17 4 12"/>
-                </svg>
-                <span class="text-k-muted">
-                  <span data-lang="es">{f.es}</span>
-                  <span data-lang="en">{f.en}</span>
-                </span>
-              </li>
-            ))}
-          </ul>
-
-          <!-- Best for -->
-          <div class="pt-4 border-t border-k-border/50">
-            <p class="text-xs text-k-muted">
-              <span class="font-semibold text-k-text">
-                <span data-lang="es">Ideal para: </span>
-                <span data-lang="en">Best for: </span>
-              </span>
-              <span data-lang="es">{m.bestForEs}</span>
-              <span data-lang="en">{m.bestForEn}</span>
+          <!-- Title + description -->
+          <div class:list={['mb-6', t.highlighted ? 'mt-2' : '']}>
+            <h3 class:list={['font-headline text-text mb-2', t.highlighted ? 'text-3xl font-bold' : 'text-2xl font-semibold']}>
+              <span data-lang="es">{t.titleEs}</span><span data-lang="en">{t.titleEn}</span>
+            </h3>
+            <p class="text-muted text-sm leading-relaxed">
+              <span data-lang="es">{t.descEs}</span><span data-lang="en">{t.descEn}</span>
             </p>
           </div>
+
+          <!-- Price -->
+          <div class="mb-6">
+            <div class="text-muted text-sm font-medium mb-1">
+              <span data-lang="es">{t.fromEs}</span><span data-lang="en">{t.fromEn}</span>
+            </div>
+            <div class="flex items-baseline gap-1.5">
+              <span
+                class:list={['eng-price-val', t.highlighted ? 'text-primary' : 'text-text']}
+                data-cop={t.cop}
+                data-usd={t.usd}>{t.cop}</span>
+              <span
+                class="eng-price-currency"
+                data-curr-base="COP"
+                data-curr-unit-es={t.unit}
+                data-curr-unit-en={t.unitEn || t.unit}>
+                <span data-lang="es">COP{t.unit}</span><span data-lang="en">COP{t.unitEn || t.unit}</span>
+              </span>
+            </div>
+
+            <!-- Anchor: chip "vs. alternativa" (NO descuento falso) -->
+            <div class="eng-competitor-chip">
+              <span class="eng-competitor-label">
+                <span data-lang="es">vs. alternativa</span><span data-lang="en">vs. alternative</span>
+              </span>
+              <span data-lang="es">{t.anchorEs} </span><span data-lang="en">{t.anchorEn} </span>
+              <span
+                data-cop={t.anchorCop}
+                data-usd={t.anchorUsd}>{t.anchorCop}</span>
+              <span
+                class="eng-anchor-currency"
+                data-curr-base="COP"
+                data-curr-unit-es={t.anchorUnit}
+                data-curr-unit-en={t.anchorUnitEn || t.anchorUnit}> <span data-lang="es">COP{t.anchorUnit}</span><span data-lang="en">COP{t.anchorUnitEn || t.anchorUnit}</span></span>
+            </div>
+
+            <!-- Metric chip (success: reservado para ROI/ahorro/prueba) -->
+            <div class="eng-metric-chip w-full justify-center">
+              <span class="material-symbols-outlined" style="font-size:1rem;font-variation-settings:'FILL' 1;" aria-hidden="true">{t.metricIcon}</span>
+              <span data-lang="es">{t.metricEs}</span><span data-lang="en">{t.metricEn}</span>
+            </div>
+          </div>
+
+          <!-- Features -->
+          <div class="flex-grow">
+            <div class="font-display text-xs uppercase tracking-wider text-muted mb-4 font-semibold">
+              <span data-lang="es">Incluye:</span><span data-lang="en">Includes:</span>
+            </div>
+            <ul class="space-y-3">
+              {t.features.map(f => (
+                <li class="eng-feature-item">
+                  <span class="material-symbols-outlined eng-feature-icon" aria-hidden="true">check_circle</span>
+                  <span class:list={[f.strong ? 'font-medium text-text' : '']}>
+                    <span data-lang="es">{f.es}</span><span data-lang="en">{f.en}</span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Best for -->
+          <div class:list={['eng-card-footer', t.highlighted ? 'bg-surface-1 border-primary/20' : '']}>
+            <div class:list={['eng-card-footer-label', t.highlighted ? 'text-primary' : '']}>
+              <span data-lang="es">Ideal para:</span><span data-lang="en">Best for:</span>
+            </div>
+            <div class:list={['eng-card-footer-text', t.highlighted ? 'text-text' : '']}>
+              <span data-lang="es">{t.bestForEs}</span><span data-lang="en">{t.bestForEn}</span>
+            </div>
+          </div>
+
+          <!-- CTA por tier (WhatsApp con mensaje por plan) -->
+          <a
+            href={t.wa}
+            target="_blank"
+            rel="noopener"
+            class:list={['w-full mt-auto', t.highlighted ? 'btn-primary py-4 text-base' : 'btn-outline']}>
+            <span data-lang="es">{t.ctaEs}</span><span data-lang="en">{t.ctaEn}</span>
+          </a>
         </div>
       ))}
     </div>
 
-    <!-- Guarantee -->
-    <div class="mt-10 p-5 rounded-2xl border border-k-green/20 bg-k-green/5 text-center max-w-2xl mx-auto" data-animate>
-      <p class="text-k-green text-sm font-medium">
-        <span data-lang="es">Todos los planes incluyen diagnóstico gratis y propuesta escrita antes de pagar un peso. Sin contratos de permanencia. Si no ves resultados en el primer sprint, no sigues pagando.</span>
-        <span data-lang="en">All plans include a free diagnosis and a written proposal before you pay anything. No lock-in contracts. If you don't see results in the first sprint, you stop paying.</span>
-      </p>
-    </div>
+    <!-- Footer Elements -->
+    <div class="max-w-4xl mx-auto space-y-12">
 
-    <!-- CTA -->
-    <div class="text-center mt-12" data-animate>
-      <a href="#contacto" class="btn-primary text-base py-3.5 px-8">
-        <span data-lang="es">Conversemos sobre tu proyecto</span>
-        <span data-lang="en">Let's talk about your project</span>
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M5 12h14M12 5l7 7-7 7"/>
-        </svg>
-      </a>
+      <!-- Guarantee Box -->
+      <div class="eng-guarantee flex flex-col md:flex-row items-center gap-6 text-center md:text-left animate-fade-up" data-animate>
+        <div class="bg-surface-0 rounded-full p-4 border border-border flex-shrink-0 relative">
+          <div class="absolute inset-0 bg-success/20 rounded-full blur-md" aria-hidden="true"></div>
+          <span class="material-symbols-outlined text-success text-4xl relative z-10" style="font-variation-settings:'FILL' 1;" aria-hidden="true">verified_user</span>
+        </div>
+        <div>
+          <h4 class="font-headline font-bold text-xl text-text mb-2">
+            <span data-lang="es">Garantía KANTECH</span><span data-lang="en">KANTECH Guarantee</span>
+          </h4>
+          <p class="text-muted text-sm md:text-base leading-relaxed">
+            <span data-lang="es"><span class="text-success font-medium">Todos los planes incluyen diagnóstico gratis y propuesta escrita antes de pagar un peso.</span> Sin contratos de permanencia. Si no ves resultados en el primer sprint, no sigues pagando.</span>
+            <span data-lang="en"><span class="text-success font-medium">All plans include a free diagnosis and a written proposal before you pay anything.</span> No lock-in contracts. If you don't see results in the first sprint, you stop paying.</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Comparison Matrix Toggle -->
+      <div class="text-center animate-fade-up" data-animate>
+        <button
+          type="button"
+          id="eng-matrix-toggle"
+          class="group inline-flex items-center justify-center gap-2 mx-auto text-muted hover:text-text transition-colors font-medium text-sm py-2 px-4 rounded-full border border-border bg-surface-1 hover:bg-surface-2"
+          aria-expanded="false"
+          aria-controls="eng-matrix">
+          <span class="material-symbols-outlined text-lg transition-transform duration-300" id="eng-matrix-icon" aria-hidden="true">expand_more</span>
+          <span id="eng-matrix-label">
+            <span data-lang="es">Comparar planes en detalle</span><span data-lang="en">Compare plans in detail</span>
+          </span>
+        </button>
+      </div>
+
+      <!-- Expandable Comparison Matrix -->
+      <div class="eng-expandable" id="eng-matrix" aria-hidden="true">
+        <div class="eng-expandable-inner pt-6">
+          <div class="eng-card rounded-xl overflow-hidden border border-border">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-sm whitespace-nowrap">
+                <thead class="eng-matrix-header">
+                  <tr>
+                    <th scope="col" class="p-4 font-semibold text-muted w-1/3">
+                      <span data-lang="es">Característica</span><span data-lang="en">Feature</span>
+                    </th>
+                    <th scope="col" class="p-4 font-semibold text-text text-center border-l border-border/50">
+                      <span data-lang="es">Proyecto Puntual</span><span data-lang="en">Fixed Project</span>
+                    </th>
+                    <th scope="col" class="p-4 font-semibold text-primary text-center border-l border-border/50 bg-primary/5">
+                      <span data-lang="es">Equipo Dedicado</span><span data-lang="en">Dedicated Team</span>
+                    </th>
+                    <th scope="col" class="p-4 font-semibold text-text text-center border-l border-border/50">
+                      <span data-lang="es">Socio Tecnológico</span><span data-lang="en">Tech Partner</span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {matrixRows.map(row => (
+                    <tr class="eng-matrix-row hover:bg-surface-2/50 transition-colors">
+                      <th scope="row" class="p-4 text-muted font-normal text-left">
+                        <span data-lang="es">{row.labelEs}</span><span data-lang="en">{row.labelEn}</span>
+                      </th>
+                      {row.cells.map((c, ci) => (
+                        <td class:list={['p-4 text-center text-text border-l border-border/50', ci === 1 ? 'bg-primary/5' : '']}>
+                          <span data-lang="es">{c.es}</span><span data-lang="en">{c.en}</span>
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Final CTA -->
+      <div class="text-center mt-16 pb-4 animate-fade-up" data-animate>
+        <a href={WA_FINAL} target="_blank" rel="noopener" class="btn-primary py-4 px-8 text-base inline-flex items-center gap-3">
+          <span data-lang="es">Conversemos sobre tu proyecto</span><span data-lang="en">Let's talk about your project</span>
+          <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+        </a>
+      </div>
     </div>
   </div>
 </section>
+
+<style is:global>
+  /* === Engagement / Modelos: estilos locales === */
+  #modelos .eng-aurora {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(circle at 15% 30%, rgba(30, 59, 255, 0.06), transparent 30%),
+      radial-gradient(circle at 85% 70%, rgba(0, 212, 255, 0.04), transparent 30%);
+  }
+
+  /* Tarjetas glass */
+  #modelos .eng-card {
+    background-color: #161E33;            /* surface-2 */
+    border: 1px solid #243049;            /* border */
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 4px 20px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+  }
+  #modelos .eng-card:hover {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 8px 30px rgba(30, 59, 255, 0.1);
+  }
+
+  /* Tier recomendado */
+  #modelos .eng-popular {
+    background-color: #1E2942;            /* surface-3 */
+    border: 1px solid transparent;
+    background-clip: padding-box;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 12px 40px rgba(0, 0, 0, 0.35);
+  }
+  #modelos .eng-popular::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    z-index: -1;
+    border-radius: inherit;
+    background: linear-gradient(110deg, #1E3BFF, #00D4FF);
+    opacity: 0.5;
+    transition: opacity 0.3s ease, box-shadow 0.3s ease;
+  }
+  #modelos .eng-popular:hover::before {
+    opacity: 1;
+    box-shadow: 0 0 24px rgba(30, 59, 255, 0.4);
+  }
+
+  /* Trust ribbon */
+  #modelos .eng-trust-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    color: #A9B6CC;
+    font-size: 0.875rem;
+  }
+  #modelos .eng-trust-item .material-symbols-outlined {
+    font-size: 1rem;
+    color: #00D4FF;
+  }
+  #modelos .eng-trust-item .material-symbols-outlined.text-success { color: #00E887; }
+
+  /* Toggle de moneda */
+  #modelos .eng-toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 120px;
+    height: 34px;
+    background-color: #0F1525;            /* surface-1 */
+    border-radius: 9999px;
+    border: 1px solid #243049;
+    cursor: pointer;
+    padding: 0;
+  }
+  #modelos .eng-toggle-slider {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 56px;
+    height: 28px;
+    background-color: #1E3BFF;
+    border-radius: 9999px;
+    transition: transform 0.3s ease;
+    z-index: 1;
+  }
+  #modelos .eng-toggle-labels {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    padding: 0 16px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #A9B6CC;
+    pointer-events: none;
+  }
+  #modelos .eng-toggle-switch[aria-checked="true"] .eng-toggle-slider {
+    transform: translateX(58px);
+  }
+  #modelos .eng-toggle-label.is-active { color: #F4F6FF; }
+
+  /* Precio */
+  #modelos .eng-price-val {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 2.5rem;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    transition: opacity 0.15s ease;
+  }
+  #modelos .eng-price-currency {
+    font-size: 1rem;
+    color: #A9B6CC;
+    font-weight: 500;
+  }
+
+  /* Chip de ancla "vs. alternativa" (sin descuento falso) */
+  #modelos .eng-competitor-chip {
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px dashed #243049;
+    color: #A9B6CC;
+    font-size: 0.8125rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    margin-top: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  #modelos .eng-competitor-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #A9B6CC;
+    opacity: 0.7;
+    display: block;
+    margin-bottom: 0.125rem;
+  }
+
+  /* Chip de métrica (success: ROI / ahorro / prueba) */
+  #modelos .eng-metric-chip {
+    background-color: rgba(0, 232, 135, 0.1);
+    color: #00E887;
+    border: 1px solid rgba(0, 232, 135, 0.2);
+    font-size: 0.875rem;
+    padding: 0.375rem 0.5rem;
+    border-radius: 9999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-weight: 500;
+    text-align: center;
+  }
+
+  /* Features */
+  #modelos .eng-feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    color: #F4F6FF;
+    font-size: 0.9375rem;
+  }
+  #modelos .eng-feature-icon {
+    color: #1E3BFF;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+  }
+
+  /* Card footer "Ideal para" */
+  #modelos .eng-card-footer {
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+  }
+  #modelos .eng-card-footer-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.75rem;
+    color: #00D4FF;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.25rem;
+  }
+  #modelos .eng-card-footer-text {
+    font-size: 0.875rem;
+    color: #A9B6CC;
+  }
+
+  /* Matriz comparativa */
+  #modelos .eng-matrix-row { border-bottom: 1px solid #243049; }
+  #modelos .eng-matrix-row:last-child { border-bottom: none; }
+  #modelos .eng-matrix-header {
+    background-color: #0F1525;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  /* Contenedor expandible (grid-rows trick) */
+  #modelos .eng-expandable {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.4s ease;
+  }
+  #modelos .eng-expandable.is-expanded { grid-template-rows: 1fr; }
+  #modelos .eng-expandable-inner { overflow: hidden; }
+
+  /* Caja de garantía */
+  #modelos .eng-guarantee {
+    background: linear-gradient(145deg, rgba(0, 232, 135, 0.05), rgba(0, 0, 0, 0));
+    border: 1px solid rgba(0, 232, 135, 0.15);
+    border-radius: 1rem;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  #modelos .eng-guarantee::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 2px;
+    background: linear-gradient(90deg, transparent, #00E887, transparent);
+    opacity: 0.5;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #modelos .eng-price-val,
+    #modelos .eng-toggle-slider,
+    #modelos .eng-expandable { transition: none !important; }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    var section = document.getElementById('modelos');
+    if (!section) return;
+
+    /* === Toggle de moneda COP / USD === */
+    var toggle = document.getElementById('eng-currency-toggle');
+    var priceVals = section.querySelectorAll('.eng-price-val[data-cop], .eng-competitor-chip [data-cop]');
+    var currLabels = section.querySelectorAll('.eng-price-currency, .eng-anchor-currency');
+    var toggleLabels = section.querySelectorAll('.eng-toggle-label');
+    var isUSD = false;
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function applyCurrency() {
+      // Etiquetas del switch
+      toggleLabels.forEach(function (el) {
+        var which = el.getAttribute('data-toggle-label');
+        el.classList.toggle('is-active', (which === 'usd') === isUSD);
+      });
+
+      // Valores numéricos
+      priceVals.forEach(function (el) {
+        var next = isUSD ? el.getAttribute('data-usd') : el.getAttribute('data-cop');
+        if (next == null) return;
+        if (reduceMotion) {
+          el.textContent = next;
+        } else {
+          el.style.opacity = '0';
+          setTimeout(function () {
+            el.textContent = next;
+            el.style.opacity = '1';
+          }, 150);
+        }
+      });
+
+      // Etiquetas de moneda (COP/USD + unidad por idioma)
+      currLabels.forEach(function (el) {
+        var base = isUSD ? 'USD' : 'COP';
+        var spanEs = el.querySelector('[data-lang="es"]');
+        var spanEn = el.querySelector('[data-lang="en"]');
+        if (spanEs) spanEs.textContent = base + (el.getAttribute('data-curr-unit-es') || '');
+        if (spanEn) spanEn.textContent = base + (el.getAttribute('data-curr-unit-en') || '');
+      });
+    }
+
+    if (toggle) {
+      toggle.addEventListener('click', function () {
+        isUSD = !isUSD;
+        toggle.setAttribute('aria-checked', String(isUSD));
+        applyCurrency();
+      });
+      toggle.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+          e.preventDefault();
+          toggle.click();
+        }
+      });
+    }
+
+    /* === Matriz comparativa expandible === */
+    var matrixBtn = document.getElementById('eng-matrix-toggle');
+    var matrixBox = document.getElementById('eng-matrix');
+    var matrixIcon = document.getElementById('eng-matrix-icon');
+    var matrixLabel = document.getElementById('eng-matrix-label');
+
+    function setMatrix(expanded) {
+      if (!matrixBox) return;
+      matrixBox.classList.toggle('is-expanded', expanded);
+      matrixBox.setAttribute('aria-hidden', String(!expanded));
+      if (matrixBtn) matrixBtn.setAttribute('aria-expanded', String(expanded));
+      if (matrixIcon) matrixIcon.style.transform = expanded ? 'rotate(180deg)' : 'rotate(0deg)';
+      if (matrixLabel) {
+        matrixLabel.innerHTML = expanded
+          ? '<span data-lang="es">Ocultar detalles</span><span data-lang="en">Hide details</span>'
+          : '<span data-lang="es">Comparar planes en detalle</span><span data-lang="en">Compare plans in detail</span>';
+      }
+    }
+
+    if (matrixBtn) {
+      matrixBtn.addEventListener('click', function () {
+        var expanded = !matrixBox.classList.contains('is-expanded');
+        setMatrix(expanded);
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && matrixBox && matrixBox.classList.contains('is-expanded')) {
+          setMatrix(false);
+          matrixBtn.focus();
+        }
+      });
+    }
+  })();
+</script>

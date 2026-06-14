@@ -1,172 +1,390 @@
 ---
----
-<section id="contacto" class="py-24 px-6">
-  <div class="max-w-6xl mx-auto">
+// Canales de contacto (valores para copiar al portapapeles)
+const WA_NUMBER = '+57 319 443 6045';
+const EMAIL = 'director@kantechsol.com';
+const LINKEDIN_URL = 'https://www.linkedin.com/in/diegoalpala/';
+// Agenda de diagnóstico (reutiliza el mensaje prellenado del componente actual)
+const WA_DIAG = 'https://wa.me/573194436045?text=Hola%20KANTECH!%20Quiero%20agendar%20mi%20diagn%C3%B3stico%20gratuito.';
 
-    <!-- Header -->
-    <div class="text-center mb-16" data-animate>
-      <div class="section-label mb-4">
+// Opciones del select bilingües (data-lang por <option> duplicado)
+const services = [
+  { value: 'ia',       es: 'Agentes de IA',        en: 'AI Agents' },
+  { value: 'n8n',      es: 'Automatizaciones N8N', en: 'N8N Automations' },
+  { value: 'procesos', es: 'Mejoras de Proceso',   en: 'Process Improvement' },
+  { value: 'medida',   es: 'Desarrollo a Medida',  en: 'Custom Development' },
+  { value: 'otro',     es: 'Otro / No sé aún',     en: "Other / Not sure yet" },
+];
+---
+<section id="contacto" class="relative overflow-hidden py-24 px-6">
+  <!-- Malla ambiental sutil de fondo -->
+  <div class="absolute inset-0 -z-10 pointer-events-none contact-mesh" aria-hidden="true"></div>
+
+  <div class="max-w-6xl mx-auto relative z-10">
+
+    <!-- Encabezado -->
+    <div class="max-w-3xl mx-auto text-center mb-16 animate-fade-up" data-animate>
+      <div class="section-label mb-6">
         <span data-lang="es">Contacto</span>
         <span data-lang="en">Contact</span>
       </div>
-      <h2 class="section-title mb-4">
-        <span data-lang="es">¿Listo para transformar<br/>tu empresa?</span>
-        <span data-lang="en">Ready to transform<br/>your business?</span>
+      <h2 class="section-title text-4xl md:text-5xl lg:text-6xl mb-6">
+        <span data-lang="es">¿Listo para transformar <br/><span class="gradient-text">tu empresa?</span></span>
+        <span data-lang="en">Ready to transform <br/><span class="gradient-text">your business?</span></span>
       </h2>
-      <p class="section-sub mx-auto">
+      <p class="section-sub mx-auto text-lg md:text-xl">
         <span data-lang="es">Cuéntanos tu reto. En menos de 24 horas te respondemos con una propuesta inicial.</span>
         <span data-lang="en">Tell us your challenge. We'll respond within 24 hours with an initial proposal.</span>
       </p>
     </div>
 
-    <div class="grid md:grid-cols-2 gap-10 items-start">
+    <!-- Grid de dos columnas -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
 
-      <!-- Left: contact info -->
-      <div class="space-y-6" data-animate>
+      <!-- Columna izquierda: canales y confianza -->
+      <div class="lg:col-span-5 flex flex-col gap-8 animate-fade-up delay-100" data-animate>
 
-        <!-- WhatsApp -->
-        <a href="https://wa.me/573194436045?text=Hola%2C%20quiero%20hablar%20sobre%20un%20proyecto%20con%20KANTECH"
-           target="_blank" rel="noopener"
-           class="flex items-center gap-4 p-5 bg-k-surface border border-k-border rounded-2xl
-                  hover:border-green-500/50 hover:shadow-lg hover:shadow-green-500/10 transition-all duration-300 group">
-          <div class="w-12 h-12 rounded-xl flex items-center justify-center bg-green-500/10 border border-green-500/20 text-green-400 flex-shrink-0">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-              <path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.122 1.532 5.854L.057 23.886a.5.5 0 0 0 .613.613l6.033-1.475A11.955 11.955 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.88 0-3.641-.516-5.148-1.413l-.369-.214-3.822.936.955-3.822-.237-.383A9.963 9.963 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
-            </svg>
-          </div>
-          <div>
-            <p class="text-xs text-k-muted mb-0.5">WhatsApp</p>
-            <p class="text-k-text font-semibold group-hover:text-green-400 transition-colors">+57 319 443 6045</p>
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="ml-auto text-k-muted group-hover:text-green-400 transition-colors">
-            <path d="M7 17L17 7M17 7H7M17 7v10"/>
-          </svg>
-        </a>
+        <!-- Contenedor de canales -->
+        <div class="flex flex-col gap-4">
 
-        <!-- Email -->
-        <a href="mailto:diegoalpala422@gmail.com?subject=Proyecto%20KANTECH"
-           class="flex items-center gap-4 p-5 bg-k-surface border border-k-border rounded-2xl
-                  hover:border-k-blue/50 hover:shadow-lg hover:shadow-k-blue/10 transition-all duration-300 group">
-          <div class="w-12 h-12 rounded-xl flex items-center justify-center bg-k-blue/10 border border-k-blue/20 text-k-blue flex-shrink-0">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-              <polyline points="22,6 12,13 2,6"/>
-            </svg>
-          </div>
-          <div>
-            <p class="text-xs text-k-muted mb-0.5">Email</p>
-            <p class="text-k-text font-semibold group-hover:text-k-blue transition-colors">diegoalpala422@gmail.com</p>
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="ml-auto text-k-muted group-hover:text-k-blue transition-colors">
-            <path d="M7 17L17 7M17 7H7M17 7v10"/>
-          </svg>
-        </a>
+          <!-- Tarjeta: WhatsApp (copiar al portapapeles) -->
+          <button type="button"
+                  class="copy-btn group flex items-center gap-5 p-5 rounded-2xl bg-surface-1 border border-border hover:bg-surface-2 hover:border-primary/40 transition-all duration-300 text-left w-full relative overflow-hidden shadow-lg shadow-black/20"
+                  data-value={WA_NUMBER}
+                  aria-label="Copiar número de WhatsApp">
+            <div class="w-12 h-12 rounded-xl bg-surface-2 border border-border flex items-center justify-center group-hover:border-primary/50 transition-colors shadow-inner flex-shrink-0">
+              <span class="material-symbols-outlined text-text group-hover:text-accent transition-colors" aria-hidden="true">mark_chat_unread</span>
+            </div>
+            <div class="flex-grow min-w-0">
+              <p class="text-muted text-sm font-medium mb-1">WhatsApp</p>
+              <p class="text-text font-semibold tracking-wide truncate">{WA_NUMBER}</p>
+            </div>
+            <div class="copy-feedback absolute right-6 opacity-0 group-hover:opacity-100 transition-opacity flex items-center text-accent bg-surface-2 px-3 py-1.5 rounded-lg border border-primary/20 text-sm font-medium">
+              <span class="material-symbols-outlined text-[18px] mr-1" aria-hidden="true">content_copy</span>
+              <span data-lang="es">Copiar</span><span data-lang="en">Copy</span>
+            </div>
+          </button>
 
-        <!-- LinkedIn -->
-        <a href="https://www.linkedin.com/in/diegoalpala/" target="_blank" rel="noopener"
-           class="flex items-center gap-4 p-5 bg-k-surface border border-k-border rounded-2xl
-                  hover:border-blue-400/50 hover:shadow-lg hover:shadow-blue-400/10 transition-all duration-300 group">
-          <div class="w-12 h-12 rounded-xl flex items-center justify-center bg-blue-500/10 border border-blue-500/20 text-blue-400 flex-shrink-0">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-            </svg>
-          </div>
-          <div>
-            <p class="text-xs text-k-muted mb-0.5">LinkedIn</p>
-            <p class="text-k-text font-semibold group-hover:text-blue-400 transition-colors">Diego Alpala — KANTECH</p>
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="ml-auto text-k-muted group-hover:text-blue-400 transition-colors">
-            <path d="M7 17L17 7M17 7H7M17 7v10"/>
-          </svg>
-        </a>
+          <!-- Tarjeta: Email (copiar al portapapeles) -->
+          <button type="button"
+                  class="copy-btn group flex items-center gap-5 p-5 rounded-2xl bg-surface-1 border border-border hover:bg-surface-2 hover:border-primary/40 transition-all duration-300 text-left w-full relative overflow-hidden shadow-lg shadow-black/20"
+                  data-value={EMAIL}
+                  aria-label="Copiar correo electrónico">
+            <div class="w-12 h-12 rounded-xl bg-surface-2 border border-border flex items-center justify-center group-hover:border-primary/50 transition-colors shadow-inner flex-shrink-0">
+              <span class="material-symbols-outlined text-text group-hover:text-accent transition-colors" aria-hidden="true">mail</span>
+            </div>
+            <div class="flex-grow min-w-0">
+              <p class="text-muted text-sm font-medium mb-1">Email</p>
+              <p class="text-text font-semibold tracking-wide truncate">{EMAIL}</p>
+            </div>
+            <div class="copy-feedback absolute right-6 opacity-0 group-hover:opacity-100 transition-opacity flex items-center text-accent bg-surface-2 px-3 py-1.5 rounded-lg border border-primary/20 text-sm font-medium">
+              <span class="material-symbols-outlined text-[18px] mr-1" aria-hidden="true">content_copy</span>
+              <span data-lang="es">Copiar</span><span data-lang="en">Copy</span>
+            </div>
+          </button>
 
-        <!-- Availability badge -->
-        <div class="flex items-center gap-3 p-4 bg-k-green/5 border border-k-green/20 rounded-xl">
-          <span class="w-2.5 h-2.5 rounded-full bg-k-green animate-pulse flex-shrink-0"></span>
-          <p class="text-k-green text-sm font-medium">
+          <!-- Tarjeta: LinkedIn -->
+          <a class="group flex items-center gap-5 p-5 rounded-2xl bg-surface-1 border border-border hover:bg-surface-2 hover:border-primary/40 transition-all duration-300 text-left w-full relative overflow-hidden shadow-lg shadow-black/20"
+             href={LINKEDIN_URL} target="_blank" rel="noopener">
+            <div class="w-12 h-12 rounded-xl bg-surface-2 border border-border flex items-center justify-center group-hover:border-primary/50 transition-colors shadow-inner flex-shrink-0">
+              <span class="material-symbols-outlined text-text group-hover:text-accent transition-colors" aria-hidden="true">public</span>
+            </div>
+            <div class="flex-grow min-w-0">
+              <p class="text-muted text-sm font-medium mb-1">LinkedIn</p>
+              <p class="text-text font-semibold tracking-wide truncate">Diego Alpala — KANTECH</p>
+            </div>
+            <div class="absolute right-6 opacity-0 group-hover:opacity-100 transition-opacity flex items-center text-accent bg-surface-2 px-3 py-1.5 rounded-lg border border-primary/20 text-sm font-medium">
+              <span class="material-symbols-outlined text-[18px] mr-1" aria-hidden="true">arrow_outward</span>
+              <span data-lang="es">Visitar</span><span data-lang="en">Visit</span>
+            </div>
+          </a>
+        </div>
+
+        <!-- Píldora de disponibilidad (emerald reservado para disponibilidad) -->
+        <div class="inline-flex items-center gap-3 px-5 py-3 rounded-full bg-success/5 border border-success/20 self-start shadow-sm mt-4">
+          <span class="relative flex h-3 w-3">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-success opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-3 w-3 bg-success"></span>
+          </span>
+          <span class="text-sm font-medium text-success tracking-wide">
             <span data-lang="es">Disponible para nuevos proyectos · Colombia · LatAm</span>
             <span data-lang="en">Available for new projects · Colombia · LatAm</span>
-          </p>
+          </span>
+        </div>
+
+        <!-- Teaser de agenda -->
+        <div class="mt-4 rounded-2xl bg-surface-2/50 border border-border p-6 glass-panel flex flex-col sm:flex-row items-center gap-6 justify-between">
+          <div>
+            <h3 class="font-headline font-bold text-xl text-text mb-1">
+              <span data-lang="es">Agenda tu diagnóstico</span>
+              <span data-lang="en">Book your diagnosis</span>
+            </h3>
+            <p class="text-sm text-muted">
+              <span data-lang="es">Sesión de 30 min por videollamada.</span>
+              <span data-lang="en">30-min session over video call.</span>
+            </p>
+          </div>
+          <a href={WA_DIAG} target="_blank" rel="noopener"
+             class="shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-surface-1 border border-border hover:border-primary/50 hover:bg-surface-2 text-text hover:text-accent transition-all duration-300"
+             aria-label="Agendar diagnóstico por WhatsApp">
+            <span class="material-symbols-outlined" aria-hidden="true">calendar_month</span>
+          </a>
         </div>
       </div>
 
-      <!-- Right: form -->
-      <div class="bg-k-surface border border-k-border rounded-2xl p-5 sm:p-8" data-animate>
-        <h3 class="font-display font-bold text-k-text text-lg mb-6">
-          <span data-lang="es">Cuéntanos tu proyecto</span>
-          <span data-lang="en">Tell us about your project</span>
-        </h3>
+      <!-- Columna derecha: formulario -->
+      <div class="lg:col-span-7 animate-fade-up delay-200" data-animate>
+        <div class="rounded-3xl bg-surface-2 border border-border p-8 md:p-10 relative overflow-hidden glass-panel shadow-2xl shadow-black/40">
 
-        <form id="contact-form" class="space-y-4">
-          <div class="grid sm:grid-cols-2 gap-4">
-            <div>
-              <label class="block text-xs font-medium text-k-muted mb-1.5">
-                <span data-lang="es">Nombre</span><span data-lang="en">Name</span>
-              </label>
-              <input type="text" name="name" required
-                     class="w-full bg-k-bg border border-k-border rounded-xl px-4 py-3 text-sm text-k-text
-                            placeholder:text-k-muted/50 focus:outline-none focus:border-k-blue transition-colors"
-                     placeholder="Tu nombre" />
+          <!-- Título del formulario -->
+          <div class="mb-8 flex items-center gap-3">
+            <span class="material-symbols-outlined text-primary text-3xl" aria-hidden="true" style="font-variation-settings: 'FILL' 1;">electric_bolt</span>
+            <h3 class="font-headline font-bold text-2xl md:text-3xl text-text tracking-tight">
+              <span data-lang="es">Cuéntanos tu proyecto</span>
+              <span data-lang="en">Tell us about your project</span>
+            </h3>
+          </div>
+
+          <!-- Formulario (envía por WhatsApp) -->
+          <form class="space-y-6 relative z-10" id="contact-form" novalidate>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <!-- Campo: Nombre -->
+              <div class="relative group">
+                <input class="peer w-full bg-surface-1 border border-border rounded-xl px-5 pt-6 pb-2 text-text placeholder-transparent focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all shadow-inner"
+                       id="nombre" name="name" placeholder=" " required type="text" autocomplete="name" />
+                <label class="absolute left-5 top-4 text-muted text-sm font-medium transition-all duration-200 peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-xs peer-focus:text-primary peer-valid:top-2 peer-valid:text-xs pointer-events-none" for="nombre">
+                  <span data-lang="es">Nombre <span class="text-accent">*</span></span>
+                  <span data-lang="en">Name <span class="text-accent">*</span></span>
+                </label>
+              </div>
+              <!-- Campo: Empresa -->
+              <div class="relative group">
+                <input class="peer w-full bg-surface-1 border border-border rounded-xl px-5 pt-6 pb-2 text-text placeholder-transparent focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all shadow-inner"
+                       id="empresa" name="company" placeholder=" " type="text" autocomplete="organization" />
+                <label class="absolute left-5 top-4 text-muted text-sm font-medium transition-all duration-200 peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-xs peer-focus:text-primary peer-valid:top-2 peer-valid:text-xs pointer-events-none" for="empresa">
+                  <span data-lang="es">Empresa (Opcional)</span>
+                  <span data-lang="en">Company (Optional)</span>
+                </label>
+              </div>
             </div>
-            <div>
-              <label class="block text-xs font-medium text-k-muted mb-1.5">
-                <span data-lang="es">Empresa</span><span data-lang="en">Company</span>
+
+            <!-- Campo: Servicio -->
+            <div class="relative group">
+              <select class="peer w-full appearance-none bg-surface-1 border border-border rounded-xl px-5 pt-6 pb-2 text-text focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all shadow-inner cursor-pointer"
+                      id="servicio" name="service" required>
+                <option disabled hidden selected value=""></option>
+                {services.map(s => (
+                  <>
+                    <option class="bg-surface-2 text-text" value={s.value} data-lang="es">{s.es}</option>
+                    <option class="bg-surface-2 text-text" value={s.value} data-lang="en">{s.en}</option>
+                  </>
+                ))}
+              </select>
+              <label class="absolute left-5 top-2 text-xs text-muted font-medium transition-all duration-200 pointer-events-none peer-focus:text-primary" for="servicio">
+                <span data-lang="es">Servicio de interés <span class="text-accent">*</span></span>
+                <span data-lang="en">Service of interest <span class="text-accent">*</span></span>
               </label>
-              <input type="text" name="company"
-                     class="w-full bg-k-bg border border-k-border rounded-xl px-4 py-3 text-sm text-k-text
-                            placeholder:text-k-muted/50 focus:outline-none focus:border-k-blue transition-colors"
-                     placeholder="Tu empresa" />
+              <div class="absolute inset-y-0 right-5 flex items-center pointer-events-none text-muted peer-focus:text-primary">
+                <span class="material-symbols-outlined" aria-hidden="true">expand_more</span>
+              </div>
             </div>
-          </div>
 
-          <div>
-            <label class="block text-xs font-medium text-k-muted mb-1.5">
-              <span data-lang="es">Servicio de interés</span><span data-lang="en">Service of interest</span>
-            </label>
-            <select name="service"
-                    class="w-full bg-k-bg border border-k-border rounded-xl px-4 py-3 text-sm text-k-text
-                           focus:outline-none focus:border-k-blue transition-colors">
-              <option value="" data-lang="es">Selecciona un servicio...</option>
-              <option value="ia" data-lang="es">Agentes de IA</option>
-              <option value="auto" data-lang="es">Automatizaciones N8N</option>
-              <option value="proceso" data-lang="es">Mejoras de Proceso</option>
-              <option value="dev" data-lang="es">Desarrollo a Medida</option>
-              <option value="otro" data-lang="es">Otro / No sé aún</option>
-            </select>
-          </div>
+            <!-- Campo: Reto -->
+            <div class="relative group">
+              <textarea class="peer w-full bg-surface-1 border border-border rounded-xl px-5 pt-6 pb-3 text-text placeholder-transparent focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all shadow-inner resize-none"
+                        id="reto" name="message" placeholder=" " required rows="4"></textarea>
+              <label class="absolute left-5 top-4 text-muted text-sm font-medium transition-all duration-200 peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-xs peer-focus:text-primary peer-valid:top-2 peer-valid:text-xs pointer-events-none bg-surface-1 w-[calc(100%-40px)] rounded-t-xl pt-1" for="reto">
+                <span data-lang="es">¿Cuál es tu reto? <span class="text-accent">*</span></span>
+                <span data-lang="en">What's your challenge? <span class="text-accent">*</span></span>
+              </label>
+            </div>
 
-          <div>
-            <label class="block text-xs font-medium text-k-muted mb-1.5">
-              <span data-lang="es">¿Cuál es tu reto?</span><span data-lang="en">What's your challenge?</span>
-            </label>
-            <textarea name="message" rows="4" required
-                      class="w-full bg-k-bg border border-k-border rounded-xl px-4 py-3 text-sm text-k-text
-                             placeholder:text-k-muted/50 focus:outline-none focus:border-k-blue transition-colors resize-none"
-                      placeholder="Describe brevemente el problema que quieres resolver..."></textarea>
-          </div>
+            <!-- Casilla de privacidad -->
+            <div class="flex items-start gap-3 mt-4">
+              <div class="flex items-center h-5 mt-0.5">
+                <input class="w-4 h-4 rounded border-border bg-surface-1 text-primary focus:ring-primary focus:ring-offset-0 focus:ring-offset-transparent cursor-pointer"
+                       id="privacy" name="privacy" required type="checkbox" />
+              </div>
+              <label class="text-sm text-muted cursor-pointer select-none" for="privacy">
+                <span data-lang="es">Acepto la <a class="text-text hover:text-primary underline decoration-border underline-offset-4 transition-colors" href="#">política de privacidad</a> y el tratamiento de mis datos.</span>
+                <span data-lang="en">I accept the <a class="text-text hover:text-primary underline decoration-border underline-offset-4 transition-colors" href="#">privacy policy</a> and the processing of my data.</span>
+              </label>
+            </div>
 
-          <button type="submit" class="btn-primary w-full justify-center py-3.5">
-            <span data-lang="es">Enviar por WhatsApp</span>
-            <span data-lang="en">Send via WhatsApp</span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
-            </svg>
-          </button>
-        </form>
+            <!-- Botón de envío (WhatsApp) -->
+            <button class="w-full bg-primary hover:bg-primary-hover text-white font-headline font-bold text-lg py-4 rounded-xl transition-all duration-300 active:scale-[0.98] relative overflow-hidden group shadow-[0_0_20px_rgba(30,59,255,0.3)] hover:shadow-[0_0_30px_rgba(30,59,255,0.5)] flex items-center justify-center gap-2 mt-6"
+                    type="submit">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.122 1.532 5.854L.057 23.886a.5.5 0 0 0 .613.613l6.033-1.475A11.955 11.955 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.88 0-3.641-.516-5.148-1.413l-.369-.214-3.822.936.955-3.822-.237-.383A9.963 9.963 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+              </svg>
+              <span data-lang="es">Enviar por WhatsApp</span>
+              <span data-lang="en">Send via WhatsApp</span>
+              <span class="material-symbols-outlined transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">arrow_forward</span>
+              <!-- Brillo en hover -->
+              <div class="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-[contact-shimmer_1.5s_infinite]" aria-hidden="true"></div>
+            </button>
+
+            <!-- Indicadores de confianza (emerald reservado para prueba) -->
+            <div class="flex items-center justify-center gap-4 text-xs font-medium text-muted mt-6">
+              <div class="flex items-center gap-1">
+                <span class="material-symbols-outlined text-[16px] text-success" aria-hidden="true">check_circle</span>
+                <span data-lang="es">Respuesta en 24h</span><span data-lang="en">24h response</span>
+              </div>
+              <span class="w-1 h-1 rounded-full bg-border"></span>
+              <div class="flex items-center gap-1">
+                <span class="material-symbols-outlined text-[16px] text-success" aria-hidden="true">verified</span>
+                <span data-lang="es">Sin compromiso</span><span data-lang="en">No commitment</span>
+              </div>
+            </div>
+          </form>
+
+          <!-- Overlay de éxito (oculto por defecto) -->
+          <div class="absolute inset-0 bg-surface-2/95 backdrop-blur-md z-20 flex flex-col items-center justify-center p-8 text-center opacity-0 pointer-events-none transition-opacity duration-500 rounded-3xl"
+               id="success-overlay" role="status" aria-live="polite">
+            <div class="w-20 h-20 bg-success/10 rounded-full flex items-center justify-center mb-6">
+              <span class="material-symbols-outlined text-success text-4xl" aria-hidden="true" style="font-variation-settings: 'FILL' 1;">task_alt</span>
+            </div>
+            <h3 class="font-headline font-bold text-2xl md:text-3xl text-text mb-3 tracking-tight">
+              <span data-lang="es">¡Solicitud recibida!</span>
+              <span data-lang="en">Request received!</span>
+            </h3>
+            <p class="text-muted text-lg max-w-sm">
+              <span data-lang="es">Gracias por contactarnos. Analizaremos tu reto y <strong class="text-text">te responderemos en menos de 24h</strong> con los próximos pasos.</span>
+              <span data-lang="en">Thanks for reaching out. We'll review your challenge and <strong class="text-text">reply within 24h</strong> with the next steps.</span>
+            </p>
+            <button class="mt-8 text-sm font-medium text-text border border-border hover:bg-surface-1 px-6 py-2.5 rounded-lg transition-colors" id="reset-btn" type="button">
+              <span data-lang="es">Enviar otro mensaje</span>
+              <span data-lang="en">Send another message</span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
+<style is:global>
+  /* Malla ambiental sutil de fondo de la sección de contacto */
+  .contact-mesh {
+    background-image:
+      radial-gradient(at 0% 0%, rgba(30, 59, 255, 0.10) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, rgba(108, 47, 217, 0.08) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, rgba(0, 212, 255, 0.04) 0px, transparent 50%);
+  }
+
+  /* Brillo del botón de envío (keyframe propio, no depende de config externo) */
+  @keyframes contact-shimmer {
+    100% { transform: translateX(100%); }
+  }
+
+  /* Override de autofill para mantener el fondo oscuro */
+  #contact-form input:-webkit-autofill,
+  #contact-form input:-webkit-autofill:hover,
+  #contact-form input:-webkit-autofill:focus,
+  #contact-form input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px #0F1525 inset !important;
+    -webkit-text-fill-color: #F4F6FF !important;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+
+  /* Respeta la preferencia de movimiento reducido */
+  @media (prefers-reduced-motion: reduce) {
+    .group-hover\:animate-\[contact-shimmer_1\.5s_infinite\]:hover { animation: none !important; }
+    #contacto .animate-ping { animation: none !important; }
+  }
+</style>
+
 <script is:inline>
-  document.getElementById('contact-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const name = this.name.value;
-    const company = this.company.value;
-    const service = this.service.value;
-    const message = this.message.value;
-    const text = `Hola, soy ${name}${company ? ' de ' + company : ''}. Me interesa: ${service || 'sus servicios'}. ${message}`;
-    window.open('https://wa.me/573194436045?text=' + encodeURIComponent(text), '_blank');
-  });
+  (function () {
+    // Copiar al portapapeles (WhatsApp / Email)
+    document.querySelectorAll('#contacto .copy-btn').forEach(function (btn) {
+      btn.addEventListener('click', async function () {
+        var text = btn.getAttribute('data-value');
+        var feedback = btn.querySelector('.copy-feedback');
+        if (!text || !feedback) return;
+        try {
+          await navigator.clipboard.writeText(text);
+        } catch (err) {
+          // Fallback para navegadores sin Clipboard API
+          var ta = document.createElement('textarea');
+          ta.value = text;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand('copy'); } catch (e) {}
+          document.body.removeChild(ta);
+        }
+        // Feedback visual: muestra "Copiado / Copied" en verde
+        var original = feedback.innerHTML;
+        feedback.innerHTML =
+          '<span class="material-symbols-outlined text-[18px] mr-1" aria-hidden="true">check</span>' +
+          '<span data-lang="es">Copiado</span><span data-lang="en">Copied</span>';
+        feedback.classList.add('text-success', 'border-success/30', 'opacity-100');
+        feedback.classList.remove('text-accent', 'border-primary/20');
+        setTimeout(function () {
+          feedback.innerHTML = original;
+          feedback.classList.remove('text-success', 'border-success/30', 'opacity-100');
+          feedback.classList.add('text-accent', 'border-primary/20');
+        }, 2000);
+      });
+    });
+
+    // Envío del formulario -> abre WhatsApp con el mensaje prellenado
+    var form = document.getElementById('contact-form');
+    var overlay = document.getElementById('success-overlay');
+    var resetBtn = document.getElementById('reset-btn');
+
+    function showOverlay() {
+      if (!overlay) return;
+      overlay.classList.remove('opacity-0', 'pointer-events-none');
+      overlay.classList.add('opacity-100', 'pointer-events-auto');
+      if (resetBtn) resetBtn.focus();
+    }
+    function hideOverlay() {
+      if (!overlay) return;
+      overlay.classList.add('opacity-0', 'pointer-events-none');
+      overlay.classList.remove('opacity-100', 'pointer-events-auto');
+    }
+
+    if (form) {
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
+        var name = (form.name.value || '').trim();
+        var company = (form.company.value || '').trim();
+        var serviceSel = form.service;
+        // Texto legible de la opción elegida (idioma activo) para el mensaje
+        var serviceLabel = '';
+        if (serviceSel && serviceSel.selectedIndex >= 0) {
+          var opt = serviceSel.options[serviceSel.selectedIndex];
+          serviceLabel = opt ? opt.text.trim() : '';
+        }
+        var message = (form.message.value || '').trim();
+        var text = 'Hola, soy ' + name + (company ? ' de ' + company : '') +
+                   '. Me interesa: ' + (serviceLabel || 'sus servicios') + '. ' + message;
+        window.open('https://wa.me/573194436045?text=' + encodeURIComponent(text), '_blank', 'noopener');
+        showOverlay();
+      });
+    }
+
+    if (resetBtn) {
+      resetBtn.addEventListener('click', function () {
+        if (form) form.reset();
+        hideOverlay();
+        var firstField = document.getElementById('nombre');
+        if (firstField) firstField.focus();
+      });
+    }
+
+    // ESC cierra el overlay de éxito
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && overlay && overlay.classList.contains('opacity-100')) {
+        hideOverlay();
+      }
+    });
+  })();
 </script>
