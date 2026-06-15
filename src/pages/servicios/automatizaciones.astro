@@ -1,0 +1,111 @@
+---
+import SiteC from '../../layouts/SiteC.astro';
+import Nav from '../../components/c/Nav.astro';
+import Footer from '../../components/c/Footer.astro';
+import TechMarquee from '../../components/c/TechMarquee.astro';
+const WA = 'https://wa.me/573194436045?text=Hola%20KANTECH!%20Quiero%20automatizar%20un%20proceso%20de%20mi%20empresa.';
+---
+<SiteC
+  title="Automatización de Procesos con n8n — Integra tus Apps | KANTECH"
+  description="Automatizamos las tareas repetitivas de tu empresa: sincronización entre apps, reportes e integraciones (Shopify, Odoo, Siigo) con n8n. Recupera 15h/semana. Diagnóstico gratis — KANTECH."
+  keywords="automatización de procesos, n8n, automatizar tareas repetitivas, integración de sistemas, webhooks, automatización para empresas, Shopify, Odoo, Siigo, Colombia"
+  path="/servicios/automatizaciones"
+>
+  <Nav home={false} />
+
+  <!-- HERO -->
+  <div style="position:relative;overflow:hidden;border-bottom:1px solid #16273f;">
+    <div style="position:absolute;inset:0;background-image:linear-gradient(#15263f 1px,transparent 1px),linear-gradient(90deg,#15263f 1px,transparent 1px);background-size:48px 48px;opacity:.5;"></div>
+    <div style="position:absolute;top:-140px;right:-60px;width:440px;height:440px;background:radial-gradient(circle,rgba(106,195,198,.18),transparent 70%);"></div>
+    <div style="position:relative;max-width:1080px;margin:0 auto;padding:34px 32px 0;">
+      <div style="font-size:12.5px;color:#5f76a0;">/ <a href="/" style="color:#6f84a8;">inicio</a> / <a href="/#servicios" style="color:#6f84a8;">servicios</a> / <span style="color:#6AC3C6;">automatizaciones</span></div>
+    </div>
+    <div style="position:relative;max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1.05fr .95fr;gap:50px;padding:40px 32px 72px;align-items:center;">
+      <div>
+        <div style="display:inline-flex;align-items:center;gap:10px;color:#6AC3C6;font-size:13px;font-weight:600;border:1px solid #2c466f;border-radius:8px;padding:7px 13px;margin-bottom:26px;">servicio_02 · Automations · n8n</div>
+        <h1 style="font-size:46px;line-height:1.1;font-weight:700;color:#fff;margin:0 0 14px;letter-spacing:-.02em;">El trabajo repetitivo,<br/><span style="color:#6AC3C6;">en_piloto_automático.</span></h1>
+        <p style="font-size:16.5px;line-height:1.7;color:#9fb2d4;margin:0 0 30px;max-width:480px;">Eliminamos las tareas que tu equipo odia: copiar datos entre sistemas, enviar reportes, actualizar inventarios. Un flujo que conecta todas tus apps y trabaja solo.</p>
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:22px;">
+          <a href={WA} target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;background:#6AC3C6;color:#0d1828;padding:15px 26px;border-radius:10px;font-size:15px;font-weight:700;">automatizar_mi_proceso <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;"><line x1="4" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        </div>
+        <div style="display:flex;align-items:center;gap:20px;font-size:13px;color:#6f84a8;">
+          <span style="display:flex;align-items:center;gap:7px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6AC3C6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;"><circle cx="12" cy="12" r="9"/><polyline points="8.3 12.2 11 14.8 15.7 9.3"/></svg> recupera 15h/semana</span>
+          <span style="display:flex;align-items:center;gap:7px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="#6AC3C6" stroke="#6AC3C6" stroke-width="1.5" stroke-linejoin="round" style="flex:none;"><polygon points="13 2 5 13 11 13 10 22 19 10 13 10"/></svg> listo en días</span>
+        </div>
+      </div>
+      <div style="background:#0a1322;border:1px solid #243a5e;border-radius:14px;overflow:hidden;box-shadow:0 30px 70px -30px rgba(0,0,0,.8);">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 16px;background:#13233d;border-bottom:1px solid #243a5e;">
+          <span style="color:#6f84a8;font-size:12px;">flow · pedido_a_factura</span>
+          <span style="display:flex;align-items:center;gap:6px;font-size:11px;color:#8fdadc;"><span style="width:6px;height:6px;border-radius:50%;background:#6AC3C6;display:inline-block;animation:kpulse 1.8s infinite;"></span> activo</span>
+        </div>
+        <div style="padding:20px;display:flex;flex-direction:column;gap:9px;">
+          <div style="display:flex;align-items:center;gap:13px;background:#101e34;border:1px solid #243a5e;border-radius:10px;padding:12px 14px;"><span style="display:inline-flex;color:#6AC3C6;background:rgba(106,195,198,.12);padding:8px;border-radius:8px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 2"/></svg></span><div><div style="color:#fff;font-size:13.5px;font-weight:600;">Nueva venta en Shopify</div><div style="color:#6f84a8;font-size:11.5px;">trigger · webhook</div></div></div>
+          <div style="text-align:center;color:#43618f;font-size:13px;line-height:.6;">↓</div>
+          <div style="display:flex;align-items:center;gap:13px;background:#101e34;border:1px solid #243a5e;border-radius:10px;padding:12px 14px;"><span style="display:inline-flex;color:#6AC3C6;background:rgba(106,195,198,.12);padding:8px;border-radius:8px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="10" width="5" height="4" rx="1"/><rect x="16" y="4" width="5" height="4" rx="1"/><rect x="16" y="16" width="5" height="4" rx="1"/><path d="M8 12h4V6h4M12 12v6h4"/></svg></span><div><div style="color:#fff;font-size:13.5px;font-weight:600;">n8n procesa &amp; valida</div><div style="color:#6f84a8;font-size:11.5px;">map · transform</div></div></div>
+          <div style="text-align:center;color:#43618f;font-size:13px;line-height:.6;">↓</div>
+          <div style="display:flex;align-items:center;gap:13px;background:#101e34;border:1px solid #243a5e;border-radius:10px;padding:12px 14px;"><span style="display:inline-flex;color:#6AC3C6;background:rgba(106,195,198,.12);padding:8px;border-radius:8px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg></span><div><div style="color:#fff;font-size:13.5px;font-weight:600;">Factura en contabilidad</div><div style="color:#28c840;font-size:11.5px;">✓ registrada sin digitar</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROBLEMA -->
+  <div style="max-width:1080px;margin:0 auto;padding:80px 32px 10px;">
+    <div style="color:#6AC3C6;font-size:13px;font-weight:600;margin-bottom:18px;">// el_problema</div>
+    <p style="font-family:'Manrope',sans-serif;font-size:30px;font-weight:600;line-height:1.45;color:#e7eefb;margin:0;max-width:880px;letter-spacing:-.01em;">Cada dato que alguien copia a mano de un sistema a otro es tiempo pagado, propenso a errores y que nadie quiere hacer. <span style="color:#6AC3C6;">Esas tareas no necesitan personas.</span></p>
+  </div>
+
+  <!-- QUÉ AUTOMATIZAMOS -->
+  <div style="max-width:1080px;margin:0 auto;padding:70px 32px 10px;">
+    <div style="color:#6AC3C6;font-size:13px;font-weight:600;margin-bottom:30px;">// qué_automatizamos · what_we_automate</div>
+    <div style="border-top:1px solid #1d3052;">
+      <div class="ix" style="display:grid;grid-template-columns:64px 1fr 1.2fr;gap:24px;align-items:center;padding:24px 14px;border-bottom:1px solid #1d3052;transition:.15s;"><span class="ixn" style="font-size:13px;color:#43618f;">01</span><div style="font-family:'Manrope',sans-serif;font-size:18px;font-weight:700;color:#fff;">Sincronización entre apps</div><p style="font-size:14px;color:#9fb2d4;margin:0;line-height:1.55;">Tus sistemas dejan de vivir en islas — los datos fluyen solos.</p></div>
+      <div class="ix" style="display:grid;grid-template-columns:64px 1fr 1.2fr;gap:24px;align-items:center;padding:24px 14px;border-bottom:1px solid #1d3052;transition:.15s;"><span class="ixn" style="font-size:13px;color:#43618f;">02</span><div style="font-family:'Manrope',sans-serif;font-size:18px;font-weight:700;color:#fff;">Reportes automáticos</div><p style="font-size:14px;color:#9fb2d4;margin:0;line-height:1.55;">El informe que armas cada lunes, listo en tu correo sin tocarlo.</p></div>
+      <div class="ix" style="display:grid;grid-template-columns:64px 1fr 1.2fr;gap:24px;align-items:center;padding:24px 14px;border-bottom:1px solid #1d3052;transition:.15s;"><span class="ixn" style="font-size:13px;color:#43618f;">03</span><div style="font-family:'Manrope',sans-serif;font-size:18px;font-weight:700;color:#fff;">Leads → CRM</div><p style="font-size:14px;color:#9fb2d4;margin:0;line-height:1.55;">Formularios y webhooks que entran directo a tu pipeline.</p></div>
+      <div class="ix" style="display:grid;grid-template-columns:64px 1fr 1.2fr;gap:24px;align-items:center;padding:24px 14px;border-bottom:1px solid #1d3052;transition:.15s;"><span class="ixn" style="font-size:13px;color:#43618f;">04</span><div style="font-family:'Manrope',sans-serif;font-size:18px;font-weight:700;color:#fff;">Inventarios &amp; facturación</div><p style="font-size:14px;color:#9fb2d4;margin:0;line-height:1.55;">Stock y facturas que se actualizan con cada venta, sin doble digitación.</p></div>
+    </div>
+  </div>
+
+  <!-- VALUE -->
+  <div style="max-width:1080px;margin:0 auto;padding:70px 32px 10px;">
+    <div style="border-top:1px solid #1d3052;border-bottom:1px solid #1d3052;padding:54px 0;text-align:center;">
+      <p style="font-family:'Manrope',sans-serif;font-size:32px;font-weight:700;line-height:1.35;color:#fff;margin:0 auto;max-width:780px;letter-spacing:-.015em;">Un flujo que ahorra 15h/semana<br/><span style="color:#6AC3C6;">se paga solo en la 1.ª semana.</span></p>
+      <p style="font-size:14px;color:#5f76a0;margin:18px 0 0;">El resto del año, es ganancia neta de tiempo.</p>
+    </div>
+  </div>
+
+  <!-- RELATED PROJECT (ledger row) -->
+  <div style="max-width:1080px;margin:0 auto;padding:46px 32px 10px;">
+    <div style="color:#6AC3C6;font-size:13px;font-weight:600;margin-bottom:22px;">// caso_relacionado · en_producción</div>
+    <a href="/#portafolio" class="ix" style="display:grid;grid-template-columns:150px 1fr 150px;gap:24px;align-items:center;padding:24px 14px;border-top:1px solid #1d3052;border-bottom:1px solid #1d3052;transition:.15s;">
+      <div><div style="font-family:'Manrope',sans-serif;font-size:18px;font-weight:800;color:#fff;">T1 · n8n</div><div style="font-size:11.5px;color:#5f76a0;margin-top:4px;">Retail · integración</div></div>
+      <p style="font-size:14px;line-height:1.6;color:#cdd9ec;margin:0;">Integra Shopify con el sistema contable vía n8n — ventas que se registran solas, sin doble digitación.</p>
+      <div style="text-align:right;"><span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#8fdadc;"><span style="width:6px;height:6px;border-radius:50%;background:#6AC3C6;display:inline-block;animation:kpulse 1.8s infinite;"></span>en producción</span></div>
+    </a>
+  </div>
+
+  <!-- TECH MARQUEE -->
+  <div style="max-width:1080px;margin:0 auto;padding:30px 32px 10px;">
+    <div style="color:#6AC3C6;font-size:13px;font-weight:600;margin-bottom:24px;">// tecnologías · stack</div>
+    <TechMarquee />
+  </div>
+
+  <!-- CTA BAND -->
+  <div style="border-top:1px solid #1d3052;background:#0b1422;margin-top:70px;">
+    <div style="max-width:1080px;margin:0 auto;padding:64px 32px;display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap;">
+      <div>
+        <h2 style="font-family:'Manrope',sans-serif;font-size:30px;font-weight:800;color:#fff;margin:0 0 8px;letter-spacing:-.02em;">¿Qué tarea repetitiva te quita más horas?</h2>
+        <p style="font-size:14.5px;color:#9fb2d4;margin:0;">Cuéntanos y te decimos si se puede automatizar — gratis.</p>
+      </div>
+      <a href={WA} target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;background:#6AC3C6;color:#0d1828;padding:16px 28px;border-radius:10px;font-size:15px;font-weight:700;">Automatizar mi proceso <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;"><line x1="4" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+  </div>
+
+  <Footer home={false} />
+</SiteC>
+
+<style>
+  /* Específico de esta página: el número (.ixn) cambia a turquesa al hover de la fila.
+     SiteC solo define .ix:hover{background} y .ix:hover .ixarrow — no esta regla. */
+  .ix:hover .ixn { color: #6AC3C6; }
+</style>

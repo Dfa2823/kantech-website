@@ -1,0 +1,19 @@
+---
+// Marquee de logos de tecnología (siluetas blancas → color al hover).
+const techs = [
+  { f: 'n8n', n: 'n8n' }, { f: 'openai', n: 'OpenAI' }, { f: 'claude', n: 'Claude' },
+  { f: 'gemini', n: 'Gemini' }, { f: 'whatsapp', n: 'WhatsApp' }, { f: 'make', n: 'Make' },
+  { f: 'odoo', n: 'Odoo' }, { f: 'siigo', n: 'Siigo', small: true }, { f: 'google', n: 'Google' },
+  { f: 'python', n: 'Python' }, { f: 'react', n: 'React' }, { f: 'nodejs', n: 'Node.js' },
+  { f: 'postgresql', n: 'PostgreSQL' }, { f: 'astro', n: 'Astro' }, { f: 'docker', n: 'Docker' },
+];
+const loop = [...techs, ...techs];
+---
+<div class="mqwrap" style="position:relative;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);">
+  <div class="mqtrack">
+    {loop.map((t) => (
+      <img class="mqlogo" src={`/brand/tech/${t.f}.png`} alt={t.n} loading="eager" decoding="async"
+           style={t.small ? 'height:24px;' : undefined} />
+    ))}
+  </div>
+</div>

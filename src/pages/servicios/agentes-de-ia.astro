@@ -1,0 +1,111 @@
+---
+import SiteC from '../../layouts/SiteC.astro';
+import Nav from '../../components/c/Nav.astro';
+import Footer from '../../components/c/Footer.astro';
+import TechMarquee from '../../components/c/TechMarquee.astro';
+const WA = 'https://wa.me/573194436045?text=Hola%20KANTECH!%20Quiero%20un%20agente%20de%20IA%20que%20atienda%20a%20mis%20clientes%2024%2F7.';
+const features = [
+  { n: '01', t: 'Atiende en WhatsApp 24/7', d: 'Responde al instante, a cualquier hora, en lenguaje natural.' },
+  { n: '02', t: 'Califica leads', d: 'Hace las preguntas correctas y prioriza a quien sí va a comprar.' },
+  { n: '03', t: 'Agenda citas', d: 'Consulta disponibilidad, reserva y envía la confirmación solo.' },
+  { n: '04', t: 'Sincroniza tu CRM', d: 'Cada conversación queda registrada — nada se pierde entre chats.' },
+  { n: '05', t: 'Escala a un humano', d: 'Cuando el caso lo amerita, pasa la conversación a tu equipo.' },
+];
+---
+<SiteC
+  title="Agentes de IA para WhatsApp 24/7 — Atención y Ventas | KANTECH"
+  description="Agentes de IA que atienden a tus clientes 24/7 en WhatsApp, califican leads y agendan citas, integrados a tu CRM. Sin contratar personal. Diagnóstico gratis — KANTECH, Colombia."
+  keywords="agente de IA, chatbot WhatsApp, IA para atención al cliente, agente IA de ventas, automatizar atención al cliente, asistente virtual WhatsApp Business, Colombia"
+  path="/servicios/agentes-de-ia"
+>
+  <Nav home={false} />
+
+  <!-- HERO -->
+  <div style="position:relative;overflow:hidden;border-bottom:1px solid #16273f;">
+    <div style="position:absolute;inset:0;background-image:linear-gradient(#15263f 1px,transparent 1px),linear-gradient(90deg,#15263f 1px,transparent 1px);background-size:48px 48px;opacity:.5;"></div>
+    <div style="position:absolute;top:-140px;right:-60px;width:440px;height:440px;background:radial-gradient(circle,rgba(106,195,198,.18),transparent 70%);"></div>
+    <div style="position:relative;max-width:1080px;margin:0 auto;padding:34px 32px 0;">
+      <div style="font-size:12.5px;color:#5f76a0;">/ <a href="/" style="color:#6f84a8;">inicio</a> / <a href="/#servicios" style="color:#6f84a8;">servicios</a> / <span style="color:#6AC3C6;">agentes_de_ia</span></div>
+    </div>
+    <div style="position:relative;max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1.05fr .95fr;gap:50px;padding:40px 32px 72px;align-items:center;">
+      <div>
+        <div style="display:inline-flex;align-items:center;gap:10px;color:#6AC3C6;font-size:13px;font-weight:600;border:1px solid #2c466f;border-radius:8px;padding:7px 13px;margin-bottom:26px;">servicio_01 · AI Agents</div>
+        <h1 style="font-size:46px;line-height:1.1;font-weight:700;color:#fff;margin:0 0 14px;letter-spacing:-.02em;">Un asistente que <span style="color:#6AC3C6;">no_duerme.</span></h1>
+        <p style="font-size:16.5px;line-height:1.7;color:#9fb2d4;margin:0 0 30px;max-width:480px;">Atiende a tus clientes 24/7, califica leads y agenda citas — sin contratar a nadie más. Vive en tu WhatsApp y se conecta a tu CRM.</p>
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:22px;">
+          <a href={WA} target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;background:#6AC3C6;color:#0d1828;padding:15px 26px;border-radius:10px;font-size:15px;font-weight:700;">quiero_un_agente <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;"><line x1="4" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        </div>
+        <div style="display:flex;align-items:center;gap:20px;font-size:13px;color:#6f84a8;">
+          <span style="display:flex;align-items:center;gap:7px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6AC3C6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;"><circle cx="12" cy="12" r="9"/><polyline points="8.3 12.2 11 14.8 15.7 9.3"/></svg> sin contratar personal</span>
+          <span style="display:flex;align-items:center;gap:7px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="#6AC3C6" stroke="#6AC3C6" stroke-width="1.5" stroke-linejoin="round" style="flex:none;"><polygon points="13 2 5 13 11 13 10 22 19 10 13 10"/></svg> en línea en días</span>
+        </div>
+      </div>
+      <div style="background:#0a1322;border:1px solid #243a5e;border-radius:14px;overflow:hidden;box-shadow:0 30px 70px -30px rgba(0,0,0,.8);">
+        <div style="display:flex;align-items:center;gap:9px;padding:13px 16px;background:#13233d;border-bottom:1px solid #243a5e;">
+          <span style="width:30px;height:30px;border-radius:50%;background:#1f3253;display:flex;align-items:center;justify-content:center;color:#6AC3C6;font-weight:700;font-family:'Manrope',sans-serif;font-size:13px;">K</span>
+          <div><div style="color:#fff;font-size:13px;font-weight:600;">Agente KANTECH</div><div style="color:#28c840;font-size:11px;">● en línea</div></div>
+        </div>
+        <div style="padding:20px;display:flex;flex-direction:column;gap:12px;">
+          <div style="align-self:flex-start;max-width:80%;background:#13233d;border:1px solid #243a5e;border-radius:12px 12px 12px 3px;padding:11px 14px;font-size:13.5px;color:#cdd9ec;">Hola, ¿atienden citas para mañana? 🙏</div>
+          <div style="align-self:flex-end;max-width:82%;background:rgba(106,195,198,.14);border:1px solid #2a6e72;border-radius:12px 12px 3px 12px;padding:11px 14px;font-size:13.5px;color:#e7eefb;">¡Hola! Claro 😊 Tengo espacio mañana 3:00 PM o 4:30 PM. ¿Cuál te queda mejor?</div>
+          <div style="align-self:flex-start;max-width:80%;background:#13233d;border:1px solid #243a5e;border-radius:12px 12px 12px 3px;padding:11px 14px;font-size:13.5px;color:#cdd9ec;">3 PM perfecto</div>
+          <div style="align-self:flex-end;max-width:82%;background:rgba(106,195,198,.14);border:1px solid #2a6e72;border-radius:12px 12px 3px 12px;padding:11px 14px;font-size:13.5px;color:#e7eefb;">Listo ✅ Cita agendada mañana 3:00 PM. Te llegó la confirmación a tu correo.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROBLEMA -->
+  <div style="max-width:1080px;margin:0 auto;padding:80px 32px 10px;">
+    <div style="color:#6AC3C6;font-size:13px;font-weight:600;margin-bottom:18px;">// el_problema</div>
+    <p style="font-family:'Manrope',sans-serif;font-size:30px;font-weight:600;line-height:1.45;color:#e7eefb;margin:0;max-width:880px;letter-spacing:-.01em;">Cada mensaje sin responder fuera de horario es un cliente que se va con la competencia. Tu equipo no puede estar despierto 24/7 — <span style="color:#6AC3C6;">un agente de IA sí.</span></p>
+  </div>
+
+  <!-- QUÉ HACE (index list) -->
+  <div style="max-width:1080px;margin:0 auto;padding:70px 32px 10px;">
+    <div style="color:#6AC3C6;font-size:13px;font-weight:600;margin-bottom:30px;">// qué_hace · what_it_does</div>
+    <div style="border-top:1px solid #1d3052;">
+      {features.map((f) => (
+        <div class="ix" style="display:grid;grid-template-columns:64px 1fr 1.2fr;gap:24px;align-items:center;padding:24px 14px;border-bottom:1px solid #1d3052;transition:.15s;">
+          <span class="ixn" style="font-size:13px;color:#43618f;">{f.n}</span>
+          <div style="font-family:'Manrope',sans-serif;font-size:18px;font-weight:700;color:#fff;">{f.t}</div>
+          <p style="font-size:14px;color:#9fb2d4;margin:0;line-height:1.55;">{f.d}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- VALUE -->
+  <div style="max-width:1080px;margin:0 auto;padding:70px 32px 10px;">
+    <div style="border-top:1px solid #1d3052;border-bottom:1px solid #1d3052;padding:54px 0;text-align:center;">
+      <p style="font-family:'Manrope',sans-serif;font-size:32px;font-weight:700;line-height:1.35;color:#fff;margin:0 auto;max-width:780px;letter-spacing:-.015em;">Equivale a un asesor de medio tiempo,<br/><span style="color:#6AC3C6;">trabajando todo el día.</span></p>
+      <p style="font-size:14px;color:#5f76a0;margin:18px 0 0;">Sin sueldo, sin turnos, sin días libres.</p>
+    </div>
+  </div>
+
+  <!-- TECH MARQUEE -->
+  <div style="max-width:1080px;margin:0 auto;padding:30px 32px 10px;">
+    <div style="color:#6AC3C6;font-size:13px;font-weight:600;margin-bottom:24px;">// tecnologías · stack</div>
+    <TechMarquee />
+  </div>
+
+  <!-- CTA BAND -->
+  <div style="border-top:1px solid #1d3052;background:#0b1422;margin-top:70px;">
+    <div style="max-width:1080px;margin:0 auto;padding:64px 32px;display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap;">
+      <div>
+        <h2 style="font-family:'Manrope',sans-serif;font-size:30px;font-weight:800;color:#fff;margin:0 0 8px;letter-spacing:-.02em;">¿Listo para no perder otro cliente?</h2>
+        <p style="font-size:14.5px;color:#9fb2d4;margin:0;">Diagnóstico gratis · respuesta en minutos por WhatsApp.</p>
+      </div>
+      <a href={WA} target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;background:#6AC3C6;color:#0d1828;padding:16px 28px;border-radius:10px;font-size:15px;font-weight:700;">Pedir mi diagnóstico <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;"><line x1="4" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+  </div>
+
+  <Footer home={false} />
+</SiteC>
+
+<style>
+  /* Específico de esta página (en el diseño lo aplicaba support.js): el número
+     de cada fila del índice "qué_hace" se ilumina al pasar el cursor. SiteC sólo
+     define .ix:hover y .ixarrow (usado en la landing), no .ixn. */
+  .ix:hover .ixn { color: #6AC3C6; }
+</style>

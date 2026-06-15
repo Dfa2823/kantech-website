@@ -1,0 +1,21 @@
+---
+// Nav dirección C. home=true → anclas locales (#x); home=false → /#x (desde páginas de servicio).
+const { home = true } = Astro.props;
+const b = home ? '' : '/';
+const WA = 'https://wa.me/573194436045?text=Hola%20KANTECH!%20Quiero%20agendar%20mi%20diagn%C3%B3stico%20gratuito.';
+---
+<div style="position:sticky;top:0;z-index:50;background:rgba(13,24,40,.86);backdrop-filter:blur(10px);border-bottom:1px solid #1d3052;">
+  <div style="max-width:1180px;margin:0 auto;position:relative;display:flex;align-items:center;justify-content:space-between;padding:16px 32px;">
+    <input type="checkbox" id="navtoggle" class="navtoggle" />
+    <a href="/" aria-label="KANTECH Solutions — inicio"><img alt="KANTECH Solutions" src="/brand/logo_h_white.png" width="170" height="26" style="height:26px;width:auto;display:block;" /></a>
+    <label for="navtoggle" class="hamburger" style="cursor:pointer;color:#cdd9ec;" aria-label="Abrir menú"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg></label>
+    <div class="navlinks" style="display:flex;align-items:center;gap:28px;font-size:13.5px;color:#9fb2d4;font-weight:500;">
+      <a href={`${b}#servicios`}>servicios</a>
+      <a href={`${b}#proceso`}>proceso</a>
+      <a href={`${b}#portafolio`}>portafolio</a>
+      <a href={`${b}#nosotros`}>nosotros</a>
+      <span style="display:flex;align-items:center;gap:6px;color:#5f76a0;font-size:12px;"><span style="color:#6AC3C6;">ES</span>|<span>EN</span></span>
+      <a href={WA} target="_blank" rel="noopener" style="display:flex;align-items:center;gap:9px;background:#6AC3C6;color:#0d1828;padding:10px 18px;border-radius:9px;font-size:13px;font-weight:700;">$ diagnóstico_gratis</a>
+    </div>
+  </div>
+</div>

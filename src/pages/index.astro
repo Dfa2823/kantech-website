@@ -1,35 +1,246 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Navbar from '../components/Navbar.astro';
-import Hero from '../components/Hero.astro';
-import TechStack from '../components/TechStack.astro';
-import Services from '../components/Services.astro';
-import Portfolio from '../components/Portfolio.astro';
-import WhyUs from '../components/WhyUs.astro';
-import Process from '../components/Process.astro';
-import Testimonials from '../components/Testimonials.astro';
-import Engagement from '../components/Engagement.astro';
-import FAQ from '../components/FAQ.astro';
-import FinalCTA from '../components/FinalCTA.astro';
-import Contact from '../components/Contact.astro';
-import Footer from '../components/Footer.astro';
-import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+import SiteC from '../layouts/SiteC.astro';
+import Nav from '../components/c/Nav.astro';
+import Footer from '../components/c/Footer.astro';
+import TechMarquee from '../components/c/TechMarquee.astro';
+const WA = 'https://wa.me/573194436045?text=Hola%20KANTECH!%20Quiero%20agendar%20mi%20diagn%C3%B3stico%20gratuito.';
+const services = [
+  { n: '01', es: 'Agentes de IA', en: 'AI Agents', d: 'Un asistente que atiende a tus clientes 24/7, califica leads y agenda citas — sin contratar a nadie más.', href: '/servicios/agentes-de-ia' },
+  { n: '02', es: 'Automatizaciones', en: 'Automations · n8n', d: 'Eliminamos las tareas que tu equipo odia: copiar datos entre sistemas, enviar reportes, actualizar inventarios.', href: '/servicios/automatizaciones' },
+  { n: '03', es: 'Mejoras de Proceso', en: 'Process Improvement', d: 'Encontramos dónde tu empresa pierde tiempo y dinero, y rediseñamos la operación para eliminarlo.', href: '/servicios/mejoras-de-proceso' },
+  { n: '04', es: 'Desarrollo a Medida', en: 'Custom Development', d: 'Tu propio CRM, ERP o sistema web. Construido exactamente como lo necesitas — tu sistema, tu propiedad.', href: '/servicios/desarrollo-a-medida' },
+];
+const steps = [
+  { n: '01 · gratis', dot: '#6AC3C6', es: 'Diagnóstico', en: 'Diagnosis', d: 'Mapeamos dónde tu operación pierde tiempo y dinero. 30 min, sin costo.', active: true },
+  { n: '02', es: 'Diseño', en: 'Solution design', d: 'Definimos la solución con mayor retorno y un plan claro de entrega.' },
+  { n: '03 · semanas', es: 'Construcción', en: 'Build', d: 'Construimos e integramos con tus sistemas actuales, sin cortar tu operación.' },
+  { n: '04 · live', es: 'Producción', en: 'Live + soporte', d: 'Lanzamos, formamos a tu equipo y acompañamos la mejora continua.' },
+];
+const projects = [
+  { name: 'SOFY', kind: 'ERP a medida', sector: 'Manufactura', sub: 'Laboratorio de alimentos', what: 'ERP central que gestiona producción, inventarios y trazabilidad del laboratorio en un solo sistema.' },
+  { name: 'CRM CDA', kind: 'CRM a medida', sector: 'Transporte & Ventas', sub: 'Comercial', what: 'CRM que centraliza contactos, leads y ventas — fin del seguimiento disperso en hojas de cálculo.' },
+  { name: 'T1 · n8n', kind: 'Integración', sector: 'Retail', sub: 'e-commerce', what: 'Automatización que integra Shopify con el sistema contable vía n8n — ventas que se registran solas, sin doble digitación.' },
+];
+const stats = [
+  { v: '+20h', l: 'ahorradas/mes por cliente' },
+  { v: '4', l: 'países en producción' },
+  { v: '<24h', l: 'tiempo de respuesta' },
+  { v: '100%', l: 'a medida, tu propiedad' },
+];
 ---
-<Layout>
-  <Navbar />
-  <main>
-    <Hero />
-    <Services />
-    <TechStack />
-    <WhyUs />
-    <Portfolio />
-    <Testimonials />
-    <Process />
-    <Engagement />
-    <FAQ />
-    <FinalCTA />
-    <Contact />
-  </main>
-  <Footer />
-  <WhatsAppFloat />
-</Layout>
+<SiteC>
+  <Nav home={true} />
+
+  <!-- HERO -->
+  <div style="position:relative;overflow:hidden;border-bottom:1px solid #16273f;">
+    <div style="position:absolute;inset:0;background-image:linear-gradient(#15263f 1px,transparent 1px),linear-gradient(90deg,#15263f 1px,transparent 1px);background-size:48px 48px;opacity:.55;"></div>
+    <div style="position:absolute;top:-140px;right:-60px;width:480px;height:480px;background:radial-gradient(circle,rgba(106,195,198,.2),transparent 70%);"></div>
+    <div style="position:relative;max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1.05fr 1fr;gap:54px;padding:78px 32px 80px;align-items:center;">
+      <div>
+        <div style="display:inline-flex;align-items:center;gap:10px;color:#6AC3C6;font-size:13px;font-weight:600;border:1px solid #2c466f;border-radius:8px;padding:8px 14px;margin-bottom:30px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;"><polyline points="5 8 9 12 5 16"/><line x1="11" y1="16" x2="17" y2="16"/></svg>
+          // software + automatización · a medida
+        </div>
+        <h1 style="font-size:54px;line-height:1.08;font-weight:700;color:#fff;margin:0 0 12px;letter-spacing:-.02em;">Software que te<br/><span style="color:#6AC3C6;">devuelve_horas</span><span style="color:#43618f;">()</span></h1>
+        <p style="font-size:15px;color:#5f76a0;margin:0 0 24px;">Software that gives your team their hours back.</p>
+        <p style="font-size:16.5px;line-height:1.7;color:#9fb2d4;margin:0 0 10px;max-width:530px;">Agentes de IA, automatizaciones y tu propio <span style="color:#cdd9ec;">CRM/ERP</span> a medida. Eliminamos las tareas que frenan a tu equipo y recuperas la inversión en semanas — no en meses.</p>
+        <p style="font-size:13.5px;line-height:1.65;color:#5f76a0;margin:0 0 34px;max-width:520px;">AI agents, automations, and your own custom CRM/ERP — results in weeks, not months.</p>
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:26px;flex-wrap:wrap;">
+          <a href={WA} target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;background:#6AC3C6;color:#0d1828;padding:15px 26px;border-radius:10px;font-size:15px;font-weight:700;">quiero_mi_diagnóstico <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;"><line x1="4" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+          <a href="#servicios" style="display:flex;align-items:center;gap:8px;color:#cdd9ec;padding:15px 22px;border-radius:10px;font-size:15px;font-weight:600;border:1px solid #2c466f;">ver_cómo_trabajamos</a>
+        </div>
+        <div style="display:flex;align-items:center;gap:20px;font-size:13px;color:#6f84a8;flex-wrap:wrap;">
+          <span style="display:flex;align-items:center;gap:7px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6AC3C6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;"><circle cx="12" cy="12" r="9"/><polyline points="8.3 12.2 11 14.8 15.7 9.3"/></svg> sin compromiso</span>
+          <span style="display:flex;align-items:center;gap:7px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="#6AC3C6" stroke="#6AC3C6" stroke-width="1.5" stroke-linejoin="round" style="flex:none;"><polygon points="13 2 5 13 11 13 10 22 19 10 13 10"/></svg> respuesta en minutos</span>
+        </div>
+      </div>
+      <div style="background:#0a1322;border:1px solid #243a5e;border-radius:14px;overflow:hidden;box-shadow:0 30px 70px -30px rgba(0,0,0,.8);">
+        <div style="display:flex;align-items:center;gap:8px;padding:13px 16px;background:#13233d;border-bottom:1px solid #243a5e;">
+          <span style="width:11px;height:11px;border-radius:50%;background:#ff5f57;display:inline-block;"></span>
+          <span style="width:11px;height:11px;border-radius:50%;background:#febc2e;display:inline-block;"></span>
+          <span style="width:11px;height:11px;border-radius:50%;background:#28c840;display:inline-block;"></span>
+          <span style="margin-left:10px;color:#6f84a8;font-size:12px;">kantech@automation: ~/flow</span>
+        </div>
+        <div style="padding:22px;font-size:13.5px;line-height:2;color:#9fb2d4;">
+          <div><span style="color:#6AC3C6;">$</span> kantech deploy --agent ventas</div>
+          <div style="color:#5f76a0;">→ conectando WhatsApp Business…</div>
+          <div style="color:#5f76a0;">→ sincronizando CRM…</div>
+          <div style="color:#28c840;">✓ agente en línea · atendiendo 24/7</div>
+          <div style="margin:14px 0;border-top:1px dashed #243a5e;"></div>
+          <div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:10px;"><span style="color:#43618f;">lead></span><span style="color:#cdd9ec;">¿atienden citas para mañana? 🙏</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#6AC3C6;">bot></span><span style="color:#cdd9ec;">¡Claro! Tengo 3:00 PM o 4:30 PM. ¿Cuál prefieres?</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start;margin-top:10px;"><span style="color:#43618f;">lead></span><span style="color:#cdd9ec;">3 PM 👌</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start;margin-top:10px;"><span style="color:#6AC3C6;">bot></span><span style="color:#28c840;">✓ cita agendada · CRM actualizado</span><span style="width:8px;height:16px;background:#6AC3C6;display:inline-block;animation:kpulse 1s infinite;"></span></div>
+        </div>
+      </div>
+    </div>
+    <div style="position:relative;border-top:1px solid #16273f;background:#0b1422;">
+      <div style="max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:18px 32px;font-size:12.5px;color:#6f84a8;">
+        <span style="color:#6AC3C6;">en_producción ▸</span>
+        <span>4 países</span><span style="color:#2c466f;">/</span>
+        <span>Salud &amp; Estética</span><span style="color:#2c466f;">/</span>
+        <span>Contabilidad</span><span style="color:#2c466f;">/</span>
+        <span>Manufactura</span><span style="color:#2c466f;">/</span>
+        <span>Transporte &amp; Ventas</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICIOS -->
+  <div id="servicios" style="max-width:1180px;margin:0 auto;padding:90px 32px 30px;">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:46px;flex-wrap:wrap;">
+      <div>
+        <div style="color:#6AC3C6;font-size:13px;font-weight:600;margin-bottom:16px;">// servicios · services</div>
+        <h2 style="font-family:'Manrope',sans-serif;font-size:40px;font-weight:800;color:#fff;margin:0 0 8px;letter-spacing:-.025em;max-width:640px;line-height:1.1;">Todo lo que tu operación necesita, bajo un mismo techo.</h2>
+        <p style="font-size:14px;color:#5f76a0;margin:0;">Everything your operation needs, under one roof.</p>
+      </div>
+      <p style="font-size:14.5px;color:#9fb2d4;max-width:330px;line-height:1.6;margin:0;">No vendemos herramientas sueltas — entregamos soluciones completas que generan resultados desde el primer mes.</p>
+    </div>
+    <div style="border-top:1px solid #1d3052;">
+      {services.map((s) => (
+        <a href={s.href} class="ix" style="display:grid;grid-template-columns:78px 1fr 1.1fr 40px;align-items:center;gap:24px;padding:30px 16px;border-bottom:1px solid #1d3052;transition:background .15s;">
+          <span style="font-size:14px;color:#43618f;">{s.n}</span>
+          <div><h3 style="font-family:'Manrope',sans-serif;font-size:24px;font-weight:700;color:#fff;margin:0 0 3px;">{s.es}</h3><div style="font-size:12.5px;color:#5f76a0;">{s.en}</div></div>
+          <p style="font-size:14.5px;line-height:1.6;color:#9fb2d4;margin:0;">{s.d}</p>
+          <span class="ixarrow" style="justify-self:end;color:#43618f;transition:.18s;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </a>
+      ))}
+    </div>
+  </div>
+
+  <!-- PROCESO -->
+  <div id="proceso" style="max-width:1180px;margin:0 auto;padding:80px 32px 30px;">
+    <div style="color:#6AC3C6;font-size:13px;font-weight:600;margin-bottom:16px;">// proceso · how_we_work</div>
+    <h2 style="font-family:'Manrope',sans-serif;font-size:40px;font-weight:800;color:#fff;margin:0 0 8px;letter-spacing:-.025em;">De la fuga de horas a producción, en 4 pasos.</h2>
+    <p style="font-size:14px;color:#5f76a0;margin:0 0 56px;">From wasted hours to production, in four steps.</p>
+    <div style="position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:30px;">
+      <div style="position:absolute;left:6px;right:6px;top:7px;height:1px;background:#1d3052;"></div>
+      {steps.map((st) => (
+        <div style="position:relative;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:22px;"><span style={`width:14px;height:14px;border-radius:50%;display:inline-block;${st.active ? 'background:#6AC3C6;' : 'background:#1d3052;border:1px solid #2c466f;'}`}></span></div>
+          <div style={`font-size:13px;margin-bottom:10px;color:${st.active ? '#6AC3C6' : '#6f84a8'};`}>{st.n}</div>
+          <h3 style="font-family:'Manrope',sans-serif;font-size:19px;font-weight:700;color:#fff;margin:0 0 3px;">{st.es}</h3>
+          <div style="font-size:12px;color:#5f76a0;margin-bottom:12px;">{st.en}</div>
+          <p style="font-size:13.5px;line-height:1.6;color:#9fb2d4;margin:0;max-width:230px;">{st.d}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- PORTAFOLIO -->
+  <div id="portafolio" style="max-width:1180px;margin:0 auto;padding:80px 32px 30px;">
+    <div style="margin-bottom:42px;">
+      <div style="color:#6AC3C6;font-size:13px;font-weight:600;margin-bottom:16px;">// portafolio · en_producción</div>
+      <h2 style="font-family:'Manrope',sans-serif;font-size:40px;font-weight:800;color:#fff;margin:0 0 8px;letter-spacing:-.025em;">Sistemas reales, operando hoy.</h2>
+      <p style="font-size:14px;color:#5f76a0;margin:0;">Real systems, running in production today.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:150px 220px 1fr 150px;gap:24px;padding:0 16px 14px;border-bottom:1px solid #2c466f;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:#5f76a0;">
+      <span>Proyecto</span><span>Sector</span><span>Qué construimos</span><span style="text-align:right;">Estado</span>
+    </div>
+    {projects.map((p) => (
+      <div class="led" style="display:grid;grid-template-columns:150px 220px 1fr 150px;gap:24px;align-items:center;padding:26px 16px;border-bottom:1px solid #1d3052;transition:background .15s;">
+        <div><div style="font-family:'Manrope',sans-serif;font-size:18px;font-weight:800;color:#fff;">{p.name}</div><div style="font-size:11.5px;color:#5f76a0;margin-top:4px;">{p.kind}</div></div>
+        <div style="font-size:13.5px;color:#9fb2d4;">{p.sector}<br/><span style="color:#6f84a8;font-size:12px;">{p.sub}</span></div>
+        <div style="font-size:14px;line-height:1.6;color:#cdd9ec;">{p.what}</div>
+        <div style="text-align:right;"><span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#8fdadc;"><span style="width:6px;height:6px;border-radius:50%;background:#6AC3C6;display:inline-block;animation:kpulse 1.8s infinite;"></span>en producción</span></div>
+      </div>
+    ))}
+  </div>
+
+  <!-- STACK -->
+  <div style="max-width:1180px;margin:0 auto;padding:80px 32px 30px;">
+    <div style="border-top:1px solid #1d3052;border-bottom:1px solid #1d3052;padding:44px 0;">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:30px;flex-wrap:wrap;margin-bottom:34px;">
+        <div>
+          <div style="color:#6AC3C6;font-size:13px;font-weight:600;margin-bottom:14px;">// stack · tecnologías</div>
+          <h3 style="font-family:'Manrope',sans-serif;font-size:24px;font-weight:700;color:#fff;margin:0;line-height:1.2;">El stack que impulsa tu operación.</h3>
+        </div>
+        <p style="font-size:13.5px;color:#9fb2d4;line-height:1.6;margin:0;max-width:340px;">Integramos y construimos con las herramientas líderes en IA, automatización y desarrollo — las mismas en las que ya confías.</p>
+      </div>
+      <TechMarquee />
+    </div>
+  </div>
+
+  <!-- NOSOTROS -->
+  <div id="nosotros" style="max-width:1180px;margin:0 auto;padding:80px 32px 30px;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;">
+      <div>
+        <div style="color:#6AC3C6;font-size:13px;font-weight:600;margin-bottom:16px;">// nosotros · why_kantech</div>
+        <h2 style="font-family:'Manrope',sans-serif;font-size:36px;font-weight:800;color:#fff;margin:0 0 8px;letter-spacing:-.025em;line-height:1.12;">El socio tecnológico que tu empresa necesita.</h2>
+        <p style="font-size:14px;color:#5f76a0;margin:0 0 22px;">The technology partner your business needs.</p>
+        <p style="font-size:15px;line-height:1.7;color:#9fb2d4;margin:0 0 28px;max-width:480px;">No somos solo desarrolladores. Somos el puente entre tu negocio y la tecnología que lo transforma — con equipo local en Colombia, misma zona horaria, mismo idioma, misma cultura de negocio.</p>
+        <div style="display:flex;flex-direction:column;">
+          {['Equipo local en Colombia · disponibles en LatAm','Software a medida — tu sistema, tu propiedad','Resultados visibles en semanas, no meses'].map((t, i) => (
+            <div style={`display:flex;align-items:center;gap:12px;padding:14px 0;border-top:1px solid #1d3052;${i === 2 ? 'border-bottom:1px solid #1d3052;' : ''}`}><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#6AC3C6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;"><circle cx="12" cy="12" r="9"/><polyline points="8.3 12.2 11 14.8 15.7 9.3"/></svg><span style="font-size:14.5px;color:#cdd9ec;">{t}</span></div>
+          ))}
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #1d3052;border-left:1px solid #1d3052;">
+        {stats.map((s) => (
+          <div style="padding:30px 26px;border-right:1px solid #1d3052;border-bottom:1px solid #1d3052;"><div style="font-family:'Manrope',sans-serif;font-size:38px;font-weight:800;color:#6AC3C6;">{s.v}</div><div style="font-size:12.5px;color:#8fa0c2;margin-top:6px;">{s.l}</div></div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- TESTIMONIOS -->
+  <div style="max-width:1180px;margin:0 auto;padding:80px 32px 30px;">
+    <div style="color:#6AC3C6;font-size:13px;font-weight:600;margin-bottom:16px;">// testimonios · lo_que_dicen</div>
+    <h2 style="font-family:'Manrope',sans-serif;font-size:40px;font-weight:800;color:#fff;margin:0 0 48px;letter-spacing:-.025em;">Negocios reales que recuperaron sus horas.</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid #1d3052;">
+      <div style="padding:40px 40px 40px 0;border-right:1px solid #1d3052;">
+        <p style="font-family:'Manrope',sans-serif;font-size:22px;font-weight:600;line-height:1.5;color:#e7eefb;margin:0 0 26px;letter-spacing:-.01em;">“El ERP nos dio por fin trazabilidad real del laboratorio. Lo que antes vivía en cuadernos y Excel, hoy está en un solo sistema.”</p>
+        <div style="display:flex;align-items:center;gap:12px;"><span style="width:38px;height:38px;border-radius:50%;border:1px solid #2c466f;display:flex;align-items:center;justify-content:center;color:#6AC3C6;font-weight:700;font-family:'Manrope',sans-serif;">S</span><div><div style="font-size:13.5px;font-weight:600;color:#fff;">Dirección · SOFY</div><div style="font-size:12px;color:#6f84a8;">Manufactura · alimentos</div></div></div>
+      </div>
+      <div style="padding:40px 0 40px 40px;">
+        <p style="font-family:'Manrope',sans-serif;font-size:22px;font-weight:600;line-height:1.5;color:#e7eefb;margin:0 0 26px;letter-spacing:-.01em;">“Dejamos de perder leads. Todo el equipo de ventas trabaja sobre el mismo CRM y ya nada se cae entre correos.”</p>
+        <div style="display:flex;align-items:center;gap:12px;"><span style="width:38px;height:38px;border-radius:50%;border:1px solid #2c466f;display:flex;align-items:center;justify-content:center;color:#6AC3C6;font-weight:700;font-family:'Manrope',sans-serif;">C</span><div><div style="font-size:13.5px;font-weight:600;color:#fff;">Gerencia · CRM CDA</div><div style="font-size:12px;color:#6f84a8;">Transporte &amp; ventas</div></div></div>
+      </div>
+    </div>
+    <div style="font-size:12px;color:#5f76a0;margin-top:16px;border-top:1px solid #1d3052;padding-top:14px;">* Testimonios de ejemplo — reemplázalos con citas y nombres reales cuando los tengas.</div>
+  </div>
+
+  <!-- CONTACTO -->
+  <div id="contacto" style="border-top:1px solid #1d3052;background:#0b1422;margin-top:50px;">
+    <div style="max-width:1180px;margin:0 auto;padding:80px 32px;display:grid;grid-template-columns:1fr 1.05fr;gap:64px;">
+      <div>
+        <div style="color:#6AC3C6;font-size:13px;font-weight:600;margin-bottom:16px;">// contacto · empieza_aquí</div>
+        <h2 style="font-family:'Manrope',sans-serif;font-size:38px;font-weight:800;color:#fff;margin:0 0 8px;letter-spacing:-.025em;line-height:1.12;">Empieza por tu diagnóstico gratis.</h2>
+        <p style="font-size:14px;color:#5f76a0;margin:0 0 26px;">Start with your free diagnosis.</p>
+        <p style="font-size:15px;line-height:1.7;color:#9fb2d4;margin:0 0 34px;max-width:420px;">Cuéntanos tu reto y te respondemos por WhatsApp en menos de 24h. Sin compromiso — solo ganas claridad sobre dónde tu operación pierde dinero.</p>
+        <div style="display:flex;flex-direction:column;gap:18px;">
+          <div style="display:flex;align-items:center;gap:13px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6AC3C6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;"><path d="M21 11.5a8.4 8.4 0 0 1-1.1 4.2 8.5 8.5 0 0 1-7.4 4.3 8.4 8.4 0 0 1-4-1L3 21l1.9-5.5a8.4 8.4 0 0 1-1-4 8.5 8.5 0 0 1 4.3-7.4 8.4 8.4 0 0 1 4.2-1.1h.5a8.5 8.5 0 0 1 8 8z"/></svg><a href="tel:+573194436045" style="font-size:14.5px;color:#cdd9ec;">+57 319 443 6045</a></div>
+          <div style="display:flex;align-items:center;gap:13px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6AC3C6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg><a href="mailto:director@kantechsol.com" style="font-size:14.5px;color:#cdd9ec;">director@kantechsol.com</a></div>
+          <div style="display:flex;align-items:center;gap:13px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6AC3C6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;"><path d="M12 21s-7-5.7-7-11a7 7 0 0 1 14 0c0 5.3-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span style="font-size:14.5px;color:#cdd9ec;">Cali, Colombia · disponibles en LatAm</span></div>
+        </div>
+      </div>
+      <div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:22px;">
+          <div><div style="font-size:12px;color:#6f84a8;margin-bottom:9px;">Nombre / Name *</div><input type="text" placeholder="Tu nombre" style="width:100%;background:transparent;border:none;border-bottom:1px solid #2c466f;color:#fff;font-family:inherit;font-size:14px;padding:8px 0;outline:none;" /></div>
+          <div><div style="font-size:12px;color:#6f84a8;margin-bottom:9px;">Empresa / Company</div><input type="text" placeholder="Opcional" style="width:100%;background:transparent;border:none;border-bottom:1px solid #2c466f;color:#fff;font-family:inherit;font-size:14px;padding:8px 0;outline:none;" /></div>
+        </div>
+        <div style="margin-bottom:22px;">
+          <div style="font-size:12px;color:#6f84a8;margin-bottom:11px;">Servicio de interés / Service *</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;">
+            <span style="font-size:13px;color:#cdd9ec;border:1px solid #2c466f;border-radius:999px;padding:8px 15px;">Agentes de IA</span>
+            <span style="font-size:13px;color:#cdd9ec;border:1px solid #2c466f;border-radius:999px;padding:8px 15px;">Automatizaciones</span>
+            <span style="font-size:13px;color:#cdd9ec;border:1px solid #2c466f;border-radius:999px;padding:8px 15px;">Mejoras de Proceso</span>
+            <span style="font-size:13px;color:#cdd9ec;border:1px solid #2c466f;border-radius:999px;padding:8px 15px;">Desarrollo a Medida</span>
+            <span style="font-size:13px;color:#6f84a8;border:1px solid #2c466f;border-radius:999px;padding:8px 15px;">No sé aún</span>
+          </div>
+        </div>
+        <div style="margin-bottom:26px;">
+          <div style="font-size:12px;color:#6f84a8;margin-bottom:9px;">¿Cuál es tu reto? / Your challenge *</div>
+          <textarea rows="3" placeholder="Cuéntanos brevemente qué quieres resolver…" style="width:100%;background:transparent;border:none;border-bottom:1px solid #2c466f;color:#fff;font-family:inherit;font-size:14px;padding:8px 0;outline:none;resize:none;"></textarea>
+        </div>
+        <a href={WA} target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:10px;background:#6AC3C6;color:#0d1828;padding:16px;border-radius:10px;font-size:15px;font-weight:700;">Enviar por WhatsApp <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;"><line x1="4" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        <div style="display:flex;align-items:center;gap:18px;margin-top:16px;font-size:12px;color:#6f84a8;">
+          <span style="display:flex;align-items:center;gap:6px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6AC3C6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;"><circle cx="12" cy="12" r="9"/><polyline points="8.3 12.2 11 14.8 15.7 9.3"/></svg> respuesta en 24h</span>
+          <span style="display:flex;align-items:center;gap:6px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6AC3C6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;"><circle cx="12" cy="12" r="9"/><polyline points="8.3 12.2 11 14.8 15.7 9.3"/></svg> sin compromiso</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <Footer home={true} />
+</SiteC>
