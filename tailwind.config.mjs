@@ -4,46 +4,48 @@ export default {
   theme: {
     extend: {
       colors: {
-        // === Sistema "Quiet Premium / Operational Aurora" ===
-        // Superficies (escala de elevación de 4 pasos)
+        // === Sistema "Operational Navy — Dark Trust" (marca kantech SOLUTIONS) ===
+        // Superficies derivadas del navy de marca #263D66
         surface: {
-          0: '#080B16', // canvas
-          1: '#0F1525', // secciones elevadas / inputs
-          2: '#161E33', // cards
-          3: '#1E2942', // raised / tier recomendado
+          0: '#0E1A33', // canvas
+          1: '#152441', // secciones elevadas / inputs
+          2: '#1C3052', // cards
+          3: '#274270', // raised / tier recomendado / formulario
         },
-        border:  '#243049',
-        text:    '#F4F6FF',
-        muted:   '#A9B6CC', // subido a WCAG AA
+        border:  '#33507D',
+        text:    '#EEF3FA',
+        muted:   '#A4B6D4', // texto secundario, WCAG AA sobre cards
         primary: {
-          DEFAULT:   '#1E3BFF',
-          hover:     '#4D6BFF',
-          container: '#1E3BFF1A', // primary/10
+          DEFAULT:   '#6AC3C6', // teal de marca = ÚNICO color de acción (CTAs)
+          hover:     '#86D6D9',
+          container: '#6AC3C61A', // teal/10
         },
-        accent:  '#00D4FF',
-        success: '#00E887', // RESERVADO para prueba/ROI/éxito
-        violet:  '#6C2FD9', // solo dentro del gradiente de marca
+        accent:  '#6AC3C6', // mismo teal (acción/realce)
+        success: '#2FD79F', // verde esmeralda, RESERVADO a métricas/ROI/prueba (distinto del teal)
+        violet:  '#2E7E9E', // navy-acero: parada media del gradiente de marca (ya no morado)
 
         // === Tokens k- (compatibilidad con Layout JS + componentes legacy) ===
         k: {
-          bg:       '#080B16',
-          surface:  '#0F1525',
-          card:     '#161E33',
-          border:   '#243049',
-          blue:     '#1E3BFF',
-          'blue-h': '#4D6BFF',
-          cyan:     '#00D4FF',
-          purple:   '#6C2FD9',
-          green:    '#00E887',
-          text:     '#F4F6FF',
-          muted:    '#A9B6CC',
+          bg:       '#0E1A33',
+          surface:  '#152441',
+          card:     '#1C3052',
+          border:   '#33507D',
+          blue:     '#6AC3C6', // era el primary → ahora el teal de acción
+          'blue-h': '#86D6D9',
+          cyan:     '#6AC3C6',
+          purple:   '#2E7E9E',
+          green:    '#2FD79F',
+          text:     '#EEF3FA',
+          muted:    '#A4B6D4',
         },
       },
       fontFamily: {
         sans:     ['Inter', 'system-ui', 'sans-serif'],
         body:     ['Inter', 'system-ui', 'sans-serif'],
-        display:  ['Space Grotesk', 'Inter', 'sans-serif'],
-        headline: ['Space Grotesk', 'Inter', 'sans-serif'],
+        // Source Code Pro (mono oficial de marca) para display/titulares/cifras/labels
+        display:  ['"Source Code Pro"', 'ui-monospace', 'monospace'],
+        headline: ['"Source Code Pro"', 'ui-monospace', 'monospace'],
+        mono:     ['"Source Code Pro"', 'ui-monospace', 'monospace'],
       },
       borderRadius: {
         sm:  '0.5rem',  // 8px
@@ -53,7 +55,7 @@ export default {
         '2xl': '2rem',
       },
       backgroundImage: {
-        'brand-gradient': 'linear-gradient(110deg, #1E3BFF, #00D4FF, #6C2FD9)',
+        'brand-gradient': 'linear-gradient(110deg, #263D66 0%, #2E7E9E 55%, #6AC3C6 100%)',
       },
       animation: {
         'fade-up':    'fadeUp 0.7s ease-out both',
@@ -77,8 +79,8 @@ export default {
           '50%':      { transform: 'translateY(-12px)' },
         },
         breathe: {
-          '0%, 100%': { boxShadow: '0 0 0 0 rgba(0,232,135,0.45)' },
-          '50%':      { boxShadow: '0 0 0 10px rgba(0,232,135,0)' },
+          '0%, 100%': { boxShadow: '0 0 0 0 rgba(47,215,159,0.45)' },
+          '50%':      { boxShadow: '0 0 0 10px rgba(47,215,159,0)' },
         },
       },
     },

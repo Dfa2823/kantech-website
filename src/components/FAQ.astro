@@ -127,7 +127,7 @@ const faqs = [
           class:list={[
             'faq-item glass-panel rounded-2xl overflow-hidden border transition-all duration-300',
             faq.highlight
-              ? 'border-success/20 shadow-[0_0_20px_rgba(0,232,135,0.05)]'
+              ? 'border-success/20 shadow-[0_0_20px_rgba(47,215,159,0.05)]'
               : 'border-border hover:border-primary/30',
           ]}
           data-faq-category={faq.cat}
@@ -206,7 +206,7 @@ const faqs = [
             <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span>
           </a>
           <!-- Chip esmeralda contextual (disponibilidad) -->
-          <div class="absolute -top-4 -right-2 sm:-right-6 md:-right-12 hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-success/10 border border-success/30 shadow-[0_0_10px_rgba(0,232,135,0.1)]" style="transform:rotate(3deg);" aria-hidden="true">
+          <div class="absolute -top-4 -right-2 sm:-right-6 md:-right-12 hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-success/10 border border-success/30 shadow-[0_0_10px_rgba(47,215,159,0.1)]" style="transform:rotate(3deg);" aria-hidden="true">
             <span class="w-1.5 h-1.5 rounded-full bg-success animate-pulse"></span>
             <span class="font-label text-[10px] font-bold text-success uppercase tracking-wider whitespace-nowrap">
               <span data-lang="es">Respuesta en &lt; 1h</span>
@@ -255,13 +255,13 @@ const faqs = [
   }
   #faq .faq-chip:hover {
     color: #F4F6FF;
-    border-color: rgba(30, 59, 255, 0.2);
+    border-color: rgba(106,195,198, 0.2);
   }
   #faq .faq-chip[aria-pressed="true"] {
     background-color: #161E33; /* surface-2 */
-    border-color: rgba(30, 59, 255, 0.3);
+    border-color: rgba(106,195,198, 0.3);
     color: #F4F6FF;
-    box-shadow: 0 0 15px rgba(30, 59, 255, 0.15);
+    box-shadow: 0 0 15px rgba(106,195,198, 0.15);
   }
 
   @media (prefers-reduced-motion: reduce) {

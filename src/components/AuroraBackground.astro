@@ -31,13 +31,13 @@ const canvasId = `shader-canvas-${id}`;
     const fs = `precision highp float; uniform float u_time; uniform vec2 u_resolution;
       void main(){
         vec2 uv = gl_FragCoord.xy / u_resolution.xy;
-        vec3 color = vec3(0.031, 0.043, 0.086);      // #080B16
-        vec3 blue = vec3(0.118, 0.231, 1.0);         // #1E3BFF
-        vec3 violet = vec3(0.424, 0.184, 0.851);     // #6C2FD9
-        vec3 cyan = vec3(0.0, 0.831, 1.0);           // #00D4FF
+        vec3 color = vec3(0.055, 0.102, 0.200);      // #0E1A33 navy canvas
+        vec3 blue = vec3(0.149, 0.239, 0.400);       // #263D66 navy de marca
+        vec3 violet = vec3(0.180, 0.494, 0.620);     // #2E7E9E navy-acero
+        vec3 cyan = vec3(0.416, 0.765, 0.776);       // #6AC3C6 teal de marca
         float t = u_time * 0.2;
-        float n1 = sin(uv.x*2.0+t)*cos(uv.y*3.0-t*0.5); color += blue*max(0.0,n1)*0.08;
-        float n2 = sin(uv.y*2.5+t*0.7)*cos(uv.x*1.5-t); color += violet*max(0.0,n2)*0.06;
+        float n1 = sin(uv.x*2.0+t)*cos(uv.y*3.0-t*0.5); color += blue*max(0.0,n1)*0.06;
+        float n2 = sin(uv.y*2.5+t*0.7)*cos(uv.x*1.5-t); color += violet*max(0.0,n2)*0.05;
         float n3 = sin((uv.x+uv.y)*1.8+t*0.3); color += cyan*max(0.0,n3)*0.05;
         gl_FragColor = vec4(color, 1.0);
       }`;

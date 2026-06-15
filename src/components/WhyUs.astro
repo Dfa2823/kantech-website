@@ -78,19 +78,19 @@ const compact = [
             <svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
               <defs>
                 <radialGradient id="whyus-glow" cx="42%" cy="48%" r="60%">
-                  <stop offset="0%" stop-color="rgba(0,212,255,0.35)" />
-                  <stop offset="100%" stop-color="rgba(0,212,255,0)" />
+                  <stop offset="0%" stop-color="rgba(106,195,198,0.35)" />
+                  <stop offset="100%" stop-color="rgba(106,195,198,0)" />
                 </radialGradient>
               </defs>
               <rect width="400" height="260" fill="url(#whyus-glow)" />
-              <g stroke="rgba(0,212,255,0.25)" stroke-width="1" fill="none">
+              <g stroke="rgba(106,195,198,0.25)" stroke-width="1" fill="none">
                 <line x1="120" y1="60" x2="200" y2="120" />
                 <line x1="200" y1="120" x2="160" y2="200" />
                 <line x1="200" y1="120" x2="270" y2="150" />
                 <line x1="270" y1="150" x2="300" y2="90" />
                 <line x1="200" y1="120" x2="110" y2="150" />
               </g>
-              <g fill="#00D4FF">
+              <g fill="#6AC3C6">
                 <circle cx="200" cy="120" r="5" />
                 <circle cx="120" cy="60" r="3" />
                 <circle cx="160" cy="200" r="3" />
@@ -124,7 +124,7 @@ const compact = [
           </p>
         </div>
         <div class="mt-12 mb-4 flex items-baseline gap-2 z-10">
-          <span class="font-headline text-7xl md:text-8xl font-bold text-success tracking-tighter tabular-nums drop-shadow-[0_0_15px_rgba(0,232,135,0.3)]">
+          <span class="font-headline text-7xl md:text-8xl font-bold text-success tracking-tighter tabular-nums drop-shadow-[0_0_15px_rgba(47,215,159,0.3)]">
             <span data-counter="3">0</span>x
           </span>
           <span class="text-muted font-medium text-lg">
@@ -201,8 +201,8 @@ const compact = [
 <style is:global>
   /* Tile de icono (gradiente sutil de marca) — específico de WhyUs */
   #nosotros .icon-tile {
-    background: linear-gradient(135deg, rgba(30, 59, 255, 0.1), rgba(0, 212, 255, 0.05));
-    border: 1px solid rgba(0, 212, 255, 0.2);
+    background: linear-gradient(135deg, rgba(106,195,198, 0.1), rgba(106,195,198, 0.05));
+    border: 1px solid rgba(106,195,198, 0.2);
   }
   /* Hover lift en panels (alineado con el diseño Stitch) */
   #nosotros .glass-panel {
@@ -210,7 +210,7 @@ const compact = [
   }
   #nosotros .glass-panel:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 40px -10px rgba(30, 59, 255, 0.15), inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 40px -10px rgba(106,195,198, 0.15), inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
   }
   @media (prefers-reduced-motion: reduce) {
     #nosotros .glass-panel:hover { transform: none; }
