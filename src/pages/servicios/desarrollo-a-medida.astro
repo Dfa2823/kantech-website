@@ -1,0 +1,115 @@
+---
+import SiteC from '../../layouts/SiteC.astro';
+import Nav from '../../components/c/Nav.astro';
+import Footer from '../../components/c/Footer.astro';
+import TechMarquee from '../../components/c/TechMarquee.astro';
+const WA = 'https://wa.me/573194436045?text=Hola%20KANTECH!%20Quiero%20construir%20un%20sistema%20a%20medida%20(CRM%2FERP%2Fweb).';
+---
+<SiteC
+  title="Desarrollo de Software a Medida: CRM, ERP y Web | KANTECH"
+  description="Construimos tu CRM, ERP o sistema web a medida — sin licencias mensuales y sin pagar funciones que no usas. React, Node.js, PostgreSQL, Python. Tu sistema, tu propiedad. KANTECH, Colombia y LatAm."
+  keywords="desarrollo de software a medida, CRM a medida, ERP a medida, sistema web a medida, desarrollo de aplicaciones, software empresarial, React, Node.js, Colombia, LatAm"
+  path="/servicios/desarrollo-a-medida"
+>
+  <Nav home={false} />
+
+  <!-- HERO -->
+  <div style="position:relative;overflow:hidden;border-bottom:1px solid #16273f;">
+    <div style="position:absolute;inset:0;background-image:linear-gradient(#15263f 1px,transparent 1px),linear-gradient(90deg,#15263f 1px,transparent 1px);background-size:48px 48px;opacity:.5;"></div>
+    <div style="position:absolute;top:-140px;right:-60px;width:440px;height:440px;background:radial-gradient(circle,rgba(106,195,198,.18),transparent 70%);"></div>
+    <div style="position:relative;max-width:1080px;margin:0 auto;padding:34px 32px 0;">
+      <div style="font-size:12.5px;color:#5f76a0;">/ <a href="/" style="color:#6f84a8;">inicio</a> / <a href="/#servicios" style="color:#6f84a8;">servicios</a> / <span style="color:#6AC3C6;">desarrollo_a_medida</span></div>
+    </div>
+    <div style="position:relative;max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1.05fr .95fr;gap:50px;padding:40px 32px 72px;align-items:center;">
+      <div>
+        <div style="display:inline-flex;align-items:center;gap:10px;color:#6AC3C6;font-size:13px;font-weight:600;border:1px solid #2c466f;border-radius:8px;padding:7px 13px;margin-bottom:26px;">servicio_04 · Custom Development</div>
+        <h1 style="font-size:46px;line-height:1.1;font-weight:700;color:#fff;margin:0 0 14px;letter-spacing:-.02em;">Tu sistema,<br/><span style="color:#6AC3C6;">tu_propiedad.</span></h1>
+        <p style="font-size:16.5px;line-height:1.7;color:#9fb2d4;margin:0 0 30px;max-width:480px;">Tu propio CRM, ERP o sistema web — construido exactamente como lo necesitas, sin pagar por funciones que nunca usas y sin cuotas mensuales eternas.</p>
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:22px;">
+          <a href={WA} target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;background:#6AC3C6;color:#0d1828;padding:15px 26px;border-radius:10px;font-size:15px;font-weight:700;">construir_mi_sistema <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;"><line x1="4" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        </div>
+        <div style="display:flex;align-items:center;gap:20px;font-size:13px;color:#6f84a8;">
+          <span style="display:flex;align-items:center;gap:7px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6AC3C6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;"><circle cx="12" cy="12" r="9"/><polyline points="8.3 12.2 11 14.8 15.7 9.3"/></svg> sin licencias mensuales</span>
+          <span style="display:flex;align-items:center;gap:7px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="#6AC3C6" stroke="#6AC3C6" stroke-width="1.5" stroke-linejoin="round" style="flex:none;"><polygon points="13 2 5 13 11 13 10 22 19 10 13 10"/></svg> entrega 4-12 semanas</span>
+        </div>
+      </div>
+      <div style="background:#0a1322;border:1px solid #243a5e;border-radius:14px;overflow:hidden;box-shadow:0 30px 70px -30px rgba(0,0,0,.8);">
+        <div style="display:flex;align-items:center;gap:8px;padding:13px 16px;background:#13233d;border-bottom:1px solid #243a5e;">
+          <span style="width:11px;height:11px;border-radius:50%;background:#ff5f57;display:inline-block;"></span>
+          <span style="width:11px;height:11px;border-radius:50%;background:#febc2e;display:inline-block;"></span>
+          <span style="width:11px;height:11px;border-radius:50%;background:#28c840;display:inline-block;"></span>
+          <span style="margin-left:10px;color:#6f84a8;font-size:12px;">sofy_erp · build</span>
+        </div>
+        <div style="padding:20px;font-size:13px;line-height:1.95;color:#9fb2d4;">
+          <div><span style="color:#43618f;">1</span>  <span style="color:#6AC3C6;">module</span> Inventario <span style="color:#43618f;">{</span></div>
+          <div><span style="color:#43618f;">2</span>    trazabilidad: <span style="color:#28c840;">"lote → producto"</span>,</div>
+          <div><span style="color:#43618f;">3</span>    stock: <span style="color:#cdd9ec;">tiempoReal</span>,</div>
+          <div><span style="color:#43618f;">4</span>    alertas: <span style="color:#cdd9ec;">vencimientos</span></div>
+          <div><span style="color:#43618f;">5</span>  <span style="color:#43618f;">}</span></div>
+          <div style="margin:12px 0;border-top:1px dashed #243a5e;"></div>
+          <div style="display:flex;align-items:center;gap:8px;"><span style="color:#28c840;">✓</span> build exitoso · <span style="color:#6f84a8;">deploy en producción</span></div>
+          <div style="display:flex;align-items:center;gap:8px;"><span style="width:8px;height:15px;background:#6AC3C6;display:inline-block;animation:kpulse 1s infinite;"></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROBLEMA -->
+  <div style="max-width:1080px;margin:0 auto;padding:80px 32px 10px;">
+    <div style="color:#6AC3C6;font-size:13px;font-weight:600;margin-bottom:18px;">// el_problema</div>
+    <p style="font-family:'Manrope',sans-serif;font-size:30px;font-weight:600;line-height:1.45;color:#e7eefb;margin:0;max-width:880px;letter-spacing:-.01em;">El software genérico te obliga a adaptar tu negocio a la herramienta — y a pagar cada mes por funciones que no usas. <span style="color:#6AC3C6;">Debería ser al revés.</span></p>
+  </div>
+
+  <!-- QUÉ CONSTRUIMOS -->
+  <div style="max-width:1080px;margin:0 auto;padding:70px 32px 10px;">
+    <div style="color:#6AC3C6;font-size:13px;font-weight:600;margin-bottom:30px;">// qué_construimos · what_we_build</div>
+    <div style="border-top:1px solid #1d3052;">
+      <div class="ix" style="display:grid;grid-template-columns:64px 1fr 1.2fr;gap:24px;align-items:center;padding:24px 14px;border-bottom:1px solid #1d3052;transition:.15s;"><span class="ixn" style="font-size:13px;color:#43618f;">01</span><div style="font-family:'Manrope',sans-serif;font-size:18px;font-weight:700;color:#fff;">CRM a medida</div><p style="font-size:14px;color:#9fb2d4;margin:0;line-height:1.55;">Tu pipeline, tus etapas, tus reglas — no las de un software enlatado.</p></div>
+      <div class="ix" style="display:grid;grid-template-columns:64px 1fr 1.2fr;gap:24px;align-items:center;padding:24px 14px;border-bottom:1px solid #1d3052;transition:.15s;"><span class="ixn" style="font-size:13px;color:#43618f;">02</span><div style="font-family:'Manrope',sans-serif;font-size:18px;font-weight:700;color:#fff;">ERP &amp; operaciones</div><p style="font-size:14px;color:#9fb2d4;margin:0;line-height:1.55;">Producción, inventarios y trazabilidad en un solo sistema central.</p></div>
+      <div class="ix" style="display:grid;grid-template-columns:64px 1fr 1.2fr;gap:24px;align-items:center;padding:24px 14px;border-bottom:1px solid #1d3052;transition:.15s;"><span class="ixn" style="font-size:13px;color:#43618f;">03</span><div style="font-family:'Manrope',sans-serif;font-size:18px;font-weight:700;color:#fff;">Portales &amp; web apps</div><p style="font-size:14px;color:#9fb2d4;margin:0;line-height:1.55;">Plataformas rápidas y modernas para tus clientes o tu equipo.</p></div>
+      <div class="ix" style="display:grid;grid-template-columns:64px 1fr 1.2fr;gap:24px;align-items:center;padding:24px 14px;border-bottom:1px solid #1d3052;transition:.15s;"><span class="ixn" style="font-size:13px;color:#43618f;">04</span><div style="font-family:'Manrope',sans-serif;font-size:18px;font-weight:700;color:#fff;">Integraciones &amp; dashboards</div><p style="font-size:14px;color:#9fb2d4;margin:0;line-height:1.55;">Conectamos tus sistemas y te damos visibilidad en tiempo real.</p></div>
+    </div>
+  </div>
+
+  <!-- VALUE -->
+  <div style="max-width:1080px;margin:0 auto;padding:70px 32px 10px;">
+    <div style="border-top:1px solid #1d3052;border-bottom:1px solid #1d3052;padding:54px 0;text-align:center;">
+      <p style="font-family:'Manrope',sans-serif;font-size:32px;font-weight:700;line-height:1.35;color:#fff;margin:0 auto;max-width:780px;letter-spacing:-.015em;">Tu sistema, tu propiedad.<br/><span style="color:#6AC3C6;">Sin cuotas mensuales por funciones que no usas.</span></p>
+      <p style="font-size:14px;color:#5f76a0;margin:18px 0 0;">Lo construyes una vez. Es tuyo para siempre.</p>
+    </div>
+  </div>
+
+  <!-- CASOS RELACIONADOS -->
+  <div style="max-width:1080px;margin:0 auto;padding:54px 32px 10px;">
+    <div style="color:#6AC3C6;font-size:13px;font-weight:600;margin-bottom:22px;">// casos_relacionados · en_producción</div>
+    <a href="/#portafolio" class="ix" style="display:grid;grid-template-columns:150px 1fr 150px;gap:24px;align-items:center;padding:24px 14px;border-top:1px solid #1d3052;border-bottom:1px solid #1d3052;transition:.15s;">
+      <div><div style="font-family:'Manrope',sans-serif;font-size:18px;font-weight:800;color:#fff;">SOFY</div><div style="font-size:11.5px;color:#5f76a0;margin-top:4px;">ERP a medida</div></div>
+      <p style="font-size:14px;line-height:1.6;color:#cdd9ec;margin:0;">ERP central que gestiona producción, inventarios y trazabilidad del laboratorio de alimentos en un solo sistema.</p>
+      <div style="text-align:right;"><span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#8fdadc;"><span style="width:6px;height:6px;border-radius:50%;background:#6AC3C6;display:inline-block;animation:kpulse 1.8s infinite;"></span>en producción</span></div>
+    </a>
+    <a href="/#portafolio" class="ix" style="display:grid;grid-template-columns:150px 1fr 150px;gap:24px;align-items:center;padding:24px 14px;border-bottom:1px solid #1d3052;transition:.15s;">
+      <div><div style="font-family:'Manrope',sans-serif;font-size:18px;font-weight:800;color:#fff;">CRM CDA</div><div style="font-size:11.5px;color:#5f76a0;margin-top:4px;">CRM a medida</div></div>
+      <p style="font-size:14px;line-height:1.6;color:#cdd9ec;margin:0;">CRM que centraliza contactos, leads y ventas — fin del seguimiento disperso en hojas de cálculo.</p>
+      <div style="text-align:right;"><span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#8fdadc;"><span style="width:6px;height:6px;border-radius:50%;background:#6AC3C6;display:inline-block;animation:kpulse 1.8s infinite;"></span>en producción</span></div>
+    </a>
+  </div>
+
+  <!-- TECH MARQUEE -->
+  <div style="max-width:1080px;margin:0 auto;padding:54px 32px 10px;">
+    <div style="color:#6AC3C6;font-size:13px;font-weight:600;margin-bottom:24px;">// construido_con</div>
+    <TechMarquee />
+  </div>
+
+  <!-- CTA BAND -->
+  <div style="border-top:1px solid #1d3052;background:#0b1422;margin-top:70px;">
+    <div style="max-width:1080px;margin:0 auto;padding:64px 32px;display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap;">
+      <div>
+        <h2 style="font-family:'Manrope',sans-serif;font-size:30px;font-weight:800;color:#fff;margin:0 0 8px;letter-spacing:-.02em;">¿Qué sistema necesita tu operación?</h2>
+        <p style="font-size:14.5px;color:#9fb2d4;margin:0;">Cuéntanos tu caso y diseñamos la solución — diagnóstico gratis.</p>
+      </div>
+      <a href={WA} target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;background:#6AC3C6;color:#0d1828;padding:16px 28px;border-radius:10px;font-size:15px;font-weight:700;">Construir mi sistema <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;"><line x1="4" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+  </div>
+
+  <Footer home={false} />
+</SiteC>

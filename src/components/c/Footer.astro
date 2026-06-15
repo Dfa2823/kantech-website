@@ -1,0 +1,37 @@
+---
+const { home = true } = Astro.props;
+const b = home ? '' : '/';
+---
+<div style="border-top:1px solid #1d3052;background:#0a1322;">
+  <div style="max-width:1180px;margin:0 auto;padding:54px 32px 40px;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;">
+    <div>
+      <a href="/"><img alt="KANTECH Solutions" src="/brand/logo_h_white.png" width="160" height="24" style="height:24px;width:auto;display:block;margin-bottom:18px;" /></a>
+      <p style="font-size:13.5px;line-height:1.6;color:#6f84a8;margin:0 0 18px;max-width:280px;">Agentes de IA, automatizaciones y desarrollo a medida para empresas en crecimiento.</p>
+      <div style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:#8fdadc;"><span style="width:7px;height:7px;border-radius:50%;background:#6AC3C6;display:inline-block;animation:kpulse 1.8s infinite;"></span> Disponibles para nuevos proyectos</div>
+    </div>
+    <div>
+      <div style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#5f76a0;margin-bottom:16px;">Navegación</div>
+      <div style="display:flex;flex-direction:column;gap:11px;font-size:13.5px;color:#9fb2d4;">
+        <a href={`${b}#servicios`}>Servicios</a><a href={`${b}#proceso`}>Proceso</a><a href={`${b}#portafolio`}>Portafolio</a><a href={`${b}#nosotros`}>Nosotros</a>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#5f76a0;margin-bottom:16px;">Servicios</div>
+      <div style="display:flex;flex-direction:column;gap:11px;font-size:13.5px;color:#9fb2d4;">
+        <a href="/servicios/agentes-de-ia">Agentes de IA</a><a href="/servicios/automatizaciones">Automatizaciones</a><a href="/servicios/mejoras-de-proceso">Mejoras de Proceso</a><a href="/servicios/desarrollo-a-medida">Desarrollo a Medida</a>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#5f76a0;margin-bottom:16px;">Contacto</div>
+      <div style="display:flex;flex-direction:column;gap:11px;font-size:13.5px;color:#9fb2d4;">
+        <span>+57 319 443 6045</span><a href="mailto:director@kantechsol.com">director@kantechsol.com</a><span>Cali, Colombia</span>
+      </div>
+    </div>
+  </div>
+  <div style="border-top:1px solid #1d3052;">
+    <div style="max-width:1180px;margin:0 auto;padding:20px 32px;display:flex;align-items:center;justify-content:space-between;font-size:12px;color:#5f76a0;flex-wrap:wrap;gap:10px;">
+      <span>© 2026 KANTECH Solutions · Hecho con precisión en Colombia 🇨🇴</span>
+      <span style="display:flex;gap:18px;"><a href="#">Política de privacidad</a><a href="#">Términos</a></span>
+    </div>
+  </div>
+</div>

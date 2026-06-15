@@ -1,0 +1,99 @@
+---
+// Layout "Dirección C" — editorial / terminal. Fuentes Source Code Pro + Manrope.
+export interface Props {
+  title?: string;
+  description?: string;
+  keywords?: string;
+  path?: string; // ruta canónica relativa, ej. "/servicios/agentes-de-ia"
+}
+const SITE = 'https://kantechsol.com';
+const {
+  title = 'KANTECH | Agentes de IA, Automatizaciones y Software a Medida — Colombia',
+  description = 'Casa de software en Cali, Colombia. Construimos agentes de IA, automatizaciones con n8n y software a medida (CRM, ERP) para empresas en Colombia y LatAm. Resultados en semanas. Diagnóstico gratis.',
+  keywords = 'agentes de IA, automatización de procesos, n8n, software a medida, CRM a medida, ERP, desarrollo de software Colombia, automatización para empresas, IA para pymes, Cali, LatAm',
+  path = '/',
+} = Astro.props;
+const canonical = SITE + path;
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonical} />
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_CO" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="KANTECH" />
+    <meta property="og:image" content={`${SITE}/og-image.png`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${SITE}/og-image.png`} />
+    <!-- Favicon (isotipo de marca) -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <title>{title}</title>
+    <!-- Fuentes: Source Code Pro (mono) + Manrope (display) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style is:global>
+      @keyframes kpulse { 0%, 100% { opacity: 1; } 50% { opacity: .3; } }
+      @keyframes kmarquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background: #0d1828;
+        font-family: 'Source Code Pro', ui-monospace, monospace;
+        color: #cdd9ec;
+        -webkit-font-smoothing: antialiased;
+      }
+      a { color: inherit; text-decoration: none; }
+      a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+        outline: 2px solid #6AC3C6; outline-offset: 2px; border-radius: 4px;
+      }
+      /* Índice de servicios (hover) */
+      .ix:hover { background: #101e34; }
+      .ix:hover .ixarrow { transform: translateX(5px); color: #6AC3C6; }
+      /* Ledger del portafolio */
+      .led:hover { background: #0e1b30; }
+      /* Marquee de logos */
+      .mqtrack { display: flex; gap: 64px; width: max-content; animation: kmarquee 42s linear infinite; align-items: center; }
+      .mqlogo { height: 40px; width: auto; object-fit: contain; filter: brightness(0) invert(1); opacity: .55; transition: filter .35s, opacity .35s; }
+      .mqlogo:hover { filter: none; opacity: 1; }
+      .mqwrap:hover .mqtrack { animation-play-state: paused; }
+      /* Responsive */
+      @media (max-width: 860px) {
+        div[style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
+        h1 { font-size: 34px !important; }
+        h2 { font-size: 28px !important; }
+      }
+      /* Menú móvil (hamburguesa via checkbox) */
+      .navtoggle { display: none; }
+      .hamburger { display: none; }
+      @media (max-width: 860px) {
+        .hamburger { display: flex; align-items: center; }
+        .navlinks { display: none !important; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column !important; align-items: stretch !important; gap: 0 !important; background: #0b1422; border-bottom: 1px solid #1d3052; padding: 6px 0; }
+        #navtoggle:checked ~ .navlinks { display: flex !important; }
+        .navlinks a { padding: 13px 32px; }
+        .navlinks > span { padding: 11px 32px; }
+      }
+      input::placeholder, textarea::placeholder { color: #42587e; }
+      @media (prefers-reduced-motion: reduce) {
+        .mqtrack { animation: none; }
+        [style*="kpulse"] { animation: none !important; }
+      }
+    </style>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
