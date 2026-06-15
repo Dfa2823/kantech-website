@@ -35,6 +35,9 @@ const compact = [
     descEn: 'After delivery, we continue. Maintenance, improvements, new features. A long-term relationship, not a project and goodbye.',
   },
 ];
+
+// BUG-FIX: clases de stagger estáticas (Tailwind purga `delay-${...}` dinámicas).
+const compactDelays = ['delay-300', 'delay-400', 'delay-500', 'delay-600'];
 ---
 <section id="nosotros" class="relative py-24 md:py-32 px-6 overflow-hidden">
   <div class="relative z-10 max-w-7xl mx-auto flex flex-col gap-16">
@@ -59,7 +62,7 @@ const compact = [
     <div class="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-min">
 
       <!-- Large Feature 1: Equipo local en Colombia -->
-      <article class="glass-panel bg-surface-1 rounded-xl md:col-span-7 p-8 md:p-10 flex flex-col justify-between group overflow-hidden relative animate-fade-up delay-100" data-animate>
+      <article class="card-glow glass-panel bg-surface-1 rounded-xl md:col-span-7 p-8 md:p-10 flex flex-col justify-between group overflow-hidden relative animate-fade-up delay-100" data-animate>
         <div class="absolute -right-20 -bottom-20 w-64 h-64 bg-primary/20 rounded-full blur-3xl group-hover:bg-primary/30 transition-colors duration-500" aria-hidden="true"></div>
         <div class="z-10 flex flex-col gap-4 mb-8">
           <h3 class="font-headline text-2xl md:text-3xl font-bold text-text">
@@ -101,17 +104,28 @@ const compact = [
             </svg>
           </div>
           <div class="absolute bottom-6 left-6 z-20">
-            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface-3/80 backdrop-blur border border-success/30 text-success text-sm font-medium shadow-lg shadow-success/10">
-              <span class="material-symbols-outlined text-sm" style="font-variation-settings:'FILL' 1;" aria-hidden="true">schedule</span>
-              <span data-lang="es">Respondemos en &lt; 1h</span>
-              <span data-lang="en">We reply in &lt; 1h</span>
+            <!-- Indicador de disponibilidad EN VIVO (texto + dot calculado por hora de Colombia) -->
+            <div
+              id="whyus-availability"
+              class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface-3/80 backdrop-blur border border-success/30 text-success text-sm font-medium shadow-lg shadow-success/10"
+              role="status"
+              aria-live="polite"
+            >
+              <span class="relative flex h-2.5 w-2.5" aria-hidden="true">
+                <span id="whyus-avail-ping" class="absolute inline-flex h-full w-full rounded-full bg-success/70 opacity-75 animate-ping"></span>
+                <span id="whyus-avail-dot" class="relative inline-flex rounded-full h-2.5 w-2.5 bg-success"></span>
+              </span>
+              <span id="whyus-avail-text" data-default-es="Respondemos en &lt; 1h" data-default-en="We reply in &lt; 1h">
+                <span data-lang="es">Respondemos en &lt; 1h</span>
+                <span data-lang="en">We reply in &lt; 1h</span>
+              </span>
             </div>
           </div>
         </div>
       </article>
 
-      <!-- Large Feature 2: Resultados en semanas -->
-      <article class="glass-panel bg-surface-1 rounded-xl md:col-span-5 p-8 md:p-10 flex flex-col justify-between group overflow-hidden relative animate-fade-up delay-200" data-animate>
+      <!-- Large Feature 2: Resultados en semanas + Calculadora de ahorro/ROI -->
+      <article class="card-glow glass-panel bg-surface-1 rounded-xl md:col-span-5 p-8 md:p-10 flex flex-col justify-between group overflow-hidden relative animate-fade-up delay-200" data-animate>
         <div class="absolute top-0 right-0 w-full h-1 bg-gradient-to-r from-success/0 via-success/50 to-success/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" aria-hidden="true"></div>
         <div class="z-10 flex flex-col gap-4">
           <h3 class="font-headline text-2xl md:text-3xl font-bold text-text">
@@ -119,25 +133,81 @@ const compact = [
             <span data-lang="en">Results in weeks</span>
           </h3>
           <p class="text-muted text-base md:text-lg leading-relaxed">
-            <span data-lang="es">No meses ni años. Entregamos soluciones funcionales rápido, con iteraciones cortas para que veas valor desde el inicio.</span>
-            <span data-lang="en">Not months or years. We deliver working solutions fast, with short iterations so you see value from the start.</span>
+            <span data-lang="es">No meses ni años. Calcula cuánto puedes ahorrar automatizando tareas manuales y llévalo directo a WhatsApp.</span>
+            <span data-lang="en">Not months or years. Estimate how much you could save by automating manual tasks and take it straight to WhatsApp.</span>
           </p>
         </div>
-        <div class="mt-12 mb-4 flex items-baseline gap-2 z-10">
-          <span class="font-headline text-7xl md:text-8xl font-bold text-success tracking-tighter tabular-nums drop-shadow-[0_0_15px_rgba(47,215,159,0.3)]">
-            <span data-counter="3">0</span>x
-          </span>
-          <span class="text-muted font-medium text-lg">
-            <span data-lang="es">más rápido</span>
-            <span data-lang="en">faster</span>
-          </span>
-        </div>
+
+        <!-- Mini-calculadora de ahorro/ROI -->
+        <form id="roi-calc" class="z-10 mt-6 flex flex-col gap-5" novalidate>
+          <div class="flex flex-col gap-2">
+            <label for="roi-hours" class="flex items-center justify-between text-sm font-medium text-muted">
+              <span>
+                <span data-lang="es">Horas/semana en tareas manuales</span>
+                <span data-lang="en">Hours/week on manual tasks</span>
+              </span>
+              <output id="roi-hours-out" for="roi-hours" class="font-display font-bold text-text tabular-nums">10</output>
+            </label>
+            <input
+              id="roi-hours" name="roi-hours" type="range" min="1" max="60" step="1" value="10"
+              class="roi-range w-full"
+              aria-describedby="roi-result"
+            />
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="roi-rate" class="flex items-center justify-between text-sm font-medium text-muted">
+              <span>
+                <span data-lang="es">Costo aprox. por hora (COP)</span>
+                <span data-lang="en">Approx. cost per hour (COP)</span>
+              </span>
+              <output id="roi-rate-out" for="roi-rate" class="font-display font-bold text-text tabular-nums">$20.000</output>
+            </label>
+            <input
+              id="roi-rate" name="roi-rate" type="range" min="10000" max="120000" step="5000" value="20000"
+              class="roi-range w-full"
+              aria-describedby="roi-result"
+            />
+          </div>
+
+          <!-- Resultado -->
+          <div id="roi-result" class="rounded-lg bg-surface-2/60 border border-success/20 px-4 py-4 flex flex-col gap-1" aria-live="polite">
+            <div class="flex items-baseline gap-2">
+              <span class="font-headline text-4xl md:text-5xl font-bold text-success tracking-tighter tabular-nums drop-shadow-[0_0_15px_rgba(47,215,159,0.3)]">
+                <span id="roi-money" aria-hidden="true">$0</span>
+              </span>
+              <span class="text-muted font-medium text-sm">
+                <span data-lang="es">/mes</span>
+                <span data-lang="en">/mo</span>
+              </span>
+            </div>
+            <p class="text-sm text-muted">
+              <span data-lang="es">Recuperas <span id="roi-hours-month" class="text-text font-semibold tabular-nums">0</span> h/mes para crecer tu negocio.</span>
+              <span data-lang="en">You recover <span id="roi-hours-month-en" class="text-text font-semibold tabular-nums">0</span> h/mo to grow your business.</span>
+            </p>
+          </div>
+
+          <a
+            id="roi-cta"
+            href={WA_WORK}
+            target="_blank"
+            rel="noopener"
+            class="btn-primary text-sm px-6 py-3 group/cta"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.122 1.532 5.854L.057 23.886a.5.5 0 0 0 .613.613l6.033-1.475A11.955 11.955 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.88 0-3.641-.516-5.148-1.413l-.369-.214-3.822.936.955-3.822-.237-.383A9.963 9.963 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+            </svg>
+            <span data-lang="es">Enviar mi cálculo por WhatsApp</span>
+            <span data-lang="en">Send my estimate via WhatsApp</span>
+            <span class="material-symbols-outlined text-[18px] transition-transform duration-300 group-hover/cta:translate-x-1" aria-hidden="true">arrow_forward</span>
+          </a>
+        </form>
       </article>
 
       <!-- Compact Cards -->
       {compact.map((c, i) => (
-        <article class={`glass-panel bg-surface-1 rounded-xl md:col-span-3 p-6 flex flex-col gap-4 group animate-fade-up delay-${300 + i * 100}`} data-animate>
-          <div class="w-12 h-12 rounded-lg icon-tile flex items-center justify-center text-accent mb-2">
+        <article class:list={["card-glow glass-panel bg-surface-1 rounded-xl md:col-span-3 p-6 flex flex-col gap-4 group animate-fade-up", compactDelays[i]]} data-animate>
+          <div class="icon-tile w-12 h-12 rounded-lg flex items-center justify-center text-accent mb-2 transition-all duration-300 group-hover:scale-110 group-hover:text-text">
             <span class="material-symbols-outlined" aria-hidden="true">{c.icon}</span>
           </div>
           <h4 class="font-headline text-xl font-bold text-text">
@@ -155,23 +225,26 @@ const compact = [
     <!-- Social Proof Band -->
     <div class="py-10 border-y border-border/50 flex flex-col md:flex-row items-center justify-between gap-8 bg-surface-1/30 rounded-2xl px-8 animate-fade-up" data-animate>
       <div class="flex items-center gap-4">
+        <!-- Iniciales reales de clientes (consistentes con Testimonials: JR, MM, RP) -->
         <div class="flex -space-x-2" aria-hidden="true">
-          <div class="w-10 h-10 rounded-full bg-surface-3 border-2 border-surface-0 flex items-center justify-center text-muted text-xs">C1</div>
-          <div class="w-10 h-10 rounded-full bg-surface-3 border-2 border-surface-0 flex items-center justify-center text-muted text-xs">C2</div>
-          <div class="w-10 h-10 rounded-full bg-surface-3 border-2 border-surface-0 flex items-center justify-center text-muted text-xs">C3</div>
+          <div class="w-10 h-10 rounded-full bg-surface-3 border-2 border-surface-0 flex items-center justify-center text-accent text-xs font-display font-bold">JR</div>
+          <div class="w-10 h-10 rounded-full bg-surface-3 border-2 border-surface-0 flex items-center justify-center text-accent text-xs font-display font-bold">MM</div>
+          <div class="w-10 h-10 rounded-full bg-surface-3 border-2 border-surface-0 flex items-center justify-center text-accent text-xs font-display font-bold">RP</div>
         </div>
         <div class="flex flex-col">
-          <div class="flex text-accent text-sm" aria-hidden="true">
-            <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">star</span>
-            <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">star</span>
-            <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">star</span>
-            <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">star</span>
-            <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">star</span>
+          <div class="flex text-accent text-sm" role="img" aria-label="Valoración 5 de 5 estrellas">
+            <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;" aria-hidden="true">star</span>
+            <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;" aria-hidden="true">star</span>
+            <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;" aria-hidden="true">star</span>
+            <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;" aria-hidden="true">star</span>
+            <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;" aria-hidden="true">star</span>
           </div>
-          <span class="text-success font-medium text-sm">
+          <!-- "X+ proyectos" enlaza a #portafolio con scroll suave -->
+          <a href="#portafolio" class="proof-link group inline-flex items-center gap-1 text-success font-medium text-sm hover:text-success/80 transition-colors w-fit">
             <span data-lang="es"><span data-counter="24">0</span>+ proyectos entregados</span>
             <span data-lang="en"><span data-counter="24">0</span>+ projects delivered</span>
-          </span>
+            <span class="material-symbols-outlined text-[16px] opacity-0 -translate-x-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0" aria-hidden="true">arrow_forward</span>
+          </a>
         </div>
       </div>
       <div class="flex flex-wrap justify-center md:justify-end items-center gap-x-8 gap-y-3 opacity-60">
@@ -184,10 +257,10 @@ const compact = [
 
     <!-- CTA Row -->
     <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-up" data-animate>
-      <a href={WA_WORK} target="_blank" rel="noopener" class="btn-primary text-base px-8 py-4 w-full sm:w-auto">
+      <a href={WA_WORK} target="_blank" rel="noopener" class="btn-primary text-base px-8 py-4 w-full sm:w-auto group/work">
         <span data-lang="es">Conocer cómo trabajamos</span>
         <span data-lang="en">Learn how we work</span>
-        <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span>
+        <span class="material-symbols-outlined text-[18px] transition-transform duration-300 group-hover/work:translate-x-1" aria-hidden="true">arrow_forward</span>
       </a>
       <a href={WA_CASES} target="_blank" rel="noopener" class="btn-outline text-base px-8 py-4 w-full sm:w-auto">
         <span data-lang="es">Ver casos de éxito</span>
@@ -204,6 +277,10 @@ const compact = [
     background: linear-gradient(135deg, rgba(106,195,198, 0.1), rgba(106,195,198, 0.05));
     border: 1px solid rgba(106,195,198, 0.2);
   }
+  #nosotros .group:hover .icon-tile {
+    box-shadow: 0 0 18px -2px rgba(106,195,198, 0.4);
+    border-color: rgba(106,195,198, 0.45);
+  }
   /* Hover lift en panels (alineado con el diseño Stitch) */
   #nosotros .glass-panel {
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
@@ -212,7 +289,257 @@ const compact = [
     transform: translateY(-2px);
     box-shadow: 0 10px 40px -10px rgba(106,195,198, 0.15), inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
   }
+  /* El contenido de card-glow debe quedar por encima del pseudo-glow */
+  #nosotros .card-glow > * { position: relative; z-index: 1; }
+
+  /* Sliders de la calculadora ROI (teal de marca = acción) */
+  #nosotros .roi-range {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 6px;
+    border-radius: 9999px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(106,195,198,0.15);
+    outline-offset: 4px;
+    cursor: pointer;
+  }
+  #nosotros .roi-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 9999px;
+    background: #6AC3C6;
+    border: 2px solid #07101F;
+    box-shadow: 0 0 12px -2px rgba(106,195,198,0.7);
+    transition: transform 0.15s ease;
+  }
+  #nosotros .roi-range::-webkit-slider-thumb:hover { transform: scale(1.15); }
+  #nosotros .roi-range::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 9999px;
+    background: #6AC3C6;
+    border: 2px solid #07101F;
+    box-shadow: 0 0 12px -2px rgba(106,195,198,0.7);
+  }
+
   @media (prefers-reduced-motion: reduce) {
     #nosotros .glass-panel:hover { transform: none; }
+    #nosotros .icon-tile { transition: none !important; }
+    #nosotros #whyus-avail-ping { animation: none !important; }
+    #nosotros .roi-range::-webkit-slider-thumb { transition: none; }
   }
 </style>
+
+<script is:inline>
+  (function () {
+    var section = document.getElementById('nosotros');
+    if (!section) return;
+
+    var prefersReduced = false;
+    try {
+      prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    } catch (e) {}
+
+    /* ---------------------------------------------------------------
+     * 1) Calculadora de ahorro / ROI -> prellena WhatsApp (WA_WORK)
+     * ------------------------------------------------------------- */
+    var WA_BASE = 'https://wa.me/573194436045?text=';
+    var form = document.getElementById('roi-calc');
+    var hoursInput = document.getElementById('roi-hours');
+    var rateInput = document.getElementById('roi-rate');
+    var hoursOut = document.getElementById('roi-hours-out');
+    var rateOut = document.getElementById('roi-rate-out');
+    var moneyEl = document.getElementById('roi-money');
+    var hoursMonthEs = document.getElementById('roi-hours-month');
+    var hoursMonthEn = document.getElementById('roi-hours-month-en');
+    var roiCta = document.getElementById('roi-cta');
+
+    var copFmt = new Intl.NumberFormat('es-CO');
+    var WEEKS_PER_MONTH = 4.33;
+
+    function currentLang() {
+      return document.documentElement.getAttribute('data-active-lang') === 'en' ? 'en' : 'es';
+    }
+
+    // count-up de un número con callback de render (respeta reduced-motion)
+    function animateNumber(from, to, duration, render) {
+      if (prefersReduced || duration <= 0) { render(to); return; }
+      var start = performance.now();
+      function tick(now) {
+        var p = Math.min((now - start) / duration, 1);
+        var ease = 1 - Math.pow(1 - p, 3);
+        render(from + (to - from) * ease);
+        if (p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    var lastMoney = 0;
+    var lastHoursMonth = 0;
+
+    function computeValues() {
+      var hours = hoursInput ? parseInt(hoursInput.value, 10) || 0 : 0;
+      var rate = rateInput ? parseInt(rateInput.value, 10) || 0 : 0;
+      var hoursMonth = Math.round(hours * WEEKS_PER_MONTH);
+      var money = Math.round(hours * WEEKS_PER_MONTH * rate);
+      return { hours: hours, rate: rate, hoursMonth: hoursMonth, money: money };
+    }
+
+    function buildWaLink(v) {
+      var msg;
+      if (currentLang() === 'en') {
+        msg = 'Hi KANTECH! I used your calculator: I spend ~' + v.hours +
+          ' h/week on manual tasks (~$' + copFmt.format(v.rate) + ' COP/h). ' +
+          'That is ~$' + copFmt.format(v.money) + ' COP/month and ~' + v.hoursMonth +
+          ' h/month I could recover. I want to automate this.';
+      } else {
+        msg = '¡Hola KANTECH! Usé su calculadora: pierdo ~' + v.hours +
+          ' h/semana en tareas manuales (~$' + copFmt.format(v.rate) + ' COP/h). ' +
+          'Son ~$' + copFmt.format(v.money) + ' COP/mes y ~' + v.hoursMonth +
+          ' h/mes que podría recuperar. Quiero automatizar esto.';
+      }
+      return WA_BASE + encodeURIComponent(msg);
+    }
+
+    function render(animate) {
+      var v = computeValues();
+      if (hoursOut) hoursOut.textContent = String(v.hours);
+      if (rateOut) rateOut.textContent = '$' + copFmt.format(v.rate);
+
+      if (animate && !prefersReduced) {
+        animateNumber(lastMoney, v.money, 600, function (n) {
+          if (moneyEl) moneyEl.textContent = '$' + copFmt.format(Math.round(n));
+        });
+        animateNumber(lastHoursMonth, v.hoursMonth, 600, function (n) {
+          var r = String(Math.round(n));
+          if (hoursMonthEs) hoursMonthEs.textContent = r;
+          if (hoursMonthEn) hoursMonthEn.textContent = r;
+        });
+      } else {
+        if (moneyEl) moneyEl.textContent = '$' + copFmt.format(v.money);
+        if (hoursMonthEs) hoursMonthEs.textContent = String(v.hoursMonth);
+        if (hoursMonthEn) hoursMonthEn.textContent = String(v.hoursMonth);
+      }
+
+      lastMoney = v.money;
+      lastHoursMonth = v.hoursMonth;
+      if (roiCta) roiCta.setAttribute('href', buildWaLink(v));
+    }
+
+    if (form && hoursInput && rateInput) {
+      hoursInput.addEventListener('input', function () { render(true); });
+      rateInput.addEventListener('input', function () { render(true); });
+      // Recalcular el link al cambiar de idioma (capturamos clics en switches data-lang-btn)
+      document.querySelectorAll('[data-lang-btn]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          // El cambio de atributo ocurre en setLang; reconstruimos en el siguiente frame.
+          requestAnimationFrame(function () {
+            var v = computeValues();
+            if (roiCta) roiCta.setAttribute('href', buildWaLink(v));
+          });
+        });
+      });
+
+      // Render inicial cuando la tarjeta entra en viewport (count-up del resultado base)
+      var calcStarted = false;
+      function startCalc() {
+        if (calcStarted) return;
+        calcStarted = true;
+        render(true);
+      }
+      if ('IntersectionObserver' in window) {
+        var calcIO = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) { startCalc(); calcIO.unobserve(e.target); }
+          });
+        }, { threshold: 0.3 });
+        calcIO.observe(form);
+      } else {
+        startCalc();
+      }
+      // Estado base sin animación (por si el observer no dispara)
+      render(false);
+    }
+
+    /* ---------------------------------------------------------------
+     * 2) Indicador de disponibilidad EN VIVO (hora de Colombia, UTC-5)
+     * ------------------------------------------------------------- */
+    var availText = document.getElementById('whyus-avail-text');
+    var availDot = document.getElementById('whyus-avail-dot');
+    var availPing = document.getElementById('whyus-avail-ping');
+    var availBadge = document.getElementById('whyus-availability');
+
+    function colombiaHour() {
+      // Colombia = UTC-5 fijo (sin DST)
+      var nowUtc = Date.now() + new Date().getTimezoneOffset() * 60000;
+      var co = new Date(nowUtc - 5 * 3600000);
+      return { day: co.getDay(), hour: co.getHours() };
+    }
+
+    function updateAvailability() {
+      if (!availText || !availBadge) return;
+      var t = colombiaHour();
+      // Horario laboral: Lun-Vie 8:00-19:00, Sáb 9:00-13:00
+      var isWeekday = t.day >= 1 && t.day <= 5;
+      var isSat = t.day === 6;
+      var online = (isWeekday && t.hour >= 8 && t.hour < 19) || (isSat && t.hour >= 9 && t.hour < 13);
+
+      var esTxt, enTxt;
+      if (online) {
+        esTxt = 'En línea ahora · respondemos en < 1h';
+        enTxt = 'Online now · we reply in < 1h';
+        availBadge.classList.remove('border-muted/30', 'text-muted');
+        availBadge.classList.add('border-success/30', 'text-success');
+        if (availDot) { availDot.classList.remove('bg-muted'); availDot.classList.add('bg-success'); }
+        if (availPing) {
+          availPing.classList.remove('bg-muted/70');
+          availPing.classList.add('bg-success/70');
+          if (!prefersReduced) availPing.classList.add('animate-ping');
+          availPing.style.display = '';
+        }
+      } else {
+        esTxt = 'Te respondemos por la mañana';
+        enTxt = 'We reply in the morning';
+        availBadge.classList.remove('border-success/30', 'text-success');
+        availBadge.classList.add('border-muted/30', 'text-muted');
+        if (availDot) { availDot.classList.remove('bg-success'); availDot.classList.add('bg-muted'); }
+        if (availPing) {
+          availPing.classList.remove('bg-success/70', 'animate-ping');
+          availPing.classList.add('bg-muted/70');
+          availPing.style.display = 'none';
+        }
+      }
+      // Reemplazamos el contenido bilingüe completo (mantiene data-lang)
+      availText.innerHTML =
+        '<span data-lang="es">' + esTxt + '</span>' +
+        '<span data-lang="en">' + enTxt + '</span>';
+    }
+
+    updateAvailability();
+    // Re-evaluar cada 5 min por si la pestaña queda abierta cruzando un cambio de franja
+    setInterval(updateAvailability, 5 * 60 * 1000);
+
+    /* ---------------------------------------------------------------
+     * 3) Red de seguridad para los [data-counter] de la sección.
+     *    El observer global de Layout.astro ya hace el count-up; aquí
+     *    SOLO fijamos el valor final si tras 3s siguen en "0" y son
+     *    visibles (observer global falló / sección ya en viewport).
+     *    No competimos con la animación global para evitar parpadeo.
+     * ------------------------------------------------------------- */
+    var counters = section.querySelectorAll('[data-counter]');
+    setTimeout(function () {
+      counters.forEach(function (c) {
+        var target = parseInt(c.dataset.counter, 10) || 0;
+        var current = parseInt((c.textContent || '').replace(/\D/g, ''), 10) || 0;
+        if (current < target) {
+          var r = c.getBoundingClientRect();
+          var visible = r.top < window.innerHeight && r.bottom > 0;
+          // Solo intervenimos si está visible y el global no avanzó (sigue en 0)
+          if (visible && current === 0) c.textContent = String(target);
+        }
+      });
+    }, 3000);
+  })();
+</script>

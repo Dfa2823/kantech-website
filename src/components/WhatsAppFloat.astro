@@ -7,6 +7,12 @@ const replies = [
   { intent: 'cotizacion',  icon: 'request_quote', es: 'Necesito una cotización',      en: 'I need a quote' },
   { intent: 'duda',        icon: 'help',          es: 'Tengo una pregunta',           en: 'I have a question' },
 ];
+// Sub-opciones del mini-flujo: tras elegir intención, refinamos el área para un lead más específico.
+const subTopics = [
+  { topic: 'ia',  icon: 'smart_toy',          es: 'Agentes de IA',          en: 'AI Agents' },
+  { topic: 'n8n', icon: 'account_tree',       es: 'Automatizaciones (N8N)', en: 'Automations (N8N)' },
+  { topic: 'web', icon: 'code',               es: 'Software / Web a medida', en: 'Custom Software / Web' },
+];
 ---
 <!-- WhatsApp Widget Container -->
 <div id="wa-widget" class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-4 pointer-events-none animate-fade-up" data-animate>
@@ -26,7 +32,7 @@ const replies = [
       </div>
       <div class="flex-1 min-w-0">
         <h3 class="font-display font-bold text-white text-base leading-tight">KANTECH</h3>
-        <div class="flex items-center gap-1.5 mt-0.5" id="wa-status">
+        <div class="flex items-center gap-1.5 mt-0.5" id="wa-status" aria-live="polite">
           <!-- Poblado por JS según horario -->
         </div>
       </div>
@@ -51,7 +57,7 @@ const replies = [
         <span class="text-[10px] text-gray-400 block text-right mt-1" id="wa-msg-time"></span>
       </div>
 
-      <!-- Respuestas rápidas -->
+      <!-- Paso 1: Respuestas rápidas (intención) -->
       <div id="wa-quick-replies" class="hidden flex-col gap-2 mt-2 wa-slide-up" style="animation-delay:0.15s;">
         {replies.map(r => (
           <button
@@ -64,16 +70,84 @@ const replies = [
           </button>
         ))}
       </div>
+
+      <!-- Paso 2: Sub-opciones (área) — visible tras elegir intención -->
+      <div id="wa-subtopics" class="hidden flex-col gap-2 mt-2 wa-slide-up" style="animation-delay:0.05s;" aria-hidden="true">
+        <p class="text-[13px] text-muted px-1">
+          <span data-lang="es">¿Sobre qué te interesa?</span>
+          <span data-lang="en">What are you interested in?</span>
+        </p>
+        {subTopics.map(s => (
+          <button
+            type="button"
+            data-wa-topic={s.topic}
+            class="wa-chip bg-surface-1/90 text-sm font-medium border border-border rounded-lg px-4 py-2.5 text-left text-text shadow-sm flex items-center justify-between gap-2 group focus-visible:outline-2 focus-visible:outline-primary"
+          >
+            <span><span data-lang="es">{s.es}</span><span data-lang="en">{s.en}</span></span>
+            <span class="material-symbols-outlined text-muted group-hover:text-accent text-[18px]" style="font-variation-settings:'FILL' 0;" aria-hidden="true">{s.icon}</span>
+          </button>
+        ))}
+        <button
+          type="button"
+          id="wa-back"
+          class="text-xs text-muted hover:text-accent self-start mt-1 flex items-center gap-1 focus-visible:outline-2 focus-visible:outline-primary rounded"
+        >
+          <span class="material-symbols-outlined text-[14px]" style="font-variation-settings:'FILL' 0;" aria-hidden="true">arrow_back</span>
+          <span data-lang="es">Volver</span>
+          <span data-lang="en">Back</span>
+        </button>
+      </div>
+
+      <!-- Estado offline: CTA alternativo (oculto por defecto) -->
+      <div id="wa-offline-cta" class="hidden mt-2 wa-slide-up">
+        <a
+          href="#contacto"
+          id="wa-offline-link"
+          class="block bg-surface-1/90 text-sm font-medium border border-dashed border-primary/40 rounded-lg px-4 py-2.5 text-left text-text shadow-sm flex items-center justify-between gap-2 group focus-visible:outline-2 focus-visible:outline-primary hover:border-primary/70 transition-colors"
+        >
+          <span>
+            <span data-lang="es">Déjanos tus datos y te escribimos al abrir</span>
+            <span data-lang="en">Leave your details, we'll reach out when we open</span>
+          </span>
+          <span class="material-symbols-outlined text-muted group-hover:text-accent text-[18px]" style="font-variation-settings:'FILL' 0;" aria-hidden="true">mail</span>
+        </a>
+      </div>
     </div>
 
-    <!-- Footer -->
-    <div class="bg-surface-1 p-3 border-t border-border flex justify-center items-center">
-      <p class="text-xs text-muted flex items-center gap-1.5">
-        <span class="material-symbols-outlined text-[14px]" style="font-variation-settings:'FILL' 0;" aria-hidden="true">schedule</span>
+    <!-- Footer: input de texto libre real -->
+    <form id="wa-form" class="bg-surface-1 p-3 border-t border-border flex flex-col gap-2">
+      <div class="flex items-center gap-2">
+        <label for="wa-input" class="sr-only">
+          <span data-lang="es">Escribe tu mensaje</span>
+          <span data-lang="en">Type your message</span>
+        </label>
+        <input
+          id="wa-input"
+          name="wa-input"
+          type="text"
+          autocomplete="off"
+          maxlength="280"
+          data-placeholder-es="Escribe tu mensaje…"
+          data-placeholder-en="Type your message…"
+          placeholder="Escribe tu mensaje…"
+          class="flex-1 min-w-0 bg-surface-0 text-text text-sm rounded-lg border border-border px-3 py-2 placeholder:text-muted focus-visible:outline-2 focus-visible:outline-primary focus:border-primary/50 transition-colors"
+        />
+        <button
+          id="wa-send"
+          type="submit"
+          aria-label="Enviar mensaje por WhatsApp"
+          class="w-9 h-9 flex-shrink-0 rounded-lg flex items-center justify-center text-[#07101F] transition-all active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+          style="background-color:#6AC3C6;"
+        >
+          <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1;" aria-hidden="true">send</span>
+        </button>
+      </div>
+      <p class="text-[11px] text-muted flex items-center gap-1.5 justify-center">
+        <span class="material-symbols-outlined text-[13px]" style="font-variation-settings:'FILL' 0;" aria-hidden="true">schedule</span>
         <span data-lang="es">Lun-Vie 8am-7pm COT</span>
         <span data-lang="en">Mon-Fri 8am-7pm COT</span>
       </p>
-    </div>
+    </form>
   </div>
 
   <!-- FAB + Peek Bubble -->
@@ -126,6 +200,15 @@ const replies = [
     border-color: rgba(106,195,198, 0.3);
     color: #6AC3C6;
   }
+  /* Feedback de pulsado al abrir WhatsApp */
+  .wa-chip:active { transform: scale(0.98); }
+  /* Estado "abriendo WhatsApp" del chip */
+  .wa-chip.is-opening {
+    background: rgba(106,195,198, 0.15);
+    border-color: rgba(106,195,198, 0.5);
+    color: #6AC3C6;
+    pointer-events: none;
+  }
 
   /* Animaciones del widget */
   @keyframes waBreathe {
@@ -145,7 +228,9 @@ const replies = [
     60%  { transform: translateX(-10px); opacity: 1; }
     100% { transform: translateX(0); opacity: 1; }
   }
+  /* El pulso del FAB se detiene tras la primera interacción/scroll (clase añadida por JS) */
   .wa-breathe { animation: waBreathe 2s infinite ease-in-out; }
+  .wa-breathe.wa-rest { animation: none; }
   .wa-slide-up { animation: waSlideUp 0.3s ease-out forwards; }
   .wa-bounce { animation: waBounceDot 1.4s infinite ease-in-out both; }
   .wa-slide-bounce { animation: waSlideBounce 0.5s ease-out forwards; }
@@ -153,6 +238,7 @@ const replies = [
   @media (prefers-reduced-motion: reduce) {
     .wa-breathe, .wa-slide-up, .wa-bounce, .wa-slide-bounce { animation: none !important; }
     #wa-panel { transition: none !important; }
+    .wa-chip { transition: none !important; }
   }
 </style>
 
@@ -168,22 +254,49 @@ const replies = [
     var typing = document.getElementById('wa-typing');
     var message = document.getElementById('wa-message');
     var quick = document.getElementById('wa-quick-replies');
+    var subtopics = document.getElementById('wa-subtopics');
+    var backBtn = document.getElementById('wa-back');
+    var offlineCta = document.getElementById('wa-offline-cta');
     var msgTime = document.getElementById('wa-msg-time');
+    var form = document.getElementById('wa-form');
+    var input = document.getElementById('wa-input');
+    var sendBtn = document.getElementById('wa-send');
 
     if (!widget || !fab || !panel) return;
 
     var WA_NUMBER = '573194436045';
     var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Mensajes prellenados (preservados del componente original)
-    var messages = {
-      diagnostico: 'Hola KANTECH! Quiero agendar mi diagnóstico gratuito.',
-      cotizacion: 'Hola KANTECH! Necesito una cotización para un proyecto.',
-      duda: 'Hola KANTECH! Tengo una pregunta sobre sus servicios.'
-    };
-    function openWA(intent) {
-      var text = messages[intent] || messages.diagnostico;
+    function isEn() { return document.documentElement.getAttribute('data-active-lang') === 'en'; }
+
+    function openWhatsApp(text) {
       window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(text), '_blank', 'noopener');
+    }
+
+    // --- Mini-flujo: intención + área -> mensaje específico ---
+    // Mensajes base por intención (preservados del componente original).
+    var intentMessages = {
+      diagnostico: { es: 'Hola KANTECH! Quiero agendar mi diagnóstico gratuito.', en: 'Hi KANTECH! I want to schedule my free diagnosis.' },
+      cotizacion:  { es: 'Hola KANTECH! Necesito una cotización para un proyecto.', en: 'Hi KANTECH! I need a quote for a project.' },
+      duda:        { es: 'Hola KANTECH! Tengo una pregunta sobre sus servicios.', en: 'Hi KANTECH! I have a question about your services.' }
+    };
+    // Refinamiento por área (paso 2).
+    var topicLabels = {
+      ia:  { es: 'Agentes de IA', en: 'AI Agents' },
+      n8n: { es: 'Automatizaciones con N8N', en: 'N8N automations' },
+      web: { es: 'Software / Web a medida', en: 'Custom software / web' }
+    };
+    var pendingIntent = null;
+
+    function buildMessage(intent, topic) {
+      var en = isEn();
+      var base = (intentMessages[intent] || intentMessages.diagnostico);
+      var msg = en ? base.en : base.es;
+      if (topic && topicLabels[topic]) {
+        var lbl = en ? topicLabels[topic].en : topicLabels[topic].es;
+        msg += en ? (' Specifically about: ' + lbl + '.') : (' En concreto sobre: ' + lbl + '.');
+      }
+      return msg;
     }
 
     // Hora del mensaje inicial
@@ -193,20 +306,21 @@ const replies = [
       } catch (e) { /* noop */ }
     }
 
-    // Estado de horario (Lun-Vie 8:00–19:00 COT)
-    function updateStatus() {
-      if (!statusEl) return;
-      var inHours = false;
+    // --- Estado de horario (Lun-Vie 8:00–19:00 COT) ---
+    var isOnline = false;
+    function computeOnline() {
       try {
         var cot = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Bogota' }));
         var day = cot.getDay();   // 0 = domingo
         var hour = cot.getHours();
-        inHours = (day >= 1 && day <= 5) && (hour >= 8 && hour < 19);
-      } catch (e) { inHours = false; }
-
-      // Los spans [data-lang] son gestionados automáticamente por el CSS global
-      // (html[data-active-lang] ...), no requieren JS adicional.
-      if (inHours) {
+        return (day >= 1 && day <= 5) && (hour >= 8 && hour < 19);
+      } catch (e) { return false; }
+    }
+    function updateStatus() {
+      if (!statusEl) return;
+      isOnline = computeOnline();
+      // Los spans [data-lang] son gestionados automáticamente por el CSS global.
+      if (isOnline) {
         statusEl.innerHTML =
           '<span class="w-2 h-2 rounded-full bg-success animate-pulse"></span>' +
           '<span class="text-xs text-white/90 font-medium" data-lang="es">En línea</span>' +
@@ -217,11 +331,25 @@ const replies = [
           '<span class="text-[11px] text-white/80" data-lang="es">Fuera de horario · respondemos pronto</span>' +
           '<span class="text-[11px] text-white/80" data-lang="en">Offline · we reply soon</span>';
       }
+      // CTA alternativo solo cuando estamos fuera de horario.
+      if (offlineCta) offlineCta.classList.toggle('hidden', isOnline);
     }
     updateStatus();
+    // Recalcular periódicamente (la pestaña puede cruzar las 19:00 abierta).
+    setInterval(updateStatus, 60000);
 
+    // --- Estado del panel ---
     var isOpen = false;
     var messageShown = false;
+    var typingTimer = null;          // id del setTimeout del typing (limpiable)
+    var lastFocused = null;          // foco a restaurar al cerrar
+    var pulseStopped = false;
+
+    function stopPulse() {
+      if (pulseStopped) return;
+      pulseStopped = true;
+      fab.classList.add('wa-rest');
+    }
 
     function hidePeek(persist) {
       if (!peek) return;
@@ -232,14 +360,40 @@ const replies = [
       }
     }
 
+    // --- Paso 1 -> Paso 2 ---
+    function showStep1() {
+      pendingIntent = null;
+      if (subtopics) { subtopics.classList.add('hidden'); subtopics.classList.remove('flex'); subtopics.setAttribute('aria-hidden', 'true'); }
+      if (quick) { quick.classList.remove('hidden'); quick.classList.add('flex'); }
+    }
+    function showStep2(intent) {
+      pendingIntent = intent;
+      if (quick) { quick.classList.add('hidden'); quick.classList.remove('flex'); }
+      if (subtopics) {
+        subtopics.classList.remove('hidden'); subtopics.classList.add('flex'); subtopics.setAttribute('aria-hidden', 'false');
+        var firstTopic = subtopics.querySelector('[data-wa-topic]');
+        if (firstTopic) firstTopic.focus();
+      }
+    }
+
+    // Feedback "Abriendo WhatsApp…" antes de salir del sitio.
+    function chipOpening(btn, text) {
+      if (!btn) { openWhatsApp(text); return; }
+      btn.classList.add('is-opening');
+      var label = btn.querySelector('span span') ? btn.querySelector('span') : null;
+      var go = function () { openWhatsApp(text); btn.classList.remove('is-opening'); };
+      if (reduceMotion) { go(); } else { setTimeout(go, 450); }
+    }
+
     function openChat() {
       isOpen = true;
+      lastFocused = document.activeElement;
+      stopPulse();
       hidePeek(true);
       panel.classList.remove('hidden');
       panel.classList.add('flex');
       panel.setAttribute('aria-hidden', 'false');
       fab.setAttribute('aria-expanded', 'true');
-      fab.classList.remove('wa-breathe');
 
       var reveal = function () {
         panel.classList.remove('scale-95', 'translate-y-5', 'opacity-0');
@@ -254,16 +408,19 @@ const replies = [
       if (!messageShown) {
         messageShown = true;
         var showMessage = function () {
+          typingTimer = null;
           if (typing) typing.classList.add('hidden');
           if (message) message.classList.remove('hidden');
-          if (quick) { quick.classList.remove('hidden'); quick.classList.add('flex'); }
+          showStep1();
         };
-        if (reduceMotion) { showMessage(); } else { setTimeout(showMessage, 1500); }
+        if (reduceMotion) { showMessage(); } else { typingTimer = setTimeout(showMessage, 1500); }
       }
     }
 
     function closeChat(returnFocus) {
       isOpen = false;
+      // Limpiar el typing si quedó pendiente (evita togglear clases sobre panel cerrado).
+      if (typingTimer) { clearTimeout(typingTimer); typingTimer = null; }
       fab.setAttribute('aria-expanded', 'false');
       panel.setAttribute('aria-hidden', 'true');
       panel.classList.remove('scale-100', 'translate-y-0', 'opacity-100');
@@ -272,10 +429,12 @@ const replies = [
       var finish = function () {
         panel.classList.add('hidden');
         panel.classList.remove('flex');
-        fab.classList.add('wa-breathe');
       };
       if (reduceMotion) { finish(); } else { setTimeout(finish, 300); }
-      if (returnFocus) fab.focus();
+
+      // Devolver SIEMPRE el foco a un destino sensato (FAB por defecto).
+      var target = returnFocus ? fab : (lastFocused && document.contains(lastFocused) && !panel.contains(lastFocused) ? lastFocused : fab);
+      if (target && typeof target.focus === 'function') target.focus();
     }
 
     function toggleChat() { isOpen ? closeChat(true) : openChat(); }
@@ -285,20 +444,92 @@ const replies = [
     if (peek) peek.addEventListener('click', openChat);
     if (peekClose) peekClose.addEventListener('click', function (e) { e.stopPropagation(); hidePeek(true); });
 
-    // Respuestas rápidas -> abrir WhatsApp
-    widget.querySelectorAll('[data-wa-intent]').forEach(function (btn) {
-      btn.addEventListener('click', function () { openWA(btn.getAttribute('data-wa-intent')); });
-    });
+    // Paso 1: elegir intención -> mostrar sub-opciones (mini-flujo)
+    if (quick) {
+      quick.querySelectorAll('[data-wa-intent]').forEach(function (btn) {
+        btn.addEventListener('click', function () { showStep2(btn.getAttribute('data-wa-intent')); });
+      });
+    }
+    // Paso 2: elegir área -> abrir WhatsApp con mensaje específico
+    if (subtopics) {
+      subtopics.querySelectorAll('[data-wa-topic]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          chipOpening(btn, buildMessage(pendingIntent || 'diagnostico', btn.getAttribute('data-wa-topic')));
+        });
+      });
+    }
+    if (backBtn) backBtn.addEventListener('click', showStep1);
+
+    // CTA offline -> cerrar widget y desplazar al formulario de contacto
+    var offlineLink = document.getElementById('wa-offline-link');
+    if (offlineLink) {
+      offlineLink.addEventListener('click', function () { closeChat(false); });
+    }
+
+    // --- Footer: input de texto libre ---
+    function updateSendState() {
+      if (!sendBtn || !input) return;
+      sendBtn.disabled = input.value.trim().length === 0;
+    }
+    function syncPlaceholder() {
+      if (!input) return;
+      var ph = isEn() ? input.getAttribute('data-placeholder-en') : input.getAttribute('data-placeholder-es');
+      if (ph) input.setAttribute('placeholder', ph);
+    }
+    syncPlaceholder();
+    updateSendState();
+    if (input) {
+      input.addEventListener('input', updateSendState);
+    }
+    if (form) {
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (!input) return;
+        var txt = input.value.trim();
+        if (!txt) { input.focus(); return; }
+        var prefix = isEn() ? 'Hi KANTECH! ' : 'Hola KANTECH! ';
+        openWhatsApp(prefix + txt);
+        input.value = '';
+        updateSendState();
+      });
+    }
 
     // Cerrar al hacer clic fuera
     document.addEventListener('click', function (e) {
       if (isOpen && !e.target.closest('#wa-widget')) closeChat(false);
     });
 
-    // ESC para cerrar
+    // Teclado: ESC cierra; Tab atrapa el foco dentro del panel (focus-trap)
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && isOpen) closeChat(true);
+      if (!isOpen) return;
+      if (e.key === 'Escape') { closeChat(true); return; }
+      if (e.key === 'Tab') {
+        var focusables = panel.querySelectorAll(
+          'a[href], button:not([disabled]), input:not([disabled]), textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        var visible = [];
+        focusables.forEach(function (el) {
+          if (el.offsetParent !== null || el === document.activeElement) visible.push(el);
+        });
+        if (!visible.length) return;
+        var first = visible[0];
+        var last = visible[visible.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault(); last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault(); first.focus();
+        }
+      }
     });
+
+    // Detener el pulso del FAB tras el primer scroll (reduce fatiga visual).
+    window.addEventListener('scroll', stopPulse, { passive: true, once: true });
+
+    // Re-sincronizar placeholder del input si cambia el idioma (observa el atributo del <html>).
+    if (input && window.MutationObserver) {
+      var langObserver = new MutationObserver(syncPlaceholder);
+      langObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-active-lang'] });
+    }
 
     // Mostrar peek bubble tras 2s (salvo que se haya descartado en la sesión)
     var peekHidden = false;

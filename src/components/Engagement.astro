@@ -24,6 +24,9 @@ const tiers = [
     anchorUsd: '$700-2K',
     anchorUnit: '',
     metricIcon: 'trending_up',
+    // Prefijo + sufijo fijos por idioma; la cifra central conmuta COP/USD
+    metricPreEs: 'ROI típico: 6x en el primer mes', metricCop: '', metricSufEs: '',
+    metricPreEn: 'Typical ROI: 6x in the first month', metricUsd: '', metricSufEn: '',
     metricEs: 'ROI típico: 6x en el primer mes',
     metricEn: 'Typical ROI: 6x in the first month',
     features: [
@@ -56,6 +59,9 @@ const tiers = [
     anchorUnit: '/mes',
     anchorUnitEn: '/mo',
     metricIcon: 'savings',
+    // Cifra central conmutable: COP ($3-5M/mes) ↔ USD ($700-1,200/mo)
+    metricPreEs: 'Ahorra ', metricCop: '$3-5M/mes', metricSufEs: ' vs. contratar dev interno',
+    metricPreEn: 'Save ', metricUsd: '$700-1,200/mo', metricSufEn: ' vs. hiring in-house',
     metricEs: 'Ahorra $3-5M/mes vs. contratar dev interno',
     metricEn: 'Save $700-1,200/mo vs. hiring in-house',
     features: [
@@ -88,6 +94,8 @@ const tiers = [
     anchorUnit: '/mes',
     anchorUnitEn: '/mo',
     metricIcon: 'groups',
+    metricPreEs: 'Un CTO + equipo tech por una fracción del costo', metricCop: '', metricSufEs: '',
+    metricPreEn: 'A CTO + tech team at a fraction of the cost', metricUsd: '', metricSufEn: '',
     metricEs: 'Un CTO + equipo tech por una fracción del costo',
     metricEn: 'A CTO + tech team at a fraction of the cost',
     features: [
@@ -200,6 +208,8 @@ const matrixRows = [
           </span>
         </button>
       </div>
+      <!-- Anuncio accesible del cambio de moneda (no visual) -->
+      <p id="eng-currency-status" class="sr-only" role="status" aria-live="polite"></p>
     </div>
 
     <!-- Pricing Cards Grid -->
@@ -207,10 +217,12 @@ const matrixRows = [
       {tiers.map((t, i) => (
         <div
           class:list={[
-            'eng-card rounded-xl p-8 flex flex-col h-full animate-fade-up',
+            'eng-card card-glow rounded-xl p-8 flex flex-col h-full animate-fade-up',
             t.highlighted ? 'eng-popular md:-translate-y-4 md:scale-105 z-10' : '',
           ]}
           data-animate
+          data-tier-card
+          data-plan-idx={String(i)}
           style={`animation-delay: ${i * 0.1}s`}>
 
           {t.highlighted && (
@@ -268,9 +280,10 @@ const matrixRows = [
             </div>
 
             <!-- Metric chip (success: reservado para ROI/ahorro/prueba) -->
+            <!-- La cifra central (data-metric-amount) conmuta COP↔USD junto a los precios -->
             <div class="eng-metric-chip w-full justify-center">
               <span class="material-symbols-outlined" style="font-size:1rem;font-variation-settings:'FILL' 1;" aria-hidden="true">{t.metricIcon}</span>
-              <span data-lang="es">{t.metricEs}</span><span data-lang="en">{t.metricEn}</span>
+              <span data-lang="es">{t.metricPreEs}{t.metricCop && (<span class="eng-metric-amount" data-cop={t.metricCop} data-usd={t.metricUsd}>{t.metricCop}</span>)}{t.metricSufEs}</span><span data-lang="en">{t.metricPreEn}{t.metricUsd && (<span class="eng-metric-amount" data-cop={t.metricCop} data-usd={t.metricUsd}>{t.metricUsd}</span>)}{t.metricSufEn}</span>
             </div>
           </div>
 
@@ -301,12 +314,13 @@ const matrixRows = [
             </div>
           </div>
 
-          <!-- CTA por tier (WhatsApp con mensaje por plan) -->
+          <!-- CTA por tier (WhatsApp con mensaje por plan + moneda seleccionada) -->
           <a
             href={t.wa}
+            data-wa-base={t.wa}
             target="_blank"
             rel="noopener"
-            class:list={['w-full mt-auto', t.highlighted ? 'btn-primary py-4 text-base' : 'btn-outline']}>
+            class:list={['eng-tier-cta w-full mt-auto', t.highlighted ? 'btn-primary py-4 text-base' : 'btn-outline']}>
             <span data-lang="es">{t.ctaEs}</span><span data-lang="en">{t.ctaEn}</span>
           </a>
         </div>
@@ -359,13 +373,13 @@ const matrixRows = [
                     <th scope="col" class="p-4 font-semibold text-muted w-1/3">
                       <span data-lang="es">Característica</span><span data-lang="en">Feature</span>
                     </th>
-                    <th scope="col" class="p-4 font-semibold text-text text-center border-l border-border/50">
+                    <th scope="col" class="eng-matrix-col-head p-4 font-semibold text-text text-center border-l border-border/50" data-plan-col="0">
                       <span data-lang="es">Proyecto Puntual</span><span data-lang="en">Fixed Project</span>
                     </th>
-                    <th scope="col" class="p-4 font-semibold text-primary text-center border-l border-border/50 bg-primary/5">
+                    <th scope="col" class="eng-matrix-col-head p-4 font-semibold text-primary text-center border-l border-border/50 bg-primary/5" data-plan-col="1">
                       <span data-lang="es">Equipo Dedicado</span><span data-lang="en">Dedicated Team</span>
                     </th>
-                    <th scope="col" class="p-4 font-semibold text-text text-center border-l border-border/50">
+                    <th scope="col" class="eng-matrix-col-head p-4 font-semibold text-text text-center border-l border-border/50" data-plan-col="2">
                       <span data-lang="es">Socio Tecnológico</span><span data-lang="en">Tech Partner</span>
                     </th>
                   </tr>
@@ -377,7 +391,7 @@ const matrixRows = [
                         <span data-lang="es">{row.labelEs}</span><span data-lang="en">{row.labelEn}</span>
                       </th>
                       {row.cells.map((c, ci) => (
-                        <td class:list={['p-4 text-center text-text border-l border-border/50', ci === 1 ? 'bg-primary/5' : '']}>
+                        <td class:list={['eng-matrix-cell p-4 text-center text-text border-l border-border/50', ci === 1 ? 'bg-primary/5' : '']} data-plan-col={String(ci)}>
                           <span data-lang="es">{c.es}</span><span data-lang="en">{c.en}</span>
                         </td>
                       ))}
@@ -628,10 +642,57 @@ const matrixRows = [
     opacity: 0.5;
   }
 
+  /* === Tilt 3D de las tarjetas (perspectiva en el grid) === */
+  #modelos .eng-card[data-tier-card] {
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
+  /* La tarjeta recomendada conserva su translate/scale base en md+ */
+  #modelos .eng-popular[data-tier-card] { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+
+  /* Glow radial al cursor reforzado sobre la tarjeta recomendada */
+  #modelos .eng-popular.card-glow::before {
+    background: radial-gradient(circle 280px at var(--x, 50%) var(--y, 50%), rgba(106,195,198,0.14), transparent 60%);
+  }
+
+  /* === Shine sweep del badge "Recomendado" (sutil, al entrar en viewport) === */
+  #modelos .eng-popular::before { overflow: hidden; }
+  #modelos .eng-popular.is-shine::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    z-index: -1;
+    border-radius: inherit;
+    background: linear-gradient(110deg, transparent 35%, rgba(255,255,255,0.35) 50%, transparent 65%);
+    transform: translateX(-120%);
+    animation: eng-shine 1.6s ease-in-out;
+    pointer-events: none;
+  }
+  @keyframes eng-shine {
+    to { transform: translateX(120%); }
+  }
+
+  /* === Matriz: resaltado de columna completa al hover / plan elegido === */
+  #modelos .eng-matrix-col-head,
+  #modelos .eng-matrix-cell { transition: background-color 0.2s ease, color 0.2s ease; }
+  #modelos .eng-matrix-col-head.is-col-active,
+  #modelos .eng-matrix-cell.is-col-active {
+    background-color: rgba(106,195,198, 0.12) !important;
+    color: #F4F6FF;
+  }
+  #modelos .eng-matrix-col-head.is-col-active { color: #6AC3C6; }
+
+  /* CTA por tier: feedback de pulsación */
+  #modelos .eng-tier-cta:active { transform: scale(0.98); }
+
   @media (prefers-reduced-motion: reduce) {
     #modelos .eng-price-val,
     #modelos .eng-toggle-slider,
     #modelos .eng-expandable { transition: none !important; }
+    #modelos .eng-card[data-tier-card] { transform: none !important; }
+    #modelos .eng-popular.is-shine::after { animation: none !important; display: none; }
+    #modelos .eng-matrix-col-head,
+    #modelos .eng-matrix-cell { transition: none !important; }
   }
 </style>
 
@@ -640,15 +701,70 @@ const matrixRows = [
     var section = document.getElementById('modelos');
     if (!section) return;
 
+    var reduceMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    var CURRENCY_KEY = 'kantech-currency';
+
     /* === Toggle de moneda COP / USD === */
     var toggle = document.getElementById('eng-currency-toggle');
-    var priceVals = section.querySelectorAll('.eng-price-val[data-cop], .eng-competitor-chip [data-cop]');
+    // Valores numéricos: precios, anclas y cifras dentro de las métricas de ahorro (bug)
+    var priceVals = section.querySelectorAll(
+      '.eng-price-val[data-cop], .eng-competitor-chip [data-cop], .eng-metric-amount[data-cop]'
+    );
     var currLabels = section.querySelectorAll('.eng-price-currency, .eng-anchor-currency');
     var toggleLabels = section.querySelectorAll('.eng-toggle-label');
-    var isUSD = false;
-    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var statusEl = document.getElementById('eng-currency-status');
+    var tierCtas = section.querySelectorAll('.eng-tier-cta[data-wa-base]');
 
-    function applyCurrency() {
+    // Moneda persistida globalmente (compartida con otras secciones)
+    var isUSD = false;
+    try { isUSD = localStorage.getItem(CURRENCY_KEY) === 'usd'; } catch (e) {}
+
+    // Si el valor a mostrar es un entero formateable, usamos count-up; si trae
+    // rangos/sufijos ($3-8M, $700-1,200/mo) hacemos un cross-fade simple.
+    function parseNumeric(str) {
+      if (str == null) return null;
+      var cleaned = String(str).replace(/[^0-9.,-]/g, '');
+      // Rechaza rangos (con guión interno) y cadenas sin dígitos
+      if (!/[0-9]/.test(cleaned)) return null;
+      if (/[0-9]\s*-\s*[0-9]/.test(str)) return null;
+      // Quita separadores de miles (puntos en COP, comas en USD) -> entero
+      var digits = cleaned.replace(/[.,]/g, '');
+      if (!/^-?[0-9]+$/.test(digits)) return null;
+      return parseInt(digits, 10);
+    }
+
+    // Formatea de vuelta respetando el patrón original (símbolo + separador local)
+    function formatLike(template, value) {
+      var prefix = (String(template).match(/^[^0-9]*/) || [''])[0];   // p.ej. "$"
+      var suffix = (String(template).match(/[^0-9]*$/) || [''])[0];   // p.ej. "/mo"
+      // COP usa punto como separador de miles; USD usa coma
+      var sep = /,/.test(template) ? ',' : (/\./.test(template) ? '.' : '');
+      var s = String(value);
+      if (sep) s = s.replace(/\B(?=([0-9]{3})+(?![0-9]))/g, sep);
+      return prefix + s + suffix;
+    }
+
+    function animateCount(el, fromTxt, toTxt) {
+      var fromN = parseNumeric(fromTxt);
+      var toN = parseNumeric(toTxt);
+      if (reduceMotion || fromN == null || toN == null) {
+        el.textContent = toTxt;
+        return;
+      }
+      var duration = 700;
+      var start = performance.now();
+      function tick(now) {
+        var p = Math.min((now - start) / duration, 1);
+        var ease = 1 - Math.pow(1 - p, 3);
+        var current = Math.round(fromN + (toN - fromN) * ease);
+        el.textContent = formatLike(toTxt, current);
+        if (p < 1) requestAnimationFrame(tick);
+        else el.textContent = toTxt;
+      }
+      requestAnimationFrame(tick);
+    }
+
+    function applyCurrency(animate) {
       // Etiquetas del switch
       toggleLabels.forEach(function (el) {
         var which = el.getAttribute('data-toggle-label');
@@ -658,15 +774,21 @@ const matrixRows = [
       // Valores numéricos
       priceVals.forEach(function (el) {
         var next = isUSD ? el.getAttribute('data-usd') : el.getAttribute('data-cop');
-        if (next == null) return;
-        if (reduceMotion) {
+        if (next == null || next === '') return;
+        var prev = el.textContent;
+        if (!animate || reduceMotion) {
           el.textContent = next;
+        } else if (parseNumeric(prev) != null && parseNumeric(next) != null) {
+          animateCount(el, prev, next);
         } else {
+          // Cross-fade para valores no numéricos (rangos)
           el.style.opacity = '0';
-          setTimeout(function () {
-            el.textContent = next;
-            el.style.opacity = '1';
-          }, 150);
+          (function (node, val) {
+            setTimeout(function () {
+              node.textContent = val;
+              node.style.opacity = '1';
+            }, 150);
+          })(el, next);
         }
       });
 
@@ -678,13 +800,36 @@ const matrixRows = [
         if (spanEs) spanEs.textContent = base + (el.getAttribute('data-curr-unit-es') || '');
         if (spanEn) spanEn.textContent = base + (el.getAttribute('data-curr-unit-en') || '');
       });
+
+      // Deep-links de WhatsApp por tier: añade la moneda elegida al mensaje
+      tierCtas.forEach(function (a) {
+        var base = a.getAttribute('data-wa-base');
+        if (!base) return;
+        var note = isUSD
+          ? ' (Estoy viendo precios en USD.)'
+          : ' (Estoy viendo precios en COP.)';
+        a.setAttribute('href', base + encodeURIComponent(note));
+      });
+
+      // Anuncio accesible
+      if (statusEl) {
+        statusEl.textContent = isUSD
+          ? 'Precios mostrados en dólares (USD). / Prices shown in US dollars (USD).'
+          : 'Precios mostrados en pesos colombianos (COP). / Prices shown in Colombian pesos (COP).';
+      }
+
+      try { localStorage.setItem(CURRENCY_KEY, isUSD ? 'usd' : 'cop'); } catch (e) {}
     }
 
     if (toggle) {
+      toggle.setAttribute('aria-checked', String(isUSD));
+      // Aplica el estado inicial (restaurado de localStorage) sin animar
+      applyCurrency(false);
+
       toggle.addEventListener('click', function () {
         isUSD = !isUSD;
         toggle.setAttribute('aria-checked', String(isUSD));
-        applyCurrency();
+        applyCurrency(true);
       });
       toggle.addEventListener('keydown', function (e) {
         if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
@@ -692,6 +837,64 @@ const matrixRows = [
           toggle.click();
         }
       });
+    }
+
+    /* === Count-up de precios al revelar la sección === */
+    if (!reduceMotion && 'IntersectionObserver' in window) {
+      var revealVals = section.querySelectorAll('.eng-price-val[data-cop]');
+      var revealIO = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          var el = entry.target;
+          var finalTxt = el.textContent;
+          var finalN = parseNumeric(finalTxt);
+          if (finalN != null) {
+            el.textContent = formatLike(finalTxt, 0);
+            animateCount(el, formatLike(finalTxt, 0), finalTxt);
+          }
+          revealIO.unobserve(el);
+        });
+      }, { threshold: 0.4 });
+      revealVals.forEach(function (el) { revealIO.observe(el); });
+    }
+
+    /* === Tilt 3D sutil en las tarjetas de precio === */
+    if (!reduceMotion) {
+      var cards = section.querySelectorAll('[data-tier-card]');
+      cards.forEach(function (card) {
+        var raf = null;
+        card.addEventListener('mousemove', function (e) {
+          if (raf) return;
+          raf = requestAnimationFrame(function () {
+            raf = null;
+            var r = card.getBoundingClientRect();
+            var px = (e.clientX - r.left) / r.width - 0.5;
+            var py = (e.clientY - r.top) / r.height - 0.5;
+            var rx = (-py * 6).toFixed(2);
+            var ry = (px * 6).toFixed(2);
+            card.style.transform = 'perspective(900px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
+          });
+        });
+        card.addEventListener('mouseleave', function () {
+          card.style.transform = '';
+        });
+      });
+    }
+
+    /* === Shine sweep del badge "Recomendado" al entrar en viewport === */
+    if (!reduceMotion && 'IntersectionObserver' in window) {
+      var popular = section.querySelector('.eng-popular');
+      if (popular) {
+        var shineIO = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            popular.classList.add('is-shine');
+            setTimeout(function () { popular.classList.remove('is-shine'); }, 1700);
+            shineIO.unobserve(popular);
+          });
+        }, { threshold: 0.5 });
+        shineIO.observe(popular);
+      }
     }
 
     /* === Matriz comparativa expandible === */
@@ -713,17 +916,48 @@ const matrixRows = [
       }
     }
 
-    if (matrixBtn) {
+    if (matrixBtn && matrixBox) {
       matrixBtn.addEventListener('click', function () {
         var expanded = !matrixBox.classList.contains('is-expanded');
         setMatrix(expanded);
       });
       document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && matrixBox && matrixBox.classList.contains('is-expanded')) {
+        if (e.key === 'Escape' && matrixBox.classList.contains('is-expanded')) {
           setMatrix(false);
           matrixBtn.focus();
         }
       });
     }
+
+    /* === Resaltado de columna completa en la matriz === */
+    var colTargets = section.querySelectorAll('[data-plan-col]');
+    function setColActive(idx) {
+      colTargets.forEach(function (cell) {
+        cell.classList.toggle('is-col-active', cell.getAttribute('data-plan-col') === String(idx));
+      });
+    }
+    function clearColActive() {
+      colTargets.forEach(function (cell) { cell.classList.remove('is-col-active'); });
+    }
+    colTargets.forEach(function (cell) {
+      cell.addEventListener('mouseenter', function () {
+        setColActive(cell.getAttribute('data-plan-col'));
+      });
+    });
+    if (matrixBox) {
+      matrixBox.addEventListener('mouseleave', clearColActive);
+    }
+
+    // "Destacar mi plan": al hover/focus de una tarjeta de precio,
+    // resaltar la columna equivalente en la matriz (si está abierta).
+    var tierCards = section.querySelectorAll('[data-tier-card]');
+    tierCards.forEach(function (card) {
+      var idx = card.getAttribute('data-plan-idx');
+      function highlight() {
+        if (matrixBox && matrixBox.classList.contains('is-expanded')) setColActive(idx);
+      }
+      card.addEventListener('mouseenter', highlight);
+      card.addEventListener('focusin', highlight);
+    });
   })();
 </script>

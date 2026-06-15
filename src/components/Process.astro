@@ -1,6 +1,7 @@
 ---
 const WA_DIAG = 'https://wa.me/573194436045?text=Hola%20KANTECH!%20Quiero%20agendar%20mi%20diagn%C3%B3stico%20gratuito.';
 
+// Cada paso es accionable: 01 y 04 abren WhatsApp con contexto; 02 y 03 anclan a la sección relevante.
 const steps = [
   {
     num: '01',
@@ -15,6 +16,12 @@ const steps = [
     chipEn: '60 min session · free',
     proofEs: 'Sin compromiso',
     proofEn: 'No commitment',
+    // Acción: WhatsApp con mensaje específico del paso
+    href: 'https://wa.me/573194436045?text=' + encodeURIComponent('Hola KANTECH! Quiero agendar mi diagnóstico gratuito de 60 minutos.'),
+    external: true,
+    actionEs: 'Agendar diagnóstico',
+    actionEn: 'Book discovery',
+    actionIcon: 'calendar_month',
   },
   {
     num: '02',
@@ -29,6 +36,12 @@ const steps = [
     chipEn: 'Written proposal',
     proofEs: 'Todo por escrito',
     proofEn: 'Everything in writing',
+    // Acción: anclar a planes/precios
+    href: '#modelos',
+    external: false,
+    actionEs: 'Ver planes y precios',
+    actionEn: 'See plans & pricing',
+    actionIcon: 'request_quote',
   },
   {
     num: '03',
@@ -43,6 +56,12 @@ const steps = [
     chipEn: 'Sprints 1-2 weeks',
     proofEs: 'Sin cajas negras',
     proofEn: 'No black boxes',
+    // Acción: ver casos reales
+    href: '#portafolio',
+    external: false,
+    actionEs: 'Ver casos reales',
+    actionEn: 'See real cases',
+    actionIcon: 'visibility',
   },
   {
     num: '04',
@@ -57,12 +76,23 @@ const steps = [
     chipEn: 'Ongoing support',
     proofEs: 'Largo plazo',
     proofEn: 'Long term',
+    // Acción: WhatsApp con mensaje específico del paso
+    href: 'https://wa.me/573194436045?text=' + encodeURIComponent('Hola KANTECH! Ya tengo un sistema y me interesa el soporte y la evolución continua.'),
+    external: true,
+    actionEs: 'Hablar de soporte',
+    actionEn: 'Talk about support',
+    actionIcon: 'support_agent',
   },
 ];
+
+// Mapa estático de delays para el stagger (evita interpolación dinámica purgada por Tailwind JIT)
+const delayClass = ['delay-100', 'delay-200', 'delay-300', 'delay-400'];
 ---
 <section id="proceso" class="relative overflow-hidden py-24 lg:py-32">
   <!-- Fondo ambiental -->
   <div class="process-ambient-glow opacity-60" aria-hidden="true"></div>
+  <!-- Cursor glow que sigue al puntero dentro de la sección -->
+  <div id="process-cursor-glow" aria-hidden="true"></div>
 
   <div class="max-w-7xl mx-auto px-6 relative z-10">
 
@@ -82,46 +112,56 @@ const steps = [
       </p>
     </div>
 
-    <!-- Timeline -->
+    <!-- Timeline (lista ordenada semántica: "paso N de 4") -->
     <div class="relative mb-24 md:mb-32">
       <!-- Espina vertical (móvil) -->
       <div class="process-mobile-spine lg:hidden" aria-hidden="true"></div>
 
-      <div class="flex flex-col lg:flex-row gap-12 lg:gap-8">
+      <ol class="process-list flex flex-col lg:flex-row gap-12 lg:gap-8 list-none m-0 p-0">
         {steps.map((s, i) => (
-          <div
+          <li
             class="process-step-item relative flex-1 group animate-fade-up"
             data-animate
-            class:list={[`delay-${(i + 1) * 100}`]}
+            class:list={[delayClass[i]]}
+            style={`transition-delay: ${(i + 1) * 100}ms;`}
           >
-            <div class:list={["process-connector hidden lg:block", { active: i < 3 }]} aria-hidden="true"></div>
+            <div class:list={["process-connector hidden lg:block", { active: i < 3 }]} data-connector={i < 3 ? 'true' : null} aria-hidden="true"></div>
 
-            <div class="flex flex-col pl-20 lg:pl-0 relative z-10">
+            <a
+              href={s.href}
+              target={s.external ? '_blank' : null}
+              rel={s.external ? 'noopener' : null}
+              class="process-step-link card-glow flex flex-col pl-20 lg:pl-0 relative z-10 rounded-2xl lg:p-5 lg:-m-5 transition-transform duration-300"
+              data-step={s.num}
+              aria-label={`${s.titleEs} — ${s.actionEs}`}
+            >
               <!-- Numeral fantasma -->
               <div
-                class="absolute -top-6 -left-4 lg:-top-10 lg:-left-6 font-display font-bold text-[80px] lg:text-[120px] text-surface-2 opacity-30 select-none -z-10 transition-transform duration-500 group-hover:scale-105"
+                class="process-ghost-num absolute -top-6 -left-4 lg:-top-10 lg:-left-6 font-display font-bold text-[80px] lg:text-[120px] text-surface-2 opacity-30 select-none -z-10 transition-transform duration-500"
                 aria-hidden="true"
               >
                 {s.num}
               </div>
 
               <!-- Tile de icono -->
-              <div class:list={["absolute left-0 top-0 lg:relative lg:mb-8 w-14 h-14 rounded-xl flex items-center justify-center border transition-all duration-300", s.tile]}>
-                <span class:list={["material-symbols-outlined", s.iconColor]} style="font-variation-settings:'FILL' 1;" aria-hidden="true">{s.icon}</span>
+              <div class:list={["process-tile absolute left-0 top-0 lg:relative lg:mb-8 w-14 h-14 rounded-xl flex items-center justify-center border transition-all duration-300", s.tile]}>
+                <span class:list={["process-icon material-symbols-outlined", s.iconColor]} aria-hidden="true">{s.icon}</span>
               </div>
 
               <!-- Contenido -->
-              <h3 class="font-headline text-xl font-bold text-text mb-3">
+              <h3 class="font-headline text-xl font-bold text-text mb-3 relative z-10">
+                <span class="sr-only" data-lang="es">{`Paso ${i + 1} de 4: `}</span>
+                <span class="sr-only" data-lang="en">{`Step ${i + 1} of 4: `}</span>
                 <span data-lang="es">{s.titleEs}</span>
                 <span data-lang="en">{s.titleEn}</span>
               </h3>
-              <p class="font-body text-muted text-sm leading-relaxed mb-6">
+              <p class="font-body text-muted text-sm leading-relaxed mb-6 relative z-10">
                 <span data-lang="es">{s.descEs}</span>
                 <span data-lang="en">{s.descEn}</span>
               </p>
 
               <!-- Chips -->
-              <div class="flex flex-wrap gap-2 mt-auto">
+              <div class="flex flex-wrap gap-2 mb-5 relative z-10">
                 <span class="inline-flex items-center px-2.5 py-1 rounded-md bg-surface-2 border border-border text-xs font-medium text-text">
                   <span data-lang="es">{s.chipEs}</span>
                   <span data-lang="en">{s.chipEn}</span>
@@ -132,14 +172,22 @@ const steps = [
                   <span data-lang="en">{s.proofEn}</span>
                 </span>
               </div>
-            </div>
-          </div>
+
+              <!-- Acción contextual del paso -->
+              <span class="process-action inline-flex items-center gap-1.5 mt-auto text-sm font-semibold text-primary" aria-hidden="true">
+                <span class="material-symbols-outlined text-[18px]">{s.actionIcon}</span>
+                <span data-lang="es">{s.actionEs}</span>
+                <span data-lang="en">{s.actionEn}</span>
+                <span class="process-action-arrow material-symbols-outlined text-[18px] transition-transform duration-300">arrow_forward</span>
+              </span>
+            </a>
+          </li>
         ))}
-      </div>
+      </ol>
     </div>
 
     <!-- CTA de cierre -->
-    <div class="glass-panel bg-surface-1 border border-border rounded-2xl max-w-2xl mx-auto p-8 md:p-12 text-center relative overflow-hidden group animate-fade-up delay-200" data-animate>
+    <div class="glass-panel card-glow bg-surface-1 border border-border rounded-2xl max-w-2xl mx-auto p-8 md:p-12 text-center relative overflow-hidden group animate-fade-up delay-200" data-animate>
       <div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" aria-hidden="true"></div>
 
       <h3 class="font-headline text-2xl md:text-3xl font-bold text-text mb-4 relative z-10">
@@ -151,8 +199,8 @@ const steps = [
         <span data-lang="en">No commitment. Let's schedule a 15-minute call to see if we can help you.</span>
       </p>
 
-      <a href={WA_DIAG} target="_blank" rel="noopener" class="btn-primary text-sm px-8 py-4 relative z-10">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <a href={WA_DIAG} target="_blank" rel="noopener" class="process-cta-btn btn-primary text-sm px-8 py-4 relative z-10">
+        <svg class="process-cta-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
           <path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.122 1.532 5.854L.057 23.886a.5.5 0 0 0 .613.613l6.033-1.475A11.955 11.955 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.88 0-3.641-.516-5.148-1.413l-.369-.214-3.822.936.955-3.822-.237-.383A9.963 9.963 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
         </svg>
@@ -161,8 +209,16 @@ const steps = [
       </a>
 
       <div class="mt-6 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs text-muted font-medium relative z-10">
-        <span class="flex items-center gap-1.5">
+        <!-- Badge de disponibilidad dinámico (poblado por JS según hora de Colombia) -->
+        <span id="process-availability" class="flex items-center gap-1.5" role="status" aria-live="polite">
           <span class="w-1.5 h-1.5 rounded-full bg-success shadow-[0_0_8px_rgba(47,215,159,0.6)]" aria-hidden="true"></span>
+          <!-- Texto inicial accesible/no-JS: claim unificado <1h -->
+          <span data-lang="es">Respuesta en &lt;1h en horario laboral</span>
+          <span data-lang="en">Reply in &lt;1h during business hours</span>
+        </span>
+        <span class="w-1 h-1 rounded-full bg-border" aria-hidden="true"></span>
+        <span class="flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[14px] text-success" style="font-variation-settings:'FILL' 1;" aria-hidden="true">check_circle</span>
           <span data-lang="es">Diagnóstico gratis</span>
           <span data-lang="en">Free diagnosis</span>
         </span>
@@ -170,11 +226,6 @@ const steps = [
         <span>
           <span data-lang="es">Sin permanencia</span>
           <span data-lang="en">No lock-in</span>
-        </span>
-        <span class="w-1 h-1 rounded-full bg-border" aria-hidden="true"></span>
-        <span>
-          <span data-lang="es">Respuesta en &lt;24h</span>
-          <span data-lang="en">Reply in &lt;24h</span>
         </span>
       </div>
     </div>
@@ -196,7 +247,80 @@ const steps = [
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
+    animation: process-ambient-breathe 9s ease-in-out infinite;
   }
+  @keyframes process-ambient-breathe {
+    0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+    50%      { opacity: 0.75; transform: translate(-50%, -50%) scale(1.08); }
+  }
+
+  /* Cursor glow que sigue el puntero dentro de la sección (coherente con .card-glow) */
+  #proceso #process-cursor-glow {
+    position: absolute;
+    width: 480px;
+    height: 480px;
+    left: 0;
+    top: 0;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    background: radial-gradient(circle, rgba(106,195,198,0.07) 0%, rgba(106,195,198,0) 70%);
+    transform: translate3d(var(--cgx, -50%), var(--cgy, -50%), 0) translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  #proceso.cursor-active #process-cursor-glow { opacity: 1; }
+
+  /* El enlace del paso ocupa toda la altura para que el flujo (chips/acción) quede alineado */
+  #proceso .process-step-link {
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+  }
+  #proceso .process-step-item { display: flex; }
+  #proceso .process-step-link { width: 100%; }
+
+  /* Paso activo (hover/focus): elevar tile + contenido, iluminar icono con glow teal */
+  #proceso .process-step-link:hover,
+  #proceso .process-step-link:focus-visible {
+    transform: translateY(-4px);
+    outline: none;
+  }
+  #proceso .process-step-link:focus-visible {
+    box-shadow: 0 0 0 2px #6AC3C6;
+  }
+  #proceso .process-step-link:hover .process-ghost-num,
+  #proceso .process-step-link:focus-visible .process-ghost-num {
+    transform: scale(1.05);
+  }
+  /* Iluminar icono: FILL 1 + glow teal */
+  #proceso .process-icon {
+    font-variation-settings: 'FILL' 1;
+    transition: text-shadow 0.3s ease, transform 0.3s ease;
+  }
+  #proceso .process-step-link:hover .process-tile,
+  #proceso .process-step-link:focus-visible .process-tile {
+    transform: scale(1.06);
+  }
+  #proceso .process-step-link:hover .process-icon,
+  #proceso .process-step-link:focus-visible .process-icon {
+    text-shadow: 0 0 14px rgba(106,195,198,0.7);
+    transform: scale(1.08);
+  }
+  /* El paso 04 (éxito/verde) ilumina en verde, coherente con su tile success */
+  #proceso .process-step-link[data-step="04"]:hover .process-icon,
+  #proceso .process-step-link[data-step="04"]:focus-visible .process-icon {
+    text-shadow: 0 0 14px rgba(47,215,159,0.7);
+  }
+  /* Acción contextual: revela y desplaza la flecha */
+  #proceso .process-action { opacity: 0.85; transition: opacity 0.3s ease; }
+  #proceso .process-step-link:hover .process-action,
+  #proceso .process-step-link:focus-visible .process-action { opacity: 1; }
+  #proceso .process-step-link:hover .process-action-arrow,
+  #proceso .process-step-link:focus-visible .process-action-arrow {
+    transform: translateX(4px);
+  }
+  #proceso .process-step-link:active { transform: translateY(-1px) scale(0.99); }
 
   /* Conector progresivo del timeline (escritorio) */
   @media (min-width: 1024px) {
@@ -220,6 +344,14 @@ const steps = [
       background: linear-gradient(90deg, #6AC3C6, #2FD79F);
       z-index: 1;
       box-shadow: 0 0 8px rgba(47,215,159, 0.4);
+      /* Barra de progreso que se "dibuja" al entrar en viewport */
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    /* Estado dibujado, activado por JS (IntersectionObserver) con stagger por paso */
+    #proceso .process-connector.active.is-drawn::before {
+      transform: scaleX(1);
     }
     #proceso .process-step-item:last-child .process-connector::after,
     #proceso .process-step-item:last-child .process-connector::before {
@@ -241,10 +373,141 @@ const steps = [
     }
   }
 
+  /* CTA de cierre: pulso sutil del icono de WhatsApp al hover + feedback al clic */
+  #proceso .process-cta-btn:active { transform: scale(0.97); }
+  #proceso .process-cta-btn:hover .process-cta-icon {
+    animation: process-wa-pulse 0.9s ease-in-out;
+  }
+  @keyframes process-wa-pulse {
+    0%, 100% { transform: scale(1); }
+    40%      { transform: scale(1.18); }
+  }
+
+  /* Respeta prefers-reduced-motion: desactiva TODO el movimiento nuevo */
   @media (prefers-reduced-motion: reduce) {
-    #proceso .group-hover\:scale-105,
-    #proceso .process-step-item .group-hover\:scale-105 {
+    #proceso .process-ambient-glow { animation: none !important; }
+    #proceso #process-cursor-glow { display: none !important; }
+    #proceso .process-step-link,
+    #proceso .process-ghost-num,
+    #proceso .process-tile,
+    #proceso .process-icon,
+    #proceso .process-action,
+    #proceso .process-action-arrow { transition: none !important; }
+    #proceso .process-step-link:hover,
+    #proceso .process-step-link:focus-visible { transform: none !important; }
+    #proceso .process-step-link:hover .process-ghost-num,
+    #proceso .process-step-link:hover .process-tile,
+    #proceso .process-step-link:hover .process-icon,
+    #proceso .process-step-link:focus-visible .process-ghost-num,
+    #proceso .process-step-link:focus-visible .process-tile,
+    #proceso .process-step-link:focus-visible .process-icon { transform: none !important; }
+    #proceso .process-action-arrow { transform: none !important; }
+    #proceso .process-connector.active::before {
+      transform: scaleX(1) !important;
       transition: none !important;
     }
+    #proceso .process-cta-btn:hover .process-cta-icon { animation: none !important; }
+    #proceso .process-cta-btn:active { transform: none !important; }
   }
 </style>
+
+<script is:inline>
+  (function () {
+    var section = document.getElementById('proceso');
+    if (!section) return;
+
+    var reduceMotion = false;
+    try {
+      reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    } catch (e) { reduceMotion = false; }
+
+    function init() {
+      // 1) Conector de progreso: "dibujar" la barra al entrar en viewport, con stagger por paso.
+      var connectors = section.querySelectorAll('.process-connector.active');
+      if (connectors.length) {
+        if (reduceMotion || typeof IntersectionObserver === 'undefined') {
+          // Sin animación: mostrar la barra completa de inmediato.
+          connectors.forEach(function (c) { c.classList.add('is-drawn'); });
+        } else {
+          var connIO = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                var el = entry.target;
+                var idx = parseInt(el.getAttribute('data-step-index') || '0', 10);
+                setTimeout(function () { el.classList.add('is-drawn'); }, idx * 260);
+                connIO.unobserve(el);
+              }
+            });
+          }, { threshold: 0.4 });
+          Array.prototype.forEach.call(connectors, function (c, i) {
+            c.setAttribute('data-step-index', String(i));
+            connIO.observe(c);
+          });
+        }
+      }
+
+      // 2) Cursor glow que sigue al puntero dentro de la sección (solo punteros finos, sin reduced-motion).
+      var finePointer = false;
+      try { finePointer = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches; } catch (e) {}
+      if (!reduceMotion && finePointer) {
+        var glow = document.getElementById('process-cursor-glow');
+        if (glow) {
+          var rafId = 0, pendingX = 0, pendingY = 0;
+          section.addEventListener('mousemove', function (e) {
+            var r = section.getBoundingClientRect();
+            pendingX = e.clientX - r.left;
+            pendingY = e.clientY - r.top;
+            if (!rafId) {
+              rafId = requestAnimationFrame(function () {
+                glow.style.setProperty('--cgx', pendingX + 'px');
+                glow.style.setProperty('--cgy', pendingY + 'px');
+                rafId = 0;
+              });
+            }
+          });
+          section.addEventListener('mouseenter', function () { section.classList.add('cursor-active'); });
+          section.addEventListener('mouseleave', function () { section.classList.remove('cursor-active'); });
+        }
+      }
+
+      // 3) Badge de disponibilidad dinámico por hora de Colombia (Lun-Vie 8:00–19:00 COT).
+      //    Unifica el claim a "<1h en horario laboral" / "te respondemos por la mañana" fuera de horario.
+      var badge = document.getElementById('process-availability');
+      if (badge) {
+        var updateAvailability = function () {
+          var inHours = false;
+          try {
+            var cot = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Bogota' }));
+            var day = cot.getDay();   // 0 = domingo
+            var hour = cot.getHours();
+            inHours = (day >= 1 && day <= 5) && (hour >= 8 && hour < 19);
+          } catch (e) { inHours = false; }
+
+          if (inHours) {
+            badge.innerHTML =
+              '<span class="relative flex h-2 w-2" aria-hidden="true">' +
+                '<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-success opacity-60"></span>' +
+                '<span class="relative inline-flex rounded-full h-2 w-2 bg-success shadow-[0_0_8px_rgba(47,215,159,0.6)]"></span>' +
+              '</span>' +
+              '<span class="text-success font-semibold" data-lang="es">En línea ahora · respuesta en &lt;1h</span>' +
+              '<span class="text-success font-semibold" data-lang="en">Online now · reply in &lt;1h</span>';
+          } else {
+            badge.innerHTML =
+              '<span class="w-1.5 h-1.5 rounded-full bg-muted" aria-hidden="true"></span>' +
+              '<span data-lang="es">Fuera de horario · te respondemos por la mañana</span>' +
+              '<span data-lang="en">Offline · we reply in the morning</span>';
+          }
+        };
+        updateAvailability();
+        // Recalcular cada 5 min por si la pestaña queda abierta cruzando el horario.
+        setInterval(updateAvailability, 300000);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script>

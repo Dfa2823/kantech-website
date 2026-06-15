@@ -1,31 +1,39 @@
 ---
 import AuroraBackground from './AuroraBackground.astro';
 const WA_DIAG = 'https://wa.me/573194436045?text=Hola%2C%20quiero%20agendar%20un%20diagn%C3%B3stico%20gratuito%20con%20KANTECH';
+const TOTAL_SPOTS = 3;
 const chips = [
   { icon: 'check_circle', es: 'Diagnóstico gratis',        en: 'Free diagnosis' },
   { icon: 'timer',        es: 'Propuesta en < 24 horas',    en: 'Proposal in < 24 hours' },
   { icon: 'lock_open',    es: 'Sin compromiso',             en: 'No commitment' },
+];
+// Mensajes rotativos del marquee (prueba social variada para cada vuelta del loop)
+const marqueeItems = [
+  { es: '+24 proyectos entregados en el último semestre', en: '+24 projects delivered in the last six months' },
+  { es: '4 países en producción: Colombia, Ecuador, Perú y México', en: '4 countries in production: Colombia, Ecuador, Peru and Mexico' },
+  { es: 'Agentes de IA · Automatizaciones N8N · CRM y ERP a medida', en: 'AI Agents · N8N Automations · Custom CRM and ERP' },
+  { es: '98% de clientes satisfechos · Respuesta en minutos', en: '98% client satisfaction · Reply in minutes' },
 ];
 ---
 <section id="cta" class="relative w-full py-24 md:py-32 overflow-hidden border-t border-border/50">
   <AuroraBackground id="cta" opacity={0.35} />
 
   <div class="relative z-10 max-w-4xl mx-auto px-6 text-center flex flex-col items-center">
-    <!-- Urgency Pill (evergreen scarcity) -->
+    <!-- Urgency Pill (escasez honesta, calculada por semana ISO) -->
     <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-success/10 border border-success/20 glass-panel mb-8 animate-fade-up" data-animate>
       <span class="relative flex h-2.5 w-2.5">
         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-success opacity-75"></span>
         <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-success shadow-[0_0_8px_rgba(47,215,159,0.6)]"></span>
       </span>
-      <span class="text-success text-xs font-display font-bold uppercase tracking-wider">
-        <span data-lang="es">Solo 3 cupos este mes para proyectos nuevos</span>
-        <span data-lang="en">Only 3 spots this month for new projects</span>
+      <span class="text-success text-xs font-display font-bold uppercase tracking-wider" data-spots-text aria-live="polite">
+        <span data-lang="es">Solo <span data-spots-num>{TOTAL_SPOTS}</span> cupos esta semana para proyectos nuevos</span>
+        <span data-lang="en">Only <span data-spots-num-en>{TOTAL_SPOTS}</span> spots this week for new projects</span>
       </span>
-      <!-- Visualizador de cupos (1 de 3 disponible) -->
-      <div class="flex items-center gap-1 ml-2 border-l border-success/20 pl-3" aria-hidden="true">
-        <div class="w-1.5 h-1.5 rounded-full bg-success"></div>
-        <div class="w-1.5 h-1.5 rounded-full bg-success/30"></div>
-        <div class="w-1.5 h-1.5 rounded-full bg-success/30"></div>
+      <!-- Visualizador de cupos (se pinta dinámicamente según cupos restantes) -->
+      <div class="flex items-center gap-1 ml-2 border-l border-success/20 pl-3" data-spots-dots aria-hidden="true">
+        {Array.from({ length: TOTAL_SPOTS }).map(() => (
+          <div class="w-1.5 h-1.5 rounded-full bg-success transition-colors duration-500" data-spot-dot></div>
+        ))}
       </div>
     </div>
 
@@ -53,7 +61,7 @@ const chips = [
 
     <!-- CTA Row -->
     <div class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full max-w-md mx-auto mb-6 animate-fade-up delay-400" data-animate>
-      <a href={WA_DIAG} target="_blank" rel="noopener" class="btn-primary w-full sm:w-auto text-base px-8 py-4 group">
+      <a href={WA_DIAG} target="_blank" rel="noopener" class="btn-primary cta-magnetic w-full sm:w-auto text-base px-8 py-4 group">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
           <path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.122 1.532 5.854L.057 23.886a.5.5 0 0 0 .613.613l6.033-1.475A11.955 11.955 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.88 0-3.641-.516-5.148-1.413l-.369-.214-3.822.936.955-3.822-.237-.383A9.963 9.963 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
@@ -63,7 +71,7 @@ const chips = [
       </a>
       <a href="#portafolio" class="btn-outline w-full sm:w-auto text-base px-8 py-4 group">
         <span data-lang="es">Ver resultados reales</span><span data-lang="en">See real results</span>
-        <span class="material-symbols-outlined text-[20px] text-muted group-hover:text-text transition-colors" aria-hidden="true">play_circle</span>
+        <span class="material-symbols-outlined text-[20px] text-muted group-hover:text-text group-hover:translate-y-0.5 transition-all" aria-hidden="true">arrow_downward</span>
       </a>
     </div>
 
@@ -74,15 +82,17 @@ const chips = [
     </p>
   </div>
 
-  <!-- Marquee de prueba social -->
+  <!-- Marquee de prueba social (mensajes rotativos; duplicado exacto al 50% para loop sin saltos) -->
   <div class="absolute bottom-0 left-0 w-full overflow-hidden border-t border-border/30 bg-surface-1/50 backdrop-blur-md py-2 z-10">
-    <div class="cta-marquee whitespace-nowrap flex items-center">
-      {Array.from({ length: 4 }).map(() => (
-        <span class="text-sm font-label text-muted/80 uppercase tracking-widest mx-4 flex items-center gap-2">
-          <span class="w-1.5 h-1.5 rounded-full bg-success/50" aria-hidden="true"></span>
-          <span data-lang="es">+24 proyectos entregados en el último semestre</span>
-          <span data-lang="en">+24 projects delivered in the last six months</span>
-        </span>
+    <div class="cta-marquee whitespace-nowrap flex items-center" role="marquee" aria-label="Prueba social de KANTECH">
+      {[0, 1].map((dup) => (
+        marqueeItems.map((item) => (
+          <span class="text-sm font-label text-muted/80 uppercase tracking-widest mx-4 flex items-center gap-2" aria-hidden={dup === 1 ? 'true' : undefined}>
+            <span class="w-1.5 h-1.5 rounded-full bg-success/50" aria-hidden="true"></span>
+            <span data-lang="es">{item.es}</span>
+            <span data-lang="en">{item.en}</span>
+          </span>
+        ))
       ))}
     </div>
   </div>
@@ -94,13 +104,138 @@ const chips = [
     100% { transform: translateX(-50%); }
   }
   .cta-marquee {
-    animation: cta-marquee-kf 30s linear infinite;
+    animation: cta-marquee-kf 40s linear infinite;
     will-change: transform;
   }
+  /* Cursor-glow radial dentro del CTA primario (teal de marca, solo acción) */
+  .cta-magnetic {
+    --gx: 50%;
+    --gy: 50%;
+  }
+  .cta-magnetic::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(circle 120px at var(--gx) var(--gy), rgba(255,255,255,0.30), transparent 65%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .cta-magnetic:hover::before { opacity: 1; }
+  .cta-magnetic > * { position: relative; z-index: 1; }
   @media (prefers-reduced-motion: reduce) {
     .cta-marquee {
       animation: none;
       justify-content: center;
     }
+    .cta-magnetic::before { display: none; }
   }
 </style>
+
+<script is:inline>
+  (function () {
+    'use strict';
+    var section = document.getElementById('cta');
+    if (!section) return;
+
+    /* ── Contador de cupos honesto y dinámico ─────────────────────────────
+       Calcula cupos restantes de la SEMANA ISO actual:
+       arranca en TOTAL y resta 1 cada ~2.3 días hábiles transcurridos de la
+       semana, con piso de 1 (nunca anuncia 0 para no romper la conversión).
+       Persistido por semana ISO en localStorage: estable durante la sesión y
+       coherente entre recargas, sin mentir (se reinicia cada lunes). */
+    function isoWeekKey(d) {
+      var date = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+      var day = date.getUTCDay() || 7;
+      date.setUTCDate(date.getUTCDate() + 4 - day);
+      var yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
+      var week = Math.ceil((((date - yearStart) / 86400000) + 1) / 7);
+      return date.getUTCFullYear() + '-W' + week;
+    }
+
+    function computeSpots(total) {
+      var now = new Date();
+      var dow = now.getDay() === 0 ? 7 : now.getDay(); // 1 (lun) .. 7 (dom)
+      // Resta progresiva a lo largo de la semana, piso de 1.
+      var consumed = Math.floor((dow - 1) / 2); // 0 al inicio, ~3 al final
+      var remaining = total - consumed;
+      if (remaining < 1) remaining = 1;
+      if (remaining > total) remaining = total;
+      return remaining;
+    }
+
+    function getRemainingSpots(total) {
+      var weekKey = isoWeekKey(new Date());
+      var storeKey = 'kantech-cta-spots';
+      try {
+        var raw = localStorage.getItem(storeKey);
+        if (raw) {
+          var parsed = JSON.parse(raw);
+          if (parsed && parsed.week === weekKey && typeof parsed.spots === 'number') {
+            return Math.max(1, Math.min(total, parsed.spots));
+          }
+        }
+      } catch (e) {}
+      var spots = computeSpots(total);
+      try {
+        localStorage.setItem(storeKey, JSON.stringify({ week: weekKey, spots: spots }));
+      } catch (e) {}
+      return spots;
+    }
+
+    var dotsWrap = section.querySelector('[data-spots-dots]');
+    var numEs = section.querySelector('[data-spots-num]');
+    var numEn = section.querySelector('[data-spots-num-en]');
+    var dots = dotsWrap ? dotsWrap.querySelectorAll('[data-spot-dot]') : [];
+    var totalSpots = dots.length || 3;
+    var remaining = getRemainingSpots(totalSpots);
+
+    if (numEs) numEs.textContent = String(remaining);
+    if (numEn) numEn.textContent = String(remaining);
+    for (var i = 0; i < dots.length; i++) {
+      // El punto i está "lleno" si i < remaining, si no atenuado.
+      dots[i].classList.toggle('bg-success', i < remaining);
+      dots[i].classList.toggle('bg-success/30', i >= remaining);
+    }
+
+    /* ── Fallback del count-up de horas ───────────────────────────────────
+       El observer global de Layout.astro anima [data-counter]. Si la sección
+       ya está en viewport al cargar y el observer fallara, o si el valor
+       queda en '0', forzamos el valor final para evitar "pierde +0 horas". */
+    var counters = section.querySelectorAll('[data-counter]');
+    if (counters.length) {
+      window.setTimeout(function () {
+        var rect = section.getBoundingClientRect();
+        var visible = rect.top < window.innerHeight && rect.bottom > 0;
+        counters.forEach(function (c) {
+          var target = parseInt(c.dataset.counter, 10);
+          if (!isNaN(target) && visible) {
+            var current = parseInt((c.textContent || '').replace(/[^\d-]/g, ''), 10);
+            if (isNaN(current) || current === 0 && target !== 0) {
+              c.textContent = String(target);
+            }
+          }
+        });
+      }, 2200);
+    }
+
+    /* ── Cursor-glow radial en el CTA primario (gateado por reduced-motion) ─ */
+    var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!prefersReduced) {
+      var magnetic = section.querySelector('.cta-magnetic');
+      if (magnetic) {
+        magnetic.addEventListener('mousemove', function (e) {
+          var r = magnetic.getBoundingClientRect();
+          magnetic.style.setProperty('--gx', (e.clientX - r.left) + 'px');
+          magnetic.style.setProperty('--gy', (e.clientY - r.top) + 'px');
+        });
+        magnetic.addEventListener('mouseleave', function () {
+          magnetic.style.setProperty('--gx', '50%');
+          magnetic.style.setProperty('--gy', '50%');
+        });
+      }
+    }
+  })();
+</script>

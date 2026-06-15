@@ -1,0 +1,79 @@
+---
+// Mockup de chat de WhatsApp — UI real (no imagen IA): el agente de KANTECH
+// califica un lead y agenda una cita. Bilingüe ES/EN, con typing animado.
+---
+<div class="wcm-root" role="img" aria-label="Chat de WhatsApp: un agente de IA de KANTECH atiende a un cliente y agenda una cita">
+  <!-- Header estilo WhatsApp -->
+  <div class="wcm-head">
+    <span class="wcm-avatar">K</span>
+    <div class="wcm-head-txt">
+      <span class="wcm-name">Agente KANTECH</span>
+      <span class="wcm-status"><span data-lang="es">en línea</span><span data-lang="en">online</span></span>
+    </div>
+    <span class="material-symbols-outlined wcm-head-ic" aria-hidden="true">videocam</span>
+    <span class="material-symbols-outlined wcm-head-ic" aria-hidden="true">call</span>
+  </div>
+
+  <!-- Cuerpo del chat -->
+  <div class="wcm-body">
+    <div class="wcm-bubble wcm-in">
+      <span data-lang="es">Hola, ¿atienden citas para mañana? 🙏</span><span data-lang="en">Hi, do you have appointments for tomorrow? 🙏</span>
+      <span class="wcm-time">10:02</span>
+    </div>
+    <div class="wcm-bubble wcm-out">
+      <span data-lang="es">¡Hola! Claro 😊 Tengo espacio mañana 3:00 PM o 4:30 PM. ¿Cuál te queda mejor?</span><span data-lang="en">Hi! Sure 😊 I have 3:00 PM or 4:30 PM tomorrow. Which works best?</span>
+      <span class="wcm-time">10:02 ✓✓</span>
+    </div>
+    <div class="wcm-bubble wcm-in">
+      <span data-lang="es">3 PM perfecto</span><span data-lang="en">3 PM, perfect</span>
+      <span class="wcm-time">10:03</span>
+    </div>
+    <div class="wcm-bubble wcm-out">
+      <span data-lang="es">Listo ✅ Cita agendada mañana 3:00 PM. Te llegó la confirmación a tu correo.</span><span data-lang="en">Done ✅ Booked for tomorrow 3:00 PM. Confirmation sent to your email.</span>
+      <span class="wcm-time">10:03 ✓✓</span>
+    </div>
+    <div class="wcm-typing" aria-hidden="true"><span></span><span></span><span></span></div>
+  </div>
+
+  <!-- Barra de entrada simulada -->
+  <div class="wcm-input">
+    <span class="wcm-input-box"><span data-lang="es">Escribe un mensaje…</span><span data-lang="en">Type a message…</span></span>
+    <span class="material-symbols-outlined wcm-send" aria-hidden="true">send</span>
+  </div>
+</div>
+
+<style>
+  .wcm-root { position: absolute; inset: 0; display: flex; flex-direction: column;
+    background: #0B141A; font-family: 'Inter', sans-serif; overflow: hidden; }
+  .wcm-head { display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: #1F2C34; flex-shrink: 0; }
+  .wcm-avatar { width: 30px; height: 30px; border-radius: 999px; background: linear-gradient(135deg,#6AC3C6,#2E7E9E);
+    display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; color: #07101F;
+    font-family: "Source Code Pro", monospace; flex-shrink: 0; }
+  .wcm-head-txt { display: flex; flex-direction: column; line-height: 1.2; flex: 1; min-width: 0; }
+  .wcm-name { font-size: 12.5px; font-weight: 600; color: #EEF3FA; }
+  .wcm-status { font-size: 10px; color: #2FD79F; }
+  .wcm-head-ic { font-size: 17px; color: #8FA0B5; }
+
+  .wcm-body { flex: 1; padding: 12px 10px; display: flex; flex-direction: column; gap: 7px; overflow: hidden;
+    background-color: #0B141A;
+    background-image: radial-gradient(rgba(255,255,255,0.02) 1px, transparent 1px); background-size: 16px 16px; }
+  .wcm-bubble { max-width: 80%; padding: 6px 9px 14px; border-radius: 9px; font-size: 11.5px; line-height: 1.35;
+    position: relative; color: #E8EEF2; box-shadow: 0 1px 1px rgba(0,0,0,0.2); }
+  .wcm-in { align-self: flex-start; background: #1F2C34; border-top-left-radius: 2px; }
+  .wcm-out { align-self: flex-end; background: #134D37; border-top-right-radius: 2px; }
+  .wcm-time { position: absolute; right: 8px; bottom: 3px; font-size: 8px; color: rgba(232,238,242,0.55); }
+  .wcm-typing { align-self: flex-start; background: #1F2C34; border-radius: 9px; border-top-left-radius: 2px;
+    padding: 9px 12px; display: flex; gap: 4px; }
+  .wcm-typing span { width: 6px; height: 6px; border-radius: 999px; background: #8FA0B5; opacity: 0.5;
+    animation: wcm-bounce 1.2s infinite ease-in-out; }
+  .wcm-typing span:nth-child(2) { animation-delay: 0.2s; }
+  .wcm-typing span:nth-child(3) { animation-delay: 0.4s; }
+
+  .wcm-input { display: flex; align-items: center; gap: 8px; padding: 7px 10px; background: #1F2C34; flex-shrink: 0; }
+  .wcm-input-box { flex: 1; background: #2A3942; border-radius: 999px; padding: 6px 12px; font-size: 11px; color: #8FA0B5; }
+  .wcm-send { width: 30px; height: 30px; border-radius: 999px; background: #6AC3C6; color: #07101F;
+    font-size: 17px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+  @keyframes wcm-bounce { 0%,60%,100% { transform: translateY(0); opacity: 0.5; } 30% { transform: translateY(-4px); opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) { .wcm-typing span { animation: none; } }
+</style>

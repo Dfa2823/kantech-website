@@ -1,0 +1,85 @@
+---
+// Mockup de "flow builder" de automatización — UI real en HTML/CSS+SVG (no imagen IA).
+// Nodos: Captura de Lead → Agente IA → (WhatsApp + CRM/ERP), con flujo de datos animado.
+const nodes = [
+  { id: 'lead', icon: 'person_add', es: 'Captura de Lead', en: 'Lead Capture',  sub: 'Webhook · Form',     x: '6%',  y: '16%', accent: false },
+  { id: 'ai',   icon: 'smart_toy',  es: 'Agente IA',       en: 'AI Agent',       sub: 'Califica · Responde', x: '54%', y: '16%', accent: true },
+  { id: 'wa',   icon: 'forum',      es: 'WhatsApp',        en: 'WhatsApp',       sub: 'Mensaje · Agenda',  x: '6%',  y: '62%', accent: false },
+  { id: 'crm',  icon: 'database',   es: 'CRM / ERP',       en: 'CRM / ERP',      sub: 'Sincroniza datos',  x: '54%', y: '62%', accent: false },
+];
+---
+<div class="afm-root font-mono" role="img" aria-label="Flujo de automatización: captura de lead, agente de IA, WhatsApp y CRM conectados">
+  <!-- Sidebar -->
+  <div class="afm-sidebar">
+    {['dashboard','account_tree','bolt','insights','settings'].map((ic, i) => (
+      <span class={`material-symbols-outlined afm-side-ic ${i === 1 ? 'afm-side-active' : ''}`} aria-hidden="true">{ic}</span>
+    ))}
+  </div>
+
+  <!-- Canvas -->
+  <div class="afm-canvas">
+    <div class="afm-canvas-head">
+      <span class="afm-canvas-title">automation_flow.kantech</span>
+      <span class="afm-live"><span class="afm-live-dot"></span><span data-lang="es">En producción</span><span data-lang="en">Live</span></span>
+    </div>
+
+    <!-- Conexiones (flujo de datos animado) -->
+    <svg class="afm-wires" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+      <path class="afm-wire" d="M27,29 L57,29" />
+      <path class="afm-wire" d="M70,40 L70,63" />
+      <path class="afm-wire" d="M64,40 C64,58 33,52 27,66" />
+    </svg>
+
+    <!-- Nodos -->
+    {nodes.map(n => (
+      <div class={`afm-node ${n.accent ? 'afm-node-accent' : ''}`} style={`left:${n.x};top:${n.y};`}>
+        <span class="material-symbols-outlined afm-node-ic" aria-hidden="true">{n.icon}</span>
+        <div class="afm-node-txt">
+          <span class="afm-node-title"><span data-lang="es">{n.es}</span><span data-lang="en">{n.en}</span></span>
+          <span class="afm-node-sub">{n.sub}</span>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .afm-root { position: absolute; inset: 0; display: flex; background: #0B1426; color: #EEF3FA; }
+  .afm-sidebar {
+    width: 44px; flex-shrink: 0; border-right: 1px solid #243049;
+    display: flex; flex-direction: column; align-items: center; gap: 1.1rem; padding-top: 1rem;
+    background: #0E1A33;
+  }
+  .afm-side-ic { font-size: 20px; color: #4A5E84; }
+  .afm-side-active { color: #6AC3C6; }
+  .afm-canvas { position: relative; flex: 1; overflow: hidden;
+    background-image: radial-gradient(circle, rgba(51,80,125,0.25) 1px, transparent 1px);
+    background-size: 18px 18px; }
+  .afm-canvas-head { position: absolute; top: 0; left: 0; right: 0; height: 30px;
+    display: flex; align-items: center; justify-content: space-between; padding: 0 12px;
+    border-bottom: 1px solid #243049; background: rgba(14,26,51,0.7); backdrop-filter: blur(4px); z-index: 3; }
+  .afm-canvas-title { font-size: 10px; color: #A4B6CC; letter-spacing: 0.04em; }
+  .afm-live { display: inline-flex; align-items: center; gap: 5px; font-size: 9px; color: #2FD79F; text-transform: uppercase; letter-spacing: 0.06em; }
+  .afm-live-dot { width: 6px; height: 6px; border-radius: 999px; background: #2FD79F; box-shadow: 0 0 8px rgba(47,215,159,0.8); animation: afm-pulse 1.8s ease-in-out infinite; }
+
+  .afm-wires { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
+  .afm-wire { fill: none; stroke: #6AC3C6; stroke-width: 0.6; stroke-dasharray: 4 3; opacity: 0.65;
+    animation: afm-flow 1.2s linear infinite; vector-effect: non-scaling-stroke; }
+
+  .afm-node { position: absolute; width: 40%; display: flex; align-items: center; gap: 8px;
+    padding: 8px 10px; border-radius: 10px; background: #16213D; border: 1px solid #2A3C5E;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.35); z-index: 2; }
+  .afm-node-accent { border-color: #6AC3C6; background: #15293B;
+    box-shadow: 0 0 0 1px rgba(106,195,198,0.4), 0 8px 22px rgba(106,195,198,0.18); }
+  .afm-node-ic { font-size: 18px; color: #6AC3C6; flex-shrink: 0; }
+  .afm-node-txt { display: flex; flex-direction: column; line-height: 1.15; min-width: 0; }
+  .afm-node-title { font-size: 11px; font-weight: 700; color: #EEF3FA; white-space: nowrap; }
+  .afm-node-sub { font-size: 8.5px; color: #8595B5; white-space: nowrap; }
+
+  @keyframes afm-flow { to { stroke-dashoffset: -14; } }
+  @keyframes afm-pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+  @media (prefers-reduced-motion: reduce) {
+    .afm-wire, .afm-live-dot { animation: none; }
+  }
+  @media (max-width: 380px) { .afm-node-sub { display: none; } }
+</style>

@@ -1,9 +1,11 @@
 ---
-// Servicios — layout bento. "Agentes de IA" como card flagship (mockup con imagen
-// local), 3 cards de apoyo. CTA por card con WhatsApp prellenado. Toggle de
+// Servicios — layout bento. "Agentes de IA" como card flagship (mockup de chat
+// real), 3 cards de apoyo. CTA por card con WhatsApp prellenado. Toggle de
 // tecnologías por card (accesible). EN tomado del componente actual; precios COP
 // en ES, USD equivalente en EN.
+import WhatsAppChatMockup from './WhatsAppChatMockup.astro';
 const WA = 'https://wa.me/573194436045?text=';
+const WA_NUMBER = '+57 319 443 6045';
 const waAgent   = WA + encodeURIComponent('Hola KANTECH! Quiero un agente de IA que atienda a mis clientes 24/7.');
 const waAuto    = WA + encodeURIComponent('Hola KANTECH! Quiero automatizar un proceso de mi empresa.');
 const waProcess = WA + encodeURIComponent('Hola KANTECH! Quiero un diagnóstico gratuito de mis procesos.');
@@ -15,6 +17,15 @@ const techAgent   = ['LLM', 'Chatbots', 'WhatsApp', 'CRM Integration'];
 const techAuto    = ['N8N', 'APIs', 'Webhooks', 'Odoo', 'Google Workspace'];
 const techProcess = ['BPM', 'Diagnóstico', 'Consultoría', 'KPIs'];
 const techCustom  = ['React', 'Node.js', 'PostgreSQL', 'Python', 'Google Apps Script'];
+
+// Filtro "Por dónde empezar" — cada chip resalta el servicio recomendado.
+// data-target = id de servicio (data-svc) que se resalta al activar el chip.
+const startFilters = [
+  { goal: 'clients', target: 'agent',   icon: 'support_agent',  es: 'Atender clientes', en: 'Serve clients' },
+  { goal: 'hours',   target: 'auto',    icon: 'schedule',       es: 'Ahorrar horas',    en: 'Save hours' },
+  { goal: 'costs',   target: 'process', icon: 'savings',        es: 'Reducir costos',   en: 'Cut costs' },
+  { goal: 'build',   target: 'custom',  icon: 'code_blocks',    es: 'Construir sistema',en: 'Build system' },
+];
 ---
 <section id="servicios" class="relative py-24 px-6 overflow-hidden">
   <div class="relative z-10 max-w-7xl mx-auto">
@@ -36,15 +47,50 @@ const techCustom  = ['React', 'Node.js', 'PostgreSQL', 'Python', 'Google Apps Sc
       </p>
     </div>
 
+    <!-- Filtro "Por dónde empezar" -->
+    <div class="flex flex-col items-center mb-10 animate-fade-up delay-100" data-animate>
+      <p class="text-xs font-headline tracking-widest text-muted uppercase mb-4">
+        <span data-lang="es">¿Por dónde empezar?</span>
+        <span data-lang="en">Where to start?</span>
+      </p>
+      <div id="svc-filter" class="flex flex-wrap justify-center gap-2.5" role="group" aria-label="Filtrar servicios por objetivo">
+        {startFilters.map(f => (
+          <button
+            type="button"
+            class="svc-filter-chip inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-surface-1 border border-border text-muted hover:text-text hover:border-primary/50 transition-all duration-200 active:scale-[0.97]"
+            data-goal={f.goal}
+            data-target={f.target}
+            aria-pressed="false"
+          >
+            <span class="material-symbols-outlined text-[18px]" aria-hidden="true">{f.icon}</span>
+            <span data-lang="es">{f.es}</span><span data-lang="en">{f.en}</span>
+          </button>
+        ))}
+        <button
+          type="button"
+          id="svc-filter-clear"
+          class="svc-filter-clear hidden items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium text-muted hover:text-accent transition-colors"
+        >
+          <span class="material-symbols-outlined text-[18px]" aria-hidden="true">restart_alt</span>
+          <span data-lang="es">Ver todo</span><span data-lang="en">Show all</span>
+        </button>
+      </div>
+      <p id="svc-filter-status" class="sr-only" role="status" aria-live="polite"></p>
+    </div>
+
     <!-- Bento Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+    <div id="svc-grid" class="grid grid-cols-1 md:grid-cols-12 gap-6">
 
       <!-- 1. Flagship: Agentes de IA (wide) -->
-      <div class="col-span-1 md:col-span-12 lg:col-span-8 bg-surface-2 glass-panel rounded-xl border border-border p-8 lg:p-10 relative overflow-hidden group hover:-translate-y-1 hover:border-primary/40 transition-all duration-300 flex flex-col lg:flex-row gap-8 items-center animate-fade-up delay-100" data-animate>
+      <div data-svc="agent" data-goal="clients" class="svc-card card-glow col-span-1 md:col-span-12 lg:col-span-8 bg-surface-2 glass-panel rounded-xl border border-border p-8 lg:p-10 relative overflow-hidden group hover:-translate-y-1 hover:border-primary/40 transition-all duration-300 flex flex-col lg:flex-row gap-8 items-center animate-fade-up delay-100" data-animate>
         <!-- Glow on hover -->
         <div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" aria-hidden="true"></div>
 
         <div class="flex-1 space-y-6 z-10">
+          <div class="svc-reco-badge inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/15 border border-primary/40 text-primary text-xs font-semibold">
+            <span class="material-symbols-outlined text-[15px]" aria-hidden="true">recommend</span>
+            <span data-lang="es">Recomendado para ti</span><span data-lang="en">Recommended for you</span>
+          </div>
           <div class="w-12 h-12 rounded-lg bg-surface-1 border border-border flex items-center justify-center shadow-lg relative">
             <div class="absolute inset-0 bg-brand-gradient opacity-20 rounded-lg blur-md" aria-hidden="true"></div>
             <span class="material-symbols-outlined text-accent text-2xl relative z-10" aria-hidden="true">smart_toy</span>
@@ -69,6 +115,30 @@ const techCustom  = ['React', 'Node.js', 'PostgreSQL', 'Python', 'Google Apps Sc
             </span>
           </div>
 
+          <!-- Toggle "Ver retorno" — mini-comparador ROI con cifras ya presentes -->
+          <div>
+            <button type="button" class="svc-roi-toggle inline-flex items-center gap-1.5 text-sm font-medium text-success/90 hover:text-success transition-colors" aria-expanded="false" aria-controls="svc-roi-agent">
+              <span class="material-symbols-outlined text-[18px]" aria-hidden="true">savings</span>
+              <span data-lang="es">Ver retorno</span><span data-lang="en">See return</span>
+              <span class="material-symbols-outlined text-[18px] svc-roi-chevron transition-transform" aria-hidden="true">expand_more</span>
+            </button>
+            <div class="svc-collapse"><div class="svc-collapse-inner">
+              <div id="svc-roi-agent" class="mt-3 p-4 rounded-lg bg-surface-0 border border-border">
+                <div class="flex items-center justify-between text-sm mb-1">
+                  <span class="text-muted"><span data-lang="es">Atención 24/7 (sin contratar)</span><span data-lang="en">24/7 service (no hiring)</span></span>
+                </div>
+                <div class="flex items-baseline gap-2 mb-3">
+                  <span class="font-headline font-bold text-2xl text-success"><span data-lang="es">$3-5M COP</span><span data-lang="en">$700-1,200 USD</span></span>
+                  <span class="text-xs text-muted"><span data-lang="es">/mes ahorrados</span><span data-lang="en">/mo saved</span></span>
+                </div>
+                <div class="h-2 rounded-full bg-surface-2 overflow-hidden" aria-hidden="true">
+                  <div class="svc-roi-bar h-full rounded-full bg-success/70"></div>
+                </div>
+                <p class="text-xs text-muted mt-2"><span data-lang="es">Equivale a un asesor de medio tiempo, trabajando todo el día.</span><span data-lang="en">Equivalent to a part-time rep, working all day long.</span></p>
+              </div>
+            </div></div>
+          </div>
+
           <!-- Toggle tecnologías -->
           <div>
             <button type="button" class="svc-tech-toggle inline-flex items-center gap-1.5 text-sm font-medium text-muted hover:text-accent transition-colors" aria-expanded="false" aria-controls="svc-tech-agent">
@@ -76,39 +146,40 @@ const techCustom  = ['React', 'Node.js', 'PostgreSQL', 'Python', 'Google Apps Sc
               <span data-lang="es">Tecnologías</span><span data-lang="en">Technologies</span>
               <span class="material-symbols-outlined text-[18px] svc-tech-chevron transition-transform" aria-hidden="true">expand_more</span>
             </button>
-            <div id="svc-tech-agent" class="svc-tech-panel hidden flex-wrap gap-2 mt-3">
-              {techAgent.map(t => (
-                <span class="px-2.5 py-1 rounded-md text-xs font-medium bg-surface-0 text-muted border border-border">{t}</span>
-              ))}
-            </div>
+            <div class="svc-collapse"><div class="svc-collapse-inner">
+              <div id="svc-tech-agent" class="flex flex-wrap gap-2 mt-3">
+                {techAgent.map(t => (
+                  <span class="px-2.5 py-1 rounded-md text-xs font-medium bg-surface-0 text-muted border border-border">{t}</span>
+                ))}
+              </div>
+            </div></div>
           </div>
 
-          <div class="pt-2">
-            <a href={waAgent} target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-primary hover:text-accent font-semibold transition-colors group/link">
+          <div class="pt-2 flex items-center gap-4 flex-wrap">
+            <a href={waAgent} target="_blank" rel="noopener" class="svc-cta inline-flex items-center gap-2 px-3 py-2 -ml-3 rounded-lg text-primary hover:text-accent hover:bg-primary/10 font-semibold transition-all active:scale-[0.98] group/link">
               <span data-lang="es">Quiero un agente</span><span data-lang="en">I want an agent</span>
               <span class="material-symbols-outlined transform group-hover/link:translate-x-1 transition-transform" aria-hidden="true">arrow_right_alt</span>
             </a>
+            <button type="button" class="svc-copy inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-muted hover:text-text hover:bg-surface-1 border border-border transition-all active:scale-[0.98]" data-copy={WA_NUMBER} aria-label="Copiar número de WhatsApp">
+              <span class="material-symbols-outlined text-[18px] svc-copy-icon" aria-hidden="true">content_copy</span>
+              <span class="svc-copy-label"><span data-lang="es">Copiar WhatsApp</span><span data-lang="en">Copy WhatsApp</span></span>
+            </button>
           </div>
+          <p class="svc-copy-toast sr-only" role="status" aria-live="polite"></p>
         </div>
 
-        <!-- Visual: mockup de chat con imagen local -->
-        <div class="w-full lg:w-[340px] h-[300px] relative rounded-lg border border-border bg-surface-1 overflow-hidden shadow-2xl z-10 flex-shrink-0">
-          <div class="h-10 bg-surface-2 border-b border-border flex items-center px-4 gap-2">
-            <div class="flex gap-1.5" aria-hidden="true">
-              <div class="w-2.5 h-2.5 rounded-full bg-border"></div>
-              <div class="w-2.5 h-2.5 rounded-full bg-border"></div>
-              <div class="w-2.5 h-2.5 rounded-full bg-border"></div>
-            </div>
-            <div class="flex-1 text-center text-xs text-muted font-medium">Automate.ai Flow</div>
-          </div>
-          <img src="/img/03_services-0.png" loading="lazy" decoding="async"
-               alt="Interfaz de un agente de IA de KANTECH calificando y atendiendo a clientes"
-               class="w-full h-[calc(100%-2.5rem)] object-cover opacity-80 mix-blend-screen" />
+        <!-- Visual: mockup de chat de WhatsApp (UI real, no imagen IA) -->
+        <div class="w-full lg:w-[340px] h-[300px] relative rounded-lg border border-border overflow-hidden shadow-2xl z-10 flex-shrink-0">
+          <WhatsAppChatMockup />
         </div>
       </div>
 
       <!-- 2. Automatizaciones -->
-      <div class="col-span-1 md:col-span-6 lg:col-span-4 bg-surface-2 glass-panel rounded-xl border border-border p-8 relative overflow-hidden group hover:-translate-y-1 hover:border-primary/40 transition-all duration-300 flex flex-col animate-fade-up delay-200" data-animate>
+      <div data-svc="auto" data-goal="hours" class="svc-card card-glow col-span-1 md:col-span-6 lg:col-span-4 bg-surface-2 glass-panel rounded-xl border border-border p-8 relative overflow-hidden group hover:-translate-y-1 hover:border-primary/40 transition-all duration-300 flex flex-col animate-fade-up delay-200" data-animate>
+        <div class="svc-reco-badge inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/15 border border-primary/40 text-primary text-xs font-semibold mb-4 w-fit">
+          <span class="material-symbols-outlined text-[15px]" aria-hidden="true">recommend</span>
+          <span data-lang="es">Recomendado para ti</span><span data-lang="en">Recommended for you</span>
+        </div>
         <div class="w-12 h-12 rounded-lg bg-surface-1 border border-border flex items-center justify-center mb-6 relative">
           <span class="material-symbols-outlined text-primary text-2xl z-10" aria-hidden="true">account_tree</span>
         </div>
@@ -131,6 +202,31 @@ const techCustom  = ['React', 'Node.js', 'PostgreSQL', 'Python', 'Google Apps Sc
             </span>
           </div>
 
+          <!-- Toggle "Ver retorno" -->
+          <div>
+            <button type="button" class="svc-roi-toggle inline-flex items-center gap-1.5 text-sm font-medium text-success/90 hover:text-success transition-colors" aria-expanded="false" aria-controls="svc-roi-auto">
+              <span class="material-symbols-outlined text-[18px]" aria-hidden="true">savings</span>
+              <span data-lang="es">Ver retorno</span><span data-lang="en">See return</span>
+              <span class="material-symbols-outlined text-[18px] svc-roi-chevron transition-transform" aria-hidden="true">expand_more</span>
+            </button>
+            <div class="svc-collapse"><div class="svc-collapse-inner">
+              <div id="svc-roi-auto" class="mt-3 p-4 rounded-lg bg-surface-0 border border-border">
+                <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 text-sm mb-3">
+                  <span class="text-muted"><span data-lang="es">Inviertes desde</span><span data-lang="en">You invest from</span></span>
+                  <span class="font-headline font-semibold text-text"><span data-lang="es">$500.000 COP</span><span data-lang="en">~$120 USD</span></span>
+                </div>
+                <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 text-sm mb-3">
+                  <span class="text-muted"><span data-lang="es">Recuperas</span><span data-lang="en">You recover</span></span>
+                  <span class="font-headline font-bold text-success">15 h/<span data-lang="es">sem</span><span data-lang="en">wk</span></span>
+                </div>
+                <div class="h-2 rounded-full bg-surface-2 overflow-hidden" aria-hidden="true">
+                  <div class="svc-roi-bar h-full rounded-full bg-success/70"></div>
+                </div>
+                <p class="text-xs text-success font-semibold mt-2"><span data-lang="es">Se paga solo en la 1ª semana.</span><span data-lang="en">Pays for itself in week 1.</span></p>
+              </div>
+            </div></div>
+          </div>
+
           <!-- Toggle tecnologías -->
           <div>
             <button type="button" class="svc-tech-toggle inline-flex items-center gap-1.5 text-sm font-medium text-muted hover:text-accent transition-colors" aria-expanded="false" aria-controls="svc-tech-auto">
@@ -138,15 +234,17 @@ const techCustom  = ['React', 'Node.js', 'PostgreSQL', 'Python', 'Google Apps Sc
               <span data-lang="es">Tecnologías</span><span data-lang="en">Technologies</span>
               <span class="material-symbols-outlined text-[18px] svc-tech-chevron transition-transform" aria-hidden="true">expand_more</span>
             </button>
-            <div id="svc-tech-auto" class="svc-tech-panel hidden flex-wrap gap-2 mt-3">
-              {techAuto.map(t => (
-                <span class="px-2.5 py-1 rounded-md text-xs font-medium bg-surface-0 text-muted border border-border">{t}</span>
-              ))}
-            </div>
+            <div class="svc-collapse"><div class="svc-collapse-inner">
+              <div id="svc-tech-auto" class="flex flex-wrap gap-2 mt-3">
+                {techAuto.map(t => (
+                  <span class="px-2.5 py-1 rounded-md text-xs font-medium bg-surface-0 text-muted border border-border">{t}</span>
+                ))}
+              </div>
+            </div></div>
           </div>
 
           <div>
-            <a href={waAuto} target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-white hover:text-accent font-semibold transition-colors text-sm group/link">
+            <a href={waAuto} target="_blank" rel="noopener" class="svc-cta inline-flex items-center gap-2 px-3 py-2 -ml-3 rounded-lg text-white hover:text-accent hover:bg-primary/10 font-semibold transition-all text-sm active:scale-[0.98] group/link">
               <span data-lang="es">Automatizar mi proceso</span><span data-lang="en">Automate my process</span>
               <span class="material-symbols-outlined text-[18px] transform group-hover/link:translate-x-1 transition-transform" aria-hidden="true">arrow_right_alt</span>
             </a>
@@ -155,7 +253,11 @@ const techCustom  = ['React', 'Node.js', 'PostgreSQL', 'Python', 'Google Apps Sc
       </div>
 
       <!-- 3. Mejoras de Proceso -->
-      <div class="col-span-1 md:col-span-6 lg:col-span-6 bg-surface-2 glass-panel rounded-xl border border-border p-8 relative overflow-hidden group hover:-translate-y-1 hover:border-primary/40 transition-all duration-300 flex flex-col animate-fade-up delay-300" data-animate>
+      <div data-svc="process" data-goal="costs" class="svc-card card-glow col-span-1 md:col-span-6 lg:col-span-6 bg-surface-2 glass-panel rounded-xl border border-border p-8 relative overflow-hidden group hover:-translate-y-1 hover:border-primary/40 transition-all duration-300 flex flex-col animate-fade-up delay-300" data-animate>
+        <div class="svc-reco-badge inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/15 border border-primary/40 text-primary text-xs font-semibold mb-4 w-fit">
+          <span class="material-symbols-outlined text-[15px]" aria-hidden="true">recommend</span>
+          <span data-lang="es">Recomendado para ti</span><span data-lang="en">Recommended for you</span>
+        </div>
         <div class="w-12 h-12 rounded-lg bg-surface-1 border border-border flex items-center justify-center mb-6 relative">
           <span class="material-symbols-outlined text-accent text-2xl z-10" aria-hidden="true">troubleshoot</span>
         </div>
@@ -178,6 +280,31 @@ const techCustom  = ['React', 'Node.js', 'PostgreSQL', 'Python', 'Google Apps Sc
             </span>
           </div>
 
+          <!-- Toggle "Ver retorno" -->
+          <div>
+            <button type="button" class="svc-roi-toggle inline-flex items-center gap-1.5 text-sm font-medium text-success/90 hover:text-success transition-colors" aria-expanded="false" aria-controls="svc-roi-process">
+              <span class="material-symbols-outlined text-[18px]" aria-hidden="true">savings</span>
+              <span data-lang="es">Ver retorno</span><span data-lang="en">See return</span>
+              <span class="material-symbols-outlined text-[18px] svc-roi-chevron transition-transform" aria-hidden="true">expand_more</span>
+            </button>
+            <div class="svc-collapse"><div class="svc-collapse-inner">
+              <div id="svc-roi-process" class="mt-3 p-4 rounded-lg bg-surface-0 border border-border">
+                <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 text-sm mb-3">
+                  <span class="text-muted"><span data-lang="es">El diagnóstico cuesta</span><span data-lang="en">The diagnosis costs</span></span>
+                  <span class="font-headline font-bold text-success"><span data-lang="es">$0</span><span data-lang="en">$0</span></span>
+                </div>
+                <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 text-sm mb-3">
+                  <span class="text-muted"><span data-lang="es">Ineficiencias que revela</span><span data-lang="en">Inefficiencies it reveals</span></span>
+                  <span class="font-headline font-bold text-success"><span data-lang="es">+$5M COP/mes</span><span data-lang="en">+$1,200 USD/mo</span></span>
+                </div>
+                <div class="h-2 rounded-full bg-surface-2 overflow-hidden" aria-hidden="true">
+                  <div class="svc-roi-bar h-full rounded-full bg-success/70"></div>
+                </div>
+                <p class="text-xs text-muted mt-2"><span data-lang="es">Cero riesgo: solo ganas claridad sobre dónde fugas dinero.</span><span data-lang="en">Zero risk: you only gain clarity on where money leaks.</span></p>
+              </div>
+            </div></div>
+          </div>
+
           <!-- Toggle tecnologías -->
           <div>
             <button type="button" class="svc-tech-toggle inline-flex items-center gap-1.5 text-sm font-medium text-muted hover:text-accent transition-colors" aria-expanded="false" aria-controls="svc-tech-process">
@@ -185,15 +312,17 @@ const techCustom  = ['React', 'Node.js', 'PostgreSQL', 'Python', 'Google Apps Sc
               <span data-lang="es">Tecnologías</span><span data-lang="en">Technologies</span>
               <span class="material-symbols-outlined text-[18px] svc-tech-chevron transition-transform" aria-hidden="true">expand_more</span>
             </button>
-            <div id="svc-tech-process" class="svc-tech-panel hidden flex-wrap gap-2 mt-3">
-              {techProcess.map(t => (
-                <span class="px-2.5 py-1 rounded-md text-xs font-medium bg-surface-0 text-muted border border-border">{t}</span>
-              ))}
-            </div>
+            <div class="svc-collapse"><div class="svc-collapse-inner">
+              <div id="svc-tech-process" class="flex flex-wrap gap-2 mt-3">
+                {techProcess.map(t => (
+                  <span class="px-2.5 py-1 rounded-md text-xs font-medium bg-surface-0 text-muted border border-border">{t}</span>
+                ))}
+              </div>
+            </div></div>
           </div>
 
           <div>
-            <a href={waProcess} target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-white hover:text-accent font-semibold transition-colors text-sm group/link">
+            <a href={waProcess} target="_blank" rel="noopener" class="svc-cta inline-flex items-center gap-2 px-3 py-2 -ml-3 rounded-lg text-white hover:text-accent hover:bg-primary/10 font-semibold transition-all text-sm active:scale-[0.98] group/link">
               <span data-lang="es">Pedir diagnóstico</span><span data-lang="en">Request diagnosis</span>
               <span class="material-symbols-outlined text-[18px] transform group-hover/link:translate-x-1 transition-transform" aria-hidden="true">arrow_right_alt</span>
             </a>
@@ -202,7 +331,11 @@ const techCustom  = ['React', 'Node.js', 'PostgreSQL', 'Python', 'Google Apps Sc
       </div>
 
       <!-- 4. Desarrollo a Medida -->
-      <div class="col-span-1 md:col-span-12 lg:col-span-6 bg-surface-2 glass-panel rounded-xl border border-border p-8 relative overflow-hidden group hover:-translate-y-1 hover:border-primary/40 transition-all duration-300 flex flex-col animate-fade-up delay-400" data-animate>
+      <div data-svc="custom" data-goal="build" class="svc-card card-glow col-span-1 md:col-span-12 lg:col-span-6 bg-surface-2 glass-panel rounded-xl border border-border p-8 relative overflow-hidden group hover:-translate-y-1 hover:border-primary/40 transition-all duration-300 flex flex-col animate-fade-up delay-400" data-animate>
+        <div class="svc-reco-badge inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/15 border border-primary/40 text-primary text-xs font-semibold mb-4 w-fit">
+          <span class="material-symbols-outlined text-[15px]" aria-hidden="true">recommend</span>
+          <span data-lang="es">Recomendado para ti</span><span data-lang="en">Recommended for you</span>
+        </div>
         <div class="w-12 h-12 rounded-lg bg-surface-1 border border-border flex items-center justify-center mb-6 relative">
           <span class="material-symbols-outlined text-2xl z-10" style="color:#2E7E9E;" aria-hidden="true">code_blocks</span>
         </div>
@@ -225,6 +358,31 @@ const techCustom  = ['React', 'Node.js', 'PostgreSQL', 'Python', 'Google Apps Sc
             </span>
           </div>
 
+          <!-- Toggle "Ver retorno" -->
+          <div>
+            <button type="button" class="svc-roi-toggle inline-flex items-center gap-1.5 text-sm font-medium text-success/90 hover:text-success transition-colors" aria-expanded="false" aria-controls="svc-roi-custom">
+              <span class="material-symbols-outlined text-[18px]" aria-hidden="true">savings</span>
+              <span data-lang="es">Ver retorno</span><span data-lang="en">See return</span>
+              <span class="material-symbols-outlined text-[18px] svc-roi-chevron transition-transform" aria-hidden="true">expand_more</span>
+            </button>
+            <div class="svc-collapse"><div class="svc-collapse-inner">
+              <div id="svc-roi-custom" class="mt-3 p-4 rounded-lg bg-surface-0 border border-border">
+                <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 text-sm mb-3">
+                  <span class="text-muted"><span data-lang="es">Inviertes desde</span><span data-lang="en">You invest from</span></span>
+                  <span class="font-headline font-semibold text-text"><span data-lang="es">$2M COP</span><span data-lang="en">~$480 USD</span></span>
+                </div>
+                <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 text-sm mb-3">
+                  <span class="text-muted"><span data-lang="es">Licencias que dejas de pagar</span><span data-lang="en">Licenses you stop paying</span></span>
+                  <span class="font-headline font-bold text-success"><span data-lang="es">para siempre</span><span data-lang="en">forever</span></span>
+                </div>
+                <div class="h-2 rounded-full bg-surface-2 overflow-hidden" aria-hidden="true">
+                  <div class="svc-roi-bar h-full rounded-full bg-success/70"></div>
+                </div>
+                <p class="text-xs text-muted mt-2"><span data-lang="es">Tu sistema, tu propiedad. Sin cuotas mensuales por funciones que no usas.</span><span data-lang="en">Your system, your property. No monthly fees for features you never use.</span></p>
+              </div>
+            </div></div>
+          </div>
+
           <!-- Toggle tecnologías -->
           <div>
             <button type="button" class="svc-tech-toggle inline-flex items-center gap-1.5 text-sm font-medium text-muted hover:text-accent transition-colors" aria-expanded="false" aria-controls="svc-tech-custom">
@@ -232,15 +390,17 @@ const techCustom  = ['React', 'Node.js', 'PostgreSQL', 'Python', 'Google Apps Sc
               <span data-lang="es">Tecnologías</span><span data-lang="en">Technologies</span>
               <span class="material-symbols-outlined text-[18px] svc-tech-chevron transition-transform" aria-hidden="true">expand_more</span>
             </button>
-            <div id="svc-tech-custom" class="svc-tech-panel hidden flex-wrap gap-2 mt-3">
-              {techCustom.map(t => (
-                <span class="px-2.5 py-1 rounded-md text-xs font-medium bg-surface-0 text-muted border border-border">{t}</span>
-              ))}
-            </div>
+            <div class="svc-collapse"><div class="svc-collapse-inner">
+              <div id="svc-tech-custom" class="flex flex-wrap gap-2 mt-3">
+                {techCustom.map(t => (
+                  <span class="px-2.5 py-1 rounded-md text-xs font-medium bg-surface-0 text-muted border border-border">{t}</span>
+                ))}
+              </div>
+            </div></div>
           </div>
 
           <div>
-            <a href={waCustom} target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-white hover:text-accent font-semibold transition-colors text-sm group/link">
+            <a href={waCustom} target="_blank" rel="noopener" class="svc-cta inline-flex items-center gap-2 px-3 py-2 -ml-3 rounded-lg text-white hover:text-accent hover:bg-primary/10 font-semibold transition-all text-sm active:scale-[0.98] group/link">
               <span data-lang="es">Construir mi sistema</span><span data-lang="en">Build my system</span>
               <span class="material-symbols-outlined text-[18px] transform group-hover/link:translate-x-1 transition-transform" aria-hidden="true">arrow_right_alt</span>
             </a>
@@ -283,37 +443,204 @@ const techCustom  = ['React', 'Node.js', 'PostgreSQL', 'Python', 'Google Apps Sc
   </div>
 </section>
 
+<style>
+  /* Acordeón animado por altura (grid 0fr -> 1fr): sin saltos de layout */
+  .svc-collapse {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .svc-collapse.is-open { grid-template-rows: 1fr; }
+  .svc-collapse-inner {
+    overflow: hidden;
+    min-height: 0;
+  }
+  /* Barra de retorno: se "rellena" al abrir */
+  .svc-roi-bar {
+    width: 0;
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
+  }
+  .svc-collapse.is-open .svc-roi-bar { width: 100%; }
+  /* Chevrons giran vía clase (estado sincronizado con aria-expanded) */
+  .svc-tech-toggle[aria-expanded="true"] .svc-tech-chevron,
+  .svc-roi-toggle[aria-expanded="true"] .svc-roi-chevron { transform: rotate(180deg); }
+  /* Filtro: atenuar cards no relevantes, resaltar la recomendada */
+  .svc-card { transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; }
+  #svc-grid.is-filtering .svc-card:not(.svc-dimmed) {
+    box-shadow: 0 0 0 1px rgba(106,195,198,0.5), 0 0 32px -8px rgba(106,195,198,0.4);
+  }
+  .svc-card.svc-dimmed { opacity: 0.4; }
+  /* El badge no ocupa espacio hasta que la card es recomendada */
+  .svc-card .svc-reco-badge { display: none; }
+  .svc-card.svc-recommended .svc-reco-badge {
+    display: inline-flex;
+    animation: svc-badge-in 0.35s ease both;
+  }
+  @keyframes svc-badge-in {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .svc-filter-chip[aria-pressed="true"] {
+    background-color: #6AC3C6;
+    color: #07101F;
+    border-color: #6AC3C6;
+  }
+  .svc-copy.is-copied { color: #2FD79F; border-color: rgba(47,215,159,0.4); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .svc-collapse,
+    .svc-roi-bar,
+    .svc-card { transition: none !important; }
+    .svc-card.svc-recommended .svc-reco-badge { animation: none !important; }
+  }
+</style>
+
 <script is:inline>
   (function () {
-    const toggles = document.querySelectorAll('#servicios .svc-tech-toggle');
-    toggles.forEach(btn => {
-      const panel = document.getElementById(btn.getAttribute('aria-controls'));
-      const chevron = btn.querySelector('.svc-tech-chevron');
-      if (!panel) return;
+    const root = document.getElementById('servicios');
+    if (!root) return;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      function open() {
-        panel.classList.remove('hidden');
-        panel.classList.add('flex');
-        btn.setAttribute('aria-expanded', 'true');
-        if (chevron) chevron.style.transform = 'rotate(180deg)';
+    /* ---- Acordeones animados (tecnologías + retorno), uno abierto por card ---- */
+    const toggles = root.querySelectorAll('.svc-tech-toggle, .svc-roi-toggle');
+
+    function getCollapse(btn) {
+      // El wrapper .svc-collapse es el primer hermano tras el botón
+      const next = btn.nextElementSibling;
+      return next && next.classList.contains('svc-collapse') ? next : null;
+    }
+    function closeToggle(btn) {
+      const c = getCollapse(btn);
+      if (c) c.classList.remove('is-open');
+      btn.setAttribute('aria-expanded', 'false');
+    }
+    function openToggle(btn) {
+      const card = btn.closest('.svc-card');
+      // Cierra cualquier otro acordeón abierto dentro de la misma card
+      if (card) {
+        card.querySelectorAll('.svc-tech-toggle, .svc-roi-toggle').forEach(other => {
+          if (other !== btn && other.getAttribute('aria-expanded') === 'true') closeToggle(other);
+        });
       }
-      function close() {
-        panel.classList.add('hidden');
-        panel.classList.remove('flex');
-        btn.setAttribute('aria-expanded', 'false');
-        if (chevron) chevron.style.transform = '';
-      }
+      const c = getCollapse(btn);
+      if (c) c.classList.add('is-open');
+      btn.setAttribute('aria-expanded', 'true');
+    }
+
+    toggles.forEach(btn => {
       btn.addEventListener('click', () => {
         const expanded = btn.getAttribute('aria-expanded') === 'true';
-        expanded ? close() : open();
+        if (expanded) closeToggle(btn); else openToggle(btn);
       });
-      // ESC cierra el panel cuando el foco está en el toggle
       btn.addEventListener('keydown', e => {
         if (e.key === 'Escape' && btn.getAttribute('aria-expanded') === 'true') {
-          close();
+          closeToggle(btn);
           btn.focus();
         }
       });
+    });
+
+    /* ---- Filtro "Por dónde empezar" ---- */
+    const grid = document.getElementById('svc-grid');
+    const cards = root.querySelectorAll('.svc-card');
+    const chips = root.querySelectorAll('.svc-filter-chip');
+    const clearBtn = document.getElementById('svc-filter-clear');
+    const status = document.getElementById('svc-filter-status');
+    let activeGoal = null;
+
+    function clearFilter() {
+      activeGoal = null;
+      chips.forEach(c => c.setAttribute('aria-pressed', 'false'));
+      cards.forEach(card => card.classList.remove('svc-dimmed', 'svc-recommended'));
+      if (grid) grid.classList.remove('is-filtering');
+      if (clearBtn) { clearBtn.classList.add('hidden'); clearBtn.classList.remove('inline-flex'); }
+      if (status) status.textContent = '';
+    }
+
+    function applyFilter(goal, targetSvc, chip) {
+      activeGoal = goal;
+      chips.forEach(c => c.setAttribute('aria-pressed', String(c === chip)));
+      cards.forEach(card => {
+        const match = card.dataset.goal === goal;
+        card.classList.toggle('svc-dimmed', !match);
+        card.classList.toggle('svc-recommended', match);
+      });
+      if (grid) grid.classList.add('is-filtering');
+      if (clearBtn) { clearBtn.classList.remove('hidden'); clearBtn.classList.add('inline-flex'); }
+      const recommended = root.querySelector('.svc-card[data-svc="' + targetSvc + '"]');
+      if (status) {
+        const h3 = recommended && recommended.querySelector('h3 [data-lang="es"]');
+        status.textContent = 'Servicio recomendado: ' + (h3 ? h3.textContent : targetSvc);
+      }
+      // Llevar la card recomendada a la vista en pantallas pequeñas
+      if (recommended && window.innerWidth < 768) {
+        recommended.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
+      }
+    }
+
+    chips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        const goal = chip.dataset.goal;
+        if (activeGoal === goal) { clearFilter(); return; } // toggle off
+        applyFilter(goal, chip.dataset.target, chip);
+      });
+    });
+    if (clearBtn) clearBtn.addEventListener('click', clearFilter);
+
+    /* ---- Copiar número de WhatsApp al portapapeles (lead que no hace clic) ---- */
+    root.querySelectorAll('.svc-copy').forEach(btn => {
+      const card = btn.closest('.svc-card') || root;
+      const toast = card.querySelector('.svc-copy-toast');
+      const labelWrap = btn.querySelector('.svc-copy-label');
+      const icon = btn.querySelector('.svc-copy-icon');
+      const number = btn.getAttribute('data-copy') || '';
+      let resetId = null;
+
+      async function copyNumber() {
+        let ok = false;
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(number);
+            ok = true;
+          }
+        } catch (e) { ok = false; }
+        if (!ok) {
+          // Fallback para contextos sin Clipboard API
+          try {
+            const ta = document.createElement('textarea');
+            ta.value = number;
+            ta.setAttribute('readonly', '');
+            ta.style.position = 'absolute';
+            ta.style.left = '-9999px';
+            document.body.appendChild(ta);
+            ta.select();
+            ok = document.execCommand('copy');
+            document.body.removeChild(ta);
+          } catch (e) { ok = false; }
+        }
+        const lang = document.documentElement.getAttribute('data-active-lang') === 'en' ? 'en' : 'es';
+        if (toast) {
+          toast.textContent = ok
+            ? (lang === 'en' ? 'WhatsApp number copied' : 'Número de WhatsApp copiado')
+            : (lang === 'en' ? 'Could not copy. Number: ' + number : 'No se pudo copiar. Número: ' + number);
+        }
+        if (ok) {
+          btn.classList.add('is-copied');
+          if (icon) icon.textContent = 'check';
+          if (labelWrap) {
+            labelWrap.innerHTML = '<span data-lang="es">¡Copiado!</span><span data-lang="en">Copied!</span>';
+          }
+          clearTimeout(resetId);
+          resetId = setTimeout(() => {
+            btn.classList.remove('is-copied');
+            if (icon) icon.textContent = 'content_copy';
+            if (labelWrap) {
+              labelWrap.innerHTML = '<span data-lang="es">Copiar WhatsApp</span><span data-lang="en">Copy WhatsApp</span>';
+            }
+          }, 2000);
+        }
+      }
+      btn.addEventListener('click', copyNumber);
     });
   })();
 </script>

@@ -43,6 +43,7 @@ const filters = [
           class={`filter-chip px-4 py-2 rounded-full border border-border bg-surface-1 text-sm font-medium transition-all ${i === 0 ? 'active text-text' : 'text-muted hover:text-text hover:border-border/80'}`}
           data-filter={f.key}
           aria-pressed={i === 0 ? 'true' : 'false'}
+          tabindex={i === 0 ? '0' : '-1'}
         >
           <span data-lang="es">{f.es}</span>
           <span data-lang="en">{f.en}</span>
@@ -55,8 +56,9 @@ const filters = [
 
       <!-- Card flagship SOFY (ancha) -->
       <article
-        class="portfolio-card glass-panel rounded-xl p-6 lg:col-span-2 group flex flex-col md:flex-row gap-6 relative overflow-hidden animate-fade-up delay-100"
-        data-animate data-category="manufactura"
+        class="portfolio-card card-glow glass-panel rounded-xl p-6 lg:col-span-2 group flex flex-col md:flex-row gap-6 relative overflow-hidden animate-fade-up delay-100"
+        data-animate data-category="manufactura" data-tilt
+        data-project="SOFY — ERP Industrial a Medida" data-project-en="SOFY — Custom Industrial ERP"
       >
         <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
         <div class="md:w-1/2 flex flex-col justify-between relative z-10">
@@ -103,13 +105,20 @@ const filters = [
             class="w-full h-full object-cover object-left-top transition-transform duration-700 group-hover:scale-105"
           />
           <div class="absolute inset-0 bg-gradient-to-t from-surface-0/80 via-transparent to-transparent pointer-events-none"></div>
+          <div class="case-overlay">
+            <a class="case-cta" href="#" data-wa-case rel="noopener" target="_blank">
+              <span data-lang="es">Ver caso</span><span data-lang="en">See case</span>
+              <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span>
+            </a>
+          </div>
         </div>
       </article>
 
       <!-- Card 2: CRM Comercial -->
       <article
-        class="portfolio-card glass-panel rounded-xl p-6 flex flex-col group relative overflow-hidden animate-fade-up delay-200"
-        data-animate data-category="salud"
+        class="portfolio-card card-glow glass-panel rounded-xl p-6 flex flex-col group relative overflow-hidden animate-fade-up delay-200"
+        data-animate data-category="salud" data-tilt
+        data-project="CRM Comercial Integral (Sanavit)" data-project-en="Full Commercial CRM (Sanavit)"
       >
         <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
         <div class="rounded-lg overflow-hidden border border-border mb-5 relative h-48">
@@ -119,6 +128,12 @@ const filters = [
             alt="Interfaz de CRM para salud y estética: agenda de citas, pipeline de pacientes y actividad reciente en UI oscura."
             class="w-full h-full object-cover object-left-top transition-transform duration-700 group-hover:scale-105"
           />
+          <div class="case-overlay">
+            <a class="case-cta" href="#" data-wa-case rel="noopener" target="_blank">
+              <span data-lang="es">Ver caso</span><span data-lang="en">See case</span>
+              <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span>
+            </a>
+          </div>
         </div>
         <div class="flex-grow flex flex-col justify-between relative z-10">
           <div>
@@ -147,12 +162,32 @@ const filters = [
               </span>
             </div>
             <div class="flex flex-col gap-2">
-              <span class="inline-flex items-center px-2.5 py-1 rounded-md bg-surface-1 border border-border text-[10px] font-mono text-muted truncate">
-                github.com/Dfa2823/crm-sanavit
-              </span>
+              <div class="flex items-center gap-1.5">
+                <a href="https://github.com/Dfa2823/crm-sanavit" target="_blank" rel="noopener"
+                   class="repo-link group/repo inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-surface-1 border border-border text-[10px] font-mono text-muted hover:text-accent hover:border-primary/40 transition-colors truncate min-w-0"
+                   aria-label="Abrir repositorio crm-sanavit en GitHub (nueva pestaña)">
+                  <span class="material-symbols-outlined text-[12px] shrink-0" aria-hidden="true">code</span>
+                  <span class="truncate">github.com/Dfa2823/crm-sanavit</span>
+                </a>
+                <button type="button"
+                        class="copy-repo shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-md bg-surface-1 border border-border text-muted hover:text-accent hover:border-primary/40 transition-colors"
+                        data-copy="github.com/Dfa2823/crm-sanavit"
+                        aria-label="Copiar URL del repositorio">
+                  <span class="material-symbols-outlined text-[14px]" aria-hidden="true">content_copy</span>
+                </button>
+                <span class="copy-toast text-[10px] font-mono text-success opacity-0 transition-opacity shrink-0" role="status" aria-live="polite"></span>
+              </div>
               <div class="flex gap-2">
-                <span class="inline-flex items-center px-2.5 py-1 rounded-md bg-surface-1 border border-border text-xs font-mono text-muted">90 commits</span>
-                <span class="inline-flex items-center px-2.5 py-1 rounded-md bg-surface-1 border border-border text-xs font-mono text-muted">85 deploys</span>
+                <span class="metric-pill inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-surface-1 border border-border text-xs font-mono text-muted"
+                      data-spark="commits" data-spark-value="90">
+                  <span class="spark inline-flex items-end gap-[2px] h-3" aria-hidden="true"></span>
+                  90 commits
+                </span>
+                <span class="metric-pill inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-surface-1 border border-border text-xs font-mono text-muted"
+                      data-spark="deploys" data-spark-value="85">
+                  <span class="spark inline-flex items-end gap-[2px] h-3" aria-hidden="true"></span>
+                  85 deploys
+                </span>
               </div>
             </div>
           </div>
@@ -161,8 +196,9 @@ const filters = [
 
       <!-- Card 3: DYV Command Center -->
       <article
-        class="portfolio-card glass-panel rounded-xl p-6 flex flex-col group relative overflow-hidden lg:col-span-1 animate-fade-up delay-300"
-        data-animate data-category="contabilidad salud"
+        class="portfolio-card card-glow glass-panel rounded-xl p-6 flex flex-col group relative overflow-hidden lg:col-span-1 animate-fade-up delay-300"
+        data-animate data-category="contabilidad" data-tilt
+        data-project="DYV Command Center" data-project-en="DYV Command Center"
       >
         <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
         <div class="rounded-lg overflow-hidden border border-border mb-5 relative h-48">
@@ -172,6 +208,12 @@ const filters = [
             alt="Panel contable que muestra estado de sincronización de datos, indicadores de éxito en verde y registros de integración."
             class="w-full h-full object-cover object-left-top transition-transform duration-700 group-hover:scale-105"
           />
+          <div class="case-overlay">
+            <a class="case-cta" href="#" data-wa-case rel="noopener" target="_blank">
+              <span data-lang="es">Ver caso</span><span data-lang="en">See case</span>
+              <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span>
+            </a>
+          </div>
         </div>
         <div class="flex-grow flex flex-col justify-between relative z-10">
           <div>
@@ -205,8 +247,9 @@ const filters = [
 
       <!-- Card 4: Automatizaciones N8N (ancha) -->
       <article
-        class="portfolio-card glass-panel rounded-xl p-6 lg:col-span-2 group flex flex-col md:flex-row gap-6 relative overflow-hidden animate-fade-up delay-200"
-        data-animate data-category="automatizacion"
+        class="portfolio-card card-glow glass-panel rounded-xl p-6 lg:col-span-2 group flex flex-col md:flex-row gap-6 relative overflow-hidden animate-fade-up delay-200"
+        data-animate data-category="automatizacion" data-tilt
+        data-project="Automatizaciones N8N" data-project-en="N8N Automations"
       >
         <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
         <div class="md:w-1/2 flex flex-col justify-between relative z-10">
@@ -252,39 +295,50 @@ const filters = [
             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
           <div class="absolute inset-0 bg-gradient-to-t from-surface-0/80 via-transparent to-transparent pointer-events-none"></div>
+          <div class="case-overlay">
+            <a class="case-cta" href="#" data-wa-case rel="noopener" target="_blank">
+              <span data-lang="es">Ver caso</span><span data-lang="en">See case</span>
+              <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span>
+            </a>
+          </div>
         </div>
       </article>
 
     </div>
 
     <!-- Sin resultados (filtro) -->
-    <p id="portfolio-empty" class="hidden text-center text-muted text-sm mt-12">
+    <p id="portfolio-empty" class="hidden text-center text-muted text-sm mt-12" role="status" aria-live="polite">
       <span data-lang="es">No hay casos en este sector todavía. Pronto sumaremos más.</span>
       <span data-lang="en">No cases in this sector yet. We'll add more soon.</span>
     </p>
 
+    <!-- Anuncio de resultados para lectores de pantalla -->
+    <p id="portfolio-count" class="sr-only" role="status" aria-live="polite"></p>
+
     <!-- Trust Strip -->
-    <div class="mt-20 py-8 border-y border-border/50 flex flex-wrap justify-center gap-8 md:gap-16 text-center animate-fade-up" data-animate>
-      <div>
+    <div class="mt-20 py-8 border-y border-border/50 flex flex-wrap justify-center items-center gap-6 md:gap-12 text-center animate-fade-up" data-animate>
+      <div class="trust-stat px-4 py-2 rounded-lg transition-colors">
         <span class="block font-display font-bold text-2xl md:text-3xl text-text mb-1">
-          <span data-counter="15">0</span>+
+          <span data-counter="15">0</span><span class="trust-suffix" data-suffix="+">+</span>
         </span>
         <span class="text-xs font-mono text-muted uppercase tracking-wider">
           <span data-lang="es">proyectos entregados</span>
           <span data-lang="en">projects delivered</span>
         </span>
       </div>
-      <div>
+      <span class="trust-divider hidden md:block" aria-hidden="true"></span>
+      <div class="trust-stat px-4 py-2 rounded-lg transition-colors">
         <!-- Métrica (emerald reservado) -->
         <span class="block font-display font-bold text-2xl md:text-3xl text-success mb-1">
-          <span data-counter="10">0</span>k+
+          <span data-counter="10">0</span><span class="trust-suffix" data-suffix="k+">k+</span>
         </span>
         <span class="text-xs font-mono text-muted uppercase tracking-wider">
           <span data-lang="es">horas/mes automatizadas</span>
           <span data-lang="en">hours/month automated</span>
         </span>
       </div>
-      <div>
+      <span class="trust-divider hidden md:block" aria-hidden="true"></span>
+      <div class="trust-stat px-4 py-2 rounded-lg transition-colors">
         <span class="block font-display font-bold text-2xl md:text-3xl text-text mb-1">
           <span data-counter="4">0</span>
         </span>
@@ -301,11 +355,11 @@ const filters = [
         <span data-lang="es">¿Tienes un proyecto en mente?</span>
         <span data-lang="en">Have a project in mind?</span>
       </h2>
-      <a href={WA_PROYECTO} target="_blank" rel="noopener"
-         class="btn-primary px-8 py-4 text-lg inline-flex items-center gap-2">
+      <a id="portfolio-cta" href={WA_PROYECTO} data-wa-base={WA_PROYECTO} target="_blank" rel="noopener"
+         class="btn-primary px-8 py-4 text-lg inline-flex items-center gap-2 group">
         <span data-lang="es">Cuéntanos tu reto</span>
         <span data-lang="en">Tell us your challenge</span>
-        <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+        <span class="material-symbols-outlined transition-transform group-hover:translate-x-1" aria-hidden="true">arrow_forward</span>
       </a>
       <p class="mt-4 text-xs text-muted flex items-center justify-center gap-2">
         <span class="material-symbols-outlined text-[16px] text-success" aria-hidden="true">verified</span>
@@ -327,28 +381,178 @@ const filters = [
     outline: 2px solid #6AC3C6;
     outline-offset: 2px;
   }
-  /* Transición al filtrar las tarjetas */
-  .portfolio-card { transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; }
+
+  /* Tarjetas: tilt 3D + transición al filtrar */
+  .portfolio-card {
+    transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
+  .portfolio-card:hover { border-color: rgba(106,195,198, 0.35); }
+  /* Animación de salida al filtrar (antes de display:none) */
+  .portfolio-card.is-leaving { opacity: 0; transform: scale(0.96); pointer-events: none; }
   .portfolio-card.is-hidden { display: none; }
+  /* Animación de entrada al filtrar */
+  @keyframes portfolio-card-in {
+    from { opacity: 0; transform: translateY(10px) scale(0.97); }
+    to   { opacity: 1; transform: none; }
+  }
+  .portfolio-card.is-entering { animation: portfolio-card-in 0.35s ease-out both; }
+
+  /* Overlay "Ver caso" sobre la imagen */
+  .case-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: 0.75rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .group:hover .case-overlay,
+  .group:focus-within .case-overlay { opacity: 1; }
+  .case-cta {
+    pointer-events: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.85rem;
+    border-radius: 0.6rem;
+    background: #6AC3C6;
+    color: #07101F;
+    font-family: "Source Code Pro", ui-monospace, monospace;
+    font-weight: 700;
+    font-size: 0.8rem;
+    transform: translateY(6px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 8px 24px -8px rgba(106,195,198,0.6);
+  }
+  .group:hover .case-cta,
+  .group:focus-within .case-cta { transform: translateY(0); }
+  .case-cta:active { transform: scale(0.97); }
+
+  /* Mini sparklines de commits/deploys */
+  .metric-pill .spark { width: 28px; }
+  .metric-pill .spark span {
+    display: inline-block;
+    width: 3px;
+    background: #6AC3C6;
+    border-radius: 1px;
+    height: 0;
+    transition: height 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity: 0.85;
+  }
+
+  /* Botón copiar repo */
+  .copy-repo:active { transform: scale(0.92); }
+
+  /* Trust strip: divisor + hover por métrica */
+  .trust-divider {
+    width: 1px;
+    height: 2.5rem;
+    background: linear-gradient(180deg, transparent, rgba(106,195,198,0.4), transparent);
+  }
+  .trust-stat:hover { background-color: rgba(106,195,198, 0.06); }
+  .trust-suffix { opacity: 0; transition: opacity 0.3s ease; }
+  .trust-suffix.is-revealed { opacity: 1; }
+
+  /* Respeta prefers-reduced-motion para todo lo nuevo */
+  @media (prefers-reduced-motion: reduce) {
+    .portfolio-card { transition: opacity 0.2s ease; will-change: auto; }
+    .portfolio-card.is-entering { animation: none; }
+    .case-overlay, .case-cta { transition: opacity 0.2s ease; }
+    .case-cta { transform: none; }
+    .metric-pill .spark span { transition: none; }
+    .trust-suffix { transition: none; }
+  }
 </style>
 
 <script is:inline>
   (function () {
     const root = document.getElementById('portfolio-filters');
     if (!root) return;
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isEN = () => document.documentElement.getAttribute('data-active-lang') === 'en';
+
     const chips = Array.from(root.querySelectorAll('.filter-chip'));
     const cards = Array.from(document.querySelectorAll('.portfolio-card'));
     const empty = document.getElementById('portfolio-empty');
+    const countEl = document.getElementById('portfolio-count');
+    const cta = document.getElementById('portfolio-cta');
 
+    let activeKey = 'todos';
+
+    // --- Etiquetas de sector para el deep-link contextual del CTA ---
+    const filterLabel = {
+      todos:          { es: '',                en: '' },
+      salud:          { es: 'Salud & Estética', en: 'Health & Aesthetics' },
+      contabilidad:   { es: 'Contabilidad',     en: 'Accounting' },
+      manufactura:    { es: 'Manufactura',      en: 'Manufacturing' },
+      automatizacion: { es: 'Automatización',   en: 'Automation' },
+    };
+
+    function updateCTA() {
+      if (!cta) return;
+      const base = cta.getAttribute('data-wa-base') || cta.href;
+      const lbl = filterLabel[activeKey];
+      let msg;
+      if (!lbl || activeKey === 'todos') {
+        msg = isEN() ? 'Hi, I want to talk about a project'
+                     : 'Hola, quiero hablar sobre un proyecto';
+      } else if (isEN()) {
+        msg = 'Hi, I saw your ' + lbl.en + ' cases and I want something similar';
+      } else {
+        msg = 'Hola, vi sus casos de ' + lbl.es + ' y quiero algo similar';
+      }
+      cta.href = base.split('?')[0] + '?text=' + encodeURIComponent(msg);
+    }
+
+    // --- Conteo accesible + estado vacío ---
+    function announce(visible) {
+      if (empty) empty.classList.toggle('hidden', visible !== 0);
+      if (countEl) {
+        countEl.textContent = isEN()
+          ? visible + (visible === 1 ? ' case shown' : ' cases shown')
+          : visible + (visible === 1 ? ' caso mostrado' : ' casos mostrados');
+      }
+    }
+
+    // --- Filtrado con transición de salida/entrada ---
     function applyFilter(key) {
+      activeKey = key;
       let visible = 0;
       cards.forEach(card => {
         const cats = (card.getAttribute('data-category') || '').split(/\s+/);
         const show = key === 'todos' || cats.indexOf(key) !== -1;
-        card.classList.toggle('is-hidden', !show);
+        const wasHidden = card.classList.contains('is-hidden');
         if (show) visible++;
+
+        if (show) {
+          if (wasHidden) {
+            card.classList.remove('is-hidden', 'is-leaving');
+            if (!reduceMotion) {
+              card.classList.add('is-entering');
+              card.addEventListener('animationend', () => card.classList.remove('is-entering'), { once: true });
+            }
+          }
+        } else if (!wasHidden) {
+          if (reduceMotion) {
+            card.classList.add('is-hidden');
+          } else {
+            card.classList.add('is-leaving');
+            const onEnd = () => { card.classList.add('is-hidden'); card.removeEventListener('transitionend', onEnd); };
+            card.addEventListener('transitionend', onEnd);
+            // Fallback si transitionend no dispara
+            setTimeout(() => { if (card.classList.contains('is-leaving')) card.classList.add('is-hidden'); }, 360);
+          }
+        }
       });
-      if (empty) empty.classList.toggle('hidden', visible !== 0);
+      announce(visible);
+      updateCTA();
     }
 
     function activate(chip) {
@@ -358,23 +562,158 @@ const filters = [
         c.classList.toggle('text-text', on);
         c.classList.toggle('text-muted', !on);
         c.setAttribute('aria-pressed', on ? 'true' : 'false');
+        c.setAttribute('tabindex', on ? '0' : '-1'); // roving tabindex
       });
       applyFilter(chip.getAttribute('data-filter') || 'todos');
     }
 
     chips.forEach((chip, i) => {
       chip.addEventListener('click', () => activate(chip));
-      // Navegación con flechas entre chips (accesibilidad)
       chip.addEventListener('keydown', e => {
-        if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+        // Roving tabindex: flechas SOLO mueven el foco; Enter/Space activan
+        if (e.key === 'ArrowRight' || e.key === 'ArrowLeft' || e.key === 'Home' || e.key === 'End') {
           e.preventDefault();
-          const dir = e.key === 'ArrowRight' ? 1 : -1;
-          const next = chips[(i + dir + chips.length) % chips.length];
-          next.focus();
-          activate(next);
+          let idx;
+          if (e.key === 'Home') idx = 0;
+          else if (e.key === 'End') idx = chips.length - 1;
+          else idx = (i + (e.key === 'ArrowRight' ? 1 : -1) + chips.length) % chips.length;
+          chips.forEach(c => c.setAttribute('tabindex', '-1'));
+          chips[idx].setAttribute('tabindex', '0');
+          chips[idx].focus();
+        } else if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          activate(chip);
         }
       });
     });
+
+    // --- Overlay "Ver caso": WhatsApp prellenado por proyecto ---
+    const WA = 'https://wa.me/573194436045';
+    cards.forEach(card => {
+      const link = card.querySelector('[data-wa-case]');
+      if (!link) return;
+      function setHref() {
+        const name = (isEN() ? card.getAttribute('data-project-en') : card.getAttribute('data-project'))
+                   || card.getAttribute('data-project') || '';
+        const msg = isEN()
+          ? 'Hi, I saw the "' + name + '" case and I want something similar'
+          : 'Hola, vi el caso de "' + name + '" y quiero algo similar';
+        link.href = WA + '?text=' + encodeURIComponent(msg);
+      }
+      setHref();
+      link.addEventListener('mouseenter', setHref);
+      link.addEventListener('focus', setHref);
+      link.addEventListener('click', setHref);
+    });
+
+    // --- Copiar URL del repositorio con feedback ---
+    document.querySelectorAll('.copy-repo').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const text = btn.getAttribute('data-copy') || '';
+        const toast = btn.parentElement ? btn.parentElement.querySelector('.copy-toast') : null;
+        let ok = false;
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(text);
+            ok = true;
+          }
+        } catch (e) { ok = false; }
+        if (!ok) {
+          try {
+            const ta = document.createElement('textarea');
+            ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+            document.body.appendChild(ta); ta.select();
+            ok = document.execCommand('copy');
+            document.body.removeChild(ta);
+          } catch (e) { ok = false; }
+        }
+        const icon = btn.querySelector('.material-symbols-outlined');
+        if (icon) icon.textContent = ok ? 'check' : 'error';
+        if (toast) {
+          toast.textContent = ok ? (isEN() ? 'Copied' : 'Copiado') : (isEN() ? 'Error' : 'Error');
+          toast.style.opacity = '1';
+        }
+        setTimeout(() => {
+          if (icon) icon.textContent = 'content_copy';
+          if (toast) toast.style.opacity = '0';
+        }, 1500);
+      });
+    });
+
+    // --- Sparklines de commits/deploys (animadas al entrar en viewport) ---
+    const sparks = Array.from(document.querySelectorAll('.metric-pill .spark'));
+    function buildSpark(spark) {
+      if (spark.dataset.built) return;
+      spark.dataset.built = '1';
+      // Patrón pseudoaleatorio determinista (sin libs) para 6 barras
+      const seed = parseInt(spark.closest('.metric-pill')?.getAttribute('data-spark-value') || '8', 10);
+      const heights = [0.45, 0.7, 0.35, 0.85, 0.6, 1].map((h, idx) => {
+        const jitter = ((seed * (idx + 3)) % 5) / 20; // 0..0.2
+        return Math.max(0.25, Math.min(1, h - jitter + 0.08));
+      });
+      heights.forEach(h => {
+        const bar = document.createElement('span');
+        bar.style.height = '0';
+        bar.dataset.h = String(Math.round(h * 12)); // px sobre h-3 (12px)
+        spark.appendChild(bar);
+      });
+    }
+    if (sparks.length) {
+      const sparkIO = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          const spark = entry.target;
+          buildSpark(spark);
+          const bars = Array.from(spark.children);
+          bars.forEach((bar, idx) => {
+            const finalH = bar.dataset.h + 'px';
+            if (reduceMotion) { bar.style.height = finalH; }
+            else { setTimeout(() => { bar.style.height = finalH; }, idx * 70); }
+          });
+          sparkIO.unobserve(spark);
+        });
+      }, { threshold: 0.4 });
+      sparks.forEach(s => sparkIO.observe(s));
+    }
+
+    // --- Tilt 3D sutil en las tarjetas (gateado por reduced-motion) ---
+    if (!reduceMotion && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      document.querySelectorAll('.portfolio-card[data-tilt]').forEach(card => {
+        const MAX = 5; // grados
+        card.style.perspective = '900px';
+        card.addEventListener('mousemove', e => {
+          const r = card.getBoundingClientRect();
+          const px = (e.clientX - r.left) / r.width - 0.5;
+          const py = (e.clientY - r.top) / r.height - 0.5;
+          card.style.transform = 'rotateY(' + (px * MAX) + 'deg) rotateX(' + (-py * MAX) + 'deg)';
+        });
+        card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+      });
+    }
+
+    // --- Revelar el sufijo del Trust Strip al terminar el count-up ---
+    document.querySelectorAll('.trust-suffix').forEach(sfx => {
+      const numSpan = sfx.parentElement ? sfx.parentElement.querySelector('[data-counter]') : null;
+      if (!numSpan) { sfx.classList.add('is-revealed'); return; }
+      const target = parseInt(numSpan.getAttribute('data-counter') || '0', 10);
+      if (reduceMotion || target === 0) { sfx.classList.add('is-revealed'); return; }
+      // Sondear hasta que el contador alcance su valor final
+      const poll = setInterval(() => {
+        if (parseInt(numSpan.textContent || '0', 10) >= target) {
+          sfx.classList.add('is-revealed');
+          clearInterval(poll);
+        }
+      }, 120);
+      setTimeout(() => { sfx.classList.add('is-revealed'); clearInterval(poll); }, 3000);
+    });
+
+    // --- Mantener CTA y overlays sincronizados con el cambio de idioma ---
+    document.querySelectorAll('[data-lang-btn], [data-lang-toggle], .lang-opt').forEach(btn => {
+      btn.addEventListener('click', () => { setTimeout(updateCTA, 0); });
+    });
+
+    // Estado inicial
+    updateCTA();
   })();
 </script>
 </section>

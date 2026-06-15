@@ -1,6 +1,7 @@
 ---
-const WA_FAQ = 'https://wa.me/573194436045?text=Hola%2C%20tengo%20una%20duda%20sobre%20los%20servicios%20de%20KANTECH';
-const WA_DIAG = 'https://wa.me/573194436045?text=Hola%20KANTECH!%20Quiero%20agendar%20mi%20diagn%C3%B3stico%20gratuito.';
+const WA_BASE = 'https://wa.me/573194436045';
+const WA_FAQ = `${WA_BASE}?text=Hola%2C%20tengo%20una%20duda%20sobre%20los%20servicios%20de%20KANTECH`;
+const WA_DIAG = `${WA_BASE}?text=Hola%20KANTECH!%20Quiero%20agendar%20mi%20diagn%C3%B3stico%20gratuito.`;
 
 const categories = [
   { id: 'all',          es: 'Todas',        en: 'All' },
@@ -22,6 +23,9 @@ const faqs = [
     qEn: 'How much does a project with KANTECH cost?',
     aEs: 'Cada proyecto es diferente. Tenemos servicios desde $500.000 COP para automatizaciones puntuales, hasta sistemas completos a medida (CRM, ERP). Siempre entregamos una propuesta clara con alcance y precio antes de empezar.',
     aEn: 'Every project is different. We offer services starting from ~$120 USD for targeted automations, up to full custom systems (CRM, ERP). We always provide a clear proposal with scope and pricing before starting.',
+    ctaEs: 'Quiero un estimado para mi proyecto',
+    ctaEn: 'I want a quote for my project',
+    waText: 'Hola KANTECH! Quiero un estimado para mi proyecto. ¿Me ayudan con el alcance y precio?',
   },
   {
     cat: 'garantia',
@@ -33,6 +37,9 @@ const faqs = [
     qEn: 'What if it doesn\'t work or I don\'t like the result?',
     aEs: 'Trabajamos en sprints cortos con demos semanales. Ves avances reales desde la primera semana y puedes pedir cambios en cualquier momento. Si después del primer sprint no estás convencido, no sigues pagando. Sin letra pequeña, sin contratos de permanencia.',
     aEn: 'We work in short sprints with weekly demos. You see real progress from week one and can request changes anytime. If after the first sprint you\'re not convinced, you stop paying. No fine print, no lock-in contracts.',
+    ctaEs: 'Quiero empezar con un sprint de prueba',
+    ctaEn: 'I want to start with a trial sprint',
+    waText: 'Hola KANTECH! Me interesa empezar con un sprint de prueba sin permanencia. ¿Cómo funciona?',
   },
   {
     cat: 'tiempos',
@@ -42,6 +49,9 @@ const faqs = [
     qEn: 'How long does a project take?',
     aEs: 'Las automatizaciones pueden estar listas en 1-2 semanas. Un sistema completo (CRM, ERP) puede tomar entre 4 y 12 semanas según el alcance. Entregamos en sprints visibles.',
     aEn: 'Automations can be ready in 1-2 weeks. A full system (CRM, ERP) can take 4-12 weeks depending on scope. We deliver in visible sprints.',
+    ctaEs: 'Quiero saber el tiempo para mi caso',
+    ctaEn: 'I want a timeline for my case',
+    waText: 'Hola KANTECH! Me gustaría saber el tiempo estimado para mi proyecto. ¿Lo revisamos?',
   },
   {
     cat: 'precio',
@@ -98,12 +108,55 @@ const faqs = [
   <div class="max-w-4xl mx-auto relative z-10">
 
     <!-- Encabezado -->
-    <div class="text-center mb-16 flex flex-col items-center gap-6" data-animate>
+    <div class="text-center mb-10 flex flex-col items-center gap-6" data-animate>
       <div class="section-label">FAQ</div>
       <h2 id="faq-title" class="font-headline text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-text max-w-3xl leading-tight">
         <span data-lang="es">¿Todo lo que necesitas saber antes de <span class="gradient-text">dar el primer paso?</span></span>
         <span data-lang="en">Everything you need to know before <span class="gradient-text">taking the first step?</span></span>
       </h2>
+
+      <!-- Badge de disponibilidad en vivo (visible también en móvil) -->
+      <div
+        id="faq-availability"
+        class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-success/10 border border-success/30 shadow-[0_0_12px_rgba(47,215,159,0.12)]"
+        role="status"
+        aria-live="polite"
+      >
+        <span id="faq-availability-dot" class="relative flex h-2 w-2">
+          <span id="faq-availability-ping" class="absolute inline-flex h-full w-full rounded-full bg-success opacity-75 animate-ping"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-success"></span>
+        </span>
+        <span class="font-label text-[11px] font-bold uppercase tracking-wider text-success">
+          <span data-lang="es" id="faq-availability-es">Respondemos en menos de 1h</span>
+          <span data-lang="en" id="faq-availability-en">We reply in under 1h</span>
+        </span>
+      </div>
+    </div>
+
+    <!-- Buscador en vivo -->
+    <div class="max-w-xl mx-auto mb-6 animate-fade-up delay-100" data-animate>
+      <div class="relative">
+        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-muted text-[20px] pointer-events-none" aria-hidden="true">search</span>
+        <input
+          type="search"
+          id="faq-search"
+          autocomplete="off"
+          class="faq-search-input w-full pl-12 pr-11 py-3 rounded-full bg-surface-1 border border-border text-text placeholder:text-muted text-sm transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:border-primary/40"
+          data-placeholder-es="Buscar una pregunta…"
+          data-placeholder-en="Search a question…"
+          placeholder="Buscar una pregunta…"
+          aria-label="Buscar en preguntas frecuentes"
+          aria-controls="faq-accordion"
+        />
+        <button
+          type="button"
+          id="faq-search-clear"
+          class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-text transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 rounded-full"
+          aria-label="Limpiar búsqueda"
+        >
+          <span class="material-symbols-outlined text-[20px]" aria-hidden="true">close</span>
+        </button>
+      </div>
     </div>
 
     <!-- Filtros de categoría -->
@@ -125,14 +178,15 @@ const faqs = [
       {faqs.map((faq, i) => (
         <div
           class:list={[
-            'faq-item glass-panel rounded-2xl overflow-hidden border transition-all duration-300',
+            'faq-item card-glow glass-panel rounded-2xl overflow-hidden border transition-all duration-300',
             faq.highlight
               ? 'border-success/20 shadow-[0_0_20px_rgba(47,215,159,0.05)]'
               : 'border-border hover:border-primary/30',
           ]}
           data-faq-category={faq.cat}
+          data-faq-keywords={`${faq.qEs} ${faq.qEn} ${faq.aEs} ${faq.aEn}`.toLowerCase()}
         >
-          <h3 class="m-0">
+          <h3 class="m-0 relative z-10">
             <button
               type="button"
               id={`faq-q-${i}`}
@@ -147,8 +201,8 @@ const faqs = [
                   aria-hidden="true"
                 >{faq.icon}</span>
                 <span class="font-headline text-lg md:text-xl font-medium text-text">
-                  <span data-lang="es">{faq.qEs}</span>
-                  <span data-lang="en">{faq.qEn}</span>
+                  <span data-lang="es" data-faq-q>{faq.qEs}</span>
+                  <span data-lang="en" data-faq-q>{faq.qEn}</span>
                 </span>
               </span>
               <span
@@ -162,7 +216,8 @@ const faqs = [
             id={`faq-a-${i}`}
             role="region"
             aria-labelledby={`faq-q-${i}`}
-            class:list={['accordion-content px-6', faq.highlight ? 'bg-success/5' : 'bg-surface-1/50']}
+            aria-hidden="true"
+            class:list={['accordion-content relative z-10 px-6', faq.highlight ? 'bg-success/5' : 'bg-surface-1/50']}
           >
             <div class="accordion-inner">
               <div class="pb-6 pt-2">
@@ -175,9 +230,52 @@ const faqs = [
                   </div>
                 )}
                 <p class="font-body text-base text-muted leading-relaxed">
-                  <span data-lang="es">{faq.aEs}</span>
-                  <span data-lang="en">{faq.aEn}</span>
+                  <span data-lang="es" data-faq-a>{faq.aEs}</span>
+                  <span data-lang="en" data-faq-a>{faq.aEn}</span>
                 </p>
+
+                {faq.waText && (
+                  <div class="mt-5 flex flex-col sm:flex-row sm:items-center gap-3">
+                    <a
+                      href={`${WA_BASE}?text=${encodeURIComponent(faq.waText)}`}
+                      target="_blank"
+                      rel="noopener"
+                      class="faq-inline-cta group inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/30 text-sm font-semibold text-primary transition-all duration-300 hover:bg-primary/20 hover:border-primary/50 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
+                    >
+                      <span class="material-symbols-outlined text-[18px]" aria-hidden="true">chat</span>
+                      <span data-lang="es">{faq.ctaEs}</span>
+                      <span data-lang="en">{faq.ctaEn}</span>
+                      <span class="material-symbols-outlined text-[16px] transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden="true">arrow_forward</span>
+                    </a>
+                  </div>
+                )}
+
+                <!-- Feedback de utilidad -->
+                <div class="faq-feedback mt-5 pt-4 border-t border-border/40 flex flex-wrap items-center gap-3" data-faq-topic-es={faq.qEs} data-faq-topic-en={faq.qEn}>
+                  <span class="text-xs text-muted font-medium">
+                    <span data-lang="es">¿Te sirvió esta respuesta?</span>
+                    <span data-lang="en">Was this answer helpful?</span>
+                  </span>
+                  <div class="faq-feedback-actions inline-flex items-center gap-2">
+                    <button
+                      type="button"
+                      class="faq-fb-yes inline-flex items-center gap-1 px-3 py-1 rounded-full border border-border text-xs font-medium text-muted transition-all duration-300 hover:border-success/40 hover:text-success active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
+                      aria-label="Sí, esta respuesta me sirvió"
+                    >
+                      <span class="material-symbols-outlined text-[16px]" aria-hidden="true">thumb_up</span>
+                      <span data-lang="es">Sí</span><span data-lang="en">Yes</span>
+                    </button>
+                    <button
+                      type="button"
+                      class="faq-fb-no inline-flex items-center gap-1 px-3 py-1 rounded-full border border-border text-xs font-medium text-muted transition-all duration-300 hover:border-primary/40 hover:text-text active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
+                      aria-label="No, necesito más ayuda"
+                    >
+                      <span class="material-symbols-outlined text-[16px]" aria-hidden="true">thumb_down</span>
+                      <span data-lang="es">No</span><span data-lang="en">No</span>
+                    </button>
+                  </div>
+                  <p class="faq-fb-msg hidden text-xs text-success font-medium" role="status" aria-live="polite"></p>
+                </div>
               </div>
             </div>
           </div>
@@ -185,10 +283,16 @@ const faqs = [
       ))}
     </div>
 
-    <!-- Mensaje cuando no hay resultados en un filtro -->
-    <p id="faq-empty" class="hidden text-center text-muted text-sm mt-8">
-      <span data-lang="es">No hay preguntas en esta categoría todavía.</span>
-      <span data-lang="en">No questions in this category yet.</span>
+    <!-- Mensaje cuando no hay resultados en un filtro / búsqueda -->
+    <p id="faq-empty" class="hidden text-center text-muted text-sm mt-8" role="status" aria-live="polite">
+      <span id="faq-empty-filter">
+        <span data-lang="es">No hay preguntas en esta categoría todavía.</span>
+        <span data-lang="en">No questions in this category yet.</span>
+      </span>
+      <span id="faq-empty-search" class="hidden">
+        <span data-lang="es">No encontramos preguntas para tu búsqueda. Pregúntanos directamente por WhatsApp.</span>
+        <span data-lang="en">No questions match your search. Ask us directly on WhatsApp.</span>
+      </span>
     </p>
 
     <!-- Bloque de cierre / CTA -->
@@ -205,12 +309,12 @@ const faqs = [
             <span data-lang="en">Get my answer now</span>
             <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span>
           </a>
-          <!-- Chip esmeralda contextual (disponibilidad) -->
-          <div class="absolute -top-4 -right-2 sm:-right-6 md:-right-12 hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-success/10 border border-success/30 shadow-[0_0_10px_rgba(47,215,159,0.1)]" style="transform:rotate(3deg);" aria-hidden="true">
+          <!-- Chip esmeralda contextual (disponibilidad, sincronizado por JS) -->
+          <div id="faq-cta-chip" class="absolute -top-4 -right-2 sm:-right-6 md:-right-12 hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-success/10 border border-success/30 shadow-[0_0_10px_rgba(47,215,159,0.1)]" style="transform:rotate(3deg);" aria-hidden="true">
             <span class="w-1.5 h-1.5 rounded-full bg-success animate-pulse"></span>
             <span class="font-label text-[10px] font-bold text-success uppercase tracking-wider whitespace-nowrap">
-              <span data-lang="es">Respuesta en &lt; 1h</span>
-              <span data-lang="en">Reply in &lt; 1h</span>
+              <span data-lang="es" id="faq-cta-chip-es">Respuesta en &lt; 1h</span>
+              <span data-lang="en" id="faq-cta-chip-en">Reply in &lt; 1h</span>
             </span>
           </div>
         </div>
@@ -264,10 +368,54 @@ const faqs = [
     box-shadow: 0 0 15px rgba(106,195,198, 0.15);
   }
 
+  /* Resaltado del término buscado */
+  #faq mark.faq-mark {
+    background-color: rgba(106,195,198, 0.22);
+    color: #F4F6FF;
+    border-radius: 3px;
+    padding: 0 1px;
+  }
+
+  /* Transición de entrada/salida al filtrar/buscar */
+  #faq .faq-item {
+    transform: translateY(0) scale(1);
+  }
+  #faq .faq-item.is-filtering-out {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.97);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+  #faq .faq-item.is-filtering-in {
+    animation: faq-pop-in 0.3s ease both;
+  }
+  @keyframes faq-pop-in {
+    from { opacity: 0; transform: translateY(8px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  /* Badge de disponibilidad: variante fuera de horario (sin teal de acción; usa muted) */
+  #faq #faq-availability.is-offline {
+    background-color: rgba(169,182,204, 0.08);
+    border-color: rgba(169,182,204, 0.25);
+    box-shadow: none;
+  }
+  #faq #faq-availability.is-offline .font-label { color: #A9B6CC; }
+  #faq #faq-availability.is-offline #faq-availability-dot .bg-success { background-color: #A9B6CC; }
+  #faq #faq-availability.is-offline #faq-availability-ping { display: none; }
+
+  /* El glow al cursor (card-glow) no debe taparse por el fondo del panel */
+  #faq .faq-item.card-glow::before { z-index: 0; }
+
   @media (prefers-reduced-motion: reduce) {
     #faq .accordion-content,
     #faq .accordion-chevron {
       transition: none !important;
+    }
+    #faq .faq-item.is-filtering-out,
+    #faq .faq-item.is-filtering-in {
+      animation: none !important;
+      transition: none !important;
+      transform: none !important;
     }
   }
 </style>
@@ -277,65 +425,292 @@ const faqs = [
     const root = document.getElementById('faq');
     if (!root) return;
 
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
     const items = Array.from(root.querySelectorAll('.faq-item'));
     const triggers = Array.from(root.querySelectorAll('.faq-trigger'));
     const filters = Array.from(root.querySelectorAll('[data-faq-filter]'));
     const empty = document.getElementById('faq-empty');
+    const emptyFilter = document.getElementById('faq-empty-filter');
+    const emptySearch = document.getElementById('faq-empty-search');
+    const search = document.getElementById('faq-search');
+    const searchClear = document.getElementById('faq-search-clear');
+
+    let activeCat = 'all';
+    let activeQuery = '';
+
+    /* ---------- Acordeón (open/close con aria-hidden) ---------- */
+    function getPanel(item) { return item.querySelector('.accordion-content'); }
 
     function closeItem(item) {
       const trigger = item.querySelector('.faq-trigger');
+      const panel = getPanel(item);
       item.classList.remove('is-open');
       if (trigger) trigger.setAttribute('aria-expanded', 'false');
+      if (panel) panel.setAttribute('aria-hidden', 'true');
     }
 
     function openItem(item) {
       // Single-open: cierra los demás
       items.forEach((other) => { if (other !== item) closeItem(other); });
       const trigger = item.querySelector('.faq-trigger');
+      const panel = getPanel(item);
       item.classList.add('is-open');
       if (trigger) trigger.setAttribute('aria-expanded', 'true');
+      if (panel) panel.setAttribute('aria-hidden', 'false');
     }
 
     triggers.forEach((trigger) => {
       const item = trigger.closest('.faq-item');
       trigger.addEventListener('click', () => {
-        if (item.classList.contains('is-open')) {
-          closeItem(item);
-        } else {
-          openItem(item);
-        }
+        if (item.classList.contains('is-open')) closeItem(item);
+        else openItem(item);
       });
     });
 
-    // ESC cierra el item abierto y devuelve foco a su trigger
-    root.addEventListener('keydown', (e) => {
-      if (e.key !== 'Escape') return;
-      const openOne = items.find((it) => it.classList.contains('is-open'));
-      if (openOne) {
-        closeItem(openOne);
-        const t = openOne.querySelector('.faq-trigger');
-        if (t) t.focus();
-      }
-    });
-
-    // Filtros por categoría
-    function applyFilter(cat) {
-      let visibleCount = 0;
-      items.forEach((item) => {
-        const match = cat === 'all' || item.getAttribute('data-faq-category') === cat;
-        item.classList.toggle('hidden', !match);
-        if (!match) closeItem(item);
-        if (match) visibleCount += 1;
+    /* ---------- Teclado: ESC + flechas/Home/End entre triggers ---------- */
+    function visibleTriggers() {
+      return triggers.filter((t) => {
+        const item = t.closest('.faq-item');
+        return item && !item.classList.contains('hidden');
       });
-      if (empty) empty.classList.toggle('hidden', visibleCount > 0);
     }
 
+    root.addEventListener('keydown', (e) => {
+      const target = e.target;
+
+      if (e.key === 'Escape') {
+        const openOne = items.find((it) => it.classList.contains('is-open'));
+        if (openOne) {
+          closeItem(openOne);
+          const t = openOne.querySelector('.faq-trigger');
+          if (t) t.focus();
+        }
+        return;
+      }
+
+      // Navegación de acordeón solo cuando el foco está en un trigger
+      if (!target || !target.classList || !target.classList.contains('faq-trigger')) return;
+
+      const list = visibleTriggers();
+      const idx = list.indexOf(target);
+      if (idx === -1) return;
+
+      let next = null;
+      if (e.key === 'ArrowDown') next = list[(idx + 1) % list.length];
+      else if (e.key === 'ArrowUp') next = list[(idx - 1 + list.length) % list.length];
+      else if (e.key === 'Home') next = list[0];
+      else if (e.key === 'End') next = list[list.length - 1];
+
+      if (next) { e.preventDefault(); next.focus(); }
+    });
+
+    /* ---------- Resaltado de término buscado ---------- */
+    function escapeRegExp(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+
+    function clearHighlights(item) {
+      item.querySelectorAll('[data-faq-q], [data-faq-a]').forEach((node) => {
+        if (node.dataset.original != null) {
+          node.textContent = node.dataset.original;
+          delete node.dataset.original;
+        }
+      });
+    }
+
+    function highlight(item, query) {
+      if (!query) { clearHighlights(item); return; }
+      const re = new RegExp('(' + escapeRegExp(query) + ')', 'ig');
+      item.querySelectorAll('[data-faq-q], [data-faq-a]').forEach((node) => {
+        if (node.dataset.original == null) node.dataset.original = node.textContent;
+        const text = node.dataset.original;
+        if (re.test(text)) {
+          node.innerHTML = text.replace(re, '<mark class="faq-mark">$1</mark>');
+        } else {
+          node.textContent = text;
+        }
+      });
+    }
+
+    /* ---------- Filtrado + búsqueda combinados ---------- */
+    function matches(item) {
+      const catOk = activeCat === 'all' || item.getAttribute('data-faq-category') === activeCat;
+      const q = activeQuery.trim();
+      const queryOk = !q || (item.getAttribute('data-faq-keywords') || '').indexOf(q) !== -1;
+      return catOk && queryOk;
+    }
+
+    function showEmpty(isSearch) {
+      if (!empty) return;
+      empty.classList.remove('hidden');
+      if (emptyFilter) emptyFilter.classList.toggle('hidden', isSearch);
+      if (emptySearch) emptySearch.classList.toggle('hidden', !isSearch);
+    }
+
+    function applyView() {
+      const q = activeQuery.trim().toLowerCase();
+      let visibleCount = 0;
+
+      items.forEach((item) => {
+        const show = matches(item);
+        if (show) visibleCount += 1;
+
+        if (show) {
+          highlight(item, q);
+          if (item.classList.contains('hidden')) {
+            item.classList.remove('hidden');
+            if (!reduceMotion.matches) {
+              item.classList.remove('is-filtering-out');
+              item.classList.add('is-filtering-in');
+              item.addEventListener('animationend', () => item.classList.remove('is-filtering-in'), { once: true });
+            }
+          }
+        } else {
+          clearHighlights(item);
+          if (!item.classList.contains('hidden')) {
+            closeItem(item);
+            if (reduceMotion.matches) {
+              item.classList.add('hidden');
+            } else {
+              item.classList.add('is-filtering-out');
+              const onEnd = () => { item.classList.add('hidden'); item.classList.remove('is-filtering-out'); };
+              item.addEventListener('transitionend', onEnd, { once: true });
+              // Fallback si transitionend no dispara
+              setTimeout(() => { if (item.classList.contains('is-filtering-out')) onEnd(); }, 320);
+            }
+          }
+        }
+      });
+
+      if (empty) {
+        if (visibleCount > 0) empty.classList.add('hidden');
+        else showEmpty(q.length > 0);
+      }
+
+      // Auto-expandir si queda exactamente una pregunta visible (reduce un clic, muestra valor)
+      const visibles = items.filter((it) => matches(it));
+      if (visibles.length === 1) {
+        openItem(visibles[0]);
+      }
+    }
+
+    /* ---------- Chips de categoría ---------- */
     filters.forEach((btn) => {
       btn.addEventListener('click', () => {
         filters.forEach((b) => b.setAttribute('aria-pressed', 'false'));
         btn.setAttribute('aria-pressed', 'true');
-        applyFilter(btn.getAttribute('data-faq-filter'));
+        activeCat = btn.getAttribute('data-faq-filter') || 'all';
+        applyView();
       });
     });
+
+    /* ---------- Buscador en vivo ---------- */
+    function syncSearchUI() {
+      if (searchClear) searchClear.classList.toggle('hidden', activeQuery.length === 0);
+    }
+    if (search) {
+      search.addEventListener('input', () => {
+        activeQuery = search.value || '';
+        syncSearchUI();
+        applyView();
+      });
+    }
+    if (searchClear) {
+      searchClear.addEventListener('click', () => {
+        if (search) search.value = '';
+        activeQuery = '';
+        syncSearchUI();
+        applyView();
+        if (search) search.focus();
+      });
+    }
+
+    // Placeholder bilingüe (sigue al idioma activo)
+    function syncPlaceholder() {
+      if (!search) return;
+      const lang = document.documentElement.getAttribute('data-active-lang') === 'en' ? 'en' : 'es';
+      const ph = search.getAttribute('data-placeholder-' + lang);
+      if (ph) search.setAttribute('placeholder', ph);
+    }
+    syncPlaceholder();
+    new MutationObserver(syncPlaceholder).observe(document.documentElement, { attributes: true, attributeFilter: ['data-active-lang'] });
+
+    /* ---------- Feedback de utilidad ---------- */
+    root.querySelectorAll('.faq-feedback').forEach((fb) => {
+      const actions = fb.querySelector('.faq-feedback-actions');
+      const msg = fb.querySelector('.faq-fb-msg');
+      const yes = fb.querySelector('.faq-fb-yes');
+      const no = fb.querySelector('.faq-fb-no');
+      const topicEs = fb.getAttribute('data-faq-topic-es') || '';
+      const topicEn = fb.getAttribute('data-faq-topic-en') || '';
+      const lang = () => (document.documentElement.getAttribute('data-active-lang') === 'en' ? 'en' : 'es');
+
+      function settle(html) {
+        if (actions) actions.classList.add('hidden');
+        if (msg) { msg.innerHTML = html; msg.classList.remove('hidden'); }
+      }
+
+      if (yes) yes.addEventListener('click', () => {
+        settle('<span data-lang="es">¡Gracias por tu feedback!</span><span data-lang="en">Thanks for your feedback!</span>');
+      });
+
+      if (no) no.addEventListener('click', () => {
+        const topic = lang() === 'en' ? topicEn : topicEs;
+        const txt = (lang() === 'en' ? 'Hi KANTECH! I still have a question about: ' : 'Hola KANTECH! Tengo una duda sobre: ') + topic;
+        const url = 'https://wa.me/573194436045?text=' + encodeURIComponent(txt);
+        settle(
+          '<a href="' + url + '" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-primary font-semibold underline-offset-2 hover:underline">' +
+          '<span class="material-symbols-outlined text-[16px]" aria-hidden="true">chat</span>' +
+          '<span data-lang="es">Resolvamos tu duda por WhatsApp</span><span data-lang="en">Let\'s solve it on WhatsApp</span>' +
+          '</a>'
+        );
+      });
+    });
+
+    /* ---------- Badge de disponibilidad dinámico (horario Colombia, UTC-5) ---------- */
+    (function availability() {
+      const wrap = document.getElementById('faq-availability');
+      const es = document.getElementById('faq-availability-es');
+      const en = document.getElementById('faq-availability-en');
+      const chipEs = document.getElementById('faq-cta-chip-es');
+      const chipEn = document.getElementById('faq-cta-chip-en');
+      if (!wrap) return;
+
+      function nowInColombia() {
+        // Colombia = UTC-5 fijo (sin DST)
+        const utc = Date.now() + (new Date().getTimezoneOffset() * 60000);
+        return new Date(utc - 5 * 3600000);
+      }
+
+      function update() {
+        const d = nowInColombia();
+        const day = d.getDay(); // 0=Dom, 6=Sab
+        const h = d.getHours();
+        // Horario laboral: Lun-Vie 8:00-19:00, Sáb 9:00-13:00
+        const isWeekday = day >= 1 && day <= 5;
+        const isSaturday = day === 6;
+        const online = (isWeekday && h >= 8 && h < 19) || (isSaturday && h >= 9 && h < 13);
+
+        if (online) {
+          wrap.classList.remove('is-offline');
+          if (es) es.textContent = 'En línea ahora — respondemos en minutos';
+          if (en) en.textContent = 'Online now — we reply in minutes';
+          if (chipEs) chipEs.innerHTML = 'En línea ahora';
+          if (chipEn) chipEn.innerHTML = 'Online now';
+        } else {
+          wrap.classList.add('is-offline');
+          if (es) es.textContent = 'Te respondemos por la mañana';
+          if (en) en.textContent = 'We\'ll reply in the morning';
+          if (chipEs) chipEs.innerHTML = 'Respuesta &lt; 1 día';
+          if (chipEn) chipEn.innerHTML = 'Reply &lt; 1 day';
+        }
+      }
+
+      update();
+      // Recalcula cada minuto por si la pestaña queda abierta cruzando un horario
+      setInterval(update, 60000);
+    })();
+
+    // Estado inicial coherente
+    applyView();
   })();
 </script>

@@ -1,5 +1,6 @@
 ---
 import AuroraBackground from './AuroraBackground.astro';
+import AutomationFlowMockup from './AutomationFlowMockup.astro';
 const WA_DIAG = 'https://wa.me/573194436045?text=Hola%20KANTECH!%20Quiero%20agendar%20mi%20diagn%C3%B3stico%20gratuito.';
 const chips = [
   { icon: 'smart_toy',    es: 'Agentes de IA',      en: 'AI Agents' },
@@ -46,10 +47,10 @@ const stats = [
         <!-- Chips -->
         <div class="w-full flex overflow-x-auto gap-3 pb-4 mb-8 animate-fade-up delay-300" style="scrollbar-width:none;" data-animate>
           {chips.map(c => (
-            <div class="flex-shrink-0 px-5 py-2.5 rounded-xl bg-surface-1 border border-border text-sm font-medium text-text hover:border-primary/50 hover:bg-surface-2 transition-all cursor-default flex items-center gap-2">
+            <a href="#servicios" class="flex-shrink-0 px-5 py-2.5 rounded-xl bg-surface-1 border border-border text-sm font-medium text-text hover:border-primary/50 hover:bg-surface-2 hover:-translate-y-0.5 transition-all cursor-pointer active:scale-[0.97] flex items-center gap-2">
               <span class="material-symbols-outlined text-accent text-[18px]" aria-hidden="true">{c.icon}</span>
               <span data-lang="es">{c.es}</span><span data-lang="en">{c.en}</span>
-            </div>
+            </a>
           ))}
         </div>
 
@@ -64,7 +65,7 @@ const stats = [
           </a>
           <a href="#portafolio" class="btn-outline text-base px-8 py-4 group">
             <span data-lang="es">Ver casos de éxito reales</span><span data-lang="en">See real success stories</span>
-            <span class="material-symbols-outlined text-[20px] text-muted group-hover:text-text transition-colors" aria-hidden="true">play_circle</span>
+            <span class="material-symbols-outlined text-[20px] text-muted group-hover:text-text group-hover:translate-y-0.5 transition-all" aria-hidden="true">arrow_downward</span>
           </a>
         </div>
 
@@ -76,9 +77,9 @@ const stats = [
       </div>
 
       <!-- Derecha: mockup de producto -->
-      <div class="lg:col-span-5 relative w-full h-[400px] lg:h-[560px] animate-fade-up delay-300" data-animate>
+      <div class="lg:col-span-5 relative w-full h-[400px] lg:h-[560px] animate-fade-up delay-300" data-animate style="perspective:1200px;">
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-primary/20 blur-[100px] rounded-full pointer-events-none"></div>
-        <div class="absolute inset-0 group">
+        <div class="absolute inset-0 group" data-hero-tilt style="transform-style:preserve-3d;transition:transform 0.3s ease-out;">
           <div class="w-full h-full rounded-2xl bg-surface-1 border border-border shadow-2xl shadow-black/50 overflow-hidden flex flex-col glass-panel">
             <div class="h-10 bg-surface-2 border-b border-border flex items-center px-4 gap-2 shrink-0">
               <div class="flex gap-1.5">
@@ -92,10 +93,7 @@ const stats = [
               </div>
             </div>
             <div class="flex-1 relative bg-surface-0 overflow-hidden">
-              <img src="/img/02_hero-0.png" loading="eager" decoding="async"
-                   alt="Plataforma KANTECH: flujo de automatización (captura de leads → calificación con IA → WhatsApp → CRM) y agente de IA calificando un lead"
-                   class="w-full h-full object-cover object-left-top" />
-              <div class="absolute inset-0 shadow-[inset_0_0_40px_rgba(14,26,51,0.8)] pointer-events-none"></div>
+              <AutomationFlowMockup />
             </div>
           </div>
         </div>
@@ -130,3 +128,23 @@ const stats = [
     </div>
   </div>
 </section>
+
+<script is:inline>
+  (function () {
+    var tilt = document.querySelector('[data-hero-tilt]');
+    if (!tilt) return;
+    var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!fine || reduce) return;
+    var parent = tilt.parentElement;
+    function onMove(e) {
+      var r = parent.getBoundingClientRect();
+      var px = (e.clientX - r.left) / r.width - 0.5;
+      var py = (e.clientY - r.top) / r.height - 0.5;
+      tilt.style.transform = 'rotateY(' + (px * 9).toFixed(2) + 'deg) rotateX(' + (-py * 9).toFixed(2) + 'deg)';
+    }
+    function reset() { tilt.style.transform = 'rotateY(0deg) rotateX(0deg)'; }
+    parent.addEventListener('mousemove', onMove);
+    parent.addEventListener('mouseleave', reset);
+  })();
+</script>

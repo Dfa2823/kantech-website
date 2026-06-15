@@ -6,13 +6,15 @@ const LINKEDIN_URL = 'https://www.linkedin.com/in/diegoalpala/';
 // Agenda de diagnóstico (reutiliza el mensaje prellenado del componente actual)
 const WA_DIAG = 'https://wa.me/573194436045?text=Hola%20KANTECH!%20Quiero%20agendar%20mi%20diagn%C3%B3stico%20gratuito.';
 
-// Opciones del select bilingües (data-lang por <option> duplicado)
+// Opciones del servicio (ahora grid de chips seleccionables + <option> única por idioma).
+// Cada chip setea el input hidden #servicio; el icono y los textos bilingües evitan
+// el bug del <select> con <option> duplicadas (display:none en options se ignora).
 const services = [
-  { value: 'ia',       es: 'Agentes de IA',        en: 'AI Agents' },
-  { value: 'n8n',      es: 'Automatizaciones N8N', en: 'N8N Automations' },
-  { value: 'procesos', es: 'Mejoras de Proceso',   en: 'Process Improvement' },
-  { value: 'medida',   es: 'Desarrollo a Medida',  en: 'Custom Development' },
-  { value: 'otro',     es: 'Otro / No sé aún',     en: "Other / Not sure yet" },
+  { value: 'ia',       es: 'Agentes de IA',        en: 'AI Agents',           icon: 'smart_toy' },
+  { value: 'n8n',      es: 'Automatizaciones N8N', en: 'N8N Automations',     icon: 'account_tree' },
+  { value: 'procesos', es: 'Mejoras de Proceso',   en: 'Process Improvement', icon: 'tune' },
+  { value: 'medida',   es: 'Desarrollo a Medida',  en: 'Custom Development',  icon: 'code' },
+  { value: 'otro',     es: 'Otro / No sé aún',     en: 'Other / Not sure yet', icon: 'help' },
 ];
 ---
 <section id="contacto" class="relative overflow-hidden py-24 px-6">
@@ -48,17 +50,17 @@ const services = [
 
           <!-- Tarjeta: WhatsApp (copiar al portapapeles) -->
           <button type="button"
-                  class="copy-btn group flex items-center gap-5 p-5 rounded-2xl bg-surface-1 border border-border hover:bg-surface-2 hover:border-primary/40 transition-all duration-300 text-left w-full relative overflow-hidden shadow-lg shadow-black/20"
+                  class="copy-btn card-glow group flex items-center gap-5 p-5 rounded-2xl bg-surface-1 border border-border hover:bg-surface-2 hover:border-primary/40 transition-all duration-300 text-left w-full relative overflow-hidden shadow-lg shadow-black/20"
                   data-value={WA_NUMBER}
                   aria-label="Copiar número de WhatsApp">
-            <div class="w-12 h-12 rounded-xl bg-surface-2 border border-border flex items-center justify-center group-hover:border-primary/50 transition-colors shadow-inner flex-shrink-0">
+            <div class="relative z-10 w-12 h-12 rounded-xl bg-surface-2 border border-border flex items-center justify-center group-hover:border-primary/50 transition-colors shadow-inner flex-shrink-0">
               <span class="material-symbols-outlined text-text group-hover:text-accent transition-colors" aria-hidden="true">mark_chat_unread</span>
             </div>
-            <div class="flex-grow min-w-0">
+            <div class="relative z-10 flex-grow min-w-0">
               <p class="text-muted text-sm font-medium mb-1">WhatsApp</p>
               <p class="text-text font-semibold tracking-wide truncate">{WA_NUMBER}</p>
             </div>
-            <div class="copy-feedback absolute right-6 opacity-0 group-hover:opacity-100 transition-opacity flex items-center text-accent bg-surface-2 px-3 py-1.5 rounded-lg border border-primary/20 text-sm font-medium">
+            <div class="copy-feedback absolute right-6 z-10 opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity flex items-center text-accent bg-surface-2 px-3 py-1.5 rounded-lg border border-primary/20 text-sm font-medium" role="status" aria-live="polite">
               <span class="material-symbols-outlined text-[18px] mr-1" aria-hidden="true">content_copy</span>
               <span data-lang="es">Copiar</span><span data-lang="en">Copy</span>
             </div>
@@ -66,33 +68,33 @@ const services = [
 
           <!-- Tarjeta: Email (copiar al portapapeles) -->
           <button type="button"
-                  class="copy-btn group flex items-center gap-5 p-5 rounded-2xl bg-surface-1 border border-border hover:bg-surface-2 hover:border-primary/40 transition-all duration-300 text-left w-full relative overflow-hidden shadow-lg shadow-black/20"
+                  class="copy-btn card-glow group flex items-center gap-5 p-5 rounded-2xl bg-surface-1 border border-border hover:bg-surface-2 hover:border-primary/40 transition-all duration-300 text-left w-full relative overflow-hidden shadow-lg shadow-black/20"
                   data-value={EMAIL}
                   aria-label="Copiar correo electrónico">
-            <div class="w-12 h-12 rounded-xl bg-surface-2 border border-border flex items-center justify-center group-hover:border-primary/50 transition-colors shadow-inner flex-shrink-0">
+            <div class="relative z-10 w-12 h-12 rounded-xl bg-surface-2 border border-border flex items-center justify-center group-hover:border-primary/50 transition-colors shadow-inner flex-shrink-0">
               <span class="material-symbols-outlined text-text group-hover:text-accent transition-colors" aria-hidden="true">mail</span>
             </div>
-            <div class="flex-grow min-w-0">
+            <div class="relative z-10 flex-grow min-w-0">
               <p class="text-muted text-sm font-medium mb-1">Email</p>
               <p class="text-text font-semibold tracking-wide truncate">{EMAIL}</p>
             </div>
-            <div class="copy-feedback absolute right-6 opacity-0 group-hover:opacity-100 transition-opacity flex items-center text-accent bg-surface-2 px-3 py-1.5 rounded-lg border border-primary/20 text-sm font-medium">
+            <div class="copy-feedback absolute right-6 z-10 opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity flex items-center text-accent bg-surface-2 px-3 py-1.5 rounded-lg border border-primary/20 text-sm font-medium" role="status" aria-live="polite">
               <span class="material-symbols-outlined text-[18px] mr-1" aria-hidden="true">content_copy</span>
               <span data-lang="es">Copiar</span><span data-lang="en">Copy</span>
             </div>
           </button>
 
           <!-- Tarjeta: LinkedIn -->
-          <a class="group flex items-center gap-5 p-5 rounded-2xl bg-surface-1 border border-border hover:bg-surface-2 hover:border-primary/40 transition-all duration-300 text-left w-full relative overflow-hidden shadow-lg shadow-black/20"
+          <a class="card-glow group flex items-center gap-5 p-5 rounded-2xl bg-surface-1 border border-border hover:bg-surface-2 hover:border-primary/40 transition-all duration-300 text-left w-full relative overflow-hidden shadow-lg shadow-black/20"
              href={LINKEDIN_URL} target="_blank" rel="noopener">
-            <div class="w-12 h-12 rounded-xl bg-surface-2 border border-border flex items-center justify-center group-hover:border-primary/50 transition-colors shadow-inner flex-shrink-0">
+            <div class="relative z-10 w-12 h-12 rounded-xl bg-surface-2 border border-border flex items-center justify-center group-hover:border-primary/50 transition-colors shadow-inner flex-shrink-0">
               <span class="material-symbols-outlined text-text group-hover:text-accent transition-colors" aria-hidden="true">public</span>
             </div>
-            <div class="flex-grow min-w-0">
+            <div class="relative z-10 flex-grow min-w-0">
               <p class="text-muted text-sm font-medium mb-1">LinkedIn</p>
               <p class="text-text font-semibold tracking-wide truncate">Diego Alpala — KANTECH</p>
             </div>
-            <div class="absolute right-6 opacity-0 group-hover:opacity-100 transition-opacity flex items-center text-accent bg-surface-2 px-3 py-1.5 rounded-lg border border-primary/20 text-sm font-medium">
+            <div class="absolute right-6 z-10 opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity flex items-center text-accent bg-surface-2 px-3 py-1.5 rounded-lg border border-primary/20 text-sm font-medium">
               <span class="material-symbols-outlined text-[18px] mr-1" aria-hidden="true">arrow_outward</span>
               <span data-lang="es">Visitar</span><span data-lang="en">Visit</span>
             </div>
@@ -124,7 +126,7 @@ const services = [
             </p>
           </div>
           <a href={WA_DIAG} target="_blank" rel="noopener"
-             class="shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-surface-1 border border-border hover:border-primary/50 hover:bg-surface-2 text-text hover:text-accent transition-all duration-300"
+             class="shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-surface-1 border border-border hover:border-primary/50 hover:bg-surface-2 text-text hover:text-accent transition-all duration-300 active:scale-95"
              aria-label="Agendar diagnóstico por WhatsApp">
             <span class="material-symbols-outlined" aria-hidden="true">calendar_month</span>
           </a>
@@ -150,11 +152,16 @@ const services = [
               <!-- Campo: Nombre -->
               <div class="relative group">
                 <input class="peer w-full bg-surface-1 border border-border rounded-xl px-5 pt-6 pb-2 text-text placeholder-transparent focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all shadow-inner"
-                       id="nombre" name="name" placeholder=" " required type="text" autocomplete="name" />
+                       id="nombre" name="name" placeholder=" " required type="text" autocomplete="name"
+                       aria-describedby="err-nombre" />
                 <label class="absolute left-5 top-4 text-muted text-sm font-medium transition-all duration-200 peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-xs peer-focus:text-primary peer-valid:top-2 peer-valid:text-xs pointer-events-none" for="nombre">
                   <span data-lang="es">Nombre <span class="text-accent">*</span></span>
                   <span data-lang="en">Name <span class="text-accent">*</span></span>
                 </label>
+                <p class="field-error mt-1.5 text-xs text-rose-400 hidden" id="err-nombre" aria-live="polite">
+                  <span data-lang="es">Ingresa tu nombre.</span>
+                  <span data-lang="en">Please enter your name.</span>
+                </p>
               </div>
               <!-- Campo: Empresa -->
               <div class="relative group">
@@ -167,52 +174,71 @@ const services = [
               </div>
             </div>
 
-            <!-- Campo: Servicio -->
-            <div class="relative group">
-              <select class="peer w-full appearance-none bg-surface-1 border border-border rounded-xl px-5 pt-6 pb-2 text-text focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all shadow-inner cursor-pointer"
-                      id="servicio" name="service" required>
-                <option disabled hidden selected value=""></option>
-                {services.map(s => (
-                  <>
-                    <option class="bg-surface-2 text-text" value={s.value} data-lang="es">{s.es}</option>
-                    <option class="bg-surface-2 text-text" value={s.value} data-lang="en">{s.en}</option>
-                  </>
-                ))}
-              </select>
-              <label class="absolute left-5 top-2 text-xs text-muted font-medium transition-all duration-200 pointer-events-none peer-focus:text-primary" for="servicio">
+            <!-- Campo: Servicio (grid de chips seleccionables; setea input hidden) -->
+            <fieldset class="relative" id="service-group" aria-describedby="err-servicio">
+              <legend class="text-xs text-muted font-medium mb-3">
                 <span data-lang="es">Servicio de interés <span class="text-accent">*</span></span>
                 <span data-lang="en">Service of interest <span class="text-accent">*</span></span>
-              </label>
-              <div class="absolute inset-y-0 right-5 flex items-center pointer-events-none text-muted peer-focus:text-primary">
-                <span class="material-symbols-outlined" aria-hidden="true">expand_more</span>
+              </legend>
+              <input type="hidden" id="servicio" name="service" required value="" />
+              <div class="grid grid-cols-2 sm:grid-cols-3 gap-3" role="group" aria-label="Servicio de interés">
+                {services.map(s => (
+                  <button type="button"
+                          class="service-chip group/chip flex items-center gap-2 px-4 py-3 rounded-xl bg-surface-1 border border-border text-sm font-medium text-muted hover:text-text hover:border-primary/40 hover:bg-surface-2 transition-all duration-200 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary text-left"
+                          data-value={s.value}
+                          data-es={s.es}
+                          data-en={s.en}
+                          aria-pressed="false">
+                    <span class="material-symbols-outlined text-[20px] transition-colors" aria-hidden="true">{s.icon}</span>
+                    <span class="leading-tight">
+                      <span data-lang="es">{s.es}</span>
+                      <span data-lang="en">{s.en}</span>
+                    </span>
+                  </button>
+                ))}
               </div>
-            </div>
+              <p class="field-error mt-2 text-xs text-rose-400 hidden" id="err-servicio" aria-live="polite">
+                <span data-lang="es">Selecciona un servicio.</span>
+                <span data-lang="en">Please select a service.</span>
+              </p>
+            </fieldset>
 
             <!-- Campo: Reto -->
             <div class="relative group">
               <textarea class="peer w-full bg-surface-1 border border-border rounded-xl px-5 pt-6 pb-3 text-text placeholder-transparent focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all shadow-inner resize-none"
-                        id="reto" name="message" placeholder=" " required rows="4"></textarea>
+                        id="reto" name="message" placeholder=" " required rows="4"
+                        aria-describedby="err-reto"></textarea>
               <label class="absolute left-5 top-4 text-muted text-sm font-medium transition-all duration-200 peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-xs peer-focus:text-primary peer-valid:top-2 peer-valid:text-xs pointer-events-none bg-surface-1 w-[calc(100%-40px)] rounded-t-xl pt-1" for="reto">
                 <span data-lang="es">¿Cuál es tu reto? <span class="text-accent">*</span></span>
                 <span data-lang="en">What's your challenge? <span class="text-accent">*</span></span>
               </label>
+              <p class="field-error mt-1.5 text-xs text-rose-400 hidden" id="err-reto" aria-live="polite">
+                <span data-lang="es">Cuéntanos brevemente tu reto.</span>
+                <span data-lang="en">Tell us briefly about your challenge.</span>
+              </p>
             </div>
 
             <!-- Casilla de privacidad -->
             <div class="flex items-start gap-3 mt-4">
               <div class="flex items-center h-5 mt-0.5">
                 <input class="w-4 h-4 rounded border-border bg-surface-1 text-primary focus:ring-primary focus:ring-offset-0 focus:ring-offset-transparent cursor-pointer"
-                       id="privacy" name="privacy" required type="checkbox" />
+                       id="privacy" name="privacy" required type="checkbox" aria-describedby="err-privacy" />
               </div>
-              <label class="text-sm text-muted cursor-pointer select-none" for="privacy">
-                <span data-lang="es">Acepto la <a class="text-text hover:text-primary underline decoration-border underline-offset-4 transition-colors" href="#">política de privacidad</a> y el tratamiento de mis datos.</span>
-                <span data-lang="en">I accept the <a class="text-text hover:text-primary underline decoration-border underline-offset-4 transition-colors" href="#">privacy policy</a> and the processing of my data.</span>
-              </label>
+              <div>
+                <label class="text-sm text-muted cursor-pointer select-none" for="privacy">
+                  <span data-lang="es">Acepto la <button type="button" class="privacy-open text-text hover:text-primary underline decoration-border underline-offset-4 transition-colors">política de privacidad</button> y el tratamiento de mis datos.</span>
+                  <span data-lang="en">I accept the <button type="button" class="privacy-open text-text hover:text-primary underline decoration-border underline-offset-4 transition-colors">privacy policy</button> and the processing of my data.</span>
+                </label>
+                <p class="field-error mt-1.5 text-xs text-rose-400 hidden" id="err-privacy" aria-live="polite">
+                  <span data-lang="es">Debes aceptar la política de privacidad.</span>
+                  <span data-lang="en">You must accept the privacy policy.</span>
+                </p>
+              </div>
             </div>
 
             <!-- Botón de envío (WhatsApp) -->
-            <button class="w-full bg-primary hover:bg-primary-hover text-[#07101F] font-headline font-bold text-lg py-4 rounded-xl transition-all duration-300 active:scale-[0.98] relative overflow-hidden group shadow-[0_0_20px_rgba(106,195,198,0.3)] hover:shadow-[0_0_30px_rgba(106,195,198,0.5)] flex items-center justify-center gap-2 mt-6"
-                    type="submit">
+            <button class="w-full bg-primary hover:bg-primary-hover text-[#07101F] font-headline font-bold text-lg py-4 rounded-xl transition-all duration-300 active:scale-[0.98] relative overflow-hidden group shadow-[0_0_20px_rgba(106,195,198,0.3)] hover:shadow-[0_0_30px_rgba(106,195,198,0.5)] flex items-center justify-center gap-2 mt-6 disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none disabled:hover:bg-primary"
+                    type="submit" id="submit-btn">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
                 <path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.122 1.532 5.854L.057 23.886a.5.5 0 0 0 .613.613l6.033-1.475A11.955 11.955 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.88 0-3.641-.516-5.148-1.413l-.369-.214-3.822.936.955-3.822-.237-.383A9.963 9.963 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
@@ -223,6 +249,20 @@ const services = [
               <!-- Brillo en hover -->
               <div class="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-[contact-shimmer_1.5s_infinite]" aria-hidden="true"></div>
             </button>
+
+            <!-- Aviso de popup bloqueado (oculto por defecto) -->
+            <div class="popup-fallback hidden mt-4 rounded-xl border border-amber-400/30 bg-amber-400/5 p-4 text-center" role="alert" aria-live="assertive">
+              <p class="text-sm text-amber-300/90 mb-3">
+                <span data-lang="es">No pudimos abrir WhatsApp automáticamente (¿ventanas emergentes bloqueadas?).</span>
+                <span data-lang="en">We couldn't open WhatsApp automatically (pop-ups blocked?).</span>
+              </p>
+              <a class="popup-fallback-link inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-[#07101F] font-headline font-bold text-sm transition-all hover:bg-primary-hover active:scale-[0.98]"
+                 href="#" target="_blank" rel="noopener">
+                <span class="material-symbols-outlined text-[18px]" aria-hidden="true">open_in_new</span>
+                <span data-lang="es">Abrir WhatsApp manualmente</span>
+                <span data-lang="en">Open WhatsApp manually</span>
+              </a>
+            </div>
 
             <!-- Indicadores de confianza (emerald reservado para prueba) -->
             <div class="flex items-center justify-center gap-4 text-xs font-medium text-muted mt-6">
@@ -241,16 +281,16 @@ const services = [
           <!-- Overlay de éxito (oculto por defecto) -->
           <div class="absolute inset-0 bg-surface-2/95 backdrop-blur-md z-20 flex flex-col items-center justify-center p-8 text-center opacity-0 pointer-events-none transition-opacity duration-500 rounded-3xl"
                id="success-overlay" role="status" aria-live="polite">
-            <div class="w-20 h-20 bg-success/10 rounded-full flex items-center justify-center mb-6">
+            <div class="success-check w-20 h-20 bg-success/10 rounded-full flex items-center justify-center mb-6">
               <span class="material-symbols-outlined text-success text-4xl" aria-hidden="true" style="font-variation-settings: 'FILL' 1;">task_alt</span>
             </div>
             <h3 class="font-headline font-bold text-2xl md:text-3xl text-text mb-3 tracking-tight">
-              <span data-lang="es">¡Solicitud recibida!</span>
-              <span data-lang="en">Request received!</span>
+              <span data-lang="es">¡Te llevamos a WhatsApp!</span>
+              <span data-lang="en">Taking you to WhatsApp!</span>
             </h3>
             <p class="text-muted text-lg max-w-sm">
-              <span data-lang="es">Gracias por contactarnos. Analizaremos tu reto y <strong class="text-text">te responderemos en menos de 24h</strong> con los próximos pasos.</span>
-              <span data-lang="en">Thanks for reaching out. We'll review your challenge and <strong class="text-text">reply within 24h</strong> with the next steps.</span>
+              <span data-lang="es">Abrimos el chat con tu mensaje listo. <strong class="text-text">Solo pulsa enviar</strong> y te respondemos en menos de 24h.</span>
+              <span data-lang="en">We opened the chat with your message ready. <strong class="text-text">Just hit send</strong> and we'll reply within 24h.</span>
             </p>
             <button class="mt-8 text-sm font-medium text-text border border-border hover:bg-surface-1 px-6 py-2.5 rounded-lg transition-colors" id="reset-btn" type="button">
               <span data-lang="es">Enviar otro mensaje</span>
@@ -259,6 +299,42 @@ const services = [
           </div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- Modal de política de privacidad -->
+  <div class="privacy-modal fixed inset-0 z-[80] hidden items-center justify-center p-6" id="privacy-modal"
+       role="dialog" aria-modal="true" aria-labelledby="privacy-modal-title">
+    <div class="privacy-backdrop absolute inset-0 bg-black/70 backdrop-blur-sm" aria-hidden="true"></div>
+    <div class="relative z-10 w-full max-w-lg max-h-[80vh] overflow-y-auto rounded-3xl bg-surface-2 border border-border p-8 shadow-2xl shadow-black/50 glass-panel">
+      <div class="flex items-start justify-between gap-4 mb-5">
+        <h3 class="font-headline font-bold text-xl md:text-2xl text-text tracking-tight" id="privacy-modal-title">
+          <span data-lang="es">Política de privacidad</span>
+          <span data-lang="en">Privacy policy</span>
+        </h3>
+        <button type="button" class="privacy-close shrink-0 w-9 h-9 flex items-center justify-center rounded-lg text-muted hover:text-text hover:bg-surface-1 transition-colors"
+                aria-label="Cerrar política de privacidad">
+          <span class="material-symbols-outlined" aria-hidden="true">close</span>
+        </button>
+      </div>
+      <div class="space-y-3 text-sm text-muted leading-relaxed">
+        <p>
+          <span data-lang="es">En KANTECH respetamos tu privacidad. Los datos que nos compartes (nombre, empresa y mensaje) se usan <strong class="text-text">únicamente</strong> para responder tu solicitud y preparar una propuesta.</span>
+          <span data-lang="en">At KANTECH we respect your privacy. The data you share (name, company and message) is used <strong class="text-text">solely</strong> to reply to your request and prepare a proposal.</span>
+        </p>
+        <p>
+          <span data-lang="es">No vendemos ni compartimos tu información con terceros. El formulario abre WhatsApp con tu mensaje prellenado; no almacenamos datos en un servidor desde esta página.</span>
+          <span data-lang="en">We do not sell or share your information with third parties. The form opens WhatsApp with your prefilled message; we do not store data on a server from this page.</span>
+        </p>
+        <p>
+          <span data-lang="es">Puedes solicitar la eliminación de tus datos escribiéndonos a <strong class="text-text">director@kantechsol.com</strong> en cualquier momento.</span>
+          <span data-lang="en">You can request deletion of your data by writing to <strong class="text-text">director@kantechsol.com</strong> at any time.</span>
+        </p>
+      </div>
+      <button type="button" class="privacy-accept w-full mt-6 bg-primary hover:bg-primary-hover text-[#07101F] font-headline font-bold py-3 rounded-xl transition-all active:scale-[0.98]">
+        <span data-lang="es">Entendido y acepto</span>
+        <span data-lang="en">Got it, I accept</span>
+      </button>
     </div>
   </div>
 </section>
@@ -277,6 +353,35 @@ const services = [
     100% { transform: translateX(100%); }
   }
 
+  /* Chip de servicio activo (teal de marca = acción/selección) */
+  #contacto .service-chip[aria-pressed="true"] {
+    border-color: rgba(106,195,198,0.6);
+    background-color: rgba(106,195,198,0.10);
+    color: #F4F6FF;
+    box-shadow: 0 0 18px -6px rgba(106,195,198,0.45);
+  }
+  #contacto .service-chip[aria-pressed="true"] .material-symbols-outlined {
+    color: #6AC3C6;
+  }
+
+  /* Estado de campo inválido (rojo = error, no choca con teal/verde de marca) */
+  #contacto .is-invalid {
+    border-color: rgba(244,63,94,0.7) !important;
+  }
+  #contacto #service-group.is-invalid .service-chip {
+    border-color: rgba(244,63,94,0.45);
+  }
+
+  /* Pop de check en el overlay de éxito */
+  @keyframes contact-check-pop {
+    0%   { transform: scale(0.4); opacity: 0; }
+    60%  { transform: scale(1.12); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  #contacto #success-overlay.is-open .success-check {
+    animation: contact-check-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+
   /* Override de autofill para mantener el fondo oscuro */
   #contact-form input:-webkit-autofill,
   #contact-form input:-webkit-autofill:hover,
@@ -287,17 +392,29 @@ const services = [
     transition: background-color 5000s ease-in-out 0s;
   }
 
+  /* Modal de privacidad: visible cuando se le quita .hidden */
+  #privacy-modal:not(.hidden) { display: flex; }
+
   /* Respeta la preferencia de movimiento reducido */
   @media (prefers-reduced-motion: reduce) {
     .group-hover\:animate-\[contact-shimmer_1\.5s_infinite\]:hover { animation: none !important; }
     #contacto .animate-ping { animation: none !important; }
+    #contacto #success-overlay.is-open .success-check { animation: none !important; }
   }
 </style>
 
 <script is:inline>
   (function () {
-    // Copiar al portapapeles (WhatsApp / Email)
-    document.querySelectorAll('#contacto .copy-btn').forEach(function (btn) {
+    var section = document.getElementById('contacto');
+    if (!section) return;
+
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ---------------------------------------------------------------
+     * Copiar al portapapeles (WhatsApp / Email) — feedback en hover/focus/touch
+     * ------------------------------------------------------------- */
+    section.querySelectorAll('.copy-btn').forEach(function (btn) {
+      var resetTimer = null;
       btn.addEventListener('click', async function () {
         var text = btn.getAttribute('data-value');
         var feedback = btn.querySelector('.copy-feedback');
@@ -315,74 +432,284 @@ const services = [
           try { document.execCommand('copy'); } catch (e) {}
           document.body.removeChild(ta);
         }
-        // Feedback visual: muestra "Copiado / Copied" en verde
+        // Feedback visual: muestra "Copiado / Copied" en verde y lo fuerza visible (touch sin hover)
         var original = feedback.innerHTML;
         feedback.innerHTML =
           '<span class="material-symbols-outlined text-[18px] mr-1" aria-hidden="true">check</span>' +
           '<span data-lang="es">Copiado</span><span data-lang="en">Copied</span>';
         feedback.classList.add('text-success', 'border-success/30', 'opacity-100');
         feedback.classList.remove('text-accent', 'border-primary/20');
-        setTimeout(function () {
+        if (resetTimer) clearTimeout(resetTimer);
+        resetTimer = setTimeout(function () {
           feedback.innerHTML = original;
           feedback.classList.remove('text-success', 'border-success/30', 'opacity-100');
           feedback.classList.add('text-accent', 'border-primary/20');
+          resetTimer = null;
         }, 2000);
       });
     });
 
-    // Envío del formulario -> abre WhatsApp con el mensaje prellenado
     var form = document.getElementById('contact-form');
+    if (!form) return;
+
     var overlay = document.getElementById('success-overlay');
     var resetBtn = document.getElementById('reset-btn');
+    var submitBtn = document.getElementById('submit-btn');
+    var serviceInput = document.getElementById('servicio');
+    var serviceGroup = document.getElementById('service-group');
+    var chips = Array.prototype.slice.call(section.querySelectorAll('.service-chip'));
+    var popupFallback = section.querySelector('.popup-fallback');
+    var popupFallbackLink = section.querySelector('.popup-fallback-link');
 
+    /* ---------------------------------------------------------------
+     * Chips de servicio (reemplazan al <select> con options duplicadas)
+     * ------------------------------------------------------------- */
+    function selectChip(chip) {
+      chips.forEach(function (c) { c.setAttribute('aria-pressed', 'false'); });
+      chip.setAttribute('aria-pressed', 'true');
+      if (serviceInput) serviceInput.value = chip.getAttribute('data-value') || '';
+      validateField('service');
+    }
+    chips.forEach(function (chip) {
+      chip.addEventListener('click', function () { selectChip(chip); });
+    });
+
+    /* ---------------------------------------------------------------
+     * Validación en vivo por campo + estado del botón de envío
+     * ------------------------------------------------------------- */
+    function getActiveLang() {
+      return document.documentElement.getAttribute('data-active-lang') === 'en' ? 'en' : 'es';
+    }
+
+    // Devuelve true si el campo es válido; pinta/limpia el error si show === true
+    function validateField(fieldName, show) {
+      var valid = true;
+      var control = null;
+      var errEl = null;
+
+      if (fieldName === 'name') {
+        control = form.elements['name'];
+        errEl = document.getElementById('err-nombre');
+        valid = !!(control && control.value.trim().length >= 2);
+      } else if (fieldName === 'message') {
+        control = form.elements['message'];
+        errEl = document.getElementById('err-reto');
+        valid = !!(control && control.value.trim().length >= 5);
+      } else if (fieldName === 'service') {
+        errEl = document.getElementById('err-servicio');
+        valid = !!(serviceInput && serviceInput.value);
+      } else if (fieldName === 'privacy') {
+        control = form.elements['privacy'];
+        errEl = document.getElementById('err-privacy');
+        valid = !!(control && control.checked);
+      }
+
+      if (show) {
+        if (fieldName === 'service') {
+          if (serviceGroup) serviceGroup.classList.toggle('is-invalid', !valid);
+        } else if (control) {
+          control.classList.toggle('is-invalid', !valid);
+        }
+        if (errEl) errEl.classList.toggle('hidden', valid);
+      } else if (valid) {
+        // Si pasa a válido, limpia cualquier marca de error previa
+        if (fieldName === 'service') {
+          if (serviceGroup) serviceGroup.classList.remove('is-invalid');
+        } else if (control) {
+          control.classList.remove('is-invalid');
+        }
+        if (errEl) errEl.classList.add('hidden');
+      }
+      return valid;
+    }
+
+    function isFormValid() {
+      return validateField('name') && validateField('service') &&
+             validateField('message') && validateField('privacy');
+    }
+
+    function refreshSubmitState() {
+      if (submitBtn) submitBtn.disabled = !isFormValid();
+    }
+
+    // Cableado de validación en vivo (blur para mostrar error, input para revalidar)
+    var nameEl = form.elements['name'];
+    var msgEl = form.elements['message'];
+    var privacyEl = form.elements['privacy'];
+
+    if (nameEl) {
+      nameEl.addEventListener('blur', function () { validateField('name', true); });
+      nameEl.addEventListener('input', function () { validateField('name'); refreshSubmitState(); });
+    }
+    if (msgEl) {
+      msgEl.addEventListener('blur', function () { validateField('message', true); });
+      msgEl.addEventListener('input', function () { validateField('message'); refreshSubmitState(); });
+    }
+    if (privacyEl) {
+      privacyEl.addEventListener('change', function () { validateField('privacy', true); refreshSubmitState(); });
+    }
+    chips.forEach(function (chip) {
+      chip.addEventListener('click', refreshSubmitState);
+    });
+
+    refreshSubmitState(); // estado inicial (deshabilitado hasta válido)
+
+    /* ---------------------------------------------------------------
+     * Overlay de éxito
+     * ------------------------------------------------------------- */
     function showOverlay() {
       if (!overlay) return;
       overlay.classList.remove('opacity-0', 'pointer-events-none');
-      overlay.classList.add('opacity-100', 'pointer-events-auto');
+      overlay.classList.add('opacity-100', 'pointer-events-auto', 'is-open');
       if (resetBtn) resetBtn.focus();
     }
     function hideOverlay() {
       if (!overlay) return;
       overlay.classList.add('opacity-0', 'pointer-events-none');
-      overlay.classList.remove('opacity-100', 'pointer-events-auto');
+      overlay.classList.remove('opacity-100', 'pointer-events-auto', 'is-open');
     }
 
-    if (form) {
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        if (!form.checkValidity()) {
-          form.reportValidity();
-          return;
-        }
-        var name = (form.name.value || '').trim();
-        var company = (form.company.value || '').trim();
-        var serviceSel = form.service;
-        // Texto legible de la opción elegida (idioma activo) para el mensaje
-        var serviceLabel = '';
-        if (serviceSel && serviceSel.selectedIndex >= 0) {
-          var opt = serviceSel.options[serviceSel.selectedIndex];
-          serviceLabel = opt ? opt.text.trim() : '';
-        }
-        var message = (form.message.value || '').trim();
-        var text = 'Hola, soy ' + name + (company ? ' de ' + company : '') +
-                   '. Me interesa: ' + (serviceLabel || 'sus servicios') + '. ' + message;
-        window.open('https://wa.me/573194436045?text=' + encodeURIComponent(text), '_blank', 'noopener');
-        showOverlay();
-      });
+    /* ---------------------------------------------------------------
+     * Envío: arma el mensaje y abre WhatsApp (con fallback si bloquean popup)
+     * ------------------------------------------------------------- */
+    function buildWaUrl() {
+      var name = (form.elements['name'].value || '').trim();
+      var company = (form.elements['company'] ? form.elements['company'].value || '' : '').trim();
+      var message = (form.elements['message'].value || '').trim();
+      // Etiqueta legible del servicio elegido, en el idioma activo
+      var serviceLabel = '';
+      var activeChip = section.querySelector('.service-chip[aria-pressed="true"]');
+      if (activeChip) {
+        var lang = getActiveLang();
+        serviceLabel = activeChip.getAttribute('data-' + lang) || activeChip.getAttribute('data-es') || '';
+      }
+      var text = 'Hola, soy ' + name + (company ? ' de ' + company : '') +
+                 '. Me interesa: ' + (serviceLabel || 'sus servicios') + '. ' + message;
+      return 'https://wa.me/573194436045?text=' + encodeURIComponent(text);
     }
+
+    function hideFallback() {
+      if (popupFallback) popupFallback.classList.add('hidden');
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      hideFallback();
+
+      // Muestra errores de todos los campos al intentar enviar
+      var ok = ['name', 'service', 'message', 'privacy'].map(function (f) {
+        return validateField(f, true);
+      }).every(Boolean);
+      refreshSubmitState();
+      if (!ok) {
+        // Enfoca el primer campo inválido para corregir
+        var firstInvalid = section.querySelector('.is-invalid, #service-group.is-invalid');
+        if (firstInvalid) {
+          var focusable = firstInvalid.matches('input, textarea') ? firstInvalid : firstInvalid.querySelector('button, input, textarea');
+          if (focusable && focusable.focus) focusable.focus();
+        }
+        return;
+      }
+
+      var url = buildWaUrl();
+      var win = window.open(url, '_blank', 'noopener');
+
+      if (win === null || typeof win === 'undefined') {
+        // Popup bloqueado: ofrece enlace directo en vez del overlay de éxito
+        if (popupFallbackLink) popupFallbackLink.setAttribute('href', url);
+        if (popupFallback) popupFallback.classList.remove('hidden');
+      } else {
+        showOverlay();
+      }
+    });
 
     if (resetBtn) {
       resetBtn.addEventListener('click', function () {
-        if (form) form.reset();
+        form.reset();
+        chips.forEach(function (c) { c.setAttribute('aria-pressed', 'false'); });
+        if (serviceInput) serviceInput.value = '';
+        if (serviceGroup) serviceGroup.classList.remove('is-invalid');
+        section.querySelectorAll('.is-invalid').forEach(function (el) { el.classList.remove('is-invalid'); });
+        section.querySelectorAll('.field-error').forEach(function (el) { el.classList.add('hidden'); });
+        hideFallback();
         hideOverlay();
-        var firstField = document.getElementById('nombre');
-        if (firstField) firstField.focus();
+        refreshSubmitState();
+        if (nameEl) nameEl.focus();
       });
     }
 
-    // ESC cierra el overlay de éxito
+    /* ---------------------------------------------------------------
+     * Modal de política de privacidad (accesible: focus trap + Escape)
+     * ------------------------------------------------------------- */
+    var privacyModal = document.getElementById('privacy-modal');
+    var privacyOpeners = section.querySelectorAll('.privacy-open');
+    var lastFocusedBeforeModal = null;
+
+    function getModalFocusables() {
+      if (!privacyModal) return [];
+      return Array.prototype.slice.call(
+        privacyModal.querySelectorAll('button, [href], input, [tabindex]:not([tabindex="-1"])')
+      ).filter(function (el) { return el.offsetParent !== null; });
+    }
+    function openPrivacy() {
+      if (!privacyModal) return;
+      lastFocusedBeforeModal = document.activeElement;
+      privacyModal.classList.remove('hidden');
+      var closeBtn = privacyModal.querySelector('.privacy-close');
+      if (closeBtn) closeBtn.focus();
+    }
+    function closePrivacy() {
+      if (!privacyModal) return;
+      privacyModal.classList.add('hidden');
+      if (lastFocusedBeforeModal && lastFocusedBeforeModal.focus) lastFocusedBeforeModal.focus();
+    }
+
+    privacyOpeners.forEach(function (opener) {
+      opener.addEventListener('click', function (e) {
+        e.preventDefault();
+        openPrivacy();
+      });
+    });
+    if (privacyModal) {
+      privacyModal.querySelectorAll('.privacy-close').forEach(function (b) {
+        b.addEventListener('click', closePrivacy);
+      });
+      var backdrop = privacyModal.querySelector('.privacy-backdrop');
+      if (backdrop) backdrop.addEventListener('click', closePrivacy);
+      var acceptBtn = privacyModal.querySelector('.privacy-accept');
+      if (acceptBtn) {
+        acceptBtn.addEventListener('click', function () {
+          if (privacyEl) {
+            privacyEl.checked = true;
+            validateField('privacy', true);
+            refreshSubmitState();
+          }
+          closePrivacy();
+        });
+      }
+      // Focus trap dentro del modal
+      privacyModal.addEventListener('keydown', function (e) {
+        if (e.key !== 'Tab') return;
+        var f = getModalFocusables();
+        if (!f.length) return;
+        var first = f[0];
+        var last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault(); last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault(); first.focus();
+        }
+      });
+    }
+
+    /* ---------------------------------------------------------------
+     * Tecla Escape: cierra modal (prioridad) u overlay de éxito
+     * ------------------------------------------------------------- */
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && overlay && overlay.classList.contains('opacity-100')) {
+      if (e.key !== 'Escape') return;
+      if (privacyModal && !privacyModal.classList.contains('hidden')) {
+        closePrivacy();
+      } else if (overlay && overlay.classList.contains('opacity-100')) {
         hideOverlay();
       }
     });

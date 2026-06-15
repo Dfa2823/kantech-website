@@ -15,9 +15,10 @@ const links = [
   { href: '#contacto',   es: 'Contacto',   en: 'Contact' },
 ];
 
+// Enlaces legales: ahora abren un modal real (data-legal apunta al panel correspondiente)
 const legal = [
-  { href: '#', es: 'Política de privacidad', en: 'Privacy policy' },
-  { href: '#', es: 'Términos',               en: 'Terms' },
+  { modal: 'privacy', es: 'Política de privacidad', en: 'Privacy policy' },
+  { modal: 'terms',   es: 'Términos',               en: 'Terms' },
 ];
 ---
 <footer class="relative bg-surface-0 border-t border-border mt-20 pt-16 pb-8 overflow-hidden footer-gradient-top z-10">
@@ -27,9 +28,11 @@ const legal = [
 
   <div class="max-w-7xl mx-auto px-6 md:px-8">
 
-    <!-- Banda de conversión final (top) -->
-    <div class="flex flex-col md:flex-row items-center justify-between bg-surface-1/50 glass-panel border border-border rounded-2xl p-8 mb-16 shadow-2xl shadow-primary/5 hover:-translate-y-1 transition-transform duration-300 animate-fade-up" data-animate>
-      <div class="mb-6 md:mb-0 text-center md:text-left">
+    <!-- Banda de conversión final (top) — toda la tarjeta es clicable hacia WhatsApp -->
+    <a href={WA_DIAG} target="_blank" rel="noopener"
+       aria-label="Agenda tu diagnóstico gratis por WhatsApp"
+       class="footer-cta-band card-glow group flex flex-col md:flex-row items-center justify-between bg-surface-1/50 glass-panel border border-border rounded-2xl p-8 mb-16 shadow-2xl shadow-primary/5 hover:-translate-y-1 hover:border-primary/40 transition-all duration-300 animate-fade-up no-underline" data-animate>
+      <div class="mb-6 md:mb-0 text-center md:text-left relative z-10">
         <h3 class="font-headline font-bold text-2xl md:text-3xl text-text mb-2">
           <span data-lang="es">Empieza por tu diagnóstico gratis</span>
           <span data-lang="en">Start with your free diagnosis</span>
@@ -42,13 +45,13 @@ const legal = [
           </span>
         </div>
       </div>
-      <a href={WA_DIAG} target="_blank" rel="noopener"
-         class="btn-primary text-base px-8 py-4 group">
+      <!-- Affordance de botón (no es un control anidado; el <a> envuelve toda la banda) -->
+      <span class="btn-primary text-base px-8 py-4 relative z-10" aria-hidden="true">
         <span data-lang="es">Agenda tu diagnóstico</span>
         <span data-lang="en">Book your diagnosis</span>
         <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform" aria-hidden="true">arrow_forward</span>
-      </a>
-    </div>
+      </span>
+    </a>
 
     <!-- Footer principal (4 columnas) -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 mb-16">
@@ -115,9 +118,17 @@ const legal = [
             <span class="material-symbols-outlined text-border group-hover:text-primary transition-colors text-lg" aria-hidden="true">call</span>
             <a class="hover:text-text transition-colors" href="tel:+573194436045">+57 319 443 6045</a>
           </li>
+          <!-- Email con botón "copiar" (coherente con el patrón de Contact.astro) -->
           <li class="flex items-center gap-3 text-muted text-sm group">
             <span class="material-symbols-outlined text-border group-hover:text-primary transition-colors text-lg" aria-hidden="true">mail</span>
             <a class="hover:text-text transition-colors break-all" href={`mailto:${EMAIL}`}>{EMAIL}</a>
+            <button type="button" id="footer-copy-email" data-copy={EMAIL}
+                    class="footer-copy-btn shrink-0 w-7 h-7 rounded-md bg-surface-1 border border-border flex items-center justify-center text-muted hover:text-primary hover:border-primary/50 transition-all"
+                    aria-label="Copiar correo electrónico">
+              <span class="material-symbols-outlined text-[16px]" aria-hidden="true">content_copy</span>
+            </button>
+            <!-- Anuncio accesible del estado de copia -->
+            <span id="footer-copy-status" role="status" aria-live="polite" class="sr-only"></span>
           </li>
           <li class="flex items-center gap-3 text-muted text-sm mt-2 p-3 bg-surface-1/50 rounded-lg border border-border">
             <span class="material-symbols-outlined text-accent text-lg" style="font-variation-settings:'FILL' 1;" aria-hidden="true">location_on</span>
@@ -137,10 +148,12 @@ const legal = [
           <ul class="flex flex-col gap-4 mb-8">
             {legal.map(l => (
               <li>
-                <a href={l.href} class="text-muted hover:text-text transition-colors text-sm">
+                <button type="button" data-legal-open={l.modal}
+                        class="footer-legal-link text-muted hover:text-text transition-colors text-sm inline-flex items-center gap-1.5 group">
                   <span data-lang="es">{l.es}</span>
                   <span data-lang="en">{l.en}</span>
-                </a>
+                  <span class="material-symbols-outlined text-[14px] opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" aria-hidden="true">open_in_full</span>
+                </button>
               </li>
             ))}
           </ul>
@@ -149,14 +162,14 @@ const legal = [
           <!-- Switch ES|EN (sigue el estado global de idioma) -->
           <div class="relative flex items-center bg-surface-1 rounded-lg p-1 border border-border shadow-inner" id="footer-lang-switch">
             <div class="lang-indicator absolute left-1 top-1 bottom-1 w-[calc(50%-4px)] bg-surface-3 rounded-md shadow-sm border border-white/5"></div>
-            <button onclick="setLang('es')" data-lang-btn="es" class="lang-opt relative z-10 px-3 py-1 text-xs font-semibold rounded-md transition-colors" aria-label="Español">ES</button>
-            <button onclick="setLang('en')" data-lang-btn="en" class="lang-opt relative z-10 px-3 py-1 text-xs font-semibold rounded-md transition-colors" aria-label="English">EN</button>
+            <button onclick="setLang('es')" data-lang-btn="es" aria-pressed="true" class="lang-opt relative z-10 px-3 py-1 text-xs font-semibold rounded-md transition-colors" aria-label="Español">ES</button>
+            <button onclick="setLang('en')" data-lang-btn="en" aria-pressed="false" class="lang-opt relative z-10 px-3 py-1 text-xs font-semibold rounded-md transition-colors" aria-label="English">EN</button>
           </div>
           <!-- Volver arriba -->
           <button type="button" id="footer-to-top" class="flex items-center gap-2 text-muted hover:text-accent transition-colors group text-sm font-medium">
             <span data-lang="es">Volver arriba</span>
             <span data-lang="en">Back to top</span>
-            <span class="material-symbols-outlined w-8 h-8 rounded-full bg-surface-1 border border-border flex items-center justify-center group-hover:border-accent/50 group-hover:bg-accent/10 transition-all group-hover:-translate-y-1" aria-hidden="true">arrow_upward</span>
+            <span class="footer-top-icon material-symbols-outlined w-8 h-8 rounded-full bg-surface-1 border border-border flex items-center justify-center group-hover:border-accent/50 group-hover:bg-accent/10 transition-all group-hover:-translate-y-1" aria-hidden="true">arrow_upward</span>
           </button>
         </div>
       </div>
@@ -169,12 +182,74 @@ const legal = [
         <span data-lang="es">Todos los derechos reservados. · Hecho con precisión en Colombia 🇨🇴</span>
         <span data-lang="en">All rights reserved. · Crafted with precision in Colombia 🇨🇴</span>
       </p>
-      <div class="flex items-center gap-2 opacity-50 hover:opacity-100 transition-opacity cursor-default">
-        <span class="w-1.5 h-1.5 rounded-full bg-success" aria-hidden="true"></span>
-        <span class="text-[10px] text-muted uppercase tracking-widest font-mono">
-          <span data-lang="es">Sistemas operativos</span>
-          <span data-lang="en">Systems operational</span>
+      <!-- Indicador de disponibilidad real: calculado por hora de Colombia (no afirma monitoreo inexistente) -->
+      <div id="footer-availability" class="flex items-center gap-2 opacity-70 hover:opacity-100 transition-opacity cursor-default" role="status" aria-live="polite">
+        <span class="footer-avail-dot w-1.5 h-1.5 rounded-full bg-success" aria-hidden="true"></span>
+        <span class="footer-avail-text text-[10px] text-muted uppercase tracking-widest font-mono">
+          <!-- Texto inicial accesible/no-JS; el script lo reemplaza según la hora -->
+          <span data-lang="es">Disponibles para nuevos proyectos</span>
+          <span data-lang="en">Available for new projects</span>
         </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Modal legal (Privacidad / Términos) ===== -->
+  <div id="footer-legal-modal" class="footer-modal fixed inset-0 z-[120] hidden" role="dialog" aria-modal="true" aria-labelledby="footer-legal-title">
+    <div class="footer-modal-scrim absolute inset-0 bg-surface-0/80 backdrop-blur-sm" data-legal-close></div>
+    <div class="footer-modal-panel relative max-w-2xl w-[92vw] mx-auto mt-[8vh] max-h-[84vh] flex flex-col bg-surface-1 border border-border rounded-2xl shadow-2xl shadow-black/50 glass-panel overflow-hidden">
+      <div class="flex items-center justify-between gap-4 p-6 border-b border-border shrink-0">
+        <h3 id="footer-legal-title" class="font-headline font-bold text-xl text-text">
+          <!-- Rellenado dinámicamente por el script -->
+        </h3>
+        <button type="button" id="footer-legal-close" data-legal-close
+                class="w-9 h-9 rounded-full bg-surface-2 border border-border flex items-center justify-center text-muted hover:text-text hover:border-primary/50 transition-all"
+                aria-label="Cerrar">
+          <span class="material-symbols-outlined text-[20px]" aria-hidden="true">close</span>
+        </button>
+      </div>
+      <div class="footer-modal-body p-6 overflow-y-auto text-sm text-muted leading-relaxed space-y-4">
+
+        <!-- Privacidad -->
+        <div data-legal-content="privacy" hidden>
+          <p>
+            <span data-lang="es">En KANTECH respetamos tu privacidad. Esta página describe, en términos simples, cómo tratamos la información que compartes con nosotros a través del sitio y de WhatsApp.</span>
+            <span data-lang="en">At KANTECH we respect your privacy. This page describes, in simple terms, how we handle the information you share with us through the site and WhatsApp.</span>
+          </p>
+          <p>
+            <span data-lang="es"><strong class="text-text">Qué recopilamos:</strong> únicamente los datos que tú nos envías de forma voluntaria (nombre, empresa, correo, teléfono y el mensaje de tu consulta) para responder y preparar tu propuesta.</span>
+            <span data-lang="en"><strong class="text-text">What we collect:</strong> only the data you voluntarily send us (name, company, email, phone and your inquiry message) to reply and prepare your proposal.</span>
+          </p>
+          <p>
+            <span data-lang="es"><strong class="text-text">Para qué lo usamos:</strong> contactarte, entender tu necesidad y ofrecerte una solución. No vendemos ni compartimos tus datos con terceros con fines publicitarios.</span>
+            <span data-lang="en"><strong class="text-text">How we use it:</strong> to contact you, understand your need and offer a solution. We do not sell or share your data with third parties for advertising.</span>
+          </p>
+          <p>
+            <span data-lang="es"><strong class="text-text">Tus derechos:</strong> puedes pedir acceder, corregir o eliminar tus datos en cualquier momento escribiendo a <a class="text-accent hover:underline" href={`mailto:${EMAIL}`}>{EMAIL}</a>.</span>
+            <span data-lang="en"><strong class="text-text">Your rights:</strong> you may request to access, correct or delete your data at any time by writing to <a class="text-accent hover:underline" href={`mailto:${EMAIL}`}>{EMAIL}</a>.</span>
+          </p>
+        </div>
+
+        <!-- Términos -->
+        <div data-legal-content="terms" hidden>
+          <p>
+            <span data-lang="es">Estos términos resumen las condiciones de uso del sitio de KANTECH y el alcance de nuestros servicios.</span>
+            <span data-lang="en">These terms summarize the conditions of use of the KANTECH website and the scope of our services.</span>
+          </p>
+          <p>
+            <span data-lang="es"><strong class="text-text">Servicios:</strong> desarrollamos agentes de IA, automatizaciones y software a medida. Cada proyecto se rige por una propuesta específica con alcance, plazos y precio acordados por escrito antes de iniciar.</span>
+            <span data-lang="en"><strong class="text-text">Services:</strong> we build AI agents, automations and custom software. Each project is governed by a specific proposal with scope, timeline and price agreed in writing before starting.</span>
+          </p>
+          <p>
+            <span data-lang="es"><strong class="text-text">Contenido del sitio:</strong> la información, métricas y casos mostrados son ilustrativos. Las cifras de ahorro son estimaciones y pueden variar según cada negocio.</span>
+            <span data-lang="en"><strong class="text-text">Site content:</strong> the information, metrics and cases shown are illustrative. Savings figures are estimates and may vary by business.</span>
+          </p>
+          <p>
+            <span data-lang="es"><strong class="text-text">Contacto:</strong> para cualquier duda sobre estos términos, escríbenos a <a class="text-accent hover:underline" href={`mailto:${EMAIL}`}>{EMAIL}</a>.</span>
+            <span data-lang="en"><strong class="text-text">Contact:</strong> for any questions about these terms, write to us at <a class="text-accent hover:underline" href={`mailto:${EMAIL}`}>{EMAIL}</a>.</span>
+          </p>
+        </div>
+
       </div>
     </div>
   </div>
@@ -198,15 +273,243 @@ const legal = [
   }
   /* El switch del footer reutiliza .lang-indicator / .lang-opt (definidos por el Navbar):
      el indicador se desplaza solo via html[data-active-lang]. */
+
+  /* La banda CTA es un <a>: anular subrayado heredado */
+  .footer-cta-band { text-decoration: none; }
+
+  /* Estado de "copiado" del botón de email */
+  .footer-copy-btn.is-copied {
+    color: #2FD79F; /* success */
+    border-color: rgba(47, 215, 159, 0.5);
+  }
+
+  /* Modal legal: animación de entrada (gateada por JS con prefers-reduced-motion) */
+  .footer-modal.is-open .footer-modal-scrim { animation: footerFadeIn 0.2s ease-out; }
+  .footer-modal.is-open .footer-modal-panel { animation: footerPanelIn 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
+  @keyframes footerFadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes footerPanelIn {
+    from { opacity: 0; transform: translateY(16px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  /* Bounce del icono "Volver arriba" al hacer clic */
+  @keyframes footerTopBounce {
+    0%   { transform: translateY(0); }
+    40%  { transform: translateY(-6px); }
+    100% { transform: translateY(0); }
+  }
+  .footer-top-icon.is-bouncing { animation: footerTopBounce 0.45s ease-out; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .footer-modal.is-open .footer-modal-scrim,
+    .footer-modal.is-open .footer-modal-panel { animation: none !important; }
+    .footer-top-icon.is-bouncing { animation: none !important; }
+  }
 </style>
 
 <script is:inline>
   (function () {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ---------- Volver arriba (con bounce de confirmación) ---------- */
     const toTop = document.getElementById('footer-to-top');
     if (toTop) {
+      const icon = toTop.querySelector('.footer-top-icon');
       toTop.addEventListener('click', function () {
+        if (icon && !reduce) {
+          icon.classList.remove('is-bouncing');
+          // reflow para reiniciar la animación si se pulsa repetidamente
+          void icon.offsetWidth;
+          icon.classList.add('is-bouncing');
+          icon.addEventListener('animationend', function () {
+            icon.classList.remove('is-bouncing');
+          }, { once: true });
+        }
         window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+      });
+    }
+
+    /* ---------- aria-pressed en el switch ES|EN ---------- */
+    function syncLangPressed() {
+      const active = document.documentElement.getAttribute('data-active-lang') === 'en' ? 'en' : 'es';
+      document.querySelectorAll('#footer-lang-switch [data-lang-btn]').forEach(function (btn) {
+        btn.setAttribute('aria-pressed', String(btn.getAttribute('data-lang-btn') === active));
+      });
+    }
+    syncLangPressed();
+    // setLang (Layout) muta data-active-lang en <html>; observamos ese atributo.
+    var langObserver = new MutationObserver(syncLangPressed);
+    langObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-active-lang'] });
+
+    /* ---------- Copiar email ---------- */
+    var copyBtn = document.getElementById('footer-copy-email');
+    var copyStatus = document.getElementById('footer-copy-status');
+    if (copyBtn) {
+      var copyResetTimer = null;
+      var copyIcon = copyBtn.querySelector('.material-symbols-outlined');
+      copyBtn.addEventListener('click', function () {
+        var value = copyBtn.getAttribute('data-copy') || '';
+        var en = document.documentElement.getAttribute('data-active-lang') === 'en';
+        var done = function () {
+          copyBtn.classList.add('is-copied');
+          if (copyIcon) copyIcon.textContent = 'check';
+          if (copyStatus) copyStatus.textContent = en ? 'Email copied' : 'Correo copiado';
+          if (copyResetTimer) clearTimeout(copyResetTimer);
+          copyResetTimer = setTimeout(function () {
+            copyBtn.classList.remove('is-copied');
+            if (copyIcon) copyIcon.textContent = 'content_copy';
+            if (copyStatus) copyStatus.textContent = '';
+          }, 1800);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(value).then(done).catch(fallbackCopy);
+        } else {
+          fallbackCopy();
+        }
+        function fallbackCopy() {
+          try {
+            var ta = document.createElement('textarea');
+            ta.value = value;
+            ta.setAttribute('readonly', '');
+            ta.style.position = 'absolute';
+            ta.style.left = '-9999px';
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+            done();
+          } catch (e) { /* silencioso */ }
+        }
+      });
+    }
+
+    /* ---------- Indicador de disponibilidad por hora de Colombia ---------- */
+    var avail = document.getElementById('footer-availability');
+    if (avail) {
+      var dot = avail.querySelector('.footer-avail-dot');
+      var textWrap = avail.querySelector('.footer-avail-text');
+      // Hora de Colombia (UTC-5, sin DST) calculada desde UTC para no depender del TZ del visitante.
+      function colombiaHour() {
+        var now = new Date();
+        var utcH = now.getUTCHours();
+        var h = (utcH - 5 + 24) % 24;
+        return { hour: h, day: now.getUTCDay() }; // getUTCDay aprox; suficiente para fin de semana
+      }
+      function renderAvailability() {
+        var c = colombiaHour();
+        var weekday = c.day >= 1 && c.day <= 5; // Lun-Vie
+        var working = weekday && c.hour >= 8 && c.hour < 19; // 8:00–18:59 hora Colombia
+        var es, en, color;
+        if (working) {
+          es = 'En línea ahora · respondemos rápido';
+          en = 'Online now · we reply fast';
+          color = '#2FD79F'; // success
+        } else {
+          es = 'Te respondemos por la mañana';
+          en = "We'll reply in the morning";
+          color = '#6AC3C6'; // teal (en espera, no "incidente")
+        }
+        if (textWrap) {
+          textWrap.innerHTML =
+            '<span data-lang="es">' + es + '</span>' +
+            '<span data-lang="en">' + en + '</span>';
+        }
+        if (dot) {
+          dot.style.backgroundColor = color;
+          // Pulso solo en horario laboral y si no hay reduced-motion
+          if (working && !reduce) {
+            dot.classList.add('animate-pulse');
+          } else {
+            dot.classList.remove('animate-pulse');
+          }
+        }
+      }
+      renderAvailability();
+      // Recalcular cada 5 min por si la pestaña queda abierta cruzando el horario.
+      setInterval(renderAvailability, 5 * 60 * 1000);
+    }
+
+    /* ---------- Modal legal (Privacidad / Términos) ---------- */
+    var modal = document.getElementById('footer-legal-modal');
+    if (modal) {
+      var titleEl = document.getElementById('footer-legal-title');
+      var panel = modal.querySelector('.footer-modal-panel');
+      var contents = modal.querySelectorAll('[data-legal-content]');
+      var lastFocused = null;
+
+      var TITLES = {
+        privacy: { es: 'Política de privacidad', en: 'Privacy policy' },
+        terms:   { es: 'Términos',               en: 'Terms' }
+      };
+
+      function getFocusable() {
+        return Array.prototype.slice.call(
+          modal.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])')
+        ).filter(function (el) {
+          return el.offsetParent !== null; // visibles
+        });
+      }
+
+      function openModal(which) {
+        if (!TITLES[which]) which = 'privacy';
+        lastFocused = document.activeElement;
+        // Título según idioma activo
+        var en = document.documentElement.getAttribute('data-active-lang') === 'en';
+        if (titleEl) titleEl.textContent = en ? TITLES[which].en : TITLES[which].es;
+        // Mostrar solo el contenido pedido
+        contents.forEach(function (c) {
+          c.hidden = c.getAttribute('data-legal-content') !== which;
+        });
+        modal.classList.remove('hidden');
+        // forzar layout antes de aplicar la clase de animación
+        void modal.offsetWidth;
+        modal.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+        var closeBtn = document.getElementById('footer-legal-close');
+        if (closeBtn) closeBtn.focus();
+      }
+
+      function closeModal() {
+        modal.classList.add('hidden');
+        modal.classList.remove('is-open');
+        document.body.style.overflow = '';
+        if (lastFocused && typeof lastFocused.focus === 'function') {
+          lastFocused.focus();
+        }
+      }
+
+      // Abrir desde los enlaces legales
+      document.querySelectorAll('[data-legal-open]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          openModal(btn.getAttribute('data-legal-open'));
+        });
+      });
+
+      // Cerrar: scrim, botón cerrar
+      modal.querySelectorAll('[data-legal-close]').forEach(function (el) {
+        el.addEventListener('click', closeModal);
+      });
+
+      // Teclado: Escape cierra, Tab atrapa el foco
+      modal.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          closeModal();
+          return;
+        }
+        if (e.key === 'Tab') {
+          var f = getFocusable();
+          if (!f.length) return;
+          var first = f[0];
+          var last = f[f.length - 1];
+          if (e.shiftKey && document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          } else if (!e.shiftKey && document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
       });
     }
   })();
