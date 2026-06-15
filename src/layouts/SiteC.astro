@@ -78,6 +78,18 @@ const canonical = SITE + path;
         div[style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
         h1 { font-size: 34px !important; }
         h2 { font-size: 28px !important; }
+        /* Índice/ledger en <a> y filas: reorganizar a número+título arriba, texto abajo */
+        a[style*="grid-template-columns"], .ix, .led { grid-template-columns: 36px 1fr !important; gap: 4px 14px !important; padding-left: 4px !important; padding-right: 4px !important; }
+        .ix > p, .led > div:nth-child(2), .led > div:nth-child(3), .led > div:nth-child(4) { grid-column: 1 / -1 !important; }
+        .ix .ixarrow { display: none !important; }
+        .led > div:nth-child(4) { text-align: left !important; margin-top: 4px; }
+      }
+      /* Teléfonos pequeños: titulares y padding más ajustados para evitar recortes */
+      @media (max-width: 480px) {
+        h1 { font-size: 28px !important; }
+        h2 { font-size: 23px !important; }
+        [style*="padding:78px 32px"], [style*="padding:90px 32px"], [style*="padding:80px 32px"],
+        [style*="padding:80px 32px 30px"] { padding-left: 20px !important; padding-right: 20px !important; }
       }
       /* Menú móvil (hamburguesa via checkbox) */
       .navtoggle { display: none; }
