@@ -1,0 +1,103 @@
+---
+import SiteC from '../layouts/SiteC.astro';
+import Nav from '../components/c/Nav.astro';
+import Footer from '../components/c/Footer.astro';
+
+const updated = '17 de junio de 2026';
+const updatedEn = 'June 17, 2026';
+const lbl = 'color:#6AC3C6;font-size:13px;font-weight:600;margin-bottom:14px;';
+const h2 = "font-family:'Manrope',sans-serif;font-size:23px;font-weight:700;color:#fff;margin:36px 0 12px;letter-spacing:-.01em;";
+const p = 'font-size:15px;line-height:1.75;color:#9fb2d4;margin:0 0 14px;';
+const ul = 'margin:0 0 16px;padding-left:20px;';
+const li = 'font-size:15px;line-height:1.7;color:#9fb2d4;margin:0 0 7px;';
+const ph = 'color:#6AC3C6;';
+const box = 'background:#0a1322;border:1px solid #243a5e;border-radius:12px;padding:22px 24px;margin:8px 0 22px;';
+---
+<SiteC
+  title="Eliminación de Datos — KANTECH Solutions"
+  description="Cómo solicitar la eliminación de tus datos personales tratados por KANTECH Solutions a través de WhatsApp y nuestros canales. Instrucciones y plazos."
+  keywords="eliminación de datos, data deletion, supresión de datos, borrar mis datos, KANTECH, WhatsApp"
+  path="/eliminacion-datos"
+>
+  <Nav home={false} />
+
+  <!-- HERO -->
+  <div style="position:relative;overflow:hidden;border-bottom:1px solid #16273f;">
+    <div style="position:absolute;inset:0;background-image:linear-gradient(#15263f 1px,transparent 1px),linear-gradient(90deg,#15263f 1px,transparent 1px);background-size:48px 48px;opacity:.5;"></div>
+    <div style="position:relative;max-width:860px;margin:0 auto;padding:34px 32px 0;">
+      <div style="font-size:12.5px;color:#5f76a0;">/ <a href="/" style="color:#6f84a8;">inicio</a> / <span style="color:#6AC3C6;">eliminacion-datos</span></div>
+    </div>
+    <div style="position:relative;max-width:860px;margin:0 auto;padding:26px 32px 44px;">
+      <div style={lbl}>// legal · eliminación de datos</div>
+      <h1 style="font-size:36px;line-height:1.12;font-weight:700;color:#fff;margin:0 0 12px;letter-spacing:-.02em;">Eliminación de Datos</h1>
+      <p style="font-size:13.5px;color:#5f76a0;margin:0 0 6px;">Última actualización: {updated}</p>
+      <p style="font-size:13px;color:#5f76a0;margin:0;"><a href="#en" style="color:#6AC3C6;">Read this in English ↓</a></p>
+    </div>
+  </div>
+
+  <!-- ESPAÑOL -->
+  <div style="max-width:860px;margin:0 auto;padding:44px 32px 20px;">
+    <p style={p}>En KANTECH Solutions respetamos tu derecho a solicitar la eliminación de los datos personales que hayamos tratado a través de WhatsApp o de nuestros demás canales. En esta página te explicamos cómo hacerlo.</p>
+
+    <h2 style={h2}>Cómo solicitar la eliminación de tus datos</h2>
+    <div style={box}>
+      <p style="font-size:15px;line-height:1.7;color:#cdd9ec;margin:0 0 10px;">Envía un correo a <a href="mailto:director@kantechsol.com?subject=Eliminaci%C3%B3n%20de%20datos" style={ph}>director@kantechsol.com</a> con:</p>
+      <ul style="margin:0;padding-left:20px;">
+        <li style={li}>Asunto: <strong style="color:#cdd9ec;">Eliminación de datos</strong></li>
+        <li style={li}>El número de WhatsApp o el correo desde el que nos contactaste (para identificar tus datos).</li>
+        <li style={li}>La indicación de que deseas que eliminemos tu información.</li>
+      </ul>
+    </div>
+    <p style={p}>También puedes escribirnos por WhatsApp al <strong style="color:#cdd9ec;">+57 319 443 6045</strong> solicitando la eliminación.</p>
+
+    <h2 style={h2}>Qué datos eliminamos</h2>
+    <p style={p}>Al recibir tu solicitud eliminaremos los datos personales que tengamos asociados a ti, salvo aquellos que la ley nos obligue a conservar. Esto incluye:</p>
+    <ul style={ul}>
+      <li style={li}>El registro de tu solicitud o lead en nuestras hojas de cálculo (Google Sheets).</li>
+      <li style={li}>Los eventos de calendario creados a tu nombre (Google Calendar).</li>
+      <li style={li}>El historial de la conversación que conservemos en nuestros sistemas de automatización.</li>
+    </ul>
+
+    <h2 style={h2}>Plazo y confirmación</h2>
+    <p style={p}>Atenderemos tu solicitud en un plazo máximo de <strong style="color:#cdd9ec;">15 días hábiles</strong> y te confirmaremos por el mismo medio cuando la eliminación se haya completado.</p>
+
+    <h2 style={h2}>Mensajes en WhatsApp (Meta)</h2>
+    <p style={p}>Los mensajes enviados a través de WhatsApp Business Cloud API se almacenan en los servidores de Meta por un periodo limitado (aproximadamente 30 días) y luego se eliminan automáticamente, conforme a las políticas de Meta. Tu solicitud de eliminación aplica a los datos que KANTECH conserva en sus propios sistemas.</p>
+
+    <p style={p}>Para más detalles sobre cómo tratamos tu información, consulta nuestra <a href="/privacidad" style={ph}>Política de Privacidad</a>.</p>
+  </div>
+
+  <!-- INGLÉS -->
+  <div id="en" style="max-width:860px;margin:0 auto;padding:18px 32px 60px;">
+    <div style="border-top:1px solid #2c466f;padding-top:34px;"></div>
+    <div style={lbl}>// legal · data deletion (english)</div>
+    <h2 style="font-family:'Manrope',sans-serif;font-size:30px;font-weight:800;color:#fff;margin:0 0 10px;letter-spacing:-.02em;">Data Deletion</h2>
+    <p style="font-size:13.5px;color:#5f76a0;margin:0 0 24px;">Last updated: {updatedEn}</p>
+
+    <p style={p}>At KANTECH Solutions we respect your right to request the deletion of personal data we have processed through WhatsApp or our other channels. This page explains how to do it.</p>
+
+    <h2 style={h2}>How to request deletion of your data</h2>
+    <div style={box}>
+      <p style="font-size:15px;line-height:1.7;color:#cdd9ec;margin:0 0 10px;">Send an email to <a href="mailto:director@kantechsol.com?subject=Data%20deletion" style={ph}>director@kantechsol.com</a> with:</p>
+      <ul style="margin:0;padding-left:20px;">
+        <li style={li}>Subject: <strong style="color:#cdd9ec;">Data deletion</strong></li>
+        <li style={li}>The WhatsApp number or email you contacted us from (to locate your data).</li>
+        <li style={li}>A note stating that you want us to delete your information.</li>
+      </ul>
+    </div>
+    <p style={p}>You can also message us on WhatsApp at <strong style="color:#cdd9ec;">+57 319 443 6045</strong> requesting deletion.</p>
+
+    <h2 style={h2}>What we delete</h2>
+    <p style={p}>Upon your request we will delete the personal data associated with you, except for data we are legally required to keep. This includes your lead record in our spreadsheets (Google Sheets), calendar events created in your name (Google Calendar), and the conversation history retained in our automation systems.</p>
+
+    <h2 style={h2}>Timeframe and confirmation</h2>
+    <p style={p}>We will process your request within a maximum of <strong style="color:#cdd9ec;">15 business days</strong> and confirm through the same channel once deletion is complete.</p>
+
+    <h2 style={h2}>WhatsApp messages (Meta)</h2>
+    <p style={p}>Messages sent through the WhatsApp Business Cloud API are stored on Meta's servers for a limited period (about 30 days) and then automatically deleted, per Meta's policies. Your deletion request applies to the data KANTECH keeps in its own systems.</p>
+
+    <p style={p}>For more details on how we handle your information, see our <a href="/privacidad" style={ph}>Privacy Policy</a>.</p>
+  </div>
+
+  <Footer home={false} />
+</SiteC>

@@ -1,0 +1,113 @@
+---
+import SiteC from '../layouts/SiteC.astro';
+import Nav from '../components/c/Nav.astro';
+import Footer from '../components/c/Footer.astro';
+
+const updated = '17 de junio de 2026';
+const updatedEn = 'June 17, 2026';
+const lbl = 'color:#6AC3C6;font-size:13px;font-weight:600;margin-bottom:14px;';
+const h2 = "font-family:'Manrope',sans-serif;font-size:23px;font-weight:700;color:#fff;margin:36px 0 12px;letter-spacing:-.01em;";
+const p = 'font-size:15px;line-height:1.75;color:#9fb2d4;margin:0 0 14px;';
+const ul = 'margin:0 0 16px;padding-left:20px;';
+const li = 'font-size:15px;line-height:1.7;color:#9fb2d4;margin:0 0 7px;';
+const ph = 'color:#6AC3C6;';
+---
+<SiteC
+  title="Términos y Condiciones del Servicio — KANTECH Solutions"
+  description="Términos y Condiciones del Servicio de KANTECH Solutions: uso del sitio y del asistente de WhatsApp, propiedad intelectual, responsabilidad y ley aplicable."
+  keywords="términos y condiciones, condiciones del servicio, términos de uso, KANTECH, Colombia"
+  path="/terminos"
+>
+  <Nav home={false} />
+
+  <!-- HERO -->
+  <div style="position:relative;overflow:hidden;border-bottom:1px solid #16273f;">
+    <div style="position:absolute;inset:0;background-image:linear-gradient(#15263f 1px,transparent 1px),linear-gradient(90deg,#15263f 1px,transparent 1px);background-size:48px 48px;opacity:.5;"></div>
+    <div style="position:relative;max-width:860px;margin:0 auto;padding:34px 32px 0;">
+      <div style="font-size:12.5px;color:#5f76a0;">/ <a href="/" style="color:#6f84a8;">inicio</a> / <span style="color:#6AC3C6;">terminos</span></div>
+    </div>
+    <div style="position:relative;max-width:860px;margin:0 auto;padding:26px 32px 44px;">
+      <div style={lbl}>// legal · términos</div>
+      <h1 style="font-size:36px;line-height:1.12;font-weight:700;color:#fff;margin:0 0 12px;letter-spacing:-.02em;">Términos y Condiciones del Servicio</h1>
+      <p style="font-size:13.5px;color:#5f76a0;margin:0 0 6px;">Última actualización: {updated}</p>
+      <p style="font-size:13px;color:#5f76a0;margin:0;"><a href="#en" style="color:#6AC3C6;">Read this in English ↓</a></p>
+    </div>
+  </div>
+
+  <!-- ESPAÑOL -->
+  <div style="max-width:860px;margin:0 auto;padding:44px 32px 20px;">
+    <p style={p}>Estos Términos y Condiciones regulan el uso del sitio web kantechsol.com y de los canales de atención de KANTECH Solutions, incluido nuestro asistente virtual de WhatsApp. Al usar nuestro sitio o escribirnos, aceptas estos términos.</p>
+
+    <h2 style={h2}>1. Objeto y aceptación</h2>
+    <p style={p}>KANTECH Solutions ("KANTECH", "nosotros") ofrece servicios de desarrollo de software, agentes de inteligencia artificial, automatizaciones y mejoras de proceso. Este sitio es de carácter informativo y permite contactarnos y agendar un diagnóstico. Al acceder y usar el sitio o nuestros canales, declaras que aceptas estos términos.</p>
+
+    <h2 style={h2}>2. Uso del servicio</h2>
+    <p style={p}>Te comprometes a usar el sitio y nuestros canales de forma lícita y de buena fe. En particular, te abstienes de:</p>
+    <ul style={ul}>
+      <li style={li}>Usarlos para fines ilícitos, fraudulentos o que infrinjan derechos de terceros.</li>
+      <li style={li}>Enviar spam, contenido ofensivo, malicioso o que vulnere la ley.</li>
+      <li style={li}>Intentar acceder sin autorización a nuestros sistemas o alterar su funcionamiento.</li>
+      <li style={li}>Suplantar la identidad de otra persona o entregar información falsa.</li>
+    </ul>
+
+    <h2 style={h2}>3. Asistente virtual de WhatsApp</h2>
+    <p style={p}>Nuestro asistente de WhatsApp es una herramienta automatizada que responde, orienta y ayuda a agendar reuniones. Sus respuestas son de carácter informativo y comercial; no constituyen asesoría profesional, médica, legal ni financiera vinculante. Para temas específicos, un miembro de nuestro equipo dará seguimiento.</p>
+
+    <h2 style={h2}>4. Propiedad intelectual</h2>
+    <p style={p}>La marca KANTECH, el logotipo, los textos, el diseño y demás contenidos del sitio son propiedad de KANTECH Solutions o de sus titulares y están protegidos por la ley. No puedes reproducirlos ni usarlos sin autorización previa y escrita.</p>
+
+    <h2 style={h2}>5. Limitación de responsabilidad</h2>
+    <p style={p}>El sitio y la información se ofrecen "tal cual". Procuramos que la información sea correcta y esté disponible, pero no garantizamos disponibilidad ininterrumpida ni ausencia total de errores. En la medida permitida por la ley, KANTECH no será responsable por daños indirectos o pérdidas derivadas del uso o la imposibilidad de uso del sitio o sus canales.</p>
+
+    <h2 style={h2}>6. Privacidad y protección de datos</h2>
+    <p style={p}>El tratamiento de tus datos personales se rige por nuestra <a href="/privacidad" style={ph}>Política de Privacidad</a>, en cumplimiento de la Ley 1581 de 2012 y el Decreto 1377 de 2013. Al usar nuestros canales aceptas dicha política.</p>
+
+    <h2 style={h2}>7. Cambios en los términos</h2>
+    <p style={p}>Podemos modificar estos términos en cualquier momento. La versión vigente estará publicada en esta página con su fecha de actualización. El uso continuado del sitio implica la aceptación de los cambios.</p>
+
+    <h2 style={h2}>8. Ley aplicable y jurisdicción</h2>
+    <p style={p}>Estos términos se rigen por las leyes de la República de Colombia. Cualquier controversia se someterá a los jueces y tribunales competentes de Colombia.</p>
+
+    <h2 style={h2}>9. Contacto</h2>
+    <p style={p}>Para cualquier consulta sobre estos términos, escríbenos a <a href="mailto:director@kantechsol.com" style={ph}>director@kantechsol.com</a> o al WhatsApp +57 319 443 6045.</p>
+  </div>
+
+  <!-- INGLÉS -->
+  <div id="en" style="max-width:860px;margin:0 auto;padding:18px 32px 60px;">
+    <div style="border-top:1px solid #2c466f;padding-top:34px;"></div>
+    <div style={lbl}>// legal · terms (english)</div>
+    <h2 style="font-family:'Manrope',sans-serif;font-size:30px;font-weight:800;color:#fff;margin:0 0 10px;letter-spacing:-.02em;">Terms and Conditions of Service</h2>
+    <p style="font-size:13.5px;color:#5f76a0;margin:0 0 24px;">Last updated: {updatedEn}</p>
+
+    <p style={p}>These Terms and Conditions govern the use of the kantechsol.com website and KANTECH Solutions' support channels, including our WhatsApp virtual assistant. By using our site or contacting us, you accept these terms.</p>
+
+    <h2 style={h2}>1. Purpose and acceptance</h2>
+    <p style={p}>KANTECH Solutions ("KANTECH", "we") provides software development, AI agents, automation and process improvement services. This site is informational and lets you contact us and schedule an assessment. By accessing and using the site or our channels, you declare that you accept these terms.</p>
+
+    <h2 style={h2}>2. Use of the service</h2>
+    <p style={p}>You agree to use the site and our channels lawfully and in good faith. In particular, you refrain from: unlawful, fraudulent or rights-infringing use; sending spam, offensive or malicious content; attempting unauthorized access to our systems; and impersonating others or providing false information.</p>
+
+    <h2 style={h2}>3. WhatsApp virtual assistant</h2>
+    <p style={p}>Our WhatsApp assistant is an automated tool that responds, guides and helps schedule meetings. Its replies are informational and commercial; they do not constitute binding professional, medical, legal or financial advice. For specific matters, a member of our team will follow up.</p>
+
+    <h2 style={h2}>4. Intellectual property</h2>
+    <p style={p}>The KANTECH brand, logo, texts, design and other site content are owned by KANTECH Solutions or its rights holders and are protected by law. You may not reproduce or use them without prior written authorization.</p>
+
+    <h2 style={h2}>5. Limitation of liability</h2>
+    <p style={p}>The site and information are provided "as is". We strive for accuracy and availability but do not guarantee uninterrupted access or the complete absence of errors. To the extent permitted by law, KANTECH shall not be liable for indirect damages or losses arising from the use or inability to use the site or its channels.</p>
+
+    <h2 style={h2}>6. Privacy and data protection</h2>
+    <p style={p}>The processing of your personal data is governed by our <a href="/privacidad" style={ph}>Privacy Policy</a>, in compliance with Law 1581 of 2012 and Decree 1377 of 2013. By using our channels you accept that policy.</p>
+
+    <h2 style={h2}>7. Changes to the terms</h2>
+    <p style={p}>We may modify these terms at any time. The current version will be published on this page with its update date. Continued use of the site implies acceptance of the changes.</p>
+
+    <h2 style={h2}>8. Governing law and jurisdiction</h2>
+    <p style={p}>These terms are governed by the laws of the Republic of Colombia. Any dispute shall be submitted to the competent courts of Colombia.</p>
+
+    <h2 style={h2}>9. Contact</h2>
+    <p style={p}>For any questions about these terms, email <a href="mailto:director@kantechsol.com" style={ph}>director@kantechsol.com</a> or WhatsApp +57 319 443 6045.</p>
+  </div>
+
+  <Footer home={false} />
+</SiteC>

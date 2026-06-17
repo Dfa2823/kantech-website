@@ -1,0 +1,160 @@
+---
+import SiteC from '../layouts/SiteC.astro';
+import Nav from '../components/c/Nav.astro';
+import Footer from '../components/c/Footer.astro';
+
+const updated = '17 de junio de 2026';
+const updatedEn = 'June 17, 2026';
+const lbl = 'color:#6AC3C6;font-size:13px;font-weight:600;margin-bottom:14px;';
+const h2 = "font-family:'Manrope',sans-serif;font-size:23px;font-weight:700;color:#fff;margin:36px 0 12px;letter-spacing:-.01em;";
+const p = 'font-size:15px;line-height:1.75;color:#9fb2d4;margin:0 0 14px;';
+const ul = 'margin:0 0 16px;padding-left:20px;';
+const li = 'font-size:15px;line-height:1.7;color:#9fb2d4;margin:0 0 7px;';
+const ph = 'color:#6AC3C6;'; // placeholder a completar
+---
+<SiteC
+  title="Política de Privacidad — KANTECH Solutions"
+  description="Política de Privacidad y Tratamiento de Datos Personales de KANTECH Solutions: qué datos recolectamos, con qué fines, tus derechos (Ley 1581 de 2012) y cómo ejercerlos."
+  keywords="política de privacidad, tratamiento de datos personales, ley 1581, habeas data, KANTECH, protección de datos Colombia"
+  path="/privacidad"
+>
+  <Nav home={false} />
+
+  <!-- HERO -->
+  <div style="position:relative;overflow:hidden;border-bottom:1px solid #16273f;">
+    <div style="position:absolute;inset:0;background-image:linear-gradient(#15263f 1px,transparent 1px),linear-gradient(90deg,#15263f 1px,transparent 1px);background-size:48px 48px;opacity:.5;"></div>
+    <div style="position:relative;max-width:860px;margin:0 auto;padding:34px 32px 0;">
+      <div style="font-size:12.5px;color:#5f76a0;">/ <a href="/" style="color:#6f84a8;">inicio</a> / <span style="color:#6AC3C6;">privacidad</span></div>
+    </div>
+    <div style="position:relative;max-width:860px;margin:0 auto;padding:26px 32px 44px;">
+      <div style={lbl}>// legal · privacidad</div>
+      <h1 style="font-size:36px;line-height:1.12;font-weight:700;color:#fff;margin:0 0 12px;letter-spacing:-.02em;">Política de Privacidad y Tratamiento de Datos Personales</h1>
+      <p style="font-size:13.5px;color:#5f76a0;margin:0 0 6px;">Última actualización: {updated}</p>
+      <p style="font-size:13px;color:#5f76a0;margin:0;"><a href="#en" style="color:#6AC3C6;">Read this in English ↓</a></p>
+    </div>
+  </div>
+
+  <!-- CONTENIDO ESPAÑOL -->
+  <div style="max-width:860px;margin:0 auto;padding:44px 32px 20px;">
+    <p style={p}>En KANTECH Solutions valoramos y protegemos tu información personal. Esta política describe cómo recolectamos, usamos, almacenamos y protegemos los datos personales que tratamos, en cumplimiento de la <strong style="color:#cdd9ec;">Ley 1581 de 2012</strong>, el <strong style="color:#cdd9ec;">Decreto 1377 de 2013</strong> y demás normas aplicables de protección de datos en Colombia.</p>
+
+    <h2 style={h2}>1. Responsable del tratamiento</h2>
+    <p style={p}>El responsable del tratamiento de tus datos personales es:</p>
+    <ul style={ul}>
+      <li style={li}>Empresa: <strong style="color:#cdd9ec;">KANTECH Solutions</strong> (<span style={ph}>[RAZÓN SOCIAL]</span>)</li>
+      <li style={li}>NIT: <span style={ph}>[NIT]</span></li>
+      <li style={li}>Dirección: <span style={ph}>[DIRECCIÓN]</span>, Cali, Colombia</li>
+      <li style={li}>Correo: <a href="mailto:director@kantechsol.com" style={ph}>director@kantechsol.com</a></li>
+      <li style={li}>WhatsApp / Teléfono: +57 319 443 6045</li>
+      <li style={li}>Sitio web: kantechsol.com</li>
+    </ul>
+
+    <h2 style={h2}>2. Datos que recolectamos</h2>
+    <p style={p}>Recolectamos únicamente los datos que nos proporcionas de forma voluntaria al contactarnos o conversar con nuestro asistente de WhatsApp, y los datos técnicos asociados a esa comunicación:</p>
+    <ul style={ul}>
+      <li style={li}>Datos de identificación y contacto: nombre, número de teléfono, correo electrónico.</li>
+      <li style={li}>Datos de tu empresa o necesidad: nombre de la empresa, sector, servicio de interés y la descripción del reto o requerimiento que nos compartes.</li>
+      <li style={li}>Datos de la conversación: el contenido de los mensajes que nos envías y metadatos técnicos del canal de WhatsApp (identificador del número, marca de tiempo).</li>
+    </ul>
+    <p style={p}>No solicitamos datos sensibles (como datos de salud, religión, orientación política), ni contraseñas, números de tarjeta o documentos de identidad. Te pedimos no compartir ese tipo de información por estos canales.</p>
+
+    <h2 style={h2}>3. Finalidades del tratamiento</h2>
+    <p style={p}>Tratamos tus datos personales para las siguientes finalidades:</p>
+    <ul style={ul}>
+      <li style={li}>Atender tus consultas y responder tus solicitudes.</li>
+      <li style={li}>Entender tu necesidad y orientarte sobre nuestros servicios (calificación de tu solicitud).</li>
+      <li style={li}>Coordinar y agendar reuniones o diagnósticos.</li>
+      <li style={li}>Llevar un registro de la relación comercial y dar seguimiento a tu caso.</li>
+      <li style={li}>Mejorar la calidad de nuestros servicios y comunicaciones.</li>
+    </ul>
+
+    <h2 style={h2}>4. Autorización y base legal</h2>
+    <p style={p}>Al escribirnos por WhatsApp, correo o nuestros formularios, y al continuar la conversación, autorizas de forma libre, previa, expresa e informada el tratamiento de tus datos para las finalidades aquí descritas. Puedes revocar esta autorización en cualquier momento (ver sección 8).</p>
+
+    <h2 style={h2}>5. Encargados y terceros</h2>
+    <p style={p}>Para prestar nuestros servicios nos apoyamos en proveedores tecnológicos que actúan como encargados del tratamiento y procesan datos por cuenta nuestra, bajo sus propios términos y medidas de seguridad:</p>
+    <ul style={ul}>
+      <li style={li}><strong style="color:#cdd9ec;">Meta / WhatsApp Business Cloud API</strong>: canal de mensajería. Meta actúa como procesador de datos para la entrega de los mensajes; no utiliza el contenido de estos mensajes para crear perfiles publicitarios. Los mensajes se conservan en los servidores de Meta por un periodo limitado (aproximadamente 30 días).</li>
+      <li style={li}><strong style="color:#cdd9ec;">n8n</strong>: orquestación del flujo de atención automatizada.</li>
+      <li style={li}><strong style="color:#cdd9ec;">Anthropic (Claude)</strong>: modelo de inteligencia artificial que genera las respuestas del asistente.</li>
+      <li style={li}><strong style="color:#cdd9ec;">Google (Calendar y Sheets)</strong>: agendamiento de citas y registro de la solicitud.</li>
+    </ul>
+    <p style={p}>No vendemos ni alquilamos tus datos personales a terceros.</p>
+
+    <h2 style={h2}>6. Conservación de los datos</h2>
+    <p style={p}>Conservamos tus datos durante el tiempo necesario para cumplir las finalidades descritas y las obligaciones legales aplicables. Cuando ya no sean necesarios, o cuando solicites su supresión y no exista un deber legal de conservarlos, los eliminaremos de forma segura.</p>
+
+    <h2 style={h2}>7. Seguridad de la información</h2>
+    <p style={p}>Adoptamos medidas técnicas, humanas y administrativas razonables para proteger tus datos contra acceso no autorizado, pérdida, alteración o uso indebido, como el control de accesos a las plataformas y el uso de proveedores con estándares de seguridad reconocidos.</p>
+
+    <h2 style={h2}>8. Tus derechos y cómo ejercerlos</h2>
+    <p style={p}>Como titular de los datos, tienes derecho a: conocer, acceder, actualizar y rectificar tus datos; solicitar prueba de la autorización; ser informado sobre el uso dado a tus datos; presentar quejas ante la Superintendencia de Industria y Comercio; revocar la autorización y solicitar la supresión de tus datos cuando proceda.</p>
+    <p style={p}>Para ejercer cualquiera de estos derechos, escríbenos a <a href="mailto:director@kantechsol.com" style={ph}>director@kantechsol.com</a> indicando tu solicitud y un dato que nos permita identificarte (por ejemplo, el número de WhatsApp desde el que nos escribiste). Atenderemos tu solicitud en los plazos previstos por la ley. Para eliminar tus datos, consulta también nuestra <a href="/eliminacion-datos" style={ph}>página de Eliminación de Datos</a>.</p>
+
+    <h2 style={h2}>9. Cookies y datos de navegación</h2>
+    <p style={p}>Nuestro sitio web es principalmente informativo y no utiliza cookies de seguimiento publicitario. En caso de incorporar herramientas de analítica, lo informaremos y actualizaremos esta política.</p>
+
+    <h2 style={h2}>10. Principios y marco legal</h2>
+    <p style={p}>El tratamiento de tus datos se rige por los principios de legalidad, finalidad, libertad, veracidad, transparencia, acceso y circulación restringida, seguridad y confidencialidad, conforme a la Ley 1581 de 2012 y el Decreto 1377 de 2013.</p>
+
+    <h2 style={h2}>11. Cambios a esta política</h2>
+    <p style={p}>Podemos actualizar esta política para reflejar cambios legales o en nuestros servicios. La versión vigente siempre estará publicada en esta página con su fecha de actualización.</p>
+
+    <h2 style={h2}>12. Contacto</h2>
+    <p style={p}>Para cualquier duda sobre esta política o el tratamiento de tus datos, escríbenos a <a href="mailto:director@kantechsol.com" style={ph}>director@kantechsol.com</a>.</p>
+  </div>
+
+  <!-- CONTENIDO INGLÉS -->
+  <div id="en" style="max-width:860px;margin:0 auto;padding:18px 32px 60px;">
+    <div style="border-top:1px solid #2c466f;padding-top:34px;"></div>
+    <div style={lbl}>// legal · privacy (english)</div>
+    <h2 style="font-family:'Manrope',sans-serif;font-size:30px;font-weight:800;color:#fff;margin:0 0 10px;letter-spacing:-.02em;">Privacy Policy and Personal Data Processing</h2>
+    <p style="font-size:13.5px;color:#5f76a0;margin:0 0 24px;">Last updated: {updatedEn}</p>
+
+    <p style={p}>At KANTECH Solutions we value and protect your personal information. This policy describes how we collect, use, store and protect the personal data we process, in compliance with Colombian Law 1581 of 2012, Decree 1377 of 2013 and other applicable data protection regulations.</p>
+
+    <h2 style={h2}>1. Data controller</h2>
+    <ul style={ul}>
+      <li style={li}>Company: <strong style="color:#cdd9ec;">KANTECH Solutions</strong> (<span style={ph}>[LEGAL NAME]</span>)</li>
+      <li style={li}>Tax ID (NIT): <span style={ph}>[NIT]</span></li>
+      <li style={li}>Address: <span style={ph}>[ADDRESS]</span>, Cali, Colombia</li>
+      <li style={li}>Email: <a href="mailto:director@kantechsol.com" style={ph}>director@kantechsol.com</a></li>
+      <li style={li}>WhatsApp / Phone: +57 319 443 6045</li>
+    </ul>
+
+    <h2 style={h2}>2. Data we collect</h2>
+    <p style={p}>We only collect data you voluntarily provide when contacting us or chatting with our WhatsApp assistant, plus the technical data tied to that communication: name, phone number and email; your company, sector, service of interest and the challenge you describe; and the content and technical metadata of your messages. We do not request sensitive data, passwords, card numbers or ID documents — please do not share them through these channels.</p>
+
+    <h2 style={h2}>3. Purposes</h2>
+    <p style={p}>We process your data to answer your inquiries, understand your need and guide you about our services, coordinate and schedule meetings or assessments, keep a record of the commercial relationship and follow up on your case, and improve our services and communications.</p>
+
+    <h2 style={h2}>4. Consent and legal basis</h2>
+    <p style={p}>By contacting us via WhatsApp, email or our forms and continuing the conversation, you grant free, prior, express and informed authorization to process your data for the purposes described here. You may revoke this authorization at any time (see section 8).</p>
+
+    <h2 style={h2}>5. Processors and third parties</h2>
+    <p style={p}>We rely on technology providers that act as data processors on our behalf: <strong style="color:#cdd9ec;">Meta / WhatsApp Business Cloud API</strong> (messaging channel; Meta acts as a processor for message delivery and does not use message content to build advertising profiles; messages are retained on Meta servers for a limited period of about 30 days), <strong style="color:#cdd9ec;">n8n</strong> (automation), <strong style="color:#cdd9ec;">Anthropic (Claude)</strong> (the AI model that generates the assistant's replies) and <strong style="color:#cdd9ec;">Google (Calendar and Sheets)</strong> (scheduling and request logging). We do not sell or rent your personal data.</p>
+
+    <h2 style={h2}>6. Data retention</h2>
+    <p style={p}>We keep your data for as long as needed to fulfill the described purposes and applicable legal obligations. When no longer needed, or upon your deletion request where no legal duty to retain applies, we securely delete it.</p>
+
+    <h2 style={h2}>7. Information security</h2>
+    <p style={p}>We apply reasonable technical, human and administrative measures to protect your data against unauthorized access, loss, alteration or misuse, including access controls and the use of providers with recognized security standards.</p>
+
+    <h2 style={h2}>8. Your rights and how to exercise them</h2>
+    <p style={p}>You have the right to know, access, update and rectify your data; request proof of authorization; be informed about how your data is used; file complaints with the Colombian Superintendence of Industry and Commerce; and revoke authorization and request deletion of your data where applicable. To exercise any of these rights, email <a href="mailto:director@kantechsol.com" style={ph}>director@kantechsol.com</a> with your request and an identifier (e.g., the WhatsApp number you wrote from). See also our <a href="/eliminacion-datos" style={ph}>Data Deletion page</a>.</p>
+
+    <h2 style={h2}>9. Cookies</h2>
+    <p style={p}>Our website is mainly informational and does not use advertising tracking cookies. If we add analytics tools, we will disclose it and update this policy.</p>
+
+    <h2 style={h2}>10. Principles and legal framework</h2>
+    <p style={p}>Processing follows the principles of legality, purpose, freedom, accuracy, transparency, restricted access and circulation, security and confidentiality, in accordance with Law 1581 of 2012 and Decree 1377 of 2013.</p>
+
+    <h2 style={h2}>11. Changes</h2>
+    <p style={p}>We may update this policy to reflect legal or service changes. The current version will always be published on this page with its update date.</p>
+
+    <h2 style={h2}>12. Contact</h2>
+    <p style={p}>For any questions about this policy or your data, email <a href="mailto:director@kantechsol.com" style={ph}>director@kantechsol.com</a>.</p>
+  </div>
+
+  <Footer home={false} />
+</SiteC>
