@@ -8,12 +8,24 @@ export interface Props {
 }
 const SITE = 'https://kantechsol.com';
 const {
-  title = 'KANTECH | Agentes de IA, Automatizaciones y Software a Medida — Colombia',
-  description = 'Casa de software en Cali, Colombia. Construimos agentes de IA, automatizaciones con n8n y software a medida (CRM, ERP) para empresas en Colombia y LatAm. Resultados en semanas. Diagnóstico gratis.',
-  keywords = 'agentes de IA, automatización de procesos, n8n, software a medida, CRM a medida, ERP, desarrollo de software Colombia, automatización para empresas, IA para pymes, Cali, LatAm',
+  title = 'Kantech Solutions Colombia | Agentes de IA, Automatizaciones y Software a Medida',
+  description = 'Kantech Solutions Colombia — casa de software en Cali, Colombia. Construimos agentes de IA, automatizaciones con n8n y software a medida (CRM, ERP) para empresas en Colombia y LatAm. Resultados en semanas. Diagnóstico gratis.',
+  keywords = 'Kantech Solutions Colombia, agentes de IA, automatización de procesos, n8n, software a medida, CRM a medida, ERP, desarrollo de software Colombia, IA para pymes, Cali, LatAm',
   path = '/',
 } = Astro.props;
 const canonical = SITE + path;
+const org = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Kantech Solutions Colombia',
+  alternateName: ['Kantech Solutions', 'Kantech'],
+  url: SITE,
+  logo: SITE + '/brand/logo_h_white.png',
+  email: 'director@kantechsol.com',
+  telephone: '+573194436045',
+  address: { '@type': 'PostalAddress', addressLocality: 'Cali', addressRegion: 'Valle del Cauca', addressCountry: 'CO' },
+  sameAs: ['https://www.linkedin.com/in/diegoalpala/', 'https://github.com/Dfa2823'],
+};
 ---
 <!doctype html>
 <html lang="es">
@@ -24,13 +36,14 @@ const canonical = SITE + path;
     <meta name="keywords" content={keywords} />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href={canonical} />
+    <script type="application/ld+json" set:html={JSON.stringify(org)} />
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="es_CO" />
     <meta property="og:url" content={canonical} />
-    <meta property="og:site_name" content="KANTECH" />
+    <meta property="og:site_name" content="Kantech Solutions Colombia" />
     <meta property="og:image" content={`${SITE}/og-image.png`} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
